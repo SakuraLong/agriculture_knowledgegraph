@@ -1,16 +1,16 @@
 "use strict";
 import { API_CHECKER } from "../connector/api.js";
+const ZH_HANS = 0; // 汉字编号
+const EN = 1; // 英文编号
 /**
  * 字符串检查器
  * @param {String} str 待检查的字符串
  * @param {Array} check_methods 字符串的检查方法
  */
-const ZH_HANS = 0; // 汉字编号
-const EN = 1; // 英文编号
 class Checker {
     success = true;
     checker_eval = {
-        ignore: "ignore()",
+        "ignore": "ignore()",
         "no-zh-Hans": "noneLang(ZH_HANS)",
         "no-en": "noneLang(EN)",
         "no-base-symbol": "noneBaseSymbol()",
@@ -26,6 +26,7 @@ class Checker {
     constructor(str, check_methods) {
         this.str = str;
         this.check_methods = check_methods;
+        console.log(this.success);
     }
     /**
      * 进行字符串检查
@@ -35,11 +36,13 @@ class Checker {
         this.check_methods.forEach((element) => {
             if (!checker.success) return;
             let check_func = checker.checker_eval[element];
-            if(check_func!==null)
+            if(check_func!==undefined)
                 checker.success = eval("checker." + checker.checker_eval[element]);
-            else
-                checker.success = this.funcCheck(element);
+            else{
+                checker.success = checker.funcCheck(element);
+            }
         });
+        console.log(this.success);
         return this.success;
     }
     /**
@@ -147,7 +150,7 @@ class Checker {
         else{
             let is_max = method.indexOf("max") !== -1 ? true : false;
             let is_length = method.indexOf("length") !== -1 ? true : false;
-            let num = parseInt(method.substring(method.indexOf("="), method.length));
+            let num = parseInt(method.substring(method.indexOf("=") + 1, method.length));
             if(is_length){
                 if(is_max){
                     if(this.str.length>num) return false;
