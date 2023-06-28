@@ -13,7 +13,7 @@ class Checker {
         "ignore": "ignore()",
         "no-zh-Hans": "noneLang(ZH_HANS)",
         "no-en": "noneLang(EN)",
-        "no-base-symbol": "noneBaseSymbol()",
+        "no-base-symbols": "noneBaseSymbols()",
         "sql-check":"sqlCheck()",
         "no-spacing":"noSpacing()",
         "no-number":"noNumber()",
@@ -21,7 +21,7 @@ class Checker {
         "is-email":"isEmail()"
     };
     checker_data = {
-        base_symbol: ["<", ">", "{", "}", "[", "]", "~", "`", "^", "(", ")"],
+        base_symbols: ["<", ">", "{", "}", "[", "]", "~", "`", "^", "(", ")"],
     };
     constructor(str, check_methods) {
         this.str = str;
@@ -66,13 +66,14 @@ class Checker {
      * 检查是否不存在基础字符
      * @returns 是否不存在基础字符
      */
-    noneBaseSymbol() {
+    noneBaseSymbols() {
         let checker = this;
         let success = true;
-        this.checker_data.base_symbol.forEach((element) => {
+        this.checker_data.base_symbols.forEach((element) => {
             if (!success) return;
             if (checker.str.indexOf(element) !== -1) success = false;
         });
+        return success;
     }
     /**
      * 检查是否不存在sql注入
@@ -164,12 +165,21 @@ class Checker {
 }
 
 export default Checker;
-/*
+
+
+/*  
+    示例：
+    import Checker from "@/assets/js/checker/checker.js";
+    对字符串：a进行检查判断，检查其是否非空
+    let success = new Checker("a", ["no-null"]).check();
+
+    check_methods必须是数组，且一但有判断为false，之后的都不会判断
+
     check_methods 可以包含
-    ignore 不检查 出现这个直接返回true
+    ignore 不检查 出现这个直接返回true ignore建议唯一使用（这个是我自己用的，一般用不上的）
     no-zh-Hans 没用中文汉字 存在中文汉字返回false
     no-en 没有英文 存在英文返回false
-    no-base-symbol 不包含基础符号 存在 < > { } [ ] ~ ` ^ ( ) 返回false
+    no-base-symbols 不包含基础符号 存在 < > { } [ ] ~ ` ^ ( ) 返回false
     sql-check 检查sql注入 有sql注入危险返回false
     no-spacing 没有空格 存在空格返回false
     no-number 没有数字 存在数字返回false

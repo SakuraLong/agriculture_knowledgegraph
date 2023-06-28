@@ -13,8 +13,8 @@ export default{
         console.log(Code.CryptoJS.decrypt(a));
         console.log(Code.MD5.encrypt("abc"));
 
-        let r = new Checker("abc", ["@length-min=5"]).check();
-        console.log(r);
+        let success = new Checker("a", ["no-null"]).check();
+        console.log(success);
     }
 };
 </script>
