@@ -1,14 +1,23 @@
 "use strict";
+import MsgProcessing from "./msgProcessing.js";
+import XML from "./xmlConnector.js";
 
-import NetConnector from "./netConnector.js";
-
-const xml = NetConnector;
-
-const connector = {
-    get:xml.get,
-    post:xml.post,
-    config:xml.config
+/**
+ * 
+ * @param {Array} msg 
+ * @param {string} api 
+ * @param {Function} func_callback 
+ * @param {Function} func_wating 
+ * @param {Function} func_timeout 
+ * @param {int} time_out 
+ * @returns false:字符串不符合规则
+ */
+const send = (msg, api, func_callback, func_wating, func_timeout, time_out) => {
+    let c = MsgProcessing.processing(msg, api);
+    if (!c) return c;
+    XML.send(c, func_callback, func_wating, func_timeout, time_out);
+    return true;
 };
-
-export default connector;
-
+export default {
+    send,
+};

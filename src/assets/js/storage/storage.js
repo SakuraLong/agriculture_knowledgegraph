@@ -86,5 +86,39 @@ class Storage {
         }
     }
 }
+/**
+ *
+ * @param {int} save_type 数据库保存方式0:长期;1:短期
+ * @param {string} key 键
+ * @param {*} value 值
+ * @param {string} type 值的类型能直接存的就不用填
+ */
+const set = (save_type, key, value, type) => {
+    new Storage(save_type).set(key, value, type);
+};
+/**
+ *
+ * @param {int} save_type 数据库保存方式0:长期;1:短期
+ * @param {string} key 键
+ * @param {string} type 值的类型能直接存的就不用填
+ * 
+ * @returns 存储的数据
+ */
+const get = (save_type, key, type) => {
+    return new Storage(save_type).get(key, type);
+};
+/**
+ *
+ * @param {int} save_type 数据库保存方式0:长期;1:短期
+ * @param {string} key 键
+ * @param {string} type 值的类型能直接存的就不用填
+ */
+const del = (save_type, key, type) => {
+    new Storage(save_type).delete(key, type);
+};
 
-export default Storage;
+export default {
+    set,
+    get,
+    del
+};
