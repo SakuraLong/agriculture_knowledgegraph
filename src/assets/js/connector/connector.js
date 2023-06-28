@@ -1,14 +1,17 @@
 "use strict";
+import MsgProcessing from "./msgProcessing.js";
 
-import NetConnector from "./netConnector.js";
-
-const xml = NetConnector;
 
 const connector = {
-    get:xml.get,
-    post:xml.post,
-    config:xml.config
+    
 };
-
-export default connector;
+const test = (func) => {
+    func();
+};
+const p = () => {
+    return MsgProcessing.processing();
+};
+export default {
+    MsgProcessing
+};
 
