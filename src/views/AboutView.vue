@@ -27,8 +27,8 @@ export default{
 
         let success = new Checker("a", ["no-null"]).check();
         console.log(success);
-        let b = Connector.MsgProcessing.processing([1, 2, 3], "register");
-        // console.log(b);
+        let b = Connector.send([1, 2, 3], "register", null, null, this.test);
+        console.log("api:" + b);
     }
 };
 </script>

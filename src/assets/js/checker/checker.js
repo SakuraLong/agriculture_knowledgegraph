@@ -26,7 +26,6 @@ class Checker {
     constructor(str, check_methods) {
         this.str = str;
         this.check_methods = check_methods;
-        console.log(this.success);
     }
     /**
      * 进行字符串检查
@@ -42,7 +41,6 @@ class Checker {
                 checker.success = checker.funcCheck(element);
             }
         });
-        console.log(this.success);
         return this.success;
     }
     /**

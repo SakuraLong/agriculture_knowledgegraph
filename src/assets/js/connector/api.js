@@ -24,7 +24,7 @@ const API_CHECKER = {
     "register": [
         ["ignore"],
         ["no-zh-Hans"],
-        ["no-base-symbol", "no-spacing", "@length-max=20", "is-email", "is-image", "@size-max=200"],
+        ["no-base-symbol",],
     ]
 };
 export default{

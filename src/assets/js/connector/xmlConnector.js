@@ -1,3 +1,4 @@
+import API from "./api.js";
 class XMLConnector {
     /* 
                 url: API 的 url
@@ -124,8 +125,6 @@ class XMLConnector {
 }
 
 const send = (
-    url,
-    method,
     msg,
     func_callback,
     func_wating,
@@ -133,8 +132,8 @@ const send = (
     time_out
 ) => {
     let xml = new XMLConnector(
-        url,
-        method,
+        API.API.host + API.API.port,
+        "POST",
         msg,
         func_callback,
         func_wating,
