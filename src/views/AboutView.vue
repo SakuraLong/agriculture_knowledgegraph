@@ -7,6 +7,7 @@
 import Code from "@/assets/js/code/code.js";
 import Checker from "@/assets/js/checker/checker.js";
 import Connector from "@/assets/js/connector/connector.js";
+import Storage from "@/assets/js/storage/storage.js";
 export default{
     data(){
         return {
@@ -29,6 +30,9 @@ export default{
         console.log(success);
         let b = Connector.send([1, 2, 3], "register", null, null, this.test);
         console.log("api:" + b);
+
+        Storage.set(0, "test", 1);
+        Storage.del(0, "test");
     }
 };
 </script>
