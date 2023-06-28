@@ -16,7 +16,9 @@ class Checker {
         "no-base-symbol": "noneBaseSymbol()",
         "sql-check":"sqlCheck()",
         "no-spacing":"noSpacing()",
-        "no-number":"noNumber()"
+        "no-number":"noNumber()",
+        "no-null":"noNull()",
+        "is-email":"isEmail()"
     };
     checker_data = {
         base_symbol: ["<", ">", "{", "}", "[", "]", "~", "`", "^", "(", ")"],
@@ -32,7 +34,11 @@ class Checker {
         let checker = this;
         this.check_methods.forEach((element) => {
             if (!checker.success) return;
-            checker.success = eval("checker." + checker.checker_eval[element]);
+            let check_func = checker.checker_eval[element];
+            if(check_func!==null)
+                checker.success = eval("checker." + checker.checker_eval[element]);
+            else
+                checker.success = this.funcCheck(element);
         });
         return this.success;
     }
@@ -105,6 +111,13 @@ class Checker {
     
     }
     /**
+     * 检查字符串是不是空字符串
+     * @returns false:空
+     */
+    noNull(){
+        return this.str!=null&&this.str.length!==0&&this.str!==undefined;
+    }
+    /**
      * 检查字符串是不是email
      * @returns false:不是email的合法地址
      */
@@ -123,17 +136,42 @@ class Checker {
         }
         return true ;
     }
+    /**
+     * 特殊方法检查
+     * @param {string} method 
+     * @returns 
+     */
+    funcCheck(method){
+        if(method[0]!=="@")
+            return true;
+        else{
+            let is_max = method.indexOf("max") !== -1 ? true : false;
+            let is_length = method.indexOf("length") !== -1 ? true : false;
+            let num = parseInt(method.substring(method.indexOf("="), method.length));
+            if(is_length){
+                if(is_max){
+                    if(this.str.length>num) return false;
+                }else{
+                    if(this.str.length<num) return false;
+                }
+            }
+        }
+        return true;
+    }
 }
 
 export default Checker;
-/**
- * check_methods 可以包含
- * ignore 不检查 出现这个直接返回true
- * no-zh-Hans 没用中文汉字 存在中文汉字返回false
- * no-en 没有英文 存在英文返回false
- * no-base-symbol 不包含基础符号 存在 < > { } [ ] ~ ` ^ ( ) 返回false
- * sql-check 检查sql注入 有sql注入危险返回false
- * no-spacing 没有空格 存在空格返回false
- * no-number 没有数字 存在数字返回false
- * is-email 是合法的邮箱地址 不是合法的邮箱地址返回false
+/*
+    check_methods 可以包含
+    ignore 不检查 出现这个直接返回true
+    no-zh-Hans 没用中文汉字 存在中文汉字返回false
+    no-en 没有英文 存在英文返回false
+    no-base-symbol 不包含基础符号 存在 < > { } [ ] ~ ` ^ ( ) 返回false
+    sql-check 检查sql注入 有sql注入危险返回false
+    no-spacing 没有空格 存在空格返回false
+    no-number 没有数字 存在数字返回false
+    no-null 不能是空 如果是空返回false
+    is-email 是合法的邮箱地址 不是合法的邮箱地址返回false
+    @length-max=num 字符串长度最大是num num是int数字 例如：@length-max=20
+    @length-min=num 字符串长度最小是num num是int数字 例如：@length-min=20
  */
