@@ -6,7 +6,7 @@
                 <!-- 网站名字   头像+昵称 -->
                 <div class="nav_bar_title">农业知识图谱</div>
                 <div class="nav_bar_content">
-                    <navLogin />
+                    <navLogin @toLogin="toLogin" />
                 </div>
             </div>
             <div class="nav_bar_deco">
@@ -22,6 +22,12 @@ import navLogin from "./components/avatar/index.vue";
 export default{
     components:{
         navLogin
+    },
+    methods:{
+        toLogin(){
+            console.log(0);
+            this.$emit("toLogin", "msg changed by childA");
+        }
     }
 };
 </script>
@@ -31,7 +37,7 @@ export default{
     position: absolute;
     left: 0px;
     top: 0px;
-    border: 1px solid rgb(10, 10, 10);
+    /* border: 1px solid rgb(10, 10, 10); */
     width: 100%;
     height: 130px;
     min-width: 1024px;
@@ -56,10 +62,10 @@ export default{
     position: relative;
     width: 100%;
     height: 36%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .nav_bar_deco{
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 100%;
     height: 60%;
     display: flex;
@@ -71,12 +77,12 @@ export default{
     right: 25%;
     width: 50px;
     height: 100%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .nav_bar_deco_center{
     width: 400px;
     height: 100%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .nav_bar_deco_right{
     left: 25%;
@@ -89,7 +95,7 @@ export default{
     margin-left: 50px;
     width: 200px;
     height: 100%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .nav_bar_title{
     width: 300px;

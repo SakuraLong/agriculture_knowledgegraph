@@ -1,9 +1,16 @@
 <template>
     <div class="login">
-        <div class="login-containr"></div>
+        <div class="login-containr" @click="leaveLogin"></div>
     </div>
 </template>
 <script>
+export default{
+    methods:{
+        leaveLogin(){
+            this.$emit("leaveLogin");
+        }
+    }
+};
 </script>
 <style scoped>
 .login{

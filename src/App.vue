@@ -1,6 +1,6 @@
 <template>
     <div class="container" id="container" :class="{'blur':page.is_login}">
-        <navBar />
+        <navBar @toLogin="toLogin"/>
         <mainBar v-if="page.is_main_page"/>
         <showerBar v-if="page.is_func_page"/>
 
@@ -9,7 +9,10 @@
         <personal v-if="page.is_personal"/>
         <shower v-if="page.is_func_page"/>
     </div>
-    <login v-if="page.is_login"/>
+    <!-- <shutter /> -->
+    <transition name="login_an">
+        <login v-if="page.is_login" @leaveLogin="leaveLogin"/>
+    </transition>
 </template>
 <script>
 import login from "@/components/login/index.vue";           // 登录注册组件
@@ -20,6 +23,8 @@ import shower from "@/components/shower/index.vue";        // 功能界面右侧
 import other from "@/components/other/index.vue";           // 其他--子页面
 import functions from "@/components/funcs/index.vue";   // 功能--子页面
 import personal from "@/components/personal/index.vue";     // 个人信息--子页面
+
+import shutter from "@/components/shutter/index.vue";     // 个人信息--子页面
 export default{
     data(){
         return{
@@ -47,20 +52,23 @@ export default{
         shower,
         other,
         functions,
-        personal
+        personal,
+
+        // shutter
     },
     methods:{
         /**
          * 导航栏点击登录调用的函数
          */
         toLogin(){
-            this.login.is_login = true;
+            console.log("999");
+            this.page.is_login = true;
         },
         /**
          * 登录组件点击退出调用的函数
          */
         leaveLogin(){
-            this.login.is_login = true;
+            this.page.is_login = false;
         }
     }
 };
@@ -73,7 +81,7 @@ export default{
     top: 0px;
     width: 100%;
     height: 100%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .blur{
     position: absolute;
@@ -82,7 +90,7 @@ export default{
     width: 100%;
     height: 100%;
     /* background-color: aqua; */
-    filter: blur(2px);
+    filter: blur(4px);
 }
 .s{
     filter: none;
