@@ -1,3 +1,24 @@
 :root{
-    --testby:red;
+    --login-width:600px;
+    --login-height:370px;
+
+    --nav-bar-font-size:20px;
+    --avatar-border: url("./theme/avatarFrame/de.png");
+}
+
+.login_an-enter-active,
+.login_an-leave-active {
+    transition: opacity 0.4s ease;
+}
+.login_an-enter-from,
+.login_an-leave-to {
+    opacity: 0;
+}
+.login_an-enter-active > div,
+.login_an-leave-active > div {
+    transition: scale 0.4s ease;
+}
+.login_an-enter-from > div,
+.login_an-leave-to > div{
+    scale: 1.1;
 }

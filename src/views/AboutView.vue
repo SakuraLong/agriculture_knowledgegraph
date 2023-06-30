@@ -36,3 +36,10 @@ export default{
     }
 };
 </script>
+<style scoped>
+.about{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 128, 255, 0.5);
+}
+</style>
