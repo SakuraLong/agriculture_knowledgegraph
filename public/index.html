@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="utf-8">
+<html lang="utf-8" id="html">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -7,7 +7,7 @@
         <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
         <title><%= htmlWebpackPlugin.options.title %></title>
     </head>
-    <body>
+    <body style="margin: 0px;overflow: hidden;">
         <noscript>
             <strong
                 >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't
@@ -15,7 +15,7 @@
                 continue.</strong
             >
         </noscript>
-        <div id="app"></div>
+        <div id="app" style="position: absolute;width: 100vw;height: 100vh;overflow: hidden;display: flex;justify-content: center;align-items: center;"></div>
         <!-- built files will be auto injected -->
     </body>
 </html>

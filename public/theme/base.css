@@ -1,3 +1,7 @@
 :root{
-    --testby:red;
+    --login-width:600px;
+    --login-height:370px;
+
+    --nav-bar-font-size:20px;
+    --avatar-border:"";
 }
