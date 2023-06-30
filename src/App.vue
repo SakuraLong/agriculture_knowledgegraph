@@ -18,7 +18,7 @@ import mainBar from "@/components/mainBar/index.vue";       // 主页左侧导�
 import showerBar from "@/components/showerBar/index.vue";   // 功能界面左侧导航栏
 import shower from "@/components/shower/index.vue";        // 功能界面右侧展示区域
 import other from "@/components/other/index.vue";           // 其他--子页面
-import functions from "@/components/functions/index.vue";   // 功能--子页面
+import functions from "@/components/funcs/index.vue";   // 功能--子页面
 import personal from "@/components/personal/index.vue";     // 个人信息--子页面
 export default{
     data(){
