@@ -1,6 +1,6 @@
 <template>
     <div class="container" id="container" :class="{ blur: page.is_login }">
-        <div class="main_lottie" id="main_lottie__"></div>
+        <!-- <div class="main_lottie" id="main_lottie__"></div> -->
         <navBar @toLogin="toLogin" />
         <mainBar v-if="page.is_main_page" />
         <showerBar v-if="page.is_func_page" />
