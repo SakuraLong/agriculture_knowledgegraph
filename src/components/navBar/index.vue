@@ -102,6 +102,7 @@ export default{
     left: 0px;
     justify-content: center;
     align-items: center;
+    font-family: FZZJ-WHJZTJW;
     font-size: var(--nav-bar-font-size);
 }
 .nav_bar_content{

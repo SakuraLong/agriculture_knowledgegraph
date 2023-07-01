@@ -1,7 +1,9 @@
 import { createStore } from "vuex";
 
 export default createStore({
-    state: {},
+    state: {
+        can_click_button:true
+    },
     getters: {},
     mutations: {},
     actions: {},

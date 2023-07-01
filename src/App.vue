@@ -9,7 +9,7 @@
         <personal v-if="page.is_personal"/>
         <shower v-if="page.is_func_page"/>
     </div>
-    <!-- <shutter /> -->
+    <shutter />
     <transition name="login_an">
         <login v-if="page.is_login" @leaveLogin="leaveLogin"/>
     </transition>
@@ -54,7 +54,7 @@ export default{
         functions,
         personal,
 
-        // shutter
+        shutter
     },
     methods:{
         /**

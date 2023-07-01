@@ -1,11 +1,14 @@
 :root{
-    --login-width:600px;
-    --login-height:370px;
+    --login-width:800px;
+    --login-height:494px;
 
-    --nav-bar-font-size:20px;
+    --nav-bar-font-size:35px;
     --avatar-border: url("./theme/avatarFrame/de.png");
 }
-
+@font-face {
+    font-family: "FZZJ-WHJZTJW";
+    src: url("../fonts/FZZJ-WHJZTJW.TTF");
+}
 .login_an-enter-active,
 .login_an-leave-active {
     transition: opacity 0.4s ease;
@@ -21,4 +24,12 @@
 .login_an-enter-from > div,
 .login_an-leave-to > div{
     scale: 1.1;
+}
+.login_register-enter-active,
+.login_register-leave-active {
+    transition: opacity 0.4s ease;
+}
+.login_register-enter-from,
+.login_register-leave-to {
+    opacity: 0;
 }

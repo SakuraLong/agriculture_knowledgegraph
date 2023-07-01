@@ -18,6 +18,28 @@ const send = (msg, api, func_callback, func_wating, func_timeout, time_out) => {
     XML.send(c, func_callback, func_wating, func_timeout, time_out);
     return true;
 };
+const test = (func_callback, func_wating, func_timeout, time_out, success, success_waiting, success_msg) => {
+    func_wating(true);
+    if(success){
+        if(success_waiting){
+            setTimeout(()=>{
+                func_wating(false);
+                func_callback(success_msg);
+            }, success_waiting);
+        }else{
+            setTimeout(()=>{
+                func_wating(false);
+                func_callback(success_msg);
+            }, 1000);
+        }
+    }else{
+        setTimeout(()=>{
+            func_wating(false);
+            func_timeout();
+        }, time_out);
+    }
+};
 export default {
     send,
+    test
 };
