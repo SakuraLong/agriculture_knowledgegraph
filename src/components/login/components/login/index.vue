@@ -249,6 +249,7 @@ export default {
     padding-right: 5px;
 }
 .login_login_text {
+    cursor:pointer;
     position: relative;
     font-size: 25px;
     font-family: Heiti;
@@ -296,6 +297,7 @@ export default {
     top: 10%;
 }
 .login_forget_password {
+    cursor:pointer;
     margin-top: 20px;
     font-size: 18px;
 }

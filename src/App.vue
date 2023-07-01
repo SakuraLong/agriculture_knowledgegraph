@@ -28,7 +28,7 @@ import personal from "@/components/personal/index.vue";     // 个人信息--子
 import shutter from "@/components/shutter/index.vue";     // 个人信息--子页面
 
 import lottie from "lottie-web";
-import mainCirle from "@/assets/lottie/light/data.json";
+import mainCirle from "@/assets/lottie/light/data1.json";
 export default{
     data(){
         return{
