@@ -122,3 +122,6 @@ export default {
     get,
     del
 };
+/**
+ * Storage.set("bus", 1000);
+ */

@@ -24,6 +24,11 @@
                     </transition>
                     <transition name="login_register" mode="out-in">
                         <div v-show="is_register" class="login_msg_register">
+                            <div class="login_msg_register_register">
+                                <div class="login_msg_register_register_text" data-text="注册" @click="register">注册</div>
+                                <div>用户协议</div>
+                                <div>隐私政策</div>
+                            </div>
                             <div class="msg_login_register" @click="toLoginArea">
                                 <div class="msg_login_register_text" data-text="已有账号？登录登录！">
                                     已有账号？登录登录！
@@ -41,7 +46,7 @@
                 <loginAC v-show="is_login" class="login_area_container" @passwordOnFocus="passwordOnFocus" @passwordOnBlur="passwordOnBlur"></loginAC>
             </transition>
             <transition name="login_register" mode="out-in">
-                <registerAC  class="register_area_container"></registerAC>
+                <registerAC v-show="is_register" class="register_area_container" ref="login_register_ele" @passwordOnFocus="passwordOnFocus" @passwordOnBlur="passwordOnBlur"></registerAC>
             </transition>
         </div>
     </div>
@@ -63,6 +68,14 @@ export default{
         registerAC
     },
     methods:{
+        register(){
+            if(!this.$refs.login_register_ele.register()){
+                return;
+            }else{
+                // 成功
+                this.$refs.login_register_ele.sendRegister();
+            }
+        },
         leaveLogin(){
             if(!store.state.can_click_button) return;
             this.$emit("leaveLogin");
@@ -91,6 +104,47 @@ export default{
 };
 </script>
 <style scoped>
+.login_msg_register_register{
+    position: absolute;
+    top: 40%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 50%;
+}
+.login_msg_register_register_text {
+    cursor:pointer;
+    position: relative;
+    font-size: 25px;
+    font-family: Heiti;
+    z-index: 1;
+    color: rgb(217, 149, 230);
+    width: 140px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 40px;
+    box-shadow: 1px 1px 5px rgba(199, 14, 250, .5);
+    border: 2px solid rgba(199, 14, 250, .5);
+}
+.login_msg_register_register_text::after {
+    content: attr(data-text);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    /* color: aqua; */
+    -webkit-text-stroke: 3px rgba(199, 14, 250, .5);
+}
+.login_msg_register_register_text:hover {
+    background-color: rgba(199, 14, 250, .3);
+    color: rgba(199, 14, 250, .5);
+}
+.login_msg_register_register_text:hover::after {
+    -webkit-text-stroke: 3px rgba(255, 255, 255, .7);
+}
 .login{
     width: 100%;
     height: 100%;
@@ -146,6 +200,7 @@ export default{
     z-index: 99;
 }
 .msg_login_register, .msg_login_register_text{
+    cursor:pointer;
     position: relative;
     display: flex;
     justify-content: center;
@@ -255,6 +310,7 @@ export default{
     z-index: 1;
 }
 .login_msg_return{
+    cursor:pointer;
     position: absolute;
     bottom: 10%;
     width: 80px;
@@ -350,6 +406,9 @@ export default{
     /* border: 1px solid red; */
     z-index: 0;
     font-size: 24px;
+}
+.login_input:focus{
+    caret-color:#e77ffb;
 }
 @keyframes login-msg-login-goto-register {
     from{
