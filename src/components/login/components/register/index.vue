@@ -3,9 +3,9 @@
         <div class="register_text">R E G I S T E R</div>
         <div class="login_email_area">
             <Transition name="login_an">
-                <div v-show="email.is_sended" class="toggle" @click="changeEmailAndVeri"></div>
+                <div v-show="!email.is_sended" class="toggle" @click="changeEmailAndVeri"></div>
             </Transition>
-            <Transition name="login_an" mode="out-in">
+            <Transition name="register_evc" mode="out-in">
                 <label v-if="is_email" class="login_label login_label_regi" data-text="登录邮箱">
                     <input class="login_id login_input" type="text" v-model="email.email" placeholder="请输入需要绑定的邮箱" />
                 </label>
