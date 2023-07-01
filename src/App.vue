@@ -16,39 +16,39 @@
     </transition>
 </template>
 <script>
-import login from "@/components/login/index.vue";           // 登录注册组件
-import navBar from "@/components/navBar/index.vue";         // 顶部导航栏组件
-import mainBar from "@/components/mainBar/index.vue";       // 主页左侧导航栏
-import showerBar from "@/components/showerBar/index.vue";   // 功能界面左侧导航栏
-import shower from "@/components/shower/index.vue";        // 功能界面右侧展示区域
-import other from "@/components/other/index.vue";           // 其他--子页面
-import functions from "@/components/funcs/index.vue";   // 功能--子页面
-import personal from "@/components/personal/index.vue";     // 个人信息--子页面
+import login from "@/components/login/index.vue"; // 登录注册组件
+import navBar from "@/components/navBar/index.vue"; // 顶部导航栏组件
+import mainBar from "@/components/mainBar/index.vue"; // 主页左侧导航栏
+import showerBar from "@/components/showerBar/index.vue"; // 功能界面左侧导航栏
+import shower from "@/components/shower/index.vue"; // 功能界面右侧展示区域
+import other from "@/components/other/index.vue"; // 其他--子页面
+import functions from "@/components/funcs/index.vue"; // 功能--子页面
+import personal from "@/components/personal/index.vue"; // 个人信息--子页面
 
-import shutter from "@/components/shutter/index.vue";     // 个人信息--子页面
+import shutter from "@/components/shutter/index.vue"; // 个人信息--子页面
 
 import lottie from "lottie-web";
 import mainCirle from "@/assets/lottie/light/data1.json";
-export default{
-    data(){
-        return{
-            page:{
-                is_main_page:true,
-                is_func_page:false,
-                is_personal:false,
-                is_login:false,
-                main:{
-                    is_main:true,
-                    is_func:false,
-                    is_other:false,
-                }
+export default {
+    data() {
+        return {
+            page: {
+                is_main_page: false,
+                is_func_page: true,
+                is_personal: false,
+                is_login: false,
+                main: {
+                    is_main: true,
+                    is_func: false,
+                    is_other: false,
+                },
             },
-            login:{
-                is_login:true
-            }
+            login: {
+                is_login: true,
+            },
         };
     },
-    components:{
+    components: {
         login,
         navBar,
         mainBar,
@@ -59,37 +59,37 @@ export default{
         personal,
         // shutter
     },
-    methods:{
+    methods: {
         /**
          * 导航栏点击登录调用的函数
          */
-        toLogin(){
+        toLogin() {
             console.log("999");
             this.page.is_login = true;
         },
         /**
          * 登录组件点击退出调用的函数
          */
-        leaveLogin(){
+        leaveLogin() {
             this.page.is_login = false;
-        }
+        },
     },
-    mounted(){
+    mounted() {
         let param = {
             container: document.getElementById("main_lottie__"), // the dom element that will contain the animation
             renderer: "svg",
             loop: true,
             autoplay: true,
-            animationData: mainCirle
+            animationData: mainCirle,
             // path:"https://labs.nearpod.com/bodymovin/demo/markus/halloween/markus.json"
         };
         lottie.loadAnimation(param);
-    }
+    },
 };
 </script>
 
 <style scoped>
-.main_lottie{
+.main_lottie {
     position: absolute;
     z-index: 100;
     width: 90%;
