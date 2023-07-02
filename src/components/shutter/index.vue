@@ -2,12 +2,12 @@
     <div class="shutter" @resize="pageResize">
         <img src="./img/top.png" alt="" class="shutter_top" id="shutter_top" />
         <div :class="[true ?'shutter_top_container_4block':'shutter_top_container_3block']" id="shutter_top_container">
-            <div style="background-color: aqua">小人</div>
-            <div style="background-color: red"></div>
-            <div :class="[true ?'shutter_top_container_4block_leftbot':'shutter_top_container_3block_leftbot']" style="background-color: darkblue">
-                <slot>用户</slot>
+            <div>小人</div>
+            <div></div>
+            <div :class="[false ?'shutter_top_container_4block_leftbot':'shutter_top_container_3block_leftbot']" >
+                <slot name="show_child_page">用户</slot>
             </div>
-            <div v-if="true" style="background-color: blue">小人</div>
+            <div v-if="false" style="background-color: blue">小人</div>
         </div>
         <img
             src="./img/bottom.png"
