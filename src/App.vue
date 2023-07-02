@@ -1,10 +1,14 @@
 <template>
     <div class="container" id="container" :class="{ blur: page.is_login }">
         <!-- <div class="main_lottie" id="main_lottie__"></div> -->
+        <div class="home-wrapper">
+            <home />
+        </div>
+        <div class="mainBar-wrapper">
+            <mainBar v-if="page.is_main_page" @update-page="updatePage"/>
+        </div>
         <navBar @toLogin="toLogin" />
-        <mainBar v-if="page.is_main_page" />
         <showerBar v-if="page.is_func_page" />
-
         <other v-if="page.is_main_page && page.main.is_other" />
         <functions v-if="page.is_main_page && page.main.is_other" />
         <personal v-if="page.is_personal" />
@@ -15,7 +19,9 @@
         <login v-if="page.is_login" @leaveLogin="leaveLogin" />
     </transition>
 </template>
+
 <script>
+
 import login from "@/components/login/index.vue";           // 登录注册组件
 import navBar from "@/components/navBar/index.vue";         // 顶部导航栏组件
 import mainBar from "@/components/mainBar/index.vue";       // 主页左侧导航栏
@@ -29,8 +35,12 @@ import shutter from "@/components/shutter/index.vue";     // 个人信息--子�
 
 import lottie from "lottie-web";
 import mainCirle from "@/assets/lottie/light/data1.json";
+
+import home from "@/components/home/index.vue"; // 引入home组件
 export default{
+    
     data(){
+        
         return{
             page:{
                 is_main_page:true,
@@ -57,9 +67,14 @@ export default{
         other,
         functions,
         personal,
+        home,
         // shutter
     },
     methods:{
+        updatePage(data) {
+            this.page.is_func_page = data.is_func_page;
+            this.page.main.is_other = data.is_other;
+        },
         /**
          * 导航栏点击登录调用的函数
          */
@@ -118,6 +133,7 @@ export default{
 .s {
     filter: none;
 }
+
 </style>
 
 <style>
