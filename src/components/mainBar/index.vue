@@ -56,16 +56,15 @@
 
 <style scoped>
 .mainBar {
-    /* background-color: #f0f0f0; */
-    width: 300px; /* 调整导航栏的宽度 */
-    position: fixed; /* 设置为固定定位 */
-    top: 10%; /* 距离顶部的距离 */
-    left: 4%; /* 距离左侧的距离 */
-    height: 100%; /* 设置导航栏的高度 */
+    width: 300px;
+    position: fixed;
+    top: 10%;
+    left: 4%;
+    height: 100%;
 }
 
 .login-container {
-    padding: 10px; /* 调整容器的内边距 */
+    padding: 10px;
 }
 
 nav ul {
@@ -78,33 +77,45 @@ nav li {
     margin-bottom: 25%;
     display: flex;
     align-items: center;
+    position: relative;
+}
+
+.tab-content {
+    display: flex;
+    align-items: center;
 }
 
 nav img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    transition: transform 0.3s;
 }
 
 nav a {
-    font-family: "CustomFont", sans-serif; /* 使用自定义字体 */
-    font-size: 50px; /* 设置字体大小 */
-    font-weight: 300; /* 设置字体粗细 */
+    font-family: "CustomFont", sans-serif;
+    font-size: 50px;
+    font-weight: 300;
     display: block;
     padding: 5px 10px;
     text-decoration: none;
     color: #000000;
+    transition: transform 0.3s;
 }
 
-nav a:hover {
-    background-color: #ddd;
+nav li.active a {
+    transform: translateX(10px);
+}
+
+nav li.active img {
+    transform: translateX(10px);
 }
 
 @font-face {
-    font-family: "CustomFont"; /* 自定义字体名称 */
-    src: url("../../assets/font/FZZJ-WHJZTJW.TTF"); /* 字体文件路径 */
+    font-family: "CustomFont";
+    src: url("../../assets/font/FZZJ-WHJZTJW.TTF");
 }
 </style>
+
 
 <script>
 export default {
@@ -117,11 +128,11 @@ export default {
         setActiveTab(tab) {
             this.activeTab = tab;
             if (tab === "home") {
-                this.$emit("update-page", { is_func_page: false, is_other: false });
+                this.$emit("update-page", { is_main:true,is_func: false, is_other: false });
             } else if (tab === "features") {
-                this.$emit("update-page", { is_func_page: true, is_other: false  });
+                this.$emit("update-page", { is_main:false,is_func: true, is_other: false  });
             } else if (tab === "other") {
-                this.$emit("update-page", { is_other: true ,is_func_page: false });
+                this.$emit("update-page", { is_main:false,is_other: true ,is_func: false });
             }
             console.log("传递成功")
         },
