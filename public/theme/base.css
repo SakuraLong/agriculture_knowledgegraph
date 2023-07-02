@@ -33,3 +33,15 @@
 .login_register-leave-to {
     opacity: 0;
 }
+.register_evc-enter-active,
+.register_evc-leave-active{
+    transition: all 0.3s ease;
+}
+.register_evc-enter-from{
+    opacity: 0;
+    transform: rotateX(-90deg);
+}
+.register_evc-leave-to {
+    opacity: 0;
+    transform: rotateX(90deg);
+}
