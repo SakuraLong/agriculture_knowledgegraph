@@ -91,7 +91,7 @@ export default {
          * 导航栏点击登录调用的函数
          */
         toLogin() {
-            console.log("999");
+            // console.log("999");
             this.page.is_login = true;
         },
         /**
