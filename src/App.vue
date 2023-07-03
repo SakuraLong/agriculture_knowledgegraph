@@ -1,5 +1,19 @@
 <template>
     <div class="container" id="container" :class="{ blur: page.is_login }">
+        <defaultShutter>
+            <template #show_child_page>
+                <div style="display: flex; flex-direction: row">
+                    <div
+                        style="width: 100%; height: 70px; border: 1px solid red"
+                    ></div>
+                    <div>aaa</div>
+                    <div>aaa</div>
+                    <div>aaa</div>
+                    <div>aaa</div>
+                    <div>aaa</div>
+                </div>
+            </template>
+        </defaultShutter>
         <!-- <div class="main_lottie" id="main_lottie__"></div> -->
         <bg />
         <transition name="slide">
@@ -21,16 +35,16 @@
         
         <showerSubpage v-if="page.is_func_page" /> -->
     </div>
-    <!-- <transition name="app_subpage" mode="out-in">
+    <transition name="app_subpage" mode="out-in">
         <loginAndRegister v-if="page.is_login" @leaveLogin="leaveLogin" />
-        <personalMsgSettingSubpage v-else-if="page.is_personal" />
-    </transition> -->
+        <!-- <personalMsgSettingSubpage v-else-if="page.is_personal" /> -->
+    </transition>
     <!-- 这里还有修改密码和换绑邮箱 -->
 </template>
 
 <script>
 // 子页面
-// import loginAndRegister from "@/views/loginAndRegister/loginAndRegister.vue"; // 登录注册--子页面
+import loginAndRegister from "@/views/loginAndRegister/loginAndRegister.vue"; // 登录注册--子页面
 // import showerSubpage from "@/views/showerSubpage/showerSubpage.vue"; // 功能界面右侧展示区域
 // import othersSubpage from "@/views/othersSubpage/othersSubpage.vue"; // 其他--子页面
 // import functionSubpage from "@/views/functionSubpage/functionSubpage.vue"; // 功能--子页面
@@ -41,7 +55,7 @@ import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
 import mainBar from "@/components/mainBar/mainBar.vue"; // 主页左侧导航栏
 // import showerBar from "@/components/showerBar/showerBar.vue"; // 功能界面左侧导航栏
 
-// import shutter from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
+import defaultShutter from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
 
 // import lottie from "lottie-web";
 // import mainCirle from "@/assets/lottie/light/data1.json";
@@ -68,7 +82,7 @@ export default {
         };
     },
     components: {
-        // loginAndRegister,
+        loginAndRegister,
         navBar,
         mainBar,
         // showerBar,
@@ -79,7 +93,7 @@ export default {
         // personalMsgSettingSubpage,
         bg,
         mainWord,
-        // shutter
+        defaultShutter,
     },
     methods: {
         updatePage(data) {

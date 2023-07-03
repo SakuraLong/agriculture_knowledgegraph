@@ -1,13 +1,29 @@
 <template>
     <div class="shutter" @resize="pageResize">
         <img src="./img/top.png" alt="" class="shutter_top" id="shutter_top" />
-        <div :class="[true ?'shutter_top_container_4block':'shutter_top_container_3block']" id="shutter_top_container">
-            <div>小人</div>
-            <div></div>
-            <div :class="[false ?'shutter_top_container_4block_leftbot':'shutter_top_container_3block_leftbot']" >
+        <div
+            :class="[
+                !has_right_girl
+                    ? 'shutter_top_container_4block'
+                    : 'shutter_top_container_3block',
+            ]"
+            id="shutter_top_container"
+        >
+            <div style="border: 1px solid red">这里之后会放吉祥物组件</div>
+            <div style="border: 1px solid red"></div>
+            <div
+                :class="[
+                    has_right_girl
+                        ? 'shutter_top_container_4block_leftbot'
+                        : 'shutter_top_container_3block_leftbot',
+                ]"
+                style="border: 1px solid red"
+            >
                 <slot name="show_child_page">用户</slot>
             </div>
-            <div v-if="false" style="background-color: blue">小人</div>
+            <div v-if="has_right_girl" style="border: 1px solid red">
+                这里之后会放吉祥物组件
+            </div>
         </div>
         <img
             src="./img/bottom.png"
@@ -15,18 +31,6 @@
             class="shutter_bottom"
             id="shutter_bottom"
         />
-        <!-- <div class="shutter_bottom"></div> -->
-        <!-- <div class="shutter_content">
-            <div class="shutter_top">
-                <div class="shutter_top_container">
-                    <div style="background-color: aqua;"></div>
-                    <div style="background-color: red;"></div>
-                    <div style="background-color: darkblue;"></div>
-                    <div style="background-color: blue;"></div>
-                </div>
-            </div>
-            <div class="shutter_bottom"></div>
-        </div> -->
     </div>
 </template>
 <script>
@@ -80,11 +84,12 @@ export default {
             let str_0 = num.toString() + " auto";
             let str_1 = "auto " + num.toString();
 
-            document.getElementById("shutter_top_container").style.gridTemplateColumns = str_0;
-            document.getElementById("shutter_top_container").style.gridTemplateRows = str_1;
-            console.log(shutter_height);
-            console.log(shutter_top_w);
-            console.log(document.getElementById("shutter_top_container").style.gridTemplateRows);
+            document.getElementById(
+                "shutter_top_container"
+            ).style.gridTemplateColumns = str_0;
+            document.getElementById(
+                "shutter_top_container"
+            ).style.gridTemplateRows = str_1;
         },
     },
 };
@@ -144,26 +149,26 @@ export default {
 
     display: grid;
     grid:
-        "a a"
-        " ";
+        ". ."
+        ". .";
     grid-template-columns: 550px auto;
     grid-template-rows: auto 550px;
     opacity: 0.5;
 }
-.shutter_top_container_4block_right{
+.shutter_top_container_4block_right {
     display: block;
 }
-.shutter_top_container_3block_right{
+.shutter_top_container_3block_right {
     display: none;
 }
-.shutter_top_container_3block_leftbot{
+.shutter_top_container_3block_leftbot {
     grid-column-start: 1;
-    grid-column-end:3;
+    grid-column-end: 3;
 }
 
-.shutter_top_container_4block_leftbot{
+.shutter_top_container_4block_leftbot {
     grid-column-start: 1;
-    grid-column-end:1;
+    grid-column-end: 1;
 }
 @media screen and (max-height: 650px) {
     .shutter_top_container {
