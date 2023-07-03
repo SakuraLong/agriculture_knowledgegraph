@@ -145,7 +145,7 @@ export default {
     display: grid;
     grid:
         "a a"
-         " ";
+        " ";
     grid-template-columns: 550px auto;
     grid-template-rows: auto 550px;
     opacity: 0.5;
