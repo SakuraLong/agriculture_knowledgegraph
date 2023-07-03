@@ -37,17 +37,17 @@ import functionSubpage from "@/views/functionSubpage/functionSubpage.vue"; // �
 import personalSubpage from "@/views/personalSubpage/personalSubpage.vue"; // 个人信息--子页面
 import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/personalMsgSettingSubpage.vue"; // 个人信息修改--子页面
 // 组件
-import navBar from "@/components/navBar/index.vue"; // 顶部导航栏组件
-import mainBar from "@/components/mainBar/index.vue"; // 主页左侧导航栏
-import showerBar from "@/components/showerBar/index.vue"; // 功能界面左侧导航栏
+import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
+import mainBar from "@/components/mainBar/mainBar.vue"; // 主页左侧导航栏
+import showerBar from "@/components/showerBar/showerBar.vue"; // 功能界面左侧导航栏
 
-import shutter from "@/components/shutter/index.vue"; // 个人信息--子页面
+import shutter from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
 
 import lottie from "lottie-web";
 import mainCirle from "@/assets/lottie/light/data1.json";
 
-import bg from "@/components/bg/index.vue"; // 引入home组件
-import mainWord from "@/components/mainWord/index.vue";
+import bg from "@/components/bg/defaultBg.vue"; // 引入home组件
+import mainWord from "@/components/mainWord/mainWord.vue";
 export default {
     data() {
         return {
@@ -91,7 +91,7 @@ export default {
          * 导航栏点击登录调用的函数
          */
         toLogin() {
-            console.log("999");
+            // console.log("999");
             this.page.is_login = true;
         },
         /**
