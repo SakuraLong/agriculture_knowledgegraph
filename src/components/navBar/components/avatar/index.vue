@@ -28,6 +28,7 @@ export default{
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: Heiti;
 }
 .nav_avatar_img{
     pointer-events: all;
@@ -56,6 +57,7 @@ export default{
     overflow: hidden;
 }
 .nav_avatar_name{
+    font-family: Heiti;
     padding-left: 20px;
 }
 </style>

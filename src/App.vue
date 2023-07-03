@@ -9,42 +9,42 @@
         <navBar @toLogin="toLogin" />
 
         <transition name="bar_change" mode="out-in">
-            <showerBar v-if="page.is_func_page" />
             <mainBar v-if="page.is_main_page" @update-page="updatePage" />
+            <!-- <showerBar v-else-if="page.is_func_page" /> -->
         </transition>
 
-        <transition name="subpage_change" mode="out-in">
+        <!-- <transition name="subpage_change" mode="out-in">
             <othersSubpage v-if="page.is_main_page && page.main.is_other" />
-            <functionSubpage v-if="page.is_main_page && page.main.is_other" />
-            <personalSubpage v-if="page.is_personal" />
+            <functionSubpage v-else-if="page.is_main_page && page.main.is_func" />
+            <personalSubpage v-else-if="page.is_personal" />
         </transition>
         
-        <showerSubpage v-if="page.is_func_page" />
+        <showerSubpage v-if="page.is_func_page" /> -->
     </div>
-    <transition name="app_subpage" mode="out-in">
+    <!-- <transition name="app_subpage" mode="out-in">
         <loginAndRegister v-if="page.is_login" @leaveLogin="leaveLogin" />
-        <personalMsgSettingSubpage v-if="page.is_personal" />
-        <!-- 这里还有修改密码和换绑邮箱 -->
-    </transition>
+        <personalMsgSettingSubpage v-else-if="page.is_personal" />
+    </transition> -->
+    <!-- 这里还有修改密码和换绑邮箱 -->
 </template>
 
 <script>
 // 子页面
-import loginAndRegister from "@/views/loginAndRegister/loginAndRegister.vue"; // 登录注册--子页面
-import showerSubpage from "@/views/showerSubpage/showerSubpage.vue"; // 功能界面右侧展示区域
-import othersSubpage from "@/views/othersSubpage/othersSubpage.vue"; // 其他--子页面
-import functionSubpage from "@/views/functionSubpage/functionSubpage.vue"; // 功能--子页面
-import personalSubpage from "@/views/personalSubpage/personalSubpage.vue"; // 个人信息--子页面
-import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/personalMsgSettingSubpage.vue"; // 个人信息修改--子页面
+// import loginAndRegister from "@/views/loginAndRegister/loginAndRegister.vue"; // 登录注册--子页面
+// import showerSubpage from "@/views/showerSubpage/showerSubpage.vue"; // 功能界面右侧展示区域
+// import othersSubpage from "@/views/othersSubpage/othersSubpage.vue"; // 其他--子页面
+// import functionSubpage from "@/views/functionSubpage/functionSubpage.vue"; // 功能--子页面
+// import personalSubpage from "@/views/personalSubpage/personalSubpage.vue"; // 个人信息--子页面
+// import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/personalMsgSettingSubpage.vue"; // 个人信息修改--子页面
 // 组件
 import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
 import mainBar from "@/components/mainBar/mainBar.vue"; // 主页左侧导航栏
-import showerBar from "@/components/showerBar/showerBar.vue"; // 功能界面左侧导航栏
+// import showerBar from "@/components/showerBar/showerBar.vue"; // 功能界面左侧导航栏
 
-import shutter from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
+// import shutter from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
 
-import lottie from "lottie-web";
-import mainCirle from "@/assets/lottie/light/data1.json";
+// import lottie from "lottie-web";
+// import mainCirle from "@/assets/lottie/light/data1.json";
 
 import bg from "@/components/bg/defaultBg.vue"; // 引入home组件
 import mainWord from "@/components/mainWord/mainWord.vue";
@@ -68,15 +68,15 @@ export default {
         };
     },
     components: {
-        loginAndRegister,
+        // loginAndRegister,
         navBar,
         mainBar,
-        showerBar,
-        showerSubpage,
-        othersSubpage,
-        functionSubpage,
-        personalSubpage,
-        personalMsgSettingSubpage,
+        // showerBar,
+        // showerSubpage,
+        // othersSubpage,
+        // functionSubpage,
+        // personalSubpage,
+        // personalMsgSettingSubpage,
         bg,
         mainWord,
         // shutter
@@ -102,15 +102,15 @@ export default {
         },
     },
     mounted() {
-        let param = {
-            container: document.getElementById("main_lottie__"), // the dom element that will contain the animation
-            renderer: "svg",
-            loop: true,
-            autoplay: true,
-            animationData: mainCirle,
-            // path:"https://labs.nearpod.com/bodymovin/demo/markus/halloween/markus.json"
-        };
-        lottie.loadAnimation(param);
+        // let param = {
+        //     container: document.getElementById("main_lottie__"), // the dom element that will contain the animation
+        //     renderer: "svg",
+        //     loop: true,
+        //     autoplay: true,
+        //     animationData: mainCirle,
+        //     // path:"https://labs.nearpod.com/bodymovin/demo/markus/halloween/markus.json"
+        // };
+        // lottie.loadAnimation(param);
     },
 };
 </script>
@@ -146,7 +146,7 @@ export default {
 
 <style>
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
+    font-family: FZZJ-WHJZTJW;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
