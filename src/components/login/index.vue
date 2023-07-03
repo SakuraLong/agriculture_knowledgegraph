@@ -64,7 +64,7 @@ import store from "@/store/index.js";
 export default{
     data(){
         return {
-            no_setting:false,
+            no_setting:true,
             is_password:false,
             is_login:true,
             is_register:false
