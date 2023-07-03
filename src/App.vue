@@ -1,48 +1,53 @@
 <template>
     <div class="container" id="container" :class="{ blur: page.is_login }">
         <!-- <div class="main_lottie" id="main_lottie__"></div> -->
-        <div class="home-wrapper">
-            <home />
-        </div>
-        <div class="mainBar-wrapper">
-            <mainBar v-if="page.is_main_page" @update-page="updatePage" />
-        </div>
+        <bg />
         <transition name="slide">
-            <mainword v-if="page.main.is_main" :key="page.main.is_main" />
+            <mainWord v-if="page.main.is_main" :key="page.main.is_main" />
         </transition>
-        <navBar @toLogin="toLogin" />
-        <showerBar v-if="page.is_func_page" />
-        <other v-if="page.is_main_page && page.main.is_other" />
-        <functions v-if="page.is_main_page && page.main.is_other" />
-        <personal v-if="page.is_personal" />
-        <shower v-if="page.is_func_page" />
-    </div>
 
-    <shutter>
-        <template v-slot:show_child_page>123</template>
-    </shutter>
-    <transition name="login_an">
-        <login v-if="page.is_login" @leaveLogin="leaveLogin" />
+        <navBar @toLogin="toLogin" />
+
+        <transition name="bar_change" mode="out-in">
+            <showerBar v-if="page.is_func_page" />
+            <mainBar v-if="page.is_main_page" @update-page="updatePage" />
+        </transition>
+
+        <transition name="subpage_change" mode="out-in">
+            <othersSubpage v-if="page.is_main_page && page.main.is_other" />
+            <functionSubpage v-if="page.is_main_page && page.main.is_other" />
+            <personalSubpage v-if="page.is_personal" />
+        </transition>
+        
+        <showerSubpage v-if="page.is_func_page" />
+    </div>
+    <transition name="app_subpage" mode="out-in">
+        <loginAndRegister v-if="page.is_login" @leaveLogin="leaveLogin" />
+        <personalMsgSettingSubpage v-if="page.is_personal" />
+        <!-- 这里还有修改密码和换绑邮箱 -->
     </transition>
 </template>
 
 <script>
-import login from "@/components/login/index.vue"; // 登录注册组件
+// 子页面
+import loginAndRegister from "@/views/loginAndRegister/loginAndRegister.vue"; // 登录注册--子页面
+import showerSubpage from "@/views/showerSubpage/showerSubpage.vue"; // 功能界面右侧展示区域
+import othersSubpage from "@/views/othersSubpage/othersSubpage.vue"; // 其他--子页面
+import functionSubpage from "@/views/functionSubpage/functionSubpage.vue"; // 功能--子页面
+import personalSubpage from "@/views/personalSubpage/personalSubpage.vue"; // 个人信息--子页面
+import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/personalMsgSettingSubpage.vue"; // 个人信息修改--子页面
+// 组件
 import navBar from "@/components/navBar/index.vue"; // 顶部导航栏组件
 import mainBar from "@/components/mainBar/index.vue"; // 主页左侧导航栏
 import showerBar from "@/components/showerBar/index.vue"; // 功能界面左侧导航栏
-import shower from "@/components/shower/index.vue"; // 功能界面右侧展示区域
-import other from "@/components/other/index.vue"; // 其他--子页面
-import functions from "@/components/funcs/index.vue"; // 功能--子页面
-import personal from "@/components/personal/index.vue"; // 个人信息--子页面
 
 import shutter from "@/components/shutter/index.vue"; // 个人信息--子页面
 
 import lottie from "lottie-web";
 import mainCirle from "@/assets/lottie/light/data1.json";
 
-import home from "@/components/home/index.vue"; // 引入home组件
-import mainword from "@/components/mainword/index.vue";
+import bg from "@/components/bg/index.vue"; // 引入home组件
+import mainWord from "@/components/mainWord/index.vue";
 export default {
     data() {
         return {
@@ -63,16 +68,17 @@ export default {
         };
     },
     components: {
-        login,
+        loginAndRegister,
         navBar,
         mainBar,
         showerBar,
-        shower,
-        other,
-        functions,
-        personal,
-        home,
-        mainword,
+        showerSubpage,
+        othersSubpage,
+        functionSubpage,
+        personalSubpage,
+        personalMsgSettingSubpage,
+        bg,
+        mainWord,
         // shutter
     },
     methods: {
@@ -136,9 +142,6 @@ export default {
     /* background-color: aqua; */
     filter: blur(4px);
 }
-.s {
-    filter: none;
-}
 </style>
 
 <style>
@@ -175,7 +178,7 @@ nav a.router-link-exact-active {
     z-index: 5;
 }
 
-.slide-enter-active{
+.slide-enter-active {
     transition: transform 1s;
 }
 .slide-leave-active {
@@ -183,13 +186,13 @@ nav a.router-link-exact-active {
 }
 
 .slide-enter-from {
-    transform: translateX(150%);   
+    transform: translateX(150%);
 }
 .slide-leave-to {
     transform: translateX(150%);
 }
 
 .slide-leave-active {
-position: absolute;
+    position: absolute;
 }
 </style>

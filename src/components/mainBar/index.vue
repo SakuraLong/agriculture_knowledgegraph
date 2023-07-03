@@ -92,7 +92,7 @@ nav img {
 }
 
 nav a {
-    font-family: "CustomFont", sans-serif;
+    font-family: "FZZJ-WHJZTJW", sans-serif;
     font-size: 50px;
     font-weight: 300;
     display: block;
@@ -109,13 +109,7 @@ nav li.active a {
 nav li.active img {
     transform: translateX(10px);
 }
-
-@font-face {
-    font-family: "CustomFont";
-    src: url("../../assets/font/FZZJ-WHJZTJW.TTF");
-}
 </style>
-
 
 <script>
 export default {
@@ -128,43 +122,55 @@ export default {
         setActiveTab(tab) {
             this.activeTab = tab;
             if (tab === "home") {
-                this.$emit("update-page", { is_main:true,is_func: false, is_other: false });
+                this.$emit("update-page", {
+                    is_main: true,
+                    is_func: false,
+                    is_other: false,
+                });
             } else if (tab === "features") {
-                this.$emit("update-page", { is_main:false,is_func: true, is_other: false  });
+                this.$emit("update-page", {
+                    is_main: false,
+                    is_func: true,
+                    is_other: false,
+                });
             } else if (tab === "other") {
-                this.$emit("update-page", { is_main:false,is_other: true ,is_func: false });
+                this.$emit("update-page", {
+                    is_main: false,
+                    is_other: true,
+                    is_func: false,
+                });
             }
-            console.log("传递成功")
+            console.log("传递成功");
         },
-    
+
         moveUp() {
             switch (this.activeTab) {
-                case "home":
-                    this.activeTab = "other";
-                    break;
-                case "features":
-                    this.activeTab = "home";
-                    break;
-                case "other":
-                    this.activeTab = "features";
-                    break;
-                default:
-                    break;
+            case "home":
+                this.activeTab = "other";
+                break;
+            case "features":
+                this.activeTab = "home";
+                break;
+            case "other":
+                this.activeTab = "features";
+                break;
+            default:
+                break;
             }
         },
         moveDown() {
             switch (this.activeTab) {
-                case "home":
-                    this.activeTab = "features";
-                    break;
-                case "features":
-                    this.activeTab = "other";
-                    break;
-                case "other":
-                    this.activeTab = "home";
-                    break;
-                default:
-                    break;
+            case "home":
+                this.activeTab = "features";
+                break;
+            case "features":
+                this.activeTab = "other";
+                break;
+            case "other":
+                this.activeTab = "home";
+                break;
+            default:
+                break;
             }
         },
     },
