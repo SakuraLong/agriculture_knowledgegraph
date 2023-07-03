@@ -1,13 +1,13 @@
 <template>
     <div class="shutter" @resize="pageResize">
         <img src="./img/top.png" alt="" class="shutter_top" id="shutter_top" />
-        <div class="shutter_top_container" id="shutter_top_container">
-            <div style="background-color: aqua">小人</div>
-            <div style="background-color: red"></div>
-            <div style="background-color: darkblue">
-                <slot>用户</slot>
+        <div :class="[true ?'shutter_top_container_4block':'shutter_top_container_3block']" id="shutter_top_container">
+            <div>小人</div>
+            <div></div>
+            <div :class="[false ?'shutter_top_container_4block_leftbot':'shutter_top_container_3block_leftbot']" >
+                <slot name="show_child_page">用户</slot>
             </div>
-            <div style="background-color: blue">小人</div>
+            <div v-if="false" style="background-color: blue">小人</div>
         </div>
         <img
             src="./img/bottom.png"
@@ -120,7 +120,7 @@ export default {
     position: absolute;
     right: 550px;
 }
-.shutter_top_container {
+.shutter_top_container_4block {
     position: absolute;
     right: 0%;
     border: 1px solid green;
@@ -134,6 +134,36 @@ export default {
     grid-template-columns: 550px auto;
     grid-template-rows: auto 550px;
     opacity: 0.5;
+}
+.shutter_top_container_3block {
+    position: absolute;
+    right: 0%;
+    border: 1px solid green;
+    width: 80%;
+    height: 100%;
+
+    display: grid;
+    grid:
+        "a a"
+         " ";
+    grid-template-columns: 550px auto;
+    grid-template-rows: auto 550px;
+    opacity: 0.5;
+}
+.shutter_top_container_4block_right{
+    display: block;
+}
+.shutter_top_container_3block_right{
+    display: none;
+}
+.shutter_top_container_3block_leftbot{
+    grid-column-start: 1;
+    grid-column-end:3;
+}
+
+.shutter_top_container_4block_leftbot{
+    grid-column-start: 1;
+    grid-column-end:1;
 }
 @media screen and (max-height: 650px) {
     .shutter_top_container {

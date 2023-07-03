@@ -9,6 +9,10 @@
     font-family: "FZZJ-WHJZTJW";
     src: url("../fonts/FZZJ-WHJZTJW.TTF");
 }
+@font-face {
+    font-family: "ZKKLT";
+    src: url("../fonts/ZKKLT.TTF");
+}
 .login_an-enter-active,
 .login_an-leave-active {
     transition: opacity 0.4s ease;

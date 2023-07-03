@@ -17,7 +17,10 @@
         <personal v-if="page.is_personal" />
         <shower v-if="page.is_func_page" />
     </div>
-    <!-- <shutter /> -->
+
+    <shutter>
+        <template v-slot:show_child_page>123</template>
+    </shutter>
     <transition name="login_an">
         <login v-if="page.is_login" @leaveLogin="leaveLogin" />
     </transition>

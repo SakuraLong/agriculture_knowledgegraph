@@ -1,7 +1,7 @@
 <template>
     <div class="login_comp" onselectstart="return false">
         <div class="login_text">L O G I N</div>
-        <label class="login_label login_label_login" data-text="登录邮箱或是ID">
+        <label class="login_label login_label_login login_label_login_login" data-text="登录邮箱或是ID">
             <input
                 class="login_id login_input"
                 type="text"
@@ -212,11 +212,16 @@ export default {
 };
 </script>
 <style scoped>
+.login_label_login_login{
+    margin-top:80px;
+}
 .login_error,
 .password_error {
+    margin-bottom: 20px;
     pointer-events: all;
-    position: absolute;
-    top: 39%;
+    position: relative;
+    /* position: absolute;
+    top: 39%; */
     color: rgb(144, 119, 149);
     display: flex;
     justify-content: center;
@@ -232,7 +237,7 @@ export default {
     z-index: 10;
 }
 .password_error {
-    top: 60%;
+    /* top: 60%; */
 }
 .login_error::after,
 .password_error::after {
@@ -249,6 +254,7 @@ export default {
     padding-right: 5px;
 }
 .login_login_text {
+    margin-top: 20px;
     cursor:pointer;
     position: relative;
     font-size: 25px;
@@ -281,10 +287,11 @@ export default {
     -webkit-text-stroke: 3px white;
 }
 .login_label_login {
-    margin-top: 30px;
-    margin-bottom: 30px;
+    /* margin-top: 30px;
+    margin-bottom: 30px; */
 }
 .login_comp {
+    /* border: 1px solid red; */
     display: flex;
     justify-content: center;
     align-items: center;

@@ -80,12 +80,13 @@
                 :class="{
                     unlike: password.is_unlike,
                     error: password.is_error,
+                    waiting:password.is_waiting,
                 }"
                 :data-text="password.msg_left"
                 :data-res="password.msg_right"
             ></div>
         </transition>
-        <label class="login_label login_label_regi" data-text="昵称">
+        <!-- <label class="login_label login_label_regi" data-text="昵称">
             <input
                 class="login_id login_input"
                 type="text"
@@ -105,8 +106,11 @@
                 :data-res="name.msg_left"
                 @click="registerSend"
             ></div>
-        </transition>
+        </transition> -->
         <!-- <div class="register_register_text" data-text="注册">注册</div> -->
+        <div class="login_login_text" data-text="注册" @click="sendRegister">
+            注册
+        </div>
     </div>
 </template>
 
@@ -148,6 +152,7 @@ export default {
                 msg_right: "",
                 is_unlike: false,
                 is_error: false,
+                is_waiting:false
             },
             name: {
                 name: "",
@@ -214,11 +219,42 @@ export default {
     methods: {
         sendRegister(){
             // 发送注册请求
-
+            if(!this.register()){
+                return;
+            }else{
+                // 执行注册
+                Connector.test(
+                    this.registerCallback,
+                    this.registerWaiting,
+                    this.registerTimeout,
+                    4000,
+                    true,
+                    1000,
+                    {
+                        success: true,
+                    }
+                );
+            }
+        },
+        registerCallback(){
+            store.state.can_click_button = true;
+        },
+        registerWaiting(is_waiting){
+            this.password.has_error = is_waiting;
+            this.password.is_waiting = is_waiting;
+            if (is_waiting) {
+                store.state.can_click_button = false;
+                this.password.msg_left = "发送中";
+            }
+        },
+        registerTimeout(){
+            store.state.can_click_button = true;
         },
         register() {
             // 父组件调用来进行检查
             // 检查邮箱
+            this.password.is_error = true;
+            this.password.is_unlike = false;
             if (
                 !new Checker(this.email.email, [
                     "is-email",
@@ -228,8 +264,8 @@ export default {
                 ]).check()
             ) {
                 // 检查失败
-                this.name.has_error = true;
-                this.name.msg_left = "注册失败，请检查邮箱";
+                this.password.has_error = true;
+                this.password.msg_left = "注册失败，请检查邮箱";
                 return false;
             }
             // 检查验证码
@@ -241,8 +277,8 @@ export default {
                 ]).check()
             ) {
                 // 检查失败
-                this.name.has_error = true;
-                this.name.msg_left = "注册失败，请检查验证码";
+                this.password.has_error = true;
+                this.password.msg_left = "注册失败，请检查验证码";
                 return false;
             }
             // 检查密码
@@ -257,24 +293,13 @@ export default {
                 this.password.password !== this.password.password_confirm
             ) {
                 // 检查失败
-                this.name.has_error = true;
-                this.name.msg_left = "注册失败，请检查密码";
+                this.password.has_error = true;
+                this.password.msg_left = "注册失败，请检查密码";
                 return false;
             }
-            // 检查昵称
-            if (
-                !new Checker(this.name.name, [
-                    "sql-check",
-                    "no-base-symbols",
-                    "no-null",
-                ]).check()
-            ) {
-                // 检查失败
-                this.name.has_error = true;
-                this.name.msg_left = "注册失败，请检查昵称";
-                return false;
-            }
-            this.name.has_error = false;
+            this.password.has_error = false;
+            this.password.is_error = false;
+            this.password.is_unlike = false;
             return true;
         },
         passwordOnFocus() {
@@ -576,6 +601,42 @@ export default {
 </script>
 
 <style scoped>
+.login_label_regi{
+    margin-bottom: 20px;
+}
+.login_login_text {
+    margin-top: 20px;
+    cursor:pointer;
+    position: relative;
+    font-size: 25px;
+    font-family: Heiti;
+    z-index: 1;
+    color: white;
+    width: 140px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 40px;
+    box-shadow: 1px 1px 5px rgb(217, 149, 230);
+    border: 2px solid rgb(217, 149, 230);
+}
+.login_login_text::after {
+    content: attr(data-text);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    /* color: aqua; */
+    -webkit-text-stroke: 3px rgb(217, 149, 230);
+}
+.login_login_text:hover {
+    background-color: rgb(217, 149, 230);
+    color: rgb(217, 149, 230);
+}
+.login_login_text:hover::after {
+    -webkit-text-stroke: 3px white;
+}
 .register_line {
     pointer-events: all;
     position: relative;
@@ -707,6 +768,7 @@ input::placeholder {
     color: rgba(144, 119, 149, 0.5);
 }
 .login_email_area {
+    position: relative;
     width: 100%;
     display: flex;
     justify-content: center;

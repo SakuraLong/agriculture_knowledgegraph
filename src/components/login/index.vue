@@ -2,51 +2,56 @@
     <div class="login">
         <div class="login_container">
             <img id="login_container_girl_1" src="" alt="" class="login_container_girl_1" draggable="false">
-            <div class="login_area">
-                <div class="login_msg" id="login_msg"  onselectstart="return false">
-                    <div class="login_msg_girl">
-                        <img v-show="!is_password" src="" alt="" class="login_msg_girl_0_0" draggable="false">
-                        <img v-show="is_password" src="" alt="" class="login_msg_girl_0_1" draggable="false">
-                        <img v-show="!is_password" src="" alt="" class="login_msg_girl_0_l_h" draggable="false">
-                        <img v-show="!is_password" src="" alt="" class="login_msg_girl_0_r_h" draggable="false">
-                        <img v-show="is_password" src="" alt="" class="login_msg_girl_0_l_h login_msg_girl_0_l_h_p" draggable="false">
-                        <img v-show="is_password" src="" alt="" class="login_msg_girl_0_r_h login_msg_girl_0_r_h_p" draggable="false">
-                    </div>
-                    <div class="login_msg_title" data-text="农业知识图谱">农业知识图谱</div>
-                    <transition name="login_register" mode="out-in">
-                        <div v-show="is_login" class="login_msg_login">
-                            <div class="msg_login_register" @click="toRegisterArea">
-                                <div class="msg_login_register_text" data-text="没有账号？注册一个！">
-                                    没有账号？注册一个！
+            <transition name="login_register">
+                <div class="login_area" v-if="no_setting">
+                    <div class="login_msg" id="login_msg"  onselectstart="return false">
+                        <div class="login_msg_girl">
+                            <img v-show="!is_password" src="" alt="" class="login_msg_girl_0_0" draggable="false">
+                            <img v-show="is_password" src="" alt="" class="login_msg_girl_0_1" draggable="false">
+                            <img v-show="!is_password" src="" alt="" class="login_msg_girl_0_l_h" draggable="false">
+                            <img v-show="!is_password" src="" alt="" class="login_msg_girl_0_r_h" draggable="false">
+                            <img v-show="is_password" src="" alt="" class="login_msg_girl_0_l_h login_msg_girl_0_l_h_p" draggable="false">
+                            <img v-show="is_password" src="" alt="" class="login_msg_girl_0_r_h login_msg_girl_0_r_h_p" draggable="false">
+                        </div>
+                        <div class="login_msg_title" data-text="农业知识图谱">农业知识图谱</div>
+                        <transition name="login_register" mode="out-in">
+                            <div v-show="is_login" class="login_msg_login">
+                                <div class="msg_login_register" @click="toRegisterArea">
+                                    <div class="msg_login_register_text" data-text="没有账号？注册一个！">
+                                        没有账号？注册一个！
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </transition>
-                    <transition name="login_register" mode="out-in">
-                        <div v-show="is_register" class="login_msg_register">
-                            <div class="login_msg_register_register">
-                                <div class="login_msg_register_register_text" data-text="注册" @click="register">注册</div>
-                                <div>用户协议</div>
-                                <div>隐私政策</div>
-                            </div>
-                            <div class="msg_login_register" @click="toLoginArea">
-                                <div class="msg_login_register_text" data-text="已有账号？登录登录！">
-                                    已有账号？登录登录！
+                        </transition>
+                        <transition name="login_register" mode="out-in">
+                            <div v-show="is_register" class="login_msg_register">
+                                <!-- <div class="login_msg_register_register">
+                                    <div class="login_msg_register_register_text" data-text="注册" @click="register">注册</div>
+                                    <div>用户协议</div>
+                                    <div>隐私政策</div>
+                                </div> -->
+                                <div class="msg_login_register" @click="toLoginArea">
+                                    <div class="msg_login_register_text" data-text="已有账号？登录登录！">
+                                        已有账号？登录登录！
+                                    </div>
                                 </div>
                             </div>
+                        </transition>
+                        <div class="login_msg_return"  @click="leaveLogin" data-text="返回">
+                            返回
+                            <div class="login_msg_return_logo"></div>
                         </div>
-                    </transition>
-                    <div class="login_msg_return"  @click="leaveLogin" data-text="返回">
-                        返回
-                        <div class="login_msg_return_logo"></div>
                     </div>
                 </div>
-            </div>
-            <transition name="login_register" mode="out-in">
-                <loginAC v-show="is_login" class="login_area_container" @passwordOnFocus="passwordOnFocus" @passwordOnBlur="passwordOnBlur"></loginAC>
             </transition>
             <transition name="login_register" mode="out-in">
-                <registerAC v-show="is_register" class="register_area_container" ref="login_register_ele" @passwordOnFocus="passwordOnFocus" @passwordOnBlur="passwordOnBlur"></registerAC>
+                <loginAC v-if="is_login&&no_setting" class="login_area_container" @passwordOnFocus="passwordOnFocus" @passwordOnBlur="passwordOnBlur"></loginAC>
+            </transition>
+            <transition name="login_register" mode="out-in">
+                <registerAC v-if="is_register&&no_setting" class="register_area_container" @passwordOnFocus="passwordOnFocus" @passwordOnBlur="passwordOnBlur"></registerAC>
+            </transition>
+            <transition name="login_register">
+                <personal v-if="!no_setting"></personal>
             </transition>
         </div>
     </div>
@@ -54,10 +59,12 @@
 <script>
 import loginAC from "./components/login/index.vue";
 import registerAC from "./components/register/index.vue";
+import personal from "./components/personal/index.vue";
 import store from "@/store/index.js";
 export default{
     data(){
         return {
+            no_setting:false,
             is_password:false,
             is_login:true,
             is_register:false
@@ -65,17 +72,10 @@ export default{
     },
     components:{
         loginAC,
-        registerAC
+        registerAC,
+        personal
     },
     methods:{
-        register(){
-            if(!this.$refs.login_register_ele.register()){
-                return;
-            }else{
-                // 成功
-                this.$refs.login_register_ele.sendRegister();
-            }
-        },
         leaveLogin(){
             if(!store.state.can_click_button) return;
             this.$emit("leaveLogin");

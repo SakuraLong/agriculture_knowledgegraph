@@ -2,8 +2,14 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import Vue from "vue";
 
-createApp(App).use(store).use(router).mount("#app");
+import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
+
+
+const app = createApp(App).use(store).use(router).use(ElementPlus).mount("#app");
+
 
 document.getElementById("html").onkeydown = (e) => {
     // console.log(e.key);
