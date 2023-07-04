@@ -7,6 +7,8 @@
             class="input_ele"
             type="text"
             v-model="input_msg"
+            :onfocus="focus"
+            :onblur="blur"
         />
     </label>
 </template>
@@ -18,10 +20,13 @@ export default {
             input_msg:""
         };
     },
-    props:["title"],
+    props:["title", "focus", "blur", "msg"],
+    mounted(){
+        if(this.msg!=="") this.input_msg = this.msg;
+    },
     methods:{
-        change(){
-            this.$emit("change", this.input_msg);
+        msgChange(){
+            this.$emit("msgChange", this.input_msg);
         },
         get(){
             return this.input_msg;
@@ -29,7 +34,7 @@ export default {
     },
     watch:{
         "input_msg"(){
-            this.change();
+            this.msgChange();
         }
     }
 };
