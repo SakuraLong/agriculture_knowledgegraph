@@ -1,19 +1,12 @@
 <template>
     <div class="container" id="container" :class="{ blur: page.is_login }">
-        <defaultShutter>
+        <!-- <defaultShutters>
             <template #show_child_page>
-                <div style="display: flex; flex-direction: row">
-                    <div
-                        style="width: 100%; height: 70px; border: 1px solid red"
-                    ></div>
-                    <div>aaa</div>
-                    <div>aaa</div>
-                    <div>aaa</div>
-                    <div>aaa</div>
-                    <div>aaa</div>
+                <div style="width: 500px;">
+
                 </div>
             </template>
-        </defaultShutter>
+        </defaultShutters> -->
         <!-- <div class="main_lottie" id="main_lottie__"></div> -->
         <bg />
         <transition name="slide">
@@ -55,7 +48,7 @@ import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
 import mainBar from "@/components/mainBar/mainBar.vue"; // 主页左侧导航栏
 // import showerBar from "@/components/showerBar/showerBar.vue"; // 功能界面左侧导航栏
 
-import defaultShutter from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
+import defaultShutters from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
 
 // import lottie from "lottie-web";
 // import mainCirle from "@/assets/lottie/light/data1.json";
@@ -91,9 +84,9 @@ export default {
         // functionSubpage,
         // personalSubpage,
         // personalMsgSettingSubpage,
+        // defaultShutters,
         bg,
         mainWord,
-        defaultShutter,
     },
     methods: {
         updatePage(data) {

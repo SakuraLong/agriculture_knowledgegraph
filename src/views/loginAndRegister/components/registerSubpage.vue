@@ -1,7 +1,11 @@
 <template>
     <div class="register_comp" onselectstart="return false">
         <div class="register_text">R E G I S T E R</div>
-        <div class="login_email_area">
+        <registerEmailInput ref="registerEmailInput"></registerEmailInput>
+        <registerPasswordsInput
+            ref="registerPasswordsInput"
+        ></registerPasswordsInput>
+        <!-- <div class="login_email_area">
             <Transition name="login_an">
                 <div
                     v-show="email.is_sended"
@@ -85,7 +89,7 @@
                 :data-text="password.msg_left"
                 :data-res="password.msg_right"
             ></div>
-        </transition>
+        </transition> -->
         <!-- <label class="login_label login_label_regi" data-text="昵称">
             <input
                 class="login_id login_input"
@@ -108,120 +112,52 @@
             ></div>
         </transition> -->
         <!-- <div class="register_register_text" data-text="注册">注册</div> -->
-        <div class="login_login_text" data-text="注册" @click="sendRegister">
-            注册
-        </div>
+        <confirmButton
+            @confirmClick="registerClick"
+            content="登录"
+        ></confirmButton>
     </div>
 </template>
 
 <script>
+import ref from "vue";
 import Checker from "@/assets/js/checker/checker.js";
 import store from "@/store/index.js";
 import Connector from "@/assets/js/connector/connector.js";
+
+import registerEmailInput from "./inputs/registerEmailInput.vue";
+import registerPasswordsInput from "./inputs/registerPasswordsInput.vue";
+import confirmButton from "@/components/buttons/loginAndRegisterButton/confirmButton/confirmButton.vue";
 export default {
+    components: {
+        registerEmailInput,
+        registerPasswordsInput,
+        confirmButton,
+    },
     data() {
         return {
-            is_email: true,
-            email: {
-                is_email: true, // 是email的输入界面
-                is_email_address: false, // 输入的是邮箱地址
-                has_hint: false, // 有提示
-                is_sended: false, // 验证码已经发送
-                email: "", // 输入的邮箱地址
-                sended_email: "", // 上次发送的邮箱地址
-                is_waiting: false, // 等待服务器响应
-                is_error: false, // 前端检查的错误
-                is_res_error: false, // 服务器返回的错误
-                is_finish: false, // 发送完成
-                is_unlike: false, // 验证码发送之后修改了邮箱
-                msg_left: "",
-                msg_right: "",
-            },
-            v_code: {
-                v_code: "",
-                has_error: false,
-                msg_left: "",
-                msg_right: "",
-            },
-            password: {
-                password: "",
-                password_confirm: "",
-                has_error: false,
-                password_has_error: false,
-                msg_left: "",
-                msg_right: "",
-                is_unlike: false,
-                is_error: false,
-                is_waiting:false
-            },
-            name: {
-                name: "",
-                has_error: false,
-                msg_left: "",
-                msg_right: "",
-            },
-            password_confirm: "",
-            is_waiting: false, // 等待服务器响应
-            is_error: false, // 发送有错误
-            is_finish: false, // 发送完成
-            is_unlike: true, // 验证码发送之后修改了邮箱
-            sended_email: "",
+            id: "",
+            email: "",
+            vcode: "",
+            password: "",
         };
     },
-    watch: {
-        "email.email"() {
-            if (!store.state.can_click_button) return;
-            this.email.is_res_error = false;
-            if (
-                new Checker(this.email.email, [
-                    "no-null",
-                    "is-email",
-                    "sql-check",
-                ]).check()
-            ) {
-                if (this.email.sended_email === "") {
-                    this.email.has_hint = true;
-                    this.email.is_email_address = true;
-                    this.email.is_error = false;
-                    this.email.msg_left = "发送验证码";
-                    this.email.msg_right = "";
-                    this.email.is_unlike = false;
-                    this.email.is_finish = false;
-                } else if (
-                    this.email.sended_email === this.email.email &&
-                    this.email.email !== ""
-                ) {
-                    this.email.has_hint = true;
-                    this.email.is_email_address = false;
-                    this.email.is_error = false;
-                    this.email.msg_left = "发送成功";
-                    this.email.msg_right = "重新发送？";
-                    this.email.is_unlike = false;
-                    this.email.is_finish = true;
-                } else {
-                    this.email.has_hint = true;
-                    this.email.is_email_address = false;
-                    this.email.is_error = false;
-                    this.email.msg_left = "邮箱已更改";
-                    this.email.msg_right = "重新发送？";
-                    this.email.is_unlike = true;
-                    this.email.is_finish = false;
-                }
-            } else if (this.email.sended_email === "") {
-                this.email.has_hint = false;
-                this.email.is_email_address = false;
-                this.email.is_unlike = false;
-            } else {
-                this.email.has_hint = false;
-            }
-        },
-    },
+    watch: {},
     methods: {
-        sendRegister(){
+        registerClick() {
+            if (!store.state.can_click_button) return;
             // 发送注册请求
-            if(!this.register()){
+            this.email = this.$refs.registerEmailInput.getEmailOrId()
+                ? this.$refs.registerEmailInput.getEmailOrId().email
+                : false;
+            this.id = this.$refs.registerEmailInput.getEmailOrId()
+                ? this.$refs.registerEmailInput.getEmailOrId().id
+                : false;
+            this.vcode = this.$refs.registerEmailInput.getVCode();
+            this.password = this.$refs.registerPasswordsInput.get();
+            if (!this.email || !this.id || !this.vcode || !this.password) {
                 return;
-            }else{
+            } else {
                 // 执行注册
                 Connector.test(
                     this.registerCallback,
@@ -236,10 +172,10 @@ export default {
                 );
             }
         },
-        registerCallback(){
+        registerCallback() {
             store.state.can_click_button = true;
         },
-        registerWaiting(is_waiting){
+        registerWaiting(is_waiting) {
             this.password.has_error = is_waiting;
             this.password.is_waiting = is_waiting;
             if (is_waiting) {
@@ -247,60 +183,8 @@ export default {
                 this.password.msg_left = "发送中";
             }
         },
-        registerTimeout(){
+        registerTimeout() {
             store.state.can_click_button = true;
-        },
-        register() {
-            // 父组件调用来进行检查
-            // 检查邮箱
-            this.password.is_error = true;
-            this.password.is_unlike = false;
-            if (
-                !new Checker(this.email.email, [
-                    "is-email",
-                    "sql-check",
-                    "no-base-symbols",
-                    "no-zh-Hans",
-                ]).check()
-            ) {
-                // 检查失败
-                this.password.has_error = true;
-                this.password.msg_left = "注册失败，请检查邮箱";
-                return false;
-            }
-            // 检查验证码
-            if (
-                !new Checker(this.v_code.v_code, [
-                    "@length-min=6",
-                    "@length-max=6",
-                    "is-num",
-                ]).check()
-            ) {
-                // 检查失败
-                this.password.has_error = true;
-                this.password.msg_left = "注册失败，请检查验证码";
-                return false;
-            }
-            // 检查密码
-            if (
-                !new Checker(this.password.password, [
-                    "@length-min=6",
-                    "@length-max=20",
-                    "sql-check",
-                    "no-base-symbols",
-                    "no-zh-Hans",
-                ]).check() ||
-                this.password.password !== this.password.password_confirm
-            ) {
-                // 检查失败
-                this.password.has_error = true;
-                this.password.msg_left = "注册失败，请检查密码";
-                return false;
-            }
-            this.password.has_error = false;
-            this.password.is_error = false;
-            this.password.is_unlike = false;
-            return true;
         },
         passwordOnFocus() {
             this.$emit("passwordOnFocus");
@@ -601,12 +485,12 @@ export default {
 </script>
 
 <style scoped>
-.login_label_regi{
+.login_label_regi {
     margin-bottom: 20px;
 }
 .login_login_text {
     margin-top: 20px;
-    cursor:pointer;
+    cursor: pointer;
     position: relative;
     font-size: 25px;
     font-family: Heiti;
