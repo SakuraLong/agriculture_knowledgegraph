@@ -95,7 +95,7 @@ export default {
         // personalMsgSettingSubpage,
         bg,
         mainWord,
-        defaultShutter,
+        // defaultShutter,
     },
     methods: {
         updatePage(data) {
