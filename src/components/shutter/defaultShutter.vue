@@ -37,11 +37,13 @@
 export default {
     props: ["has_right_girl"],
     mounted() {
+        console.log(999888);
         window.addEventListener("resize", this.pageResize);
         this.pageResize();
     },
     methods: {
         pageResize() {
+            console.log(9999);
             // h=714 t_w=812 b_w=288 r=550 550
             // h=442 t_w=502 b_w=178 r=330
             // h=600 r=430 min
@@ -96,7 +98,7 @@ export default {
 </script>
 <style scoped>
 .shutter {
-    pointer-events: none;
+    /* pointer-events: none; */
     display: flex;
     justify-content: center;
     align-items: center;

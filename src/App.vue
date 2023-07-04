@@ -1,6 +1,6 @@
 <template>
     <div class="container" id="container" :class="{ blur: page.is_login }">
-        <defaultShutter>
+        <!-- <defaultShutter>
             <template #show_child_page>
                 <div style="display: flex; flex-direction: row">
                     <div
@@ -13,7 +13,7 @@
                     <div>aaa</div>
                 </div>
             </template>
-        </defaultShutter>
+        </defaultShutter> -->
         <!-- <div class="main_lottie" id="main_lottie__"></div> -->
         <bg />
         <transition name="slide">
@@ -27,13 +27,15 @@
             <!-- <showerBar v-else-if="page.is_func_page" /> -->
         </transition>
 
-        <!-- <transition name="subpage_change" mode="out-in">
+        <transition name="subpage_change" mode="out-in">
             <othersSubpage v-if="page.is_main_page && page.main.is_other" />
-            <functionSubpage v-else-if="page.is_main_page && page.main.is_func" />
+            <functionSubpage
+                v-else-if="page.is_main_page && page.main.is_func"
+            />
             <personalSubpage v-else-if="page.is_personal" />
         </transition>
-        
-        <showerSubpage v-if="page.is_func_page" /> -->
+
+        <showerSubpage v-if="page.is_func_page" />
     </div>
     <transition name="app_subpage" mode="out-in">
         <loginAndRegister v-if="page.is_login" @leaveLogin="leaveLogin" />
@@ -43,26 +45,32 @@
 </template>
 
 <script>
-import login from "@/components/login/index.vue"; // 登录注册组件
-import navBar from "@/components/navBar/index.vue"; // 顶部导航栏组件
-import mainBar from "@/components/mainBar/index.vue"; // 主页左侧导航栏
-import showerBar from "@/components/showerBar/index.vue"; // 功能界面左侧导航栏
-import shower from "@/components/shower/index.vue"; // 功能界面右侧展示区域
-import other from "@/components/other/index.vue"; // 其他--子页面
-import functions from "@/components/funcs/index.vue"; // 功能--子页面
-import personal from "@/components/personal/index.vue"; // 个人信息--子页面
+// 子页面
+import loginAndRegister from "@/views/loginAndRegister/loginAndRegister.vue"; // 登录注册--子页面
+// import showerSubpage from "@/views/showerSubpage/showerSubpage.vue"; // 功能界面右侧展示区域
+import othersSubpage from "@/views/othersSubpage/othersSubpage.vue"; // 其他--子页面
+import functionSubpage from "@/views/functionSubpage/functionSubpage.vue"; // 功能--子页面
+import personalSubpage from "@/views/personalSubpage/personalSubpage.vue"; // 个人信息--子页面
+// import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/personalMsgSettingSubpage.vue"; // 个人信息修改--子页面
+// 组件
+import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
+import mainBar from "@/components/mainBar/mainBar.vue"; // 主页左侧导航栏
+// import showerBar from "@/components/showerBar/showerBar.vue"; // 功能界面左侧导航栏
 
-import shutter from "@/components/shutter/index.vue"; // 个人信息--子页面
+import defaultShutter from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
 
-import lottie from "lottie-web";
-import mainCirle from "@/assets/lottie/light/data1.json";
+// import lottie from "lottie-web";
+// import mainCirle from "@/assets/lottie/light/data1.json";
+
+import bg from "@/components/bg/defaultBg.vue"; // 引入home组件
+import mainWord from "@/components/mainWord/mainWord.vue";
 export default {
     data() {
         return {
             page: {
-                is_main_page: true,
+                is_main_page: false,
                 is_func_page: false,
-                is_personal: false,
+                is_personal: true,
                 is_login: false,
                 main: {
                     is_main: true,
@@ -70,28 +78,36 @@ export default {
                     is_other: false,
                 },
             },
+            login: {
+                is_login: true,
+            },
         };
     },
     components: {
-        login,
+        loginAndRegister,
         navBar,
         mainBar,
         // showerBar,
         // showerSubpage,
-        // othersSubpage,
-        // functionSubpage,
-        // personalSubpage,
+        othersSubpage,
+        functionSubpage,
+        personalSubpage,
         // personalMsgSettingSubpage,
         bg,
         mainWord,
         defaultShutter,
     },
     methods: {
+        updatePage(data) {
+            this.page.main.is_main = data.is_main;
+            this.page.main.is_func = data.is_func;
+            this.page.main.is_other = data.is_other;
+        },
         /**
          * 导航栏点击登录调用的函数
          */
         toLogin() {
-            console.log("999");
+            // console.log("999");
             this.page.is_login = true;
         },
         /**
@@ -102,15 +118,15 @@ export default {
         },
     },
     mounted() {
-        let param = {
-            container: document.getElementById("main_lottie__"), // the dom element that will contain the animation
-            renderer: "svg",
-            loop: true,
-            autoplay: true,
-            animationData: mainCirle,
-            // path:"https://labs.nearpod.com/bodymovin/demo/markus/halloween/markus.json"
-        };
-        lottie.loadAnimation(param);
+        // let param = {
+        //     container: document.getElementById("main_lottie__"), // the dom element that will contain the animation
+        //     renderer: "svg",
+        //     loop: true,
+        //     autoplay: true,
+        //     animationData: mainCirle,
+        //     // path:"https://labs.nearpod.com/bodymovin/demo/markus/halloween/markus.json"
+        // };
+        // lottie.loadAnimation(param);
     },
 };
 </script>
