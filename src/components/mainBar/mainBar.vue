@@ -6,6 +6,7 @@
                     <li
                         :class="{ active: activeTab === 'home' }"
                         @click="setActiveTab('home')"
+                        @mouseenter="move('home')"
                         @keydown.arrow-up.prevent="moveUp"
                         @keydown.arrow-down.prevent="moveDown"
                         @keydown.enter.prevent="setActiveTab(activeTab)"
@@ -21,6 +22,7 @@
                     <li
                         :class="{ active: activeTab === 'features' }"
                         @click="setActiveTab('features')"
+                        @mouseenter="move('features')"
                         @keydown.arrow-up.prevent="moveUp"
                         @keydown.arrow-down.prevent="moveDown"
                         @keydown.enter.prevent="setActiveTab(activeTab)"
@@ -36,6 +38,7 @@
                     <li
                         :class="{ active: activeTab === 'other' }"
                         @click="setActiveTab('other')"
+                        @mouseenter="move( 'other')"
                         @keydown.arrow-up.prevent="moveUp"
                         @keydown.arrow-down.prevent="moveDown"
                         @keydown.enter.prevent="setActiveTab(activeTab)"
@@ -80,6 +83,9 @@ nav li {
     position: relative;
 }
 
+nav li:hover {
+    cursor: pointer;
+}
 .tab-content {
     display: flex;
     align-items: center;
@@ -116,11 +122,27 @@ export default {
     data() {
         return {
             activeTab: "home", // 初始选中的选项
+            initialTab: "home", // 初始存储的页面
         };
     },
+    mounted() {
+        // Add the mouseleave event listener to reset the active tab
+        const mainBar = document.querySelector(".mainBar");
+        mainBar.addEventListener("mouseleave", this.resetActiveTab);
+    },
+    beforeUnmount() {
+        // Remove the mouseleave event listener when the component is unmounted
+        const mainBar = document.querySelector(".mainBar");
+        mainBar.removeEventListener("mouseleave", this.resetActiveTab);
+    },
     methods: {
+        resetActiveTab() {
+            this.activeTab = this.initialTab;
+        },
+
         setActiveTab(tab) {
             this.activeTab = tab;
+            this.initialTab=tab;
             if (tab === "home") {
                 this.$emit("update-page", {
                     is_main: true,
@@ -142,35 +164,37 @@ export default {
             }
             console.log("传递成功");
         },
-
+        move(tab){
+            this.activeTab = tab;
+        },
         moveUp() {
             switch (this.activeTab) {
-            case "home":
-                this.activeTab = "other";
-                break;
-            case "features":
-                this.activeTab = "home";
-                break;
-            case "other":
-                this.activeTab = "features";
-                break;
-            default:
-                break;
+                case "home":
+                    this.activeTab = "other";
+                    break;
+                case "features":
+                    this.activeTab = "home";
+                    break;
+                case "other":
+                    this.activeTab = "features";
+                    break;
+                default:
+                    break;
             }
         },
         moveDown() {
             switch (this.activeTab) {
-            case "home":
-                this.activeTab = "features";
-                break;
-            case "features":
-                this.activeTab = "other";
-                break;
-            case "other":
-                this.activeTab = "home";
-                break;
-            default:
-                break;
+                case "home":
+                    this.activeTab = "features";
+                    break;
+                case "features":
+                    this.activeTab = "other";
+                    break;
+                case "other":
+                    this.activeTab = "home";
+                    break;
+                default:
+                    break;
             }
         },
     },
