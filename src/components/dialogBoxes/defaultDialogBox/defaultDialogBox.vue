@@ -1,13 +1,14 @@
 <template>
     <div
         class="dialog_container"
-        id="dialog_container"
         :class="{
             dialog_left: is_left,
             dialog_right: is_right,
         }"
     >
-        <slot></slot>
+        <div class="dialog_text">
+            <slot></slot>
+        </div>
     </div>
 </template>
 <script>
@@ -25,6 +26,7 @@ export default {
 </script>
 <style scoped>
 .dialog_container {
+    /* display: flex; */
     margin: 10px 30px 10px 30px;
     padding: 10px 10px 10px 15px;
     font-size: 25px;
@@ -32,10 +34,15 @@ export default {
     position: relative;
     border: 3px solid rgb(230, 146, 255);
     z-index: 1;
-    max-width: 260px;
+    min-width: 100px;
+    max-width: 330px;
     min-height: 33px;
-    height: auto;
+    /* height: auto; */
     word-wrap:break-word
+}
+.dialog_text{
+    width: auto;
+    height: auto;
 }
 .dialog_right{
     border-radius: 20px 0px 20px 20px;

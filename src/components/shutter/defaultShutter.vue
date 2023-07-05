@@ -2,6 +2,7 @@
     <div class="shutter" @resize="pageResize">
         <img src="./img/top.png" alt="" class="shutter_top" id="shutter_top" />
         <div
+            class="pointer"
             :class="[
                 !has_right_girl
                     ? 'shutter_top_container_4block'
@@ -110,6 +111,9 @@ export default {
     z-index: 9999;
     border: 1px solid red;
     min-height: 600px;
+}
+.pointer{
+    pointer-events: all;
 }
 .shutter_top {
     border: 2px solid red;
