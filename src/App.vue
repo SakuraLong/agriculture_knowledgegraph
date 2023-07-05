@@ -1,5 +1,5 @@
 <template>
-    <div class="container" id="container" :class="{ blur: page.is_login }">
+    <div class="container" id="container" :class="{ blur: page.is_login||page.is_personal }">
         <!-- <defaultShutters>
             <template #show_child_page>
                 <div style="width: 500px;">
@@ -30,7 +30,7 @@
     </div>
     <transition name="app_subpage" mode="out-in">
         <loginAndRegister v-if="page.is_login" @leaveLogin="leaveLogin" />
-        <!-- <personalMsgSettingSubpage v-else-if="page.is_personal" /> -->
+        <personalMsgSettingSubpage v-else-if="page.is_personal" @leaveSetting="leaveSetting" />
     </transition>
     <!-- 这里还有修改密码和换绑邮箱 -->
 </template>
@@ -42,7 +42,7 @@ import loginAndRegister from "@/views/loginAndRegister/loginAndRegister.vue"; //
 // import othersSubpage from "@/views/othersSubpage/othersSubpage.vue"; // 其他--子页面
 // import functionSubpage from "@/views/functionSubpage/functionSubpage.vue"; // 功能--子页面
 // import personalSubpage from "@/views/personalSubpage/personalSubpage.vue"; // 个人信息--子页面
-// import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/personalMsgSettingSubpage.vue"; // 个人信息修改--子页面
+import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/personalMsgSettingSubpage.vue"; // 个人信息修改--子页面
 // 组件
 import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
 import mainBar from "@/components/mainBar/mainBar.vue"; // 主页左侧导航栏
@@ -61,7 +61,7 @@ export default {
             page: {
                 is_main_page: true,
                 is_func_page: false,
-                is_personal: false,
+                is_personal: true,
                 is_login: false,
                 main: {
                     is_main: true,
@@ -83,7 +83,7 @@ export default {
         // othersSubpage,
         // functionSubpage,
         // personalSubpage,
-        // personalMsgSettingSubpage,
+        personalMsgSettingSubpage,
         // defaultShutters,
         bg,
         mainWord,
@@ -99,13 +99,16 @@ export default {
          */
         toLogin() {
             // console.log("999");
-            this.page.is_login = true;
+            this.page.is_personal = true;
         },
         /**
          * 登录组件点击退出调用的函数
          */
         leaveLogin() {
             this.page.is_login = false;
+        },
+        leaveSetting() {
+            this.page.is_personal = false;
         },
     },
     mounted() {

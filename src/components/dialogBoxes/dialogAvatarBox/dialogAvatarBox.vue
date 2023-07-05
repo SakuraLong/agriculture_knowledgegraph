@@ -1,0 +1,30 @@
+<template>
+    <div class="dialog_avatar_box">
+        <defaultAvatar v-if="is_left"></defaultAvatar>
+        <defaultDialogBox :is_left="is_left" :is_right="is_right">
+            {{ content }}
+        </defaultDialogBox>
+        <defaultAvatar v-if="is_right"></defaultAvatar>
+    </div>
+</template>
+
+<script>
+import defaultAvatar from "@/components/avatar/defaultAvatar.vue";
+import defaultDialogBox from "../defaultDialogBox/defaultDialogBox.vue";
+export default {
+    components:{
+        defaultAvatar,
+        defaultDialogBox
+    },
+    props:["content", "is_left", "is_right"]
+};
+</script>
+
+<style scoped>
+.dialog_avatar_box{
+    border: 1px solid red;
+    display: flex;
+    width: auto;
+    flex-direction: row;
+}
+</style>
