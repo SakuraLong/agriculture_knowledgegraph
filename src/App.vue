@@ -13,7 +13,7 @@
             <mainWord v-if="page.main.is_main" :key="page.main.is_main" />
         </transition>
 
-        <navBar @toLogin="toLogin" />
+        <navBar @toLogin="avatarClick" />
 
         <transition name="bar_change" mode="out-in">
             <mainBar v-if="page.is_main_page" @update-page="updatePage" />
@@ -29,8 +29,8 @@
         <showerSubpage v-if="page.is_func_page" /> -->
     </div>
     <transition name="app_subpage" mode="out-in">
-        <loginAndRegister v-if="page.is_login" @leaveLogin="leaveLogin" />
-        <personalMsgSettingSubpage v-else-if="page.is_personal" @leaveSetting="leaveSetting" />
+        <personalMsgSettingSubpage v-if="page.is_personal" @leaveSetting="leaveSetting" />
+        <loginAndRegister v-else-if="page.is_login" @leaveLogin="leaveLogin" />
     </transition>
     <!-- 这里还有修改密码和换绑邮箱 -->
 </template>
@@ -55,13 +55,19 @@ import defaultShutters from "@/components/shutter/defaultShutter.vue"; // 个人
 
 import bg from "@/components/bg/defaultBg.vue"; // 引入home组件
 import mainWord from "@/components/mainWord/mainWord.vue";
+
+import Code from "@/assets/js/code/code.js";
+import CodeConfig from "@/assets/js/code/config.js";
+import Storage from "@/assets/js/storage/storage.js";
+
+import util from "@/assets/js/util.js";
 export default {
     data() {
         return {
             page: {
                 is_main_page: true,
                 is_func_page: false,
-                is_personal: true,
+                is_personal: false,
                 is_login: false,
                 main: {
                     is_main: true,
@@ -72,6 +78,9 @@ export default {
             login: {
                 is_login: true,
             },
+            user:{
+                is_login:false
+            }
         };
     },
     components: {
@@ -93,13 +102,18 @@ export default {
             this.page.main.is_main = data.is_main;
             this.page.main.is_func = data.is_func;
             this.page.main.is_other = data.is_other;
+
+            this.page.is_login = !this.page.is_login;
         },
         /**
          * 导航栏点击登录调用的函数
          */
-        toLogin() {
+        avatarClick() {
             // console.log("999");
-            this.page.is_personal = true;
+            this.page.is_personal = this.user.is_login ? true : false;
+            this.page.is_login = !this.user.is_login ? true : false;
+            console.log(this.user.is_login);
+            console.log(this.page);
         },
         /**
          * 登录组件点击退出调用的函数
@@ -109,7 +123,26 @@ export default {
         },
         leaveSetting() {
             this.page.is_personal = false;
+            console.log("leaveSetting");
         },
+        
+    },
+    created(){
+        // console.log(Code.CryptoJS.encrypt("asca87283r23y09c09ywch89y29fh"));
+        let user_msg = "";
+        try{
+            user_msg = JSON.parse(Code.CryptoJS.decrypt(Storage.get(0, "USER_MSG",  Code.CryptoJS.encrypt("{}"))));
+        }catch{
+            user_msg = "";
+        }
+        this.user.is_login = Code.CryptoJS.decrypt(Storage.get(0, "IS_LOGIN", Code.CryptoJS.encrypt("false"))) === "true" ? true : false;
+        if(!util.checkIntegrality(user_msg)){
+            Storage.set(0, "IS_LOGIN", Code.CryptoJS.encrypt("false"));
+            util.userMsgInit(); // 用户信息初始化
+            this.user.is_login = false;
+        }else{
+            // 执行自动登录
+        }
     },
     mounted() {
         // let param = {
