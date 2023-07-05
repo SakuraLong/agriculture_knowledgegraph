@@ -8,140 +8,55 @@
             </div>
             <div class="container_son content">
                 <div class="content_top">
-                    
+                    <batteryElement
+                        class="battery_element"
+                        battery_width="30"
+                    ></batteryElement>
                 </div>
                 <div class="content_body">
-                    <dialogAvatarBox is_left=true :content="dailog.name.default"></dialogAvatarBox>
+                    <dialogAvatarBox
+                        is_left="true"
+                        :content="dailog.name.default"
+                    ></dialogAvatarBox>
                     <div class="content_ele">
-                        <borderInput title="昵称" :msg="dailog.name.name_show"></borderInput>
+                        <borderInput
+                            title="昵称"
+                            :msg="dailog.name.name_show"
+                        ></borderInput>
                     </div>
-                    <dialogAvatarBox is_left=true :content="dailog.avatar.default"></dialogAvatarBox>
-                    <dialogAvatarBox is_left=true :content="dailog.born.default"></dialogAvatarBox>
-                    <dialogAvatarBox is_left=true :content="dailog.sex.default"></dialogAvatarBox>
-                    <dialogAvatarBox is_left=true :content="dailog.occu.default"></dialogAvatarBox>
+                    <dialogAvatarBox
+                        is_left="true"
+                        :content="dailog.avatar.default"
+                    ></dialogAvatarBox>
+                    <dialogAvatarBox
+                        is_left="true"
+                        :content="dailog.born.default"
+                    ></dialogAvatarBox>
+                    <dialogAvatarBox
+                        is_left="true"
+                        :content="dailog.sex.default"
+                    ></dialogAvatarBox>
+                    <dialogAvatarBox
+                        is_left="true"
+                        :content="dailog.occu.default"
+                    ></dialogAvatarBox>
                 </div>
                 <div class="content_bottom">
                     <transition name="opacity400">
-                        <linePrompt class="line_prompt" :data_left="line_prompt.msg" v-if="line_prompt.msg"></linePrompt>
+                        <linePrompt
+                            class="line_prompt"
+                            :data_left="line_prompt.msg"
+                            v-if="line_prompt.msg"
+                        ></linePrompt>
                     </transition>
                 </div>
             </div>
             <div class="container_son bottom">
-                <div class="exit_text" data-text="退出" @click="exit">退出</div>
+                <div class="exit_text" data-text="退出" @click="leaveSetting">退出</div>
                 <div class="save_text" data-text="保存">保存</div>
             </div>
         </div>
     </div>
-    <!-- <div class="personal_container">
-        <div class="personal_msg_setting" data-text="个人信息设置">
-            个人信息设置
-        </div>
-        <div class="setting_container">
-            <div class="setting_name">
-                <div class="dailog_box dailog_left">
-                    <div class="dailog_avatar_container">
-                        <avatar
-                            class="dailog_avatar"
-                            :setBackgroundImageUrl="avatar.right"
-                        ></avatar>
-                    </div>
-                    <dailogBox is_left="true">该怎么称呼你呢？</dailogBox>
-                </div>
-                <label class="login_label" data-text="昵称">
-                    <input
-                        class="login_input personal_input"
-                        type="text"
-                        v-model="personal.name.name"
-                        placeholder="请输入昵称"
-                    />
-                </label>
-            </div>
-            <div class="setting_avatar">
-                <div class="dailog_box dailog_left">
-                    <div class="dailog_avatar_container">
-                        <avatar
-                            class="dailog_avatar"
-                            :setBackgroundImageUrl="avatar.left"
-                        ></avatar>
-                    </div>
-                    <dailogBox is_left="true">设置一个头像叭？</dailogBox>
-                </div>
-            </div>
-            <div class="setting_born">
-                <div class="dailog_box dailog_left">
-                    <div class="dailog_avatar_container">
-                        <avatar
-                            class="dailog_avatar"
-                            :setBackgroundImageUrl="avatar.right"
-                        ></avatar>
-                    </div>
-                    <dailogBox is_left="true"
-                        >希望在什么时候为你送上生日祝福？</dailogBox
-                    >
-                    <el-date-picker
-                        v-model="value1"
-                        type="date"
-                        placeholder="Pick a day"
-                        :size="size"
-                        value-format="YYYY-MM-DD"
-                    />
-                </div>
-                <div>
-                    ssss
-                    <datePicker v-model="personal.born.born"></datePicker>
-                </div>
-            </div>
-            <div class="setting_sex">
-                <div class="dailog_box dailog_left">
-                    <div class="dailog_avatar_container">
-                        <avatar
-                            class="dailog_avatar"
-                            :setBackgroundImageUrl="avatar.left"
-                        ></avatar>
-                    </div>
-                    <dailogBox is_left="true"
-                        >方便告诉我们你的性别吗？</dailogBox
-                    >
-                </div>
-                <div></div>
-            </div>
-            <div class="setting_occu">
-                <div class="dailog_box dailog_left">
-                    <div class="dailog_avatar_container">
-                        <avatar
-                            class="dailog_avatar"
-                            :setBackgroundImageUrl="avatar.right"
-                        ></avatar>
-                    </div>
-                    <dailogBox is_left="true"
-                        >方便告诉我们你的职业吗？</dailogBox
-                    >
-                </div>
-                <div>方便告诉我们你的职业吗？</div>
-            </div>
-            <div class="setting_confirm">
-                <div class="dailog_box dailog_left">
-                    <div class="dailog_avatar_container">
-                        <avatar
-                            class="dailog_avatar"
-                            :setBackgroundImageUrl="avatar.left"
-                        ></avatar>
-                    </div>
-                    <dailogBox is_left="true"
-                        >以上做为你的个人信息保存吗？</dailogBox
-                    >
-                </div>
-                <div>方便告诉我们你的职业吗？</div>
-            </div>
-        </div>
-        <div
-            onselectstart="return false"
-            class="personal_msg_setting jump"
-            data-text="跳过"
-        >
-            跳过
-        </div>
-    </div> -->
 </template>
 <script>
 import Checker from "@/assets/js/checker/checker.js";
@@ -150,55 +65,48 @@ import dialogAvatarBox from "@/components/dialogBoxes/dialogAvatarBox/dialogAvat
 import borderInput from "@/components/inputs/borderInput/borderInput.vue";
 import linePrompt from "@/components/prompts/line/linePrompt.vue";
 import store from "@/store/index.js";
+import batteryElement from "./components/batteryElement.vue";
+import Code from "@/assets/js/code/code.js";
+import Storage from "@/assets/js/storage/storage.js";
+import util from "@/assets/js/util.js";
 export default {
     data() {
         return {
-            radio1:"",
-            battery: {
-                level: "",
-                charging: "",
+            dailog: {
+                name: {
+                    name: "",
+                    name_show: "",
+                    default: "希望我们怎么称呼你呢？",
+                },
+                avatar: {
+                    default: "设置一个头像叭？",
+                },
+                born: {
+                    default: "希望在什么时候为你送上生日祝福？",
+                },
+                sex: {
+                    default: "方便告诉我们你的性别吗？",
+                },
+                occu: {
+                    default: "方便告诉我们你的职业吗？",
+                },
             },
-            dailog:{
-                name:{
-                    name:"",
-                    name_show:"",
-                    default:"希望我们怎么称呼你呢？"
-                },
-                avatar:{
-                    default:"设置一个头像叭？"
-                },
-                born:{
-                    default:"希望在什么时候为你送上生日祝福？"
-                },
-                sex:{
-                    default:"方便告诉我们你的性别吗？"
-                },
-                occu:{
-                    default:"方便告诉我们你的职业吗？"
-                }
+            line_prompt: {
+                msg: "",
             },
-            line_prompt:{
-                msg:""
-            }
         };
     },
+    created() {
+        // 检查登录情况
+        let user_msg = JSON.parse(Code.CryptoJS.decrypt(Storage.get(0, "USER_MSG",  Code.CryptoJS.encrypt("{}"))));
+        let is_login = Code.CryptoJS.decrypt(Storage.get(0, "IS_LOGIN", Code.CryptoJS.encrypt("false")));
+        if(!util.checkIntegrality(user_msg)||is_login==="false"){
+            Storage.set(0, "IS_LOGIN", Code.CryptoJS.encrypt("false"));
+            // this.eleaveSettingxit();
+        }
+    },
     mounted() {
-        let ele = this;
-        navigator.getBattery().then(function (battery) {
-            ele.updateBatteryStatus(battery);
-            battery.addEventListener("chargingchange", function () {
-                ele.updateBatteryStatus(battery);
-            });
-            battery.addEventListener("levelchange", function () {
-                ele.updateBatteryStatus(battery);
-            });
-            battery.addEventListener("chargingtimechange", function () {
-                ele.updateBatteryStatus(battery);
-            });
-            battery.addEventListener("dischargingtimechange", function () {
-                ele.updateBatteryStatus(battery);
-            });
-        });
+        
     },
     components: {
         // avatar,
@@ -207,37 +115,17 @@ export default {
         // calendar
         dialogAvatarBox,
         borderInput,
-        linePrompt
+        linePrompt,
+        batteryElement,
     },
     methods: {
-        updateBatteryStatus(battery) {
-            let batteryLevel = battery.level * 100;
-            let batteryCharging = battery.charging ? "Yes" : "No";
-            let batteryTimeRemaining = battery.charging
-                ? "Calculating…"
-                : this.formatTime(battery.dischargingTime);
-            this.battery.level = batteryLevel.toFixed(0);
-            this.battery.charging = batteryCharging;
-            // console.log(batteryTimeRemaining);
-        },
-        formatTime(seconds) {
-            let hours = Math.floor(seconds / 3600);
-            let minutes = Math.floor((seconds - hours * 3600) / 60);
-            return hours + " hours, " + minutes + " minutes";
-        },
-        exit(){
+        leaveSetting() {
+            console.log("leaveSetting");
             if (!store.state.can_click_button) return;
             this.$emit("leaveSetting");
-        }
-    },
-    watch: {
-        "battery.level"() {
-            // 监控电池电量
-        },
-        "battery.charging"() {
-            // 监控充电情况
         },
     },
+    watch: {},
 };
 </script>
 <style scoped>
@@ -295,13 +183,16 @@ export default {
     font-size: 30px;
     z-index: 1;
 }
-.exit_text,.save_text{
+.exit_text,
+.save_text {
     cursor: pointer;
     margin: 0px 10px 0px 10px;
     padding: 0px 5px 0px 5px;
 }
-.exit_text:hover,.save_text:hover{
-    box-shadow: 0px 0px 5px rgba(230, 146, 255, 0.8), inset 0px 0px 5px rgba(230, 146, 255, 0.8);
+.exit_text:hover,
+.save_text:hover {
+    box-shadow: 0px 0px 5px rgba(230, 146, 255, 0.8),
+        inset 0px 0px 5px rgba(230, 146, 255, 0.8);
 }
 .title_text::after,
 .exit_text::after,
@@ -316,17 +207,17 @@ export default {
     -webkit-text-stroke: 3px rgba(230, 146, 255, 0.5);
 }
 .content_top,
-.content_bottom{
+.content_bottom {
     width: 100%;
     height: 5%;
     border: 1px solid red;
 }
-.content_bottom{
+.content_bottom {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.content_body{
+.content_body {
     width: calc(100% - 50px);
     height: 90%;
     /* border: 1px solid rgb(0, 255, 4); */
@@ -356,15 +247,19 @@ export default {
 .content_body::-webkit-scrollbar-thumb:window-inactive {
     background: rgba(255, 0, 0, 0.4);
 }
-.content_ele{
+.content_ele {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.line_prompt{
+.line_prompt {
     position: relative;
     top: 5px;
     width: 300px;
+}
+.battery_element {
+    position: absolute;
+    right: 3%;
 }
 </style>
