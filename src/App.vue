@@ -1,12 +1,12 @@
 <template>
     <div class="container" id="container" :class="{ blur: page.is_login }">
-        <!-- <defaultShutters>
+        <defaultShutters has_right_girl="true">
             <template #show_child_page>
-                <div style="width: 500px;">
-
-                </div>
+                <!-- <aboutSubpage></aboutSubpage> -->
+                <!-- <languageSubpage id="testqaq"></languageSubpage> -->
+                <threeSubpage></threeSubpage>
             </template>
-        </defaultShutters> -->
+        </defaultShutters>
         <!-- <div class="main_lottie" id="main_lottie__"></div> -->
         <bg />
         <transition name="slide">
@@ -55,6 +55,7 @@ import defaultShutters from "@/components/shutter/defaultShutter.vue"; // 个人
 
 import bg from "@/components/bg/defaultBg.vue"; // 引入home组件
 import mainWord from "@/components/mainWord/mainWord.vue";
+import threeSubpage from "@/views/othersSubpage/components/threeSubpage.vue";
 export default {
     data() {
         return {
@@ -84,9 +85,12 @@ export default {
         // functionSubpage,
         // personalSubpage,
         // personalMsgSettingSubpage,
-        // defaultShutters,
+        defaultShutters,
         bg,
         mainWord,
+        // languageSubpage,
+        // aboutSubpage,
+        threeSubpage,
     },
     methods: {
         updatePage(data) {
@@ -202,4 +206,5 @@ nav a.router-link-exact-active {
 .slide-leave-active {
     position: absolute;
 }
+
 </style>
