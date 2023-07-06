@@ -1,10 +1,10 @@
 <template>
     <div style="display: flex;justify-content: center;position: relative;width:100%;height:100%;left:0;top:0;">
-        <!-- <languageSubpage></languageSubpage> -->
+        <languageSubpage></languageSubpage>
         <!-- <aboutSubpage></aboutSubpage> -->
-        <div style="position: relative;top:0;">
+        <!-- <div style="position: relative;top:0;">
 
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -18,8 +18,8 @@ export default {
         };
     },
     components: {
-        // languageSubpage,
-        // aboutSubpage,
+        languageSubpage,
+        aboutSubpage,
     }
 };
 </script>

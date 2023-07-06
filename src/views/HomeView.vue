@@ -1,12 +1,10 @@
 <template>
     <div class="container" id="container" :class="{ blur: page.is_login||page.is_personal }">
-        <!-- <defaultShutters>
+        <defaultShutters has_right_girl="true">
             <template #show_child_page>
-                <div style="width: 500px;">
-
-                </div>
+                <threeSubpage></threeSubpage>
             </template>
-        </defaultShutters> -->
+        </defaultShutters>
         <!-- <div class="main_lottie" id="main_lottie__"></div> -->
         <!-- <router-view></router-view> -->
         <bg />
@@ -48,7 +46,7 @@ import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/persona
 import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
 import mainBar from "@/components/mainBar/mainBar.vue"; // 主页左侧导航栏
 // import showerBar from "@/components/showerBar/showerBar.vue"; // 功能界面左侧导航栏
-
+import threeSubpage from "@/views/othersSubpage/components/threeSubpage.vue";
 import defaultShutters from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
 
 // import lottie from "lottie-web";
@@ -94,9 +92,10 @@ export default {
         // functionSubpage,
         // personalSubpage,
         personalMsgSettingSubpage,
-        // defaultShutters,
+        defaultShutters,
         bg,
         mainWord,
+        threeSubpage,
     },
     methods: {
         updatePage(data) {
