@@ -27,6 +27,9 @@ const encrypt = (word, key_str) => {
     var key = CryptoJS.enc.Utf8.parse(key_str);
     var srcs = CryptoJS.enc.Utf8.parse(word);
     var encrypted = CryptoJS.AES.encrypt(srcs, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
+    console.log(key);
+    console.log(srcs);
+    console.log(encrypted);
     return encrypted.toString();
 };
 /**
