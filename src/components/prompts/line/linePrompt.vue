@@ -1,5 +1,6 @@
 <template>
     <div
+        v-opacity="opacity"
         class="line_prompts"
         :class="{
             has_left: data_left,
@@ -16,9 +17,31 @@
 </template>
 
 <script>
+const opacity = {
+    created: (el, binding) => {
+        if(binding.value){
+            el.style.opacity = "1";
+        }else{
+            el.style.opacity = "0";
+        }
+    },
+    updated:(el, binding) => {
+        if(binding.value===binding.oldValue){
+            return;
+        }else if(binding.value){
+            el.style.animationName = "opacity01400";
+        }else{
+            el.style.animationName = "opacity10400";
+        }
+    },
+};
 export default {
+    directives:{
+        opacity
+    },
     data() {
         return {
+            test:"333",
             theme: {
                 default: true,
                 error: false,
@@ -71,7 +94,7 @@ export default {
             }
         },
     },
-    props: ["data_left", "data_right", "type"],
+    props: ["data_left", "data_right", "type", "opacity"],
 };
 </script>
 
@@ -88,11 +111,15 @@ export default {
     font-family: Heiti;
     height: 0px;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     /* border: 1px solid rgb(255, 61, 61); */
     background-color: white;
     font-size: 17px;
     z-index: 10;
+
+    animation: none;
+    animation-duration: 400ms;
+    animation-fill-mode: forwards;
 }
 .default_theme,
 .waiting {
@@ -143,6 +170,7 @@ export default {
     right: 5%;
 }
 .waiting::before {
+    visibility: visible;
     content: " ";
     width: 6px;
     height: 6px;
@@ -170,6 +198,20 @@ export default {
     100% {
         left: 99%;
         width: 6px;
+    }
+}
+@keyframes opacity01400 {
+    from{
+        opacity: 0;
+    }to{
+        opacity: 1;
+    }
+}
+@keyframes opacity10400 {
+    from{
+        opacity: 1;
+    }to{
+        opacity: 0;
     }
 }
 </style>

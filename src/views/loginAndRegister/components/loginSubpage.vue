@@ -64,9 +64,9 @@ export default {
 
             this.login(id_email, password);
         },
-        login(login_check, is_id, password_check) {
-            console.log(login_check);
-            console.log(password_check);
+        login(id_email, password, ) {
+            console.log(id_email);
+            console.log(password);
             Connector.send(
                 [1, 2, 3],
                 "register",
@@ -99,8 +99,9 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: calc(100% - 20px);
     height: 50%;
+    padding-top: 20px;
 }
 .login_comp {
     display: flex;
