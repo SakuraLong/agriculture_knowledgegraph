@@ -1,32 +1,7 @@
 <template>
     <div class="container" id="container" :class="{ blur: page.is_login }">
-        <defaultShutter>
-            <template #show_child_page>
-                <div style="display: flex; flex-direction: row">
-                    <div
-                        style="width: 100%; height: 70px; border: 1px solid red"
-                    ></div>
-                    <div>aaa</div>
-                    <div>aaa</div>
-                    <div>aaa</div>
-                    <div>aaa</div>
-                    <div>aaa</div>
-                </div>
-            </template>
-        </defaultShutter>
-        <!-- <div class="main_lottie" id="main_lottie__"></div> -->
-        <bg />
-        <transition name="slide">
-            <mainWord v-if="page.main.is_main" :key="page.main.is_main" />
-        </transition>
 
-        <navBar @toLogin="toLogin" />
-
-        <transition name="bar_change" mode="out-in">
-            <mainBar v-if="page.is_main_page" @update-page="updatePage" />
-            <!-- <showerBar v-else-if="page.is_func_page" /> -->
-        </transition>
-
+        <avatarCropping></avatarCropping>
         <!-- <transition name="subpage_change" mode="out-in">
             <othersSubpage v-if="page.is_main_page && page.main.is_other" />
             <functionSubpage v-else-if="page.is_main_page && page.main.is_func" />
@@ -54,6 +29,7 @@ import loginAndRegister from "@/views/loginAndRegister/loginAndRegister.vue"; //
 import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
 import mainBar from "@/components/mainBar/mainBar.vue"; // 主页左侧导航栏
 // import showerBar from "@/components/showerBar/showerBar.vue"; // 功能界面左侧导航栏
+import avatarCropping from "@/components/avatarCropping/avatarCropping.vue";
 
 import defaultShutter from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
 
@@ -94,6 +70,7 @@ export default {
         bg,
         mainWord,
         defaultShutter,
+        avatarCropping,
     },
     methods: {
         updatePage(data) {
