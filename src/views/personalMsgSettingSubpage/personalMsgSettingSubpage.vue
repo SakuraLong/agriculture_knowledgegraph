@@ -59,8 +59,8 @@
     </div>
 </template>
 <script>
-import Checker from "@/assets/js/checker/checker.js";
-import { ref } from "vue";
+// import Checker from "@/assets/js/checker/checker.js";
+// import { ref } from "vue";
 import dialogAvatarBox from "@/components/dialogBoxes/dialogAvatarBox/dialogAvatarBox.vue";
 import borderInput from "@/components/inputs/borderInput/borderInput.vue";
 import linePrompt from "@/components/prompts/line/linePrompt.vue";

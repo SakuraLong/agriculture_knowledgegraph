@@ -7,14 +7,12 @@
             :focus="onFoucs"
             :blur="onBlur"
         ></borderInput>
-        <transition name="opacity400">
-            <linePrompt
-                v-if="error"
-                style="width: 260px"
-                :data_left="error"
-                type="error"
-            ></linePrompt>
-        </transition>
+        <linePrompt
+            :opacity="error"
+            style="width: 260px"
+            :data_left="error"
+            type="error"
+        ></linePrompt>
     </div>
 </template>
 
