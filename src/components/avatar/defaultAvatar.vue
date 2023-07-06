@@ -18,11 +18,13 @@ export default{
 </script>
 <style scoped>
 .avatar{
-    width: 45px;
-    height: 45px;
+    margin: 10px;
+    width: 50px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+    /* border: 1px solid red; */
 }
 .nav_avatar_img{
     pointer-events: all;
