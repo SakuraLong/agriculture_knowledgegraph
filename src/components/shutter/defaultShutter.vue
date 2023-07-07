@@ -18,8 +18,10 @@
                         ? 'shutter_top_container_4block_leftbot'
                         : 'shutter_top_container_3block_leftbot',
                 ]"
-                style="border: 1px solid red"
+                style="border: 1px solid red;"
             >
+                <!-- <p>{{ t("message.save") }}</p>
+                <button @click="change">change</button> -->
                 <slot name="show_child_page">用户</slot>
             </div>
             <div v-if="has_right_girl" style="border: 1px solid red">
@@ -95,9 +97,20 @@ export default {
     },
 };
 </script>
+<script setup>
+import { useI18n } from "vue-i18n";
+const { t, locale } = useI18n();
+let change = () => {
+    if (locale.value === "en") {
+        locale.value = "ch";
+    } else {
+        locale.value = "en";
+    }
+};
+</script>
 <style scoped>
 .shutter {
-    pointer-events: none;
+    pointer-events: all;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -168,11 +181,17 @@ export default {
 .shutter_top_container_3block_leftbot {
     grid-column-start: 1;
     grid-column-end: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .shutter_top_container_4block_leftbot {
     grid-column-start: 1;
     grid-column-end: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 @media screen and (max-height: 650px) {
     .shutter_top_container {
