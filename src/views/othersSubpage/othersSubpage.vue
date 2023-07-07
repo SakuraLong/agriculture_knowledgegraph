@@ -1,35 +1,127 @@
 <template>
-    <div>
-        <el-menu
-    :default-active="activeIndex2"
-    class="el-menu-demo"
-    mode="horizontal"
-    background-color="#545c64"
-    text-color="#fff"
-    active-text-color="#ffd04b"
-    @select="handleSelect"
-  >
-        <el-menu-item index="1">Processing Center</el-menu-item>
-    <el-sub-menu index="2">
-      <template #title>Workspace</template>
-      <el-menu-item index="2-1">item one</el-menu-item>
-      <el-menu-item index="2-2">item two</el-menu-item>
-      <el-menu-item index="2-3">item three</el-menu-item>
-      <el-sub-menu index="2-4">
-        <template #title>item four</template>
-        <el-menu-item index="2-4-1">item one</el-menu-item>
-        <el-menu-item index="2-4-2">item two</el-menu-item>
-        <el-menu-item index="2-4-3">item three</el-menu-item>
-      </el-sub-menu>
-    </el-sub-menu>
-    <el-menu-item index="3" disabled>Info</el-menu-item>
-    <el-menu-item index="4">Orders</el-menu-item>
-  </el-menu>
+    <div style="position: relative; width: 100%; height: 100%; left: 0; top: 0;">
+        <div class="subpageSelect">
+            <button
+                class="subpage_isSelected"
+                id="subpage_button0"
+                @click="changeSubButton(0)"
+            >
+                <div class="button_text" data-text="语言">语言</div>
+            </button>
+            <button
+                class="subpage_unSelected"
+                id="subpage_button1"
+                @click="changeSubButton(1)"
+            >
+                <div class="button_text" data-text="关于我们">关于我们</div>
+            </button>
+            <button
+                class="subpage_unSelected"
+                id="subpage_button2"
+                @click="changeSubButton(2)"
+            >
+                <div class="button_text" data-text="偏好">偏好</div>
+            </button>
+        </div>
+        <threeSubpage :subpageSelected="t"></threeSubpage>
     </div>
 </template>
 
 <script>
-export default {};
+import threeSubpage from "@/views/othersSubpage/components/threeSubpage.vue";
+export default {
+    data() {
+        return {
+            t: [true, false, false],
+        };
+    },
+    methods: {
+        changeSubButton(page) {
+            this.t[page] = true;
+            document.getElementById("subpage_button" + page).className =
+                "subpage_isSelected";
+            for (let i=0; i < 3; i++) {
+                if (i !== page) {
+                    document.getElementById("subpage_button" + i).className =
+                        "subpage_unSelected";
+                    this.t[i] = false;
+                }
+            }
+            console.log(this.t);
+        },
+    },
+    components: {
+        threeSubpage,
+    },
+};
 </script>
 
-<style></style>
+<style>
+.subpageSelect {
+    position: absolute;
+    width: 84%;
+    height: 10%;
+    left: 8%;
+    top: 0;
+    /* border: solid 1px red; */
+    display: flex;
+    flex-direction: row;
+    pointer-events: all;
+    z-index: 100;
+}
+.subpage_isSelected {
+    width: 33.3%;
+    height: 100%;
+    cursor: pointer;
+    border: solid 2px #d5b4dc;
+    font-family: FZZJ-WHJZTJW;
+    font-weight: 400;
+    font-size: 20px;
+    background-color: #d5b4dc;
+    position: relative;
+    color:white;
+    /* border: none; */
+}
+.subpage_unSelected {
+    width: 33.3%;
+    height: 100%;
+    cursor: pointer;
+    border: solid 2px #d5b4dc;
+    font-family: FZZJ-WHJZTJW;
+    font-weight: 400;
+    font-size: 20px;
+    position: relative;
+    color:#d5b4dc;
+    /* border: none; */
+}
+.subpage_isSelected:hover {
+    background-color: #d5b4dc;
+}
+.button_text {
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.subpage_unSelected:hover > .button_text {
+    color: white;
+}
+.subpage_unSelected:hover > .button_text::after {
+    content: attr(data-text);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    -webkit-text-stroke: 8px #d5b4dc;
+    z-index: -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>

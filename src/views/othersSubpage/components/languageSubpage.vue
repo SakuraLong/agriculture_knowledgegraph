@@ -6,7 +6,6 @@
                 /* left: 40%; */
                 justify-content: center;
                 align-items: center;
-                background-color: azure;
                 width:70%;
                 height: 50%;
                 top:10%;
