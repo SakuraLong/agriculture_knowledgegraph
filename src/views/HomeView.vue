@@ -40,7 +40,7 @@
 import loginAndRegister from "@/views/loginAndRegister/loginAndRegister.vue"; // 登录注册--子页面
 // import showerSubpage from "@/views/showerSubpage/showerSubpage.vue"; // 功能界面右侧展示区域
 // import othersSubpage from "@/views/othersSubpage/othersSubpage.vue"; // 其他--子页面
-// import functionSubpage from "@/views/functionSubpage/functionSubpage.vue"; // 功能--子页面
+import functionSubpage from "@/views/functionSubpage/functionSubpage.vue"; // 功能--子页面
 // import personalSubpage from "@/views/personalSubpage/personalSubpage.vue"; // 个人信息--子页面
 import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/personalMsgSettingSubpage.vue"; // 个人信息修改--子页面
 // 组件
@@ -90,7 +90,7 @@ export default {
         // showerBar,
         // showerSubpage,
         othersSubpage,
-        // functionSubpage,
+        functionSubpage,
         // personalSubpage,
         personalMsgSettingSubpage,
         // defaultShutters,
