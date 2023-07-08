@@ -1,34 +1,49 @@
 <template>
-    <div style="position: relative; width: 100%; height: 100%; left: 0; top: 0;">
-        <div class="subpageSelect">
-            <button
-                class="subpage_isSelected"
-                id="subpage_button0"
-                @click="changeSubButton(0)"
+    <defaultShutters has_right_girl="true">
+        <template #show_child_page>
+            <div
+                style="
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    left: 0;
+                    top: 0;
+                "
             >
-                <div class="button_text" data-text="语言">语言</div>
-            </button>
-            <button
-                class="subpage_unSelected"
-                id="subpage_button1"
-                @click="changeSubButton(1)"
-            >
-                <div class="button_text" data-text="关于我们">关于我们</div>
-            </button>
-            <button
-                class="subpage_unSelected"
-                id="subpage_button2"
-                @click="changeSubButton(2)"
-            >
-                <div class="button_text" data-text="偏好">偏好</div>
-            </button>
-        </div>
-        <threeSubpage :subpageSelected="t"></threeSubpage>
-    </div>
+                <div class="subpageSelect">
+                    <button
+                        class="subpage_isSelected"
+                        id="subpage_button0"
+                        @click="changeSubButton(0)"
+                    >
+                        <div class="button_text" data-text="语言">语言</div>
+                    </button>
+                    <button
+                        class="subpage_unSelected"
+                        id="subpage_button1"
+                        @click="changeSubButton(1)"
+                    >
+                        <div class="button_text" data-text="关于我们">
+                            关于我们
+                        </div>
+                    </button>
+                    <button
+                        class="subpage_unSelected"
+                        id="subpage_button2"
+                        @click="changeSubButton(2)"
+                    >
+                        <div class="button_text" data-text="偏好">偏好</div>
+                    </button>
+                </div>
+                <threeSubpage :subpageSelected="t"></threeSubpage>
+            </div>
+        </template>
+    </defaultShutters>
 </template>
 
 <script>
 import threeSubpage from "@/views/othersSubpage/components/threeSubpage.vue";
+import defaultShutters from "@/components/shutter/defaultShutter.vue";
 export default {
     data() {
         return {
@@ -40,7 +55,7 @@ export default {
             this.t[page] = true;
             document.getElementById("subpage_button" + page).className =
                 "subpage_isSelected";
-            for (let i=0; i < 3; i++) {
+            for (let i = 0; i < 3; i++) {
                 if (i !== page) {
                     document.getElementById("subpage_button" + i).className =
                         "subpage_unSelected";
@@ -52,6 +67,7 @@ export default {
     },
     components: {
         threeSubpage,
+        defaultShutters
     },
 };
 </script>
@@ -79,7 +95,7 @@ export default {
     font-size: 20px;
     background-color: #d5b4dc;
     position: relative;
-    color:white;
+    color: white;
     /* border: none; */
 }
 .subpage_unSelected {
@@ -91,7 +107,7 @@ export default {
     font-weight: 400;
     font-size: 20px;
     position: relative;
-    color:#d5b4dc;
+    color: #d5b4dc;
     /* border: none; */
 }
 .subpage_isSelected:hover {

@@ -182,6 +182,10 @@ const saveUserMsg = (user_msg) => {
     user_msg = Code.CryptoJS.encrypt(JSON.stringify(user_msg).toString());
     Storage.set(0, "USER_MSG", user_msg);
 };
+const imgPreloading = () => {
+    let image = new Image();
+    image.src = "images/01.jpg";
+};
 export default {
     checkLogin, // 检查登录情况，返回用户信息
     autoLogin, // 执行自动登录

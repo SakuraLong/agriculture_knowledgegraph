@@ -5,13 +5,6 @@
         :class="{ blur: page.is_login || page.is_personal }"
         onselectstart="return false"
     >
-        <!-- <defaultShutters>
-            <template #show_child_page>
-                <othersSubpage></othersSubpage>
-            </template>
-        </defaultShutters>  -->
-        <!-- <div class="main_lottie" id="main_lottie__"></div> -->
-        <!-- <router-view></router-view> -->
         <bg />
         <transition name="slide">
             <mainWord v-if="page.main.is_main" :key="page.main.is_main" />
@@ -24,13 +17,13 @@
             <!-- <showerBar v-else-if="page.is_func_page" /> -->
         </transition>
 
-        <!-- <transition name="subpage_change" mode="out-in">
+        <transition name="shutter" mode="out-in">
             <othersSubpage v-if="page.is_main_page && page.main.is_other" />
             <functionSubpage v-else-if="page.is_main_page && page.main.is_func" />
             <personalSubpage v-else-if="page.is_personal" />
         </transition>
         
-        <showerSubpage v-if="page.is_func_page" /> -->
+        <!-- <showerSubpage v-if="page.is_func_page" /> -->
     </div>
     <transition name="app_subpage" mode="out-in">
         <personalMsgSettingSubpage
@@ -96,14 +89,13 @@ export default {
         mainBar,
         // showerBar,
         // showerSubpage,
-        // othersSubpage,
+        othersSubpage,
         // functionSubpage,
         // personalSubpage,
         personalMsgSettingSubpage,
-        defaultShutters,
+        // defaultShutters,
         bg,
         mainWord,
-        othersSubpage,
         // threeSubpage,
     },
     methods: {
