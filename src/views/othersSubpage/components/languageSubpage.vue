@@ -22,7 +22,7 @@
                 id="test_button2"
                 @click="changeLanguage_en"
             >
-            <div class="button_text" data-text="英文">英文</div>
+            <div class="button_text" data-text="English">English</div>
             </button>
         
     </div>
@@ -101,7 +101,7 @@ export default {
     font-size: 20px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-transform: uppercase; /*大写文本*/
+    /* text-transform: uppercase; 大写文本 */
     cursor: pointer;
     position: relative;
 }
@@ -144,7 +144,7 @@ export default {
     font-size: 20px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-transform: uppercase; /*大写文本*/
+    /* text-transform: uppercase; 大写文本 */
     cursor: pointer;
     position: relative;
 }
