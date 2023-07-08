@@ -7,11 +7,9 @@
     >
         <!-- <defaultShutters>
             <template #show_child_page>
-                <div style="width: 500px;">
-
-                </div>
+                <othersSubpage></othersSubpage>
             </template>
-        </defaultShutters> -->
+        </defaultShutters>  -->
         <!-- <div class="main_lottie" id="main_lottie__"></div> -->
         <!-- <router-view></router-view> -->
         <bg />
@@ -56,7 +54,7 @@ import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/persona
 import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
 import mainBar from "@/components/mainBar/mainBar.vue"; // 主页左侧导航栏
 // import showerBar from "@/components/showerBar/showerBar.vue"; // 功能界面左侧导航栏
-
+import othersSubpage from "@/views/othersSubpage/othersSubpage.vue";
 import defaultShutters from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
 
 // import lottie from "lottie-web";
@@ -102,9 +100,11 @@ export default {
         // functionSubpage,
         // personalSubpage,
         personalMsgSettingSubpage,
-        // defaultShutters,
+        defaultShutters,
         bg,
         mainWord,
+        othersSubpage,
+        // threeSubpage,
     },
     methods: {
         updatePage(data) {
@@ -205,18 +205,6 @@ nav a {
 
 nav a.router-link-exact-active {
     color: #42b983;
-}
-
-.login-view {
-    border: 1px solid blue;
-    pointer-events: none;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 100vw;
-    height: 100vh;
-    /* filter: blur(2px); */
-    z-index: 5;
 }
 
 .slide-enter-active {
