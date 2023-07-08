@@ -19,10 +19,12 @@
 
         <transition name="shutter" mode="out-in">
             <othersSubpage v-if="page.is_main_page && page.main.is_other" />
-            <functionSubpage v-else-if="page.is_main_page && page.main.is_func" />
+            <functionSubpage
+                v-else-if="page.is_main_page && page.main.is_func"
+            />
             <personalSubpage v-else-if="page.is_personal" />
         </transition>
-        
+
         <!-- <showerSubpage v-if="page.is_func_page" /> -->
     </div>
     <transition name="app_subpage" mode="out-in">
@@ -41,7 +43,7 @@ import loginAndRegister from "@/views/loginAndRegister/loginAndRegister.vue"; //
 // import showerSubpage from "@/views/showerSubpage/showerSubpage.vue"; // 功能界面右侧展示区域
 // import othersSubpage from "@/views/othersSubpage/othersSubpage.vue"; // 其他--子页面
 import functionSubpage from "@/views/functionSubpage/functionSubpage.vue"; // 功能--子页面
-// import personalSubpage from "@/views/personalSubpage/personalSubpage.vue"; // 个人信息--子页面
+import personalSubpage from "@/views/personalSubpage/personalSubpage.vue"; // 个人信息--子页面
 import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/personalMsgSettingSubpage.vue"; // 个人信息修改--子页面
 // 组件
 import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
@@ -91,7 +93,7 @@ export default {
         // showerSubpage,
         othersSubpage,
         functionSubpage,
-        // personalSubpage,
+        personalSubpage,
         personalMsgSettingSubpage,
         // defaultShutters,
         bg,
@@ -120,7 +122,7 @@ export default {
         },
         autoLoginTimeout() {
             console.log("自动登录失败");
-            this.is_login =false;
+            this.is_login = false;
             utils.setLogOut();
         },
     },

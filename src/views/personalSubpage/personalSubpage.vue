@@ -1,14 +1,12 @@
 <template>
-    <div style="width: 100%; height: 100%">
-        <defaultShutter>
-            <template #show_child_page>
-                <div class="personal-container">
-                    <personalProfile></personalProfile>
-                    <personalEdit></personalEdit>
-                </div>
-            </template>
-        </defaultShutter>
-    </div>
+    <defaultShutter>
+        <template #show_child_page>
+            <div class="personal-container">
+                <personalProfile></personalProfile>
+                <personalEdit></personalEdit>
+            </div>
+        </template>
+    </defaultShutter>
 </template>
 
 <script>
@@ -27,5 +25,6 @@ export default {
 
 <style>
 .personal-container {
+    pointer-events: all;
 }
 </style>

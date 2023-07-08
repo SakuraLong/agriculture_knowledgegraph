@@ -1,59 +1,89 @@
 <template>
-    <div class="avatar">
+    <div class="avatar" id="avatar">
         <!-- <img src="" alt="" class="nav_avatar_border"> -->
-        <div class="nav_avatar_img" :style="{backgroundImage:setBackgroundImageUrl}">登录</div>
+        <div
+            class="nav_avatar"
+            :style="{ backgroundImage: setBackgroundImageUrl }"
+        >
+            <div class="nav_avatar_img_container" v-show="is_login">
+                <img src="./img/avatar.png" alt="" class="nav_avatar_img" />
+            </div>
+            登录
+        </div>
     </div>
 </template>
 <script>
-export default{
-    data(){
+import { watch } from "vue";
+import { useStore } from "vuex";
+import store from "@/store/index.js";
+export default {
+    data() {
         return {
-            is_logged:false
+            is_login: false,
         };
     },
-    props:{
-        "setBackgroundImageUrl":{}
-    }
+    props: {
+        setBackgroundImageUrl: {},
+    },
+    created() {
+        if (store.state.is_login) this.is_login = true;
+        const $store = useStore();
+        watch(
+            () => $store.state.is_login,
+            (val, old) => {
+                this.is_login = val;
+            }
+        );
+    },
 };
 </script>
 <style scoped>
-.avatar{
+.avatar {
     margin: 10px;
     width: 50px;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* border: 1px solid red; */
 }
-.nav_avatar_img{
+.nav_avatar {
     pointer-events: all;
     position: relative;
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
-    background-color: #8222965F;
+    background-color: #8222965f;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #FFF;
+    color: #fff;
     font-weight: 500;
     -webkit-text-stroke: 0.3px white;
-    font-size: 15px;
-
-    background-image: url("./img/back.png");
-    background-size: contain;
-    background-repeat: no-repeat;
+    font-size: 16px;
+    font-family: Heiti;
 }
-.nav_avatar_img::after{
+.nav_avatar::after {
     content: " ";
     background-image: var(--avatar-border, " ");
     background-size: cover;
-    width: 160%;
-    height: 160%;
+    background-position: center;
+    width: 140%;
+    height: 140%;
     position: absolute;
-    left: -30%;
-    top: -30%;
+    left: -20%;
+    top: -20%;
     overflow: hidden;
+    /* border: 1px solid red; */
+}
+.nav_avatar_img_container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.nav_avatar_img {
+    width: 100%;
+    height: 100%;
 }
 </style>

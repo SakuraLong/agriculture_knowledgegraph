@@ -43,6 +43,9 @@ export default {
         window.addEventListener("resize", this.pageResize);
         this.pageResize();
     },
+    beforeUnmount(){
+        window.removeEventListener("resize", this.pageResize);
+    },
     methods: {
         pageResize() {
             console.log(9999);
@@ -111,7 +114,7 @@ let change = () => {
 </script>
 <style scoped>
 .shutter {
-    /* pointer-events: none; */
+    pointer-events: none;
     display: flex;
     justify-content: center;
     align-items: center;

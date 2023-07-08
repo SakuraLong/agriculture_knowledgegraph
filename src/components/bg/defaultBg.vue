@@ -1,6 +1,7 @@
 <template>
     <div class="home">
-        <div class="background_img"></div>
+        <!-- <div class="background_img"></div> -->
+        <img src="./img/white.png" alt="" class="background_img">
     </div>
 </template>
 
@@ -12,18 +13,25 @@ export default {
 
 <style scoped>
 .home {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     /* home组件的样式 */
 }
 
 .background_img {
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
-    height: 100%;
-    background-image: url("./img/white.png");
-    background-size: cover;
+    /* height: 100%; */
+    /* background-image: url("./img/white.png"); */
+    /* background-size: cover; */
     /* 背景样式 */
-    animation: rotateBackground 720s infinite linear;
+    animation: rotateBackground 900s infinite linear;
 }
 @keyframes rotateBackground {
     from {
