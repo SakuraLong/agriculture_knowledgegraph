@@ -8,6 +8,7 @@
             top: 10%;
             position: absolute;
             font-size: 20px;
+            font-family: Heiti;
         "
     >
         <h2>开发人员</h2>
@@ -16,7 +17,7 @@
         <h3>组员</h3>
         <p>ShmilyAyu</p>
         <p>水木</p>
-        <p>孙锦瑞</p>
+        <p>绵满</p>
         <h2>界面设计</h2>
         <h3>界面框架</h3>
         <p>KrieN</p>

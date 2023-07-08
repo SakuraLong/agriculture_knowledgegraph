@@ -47,6 +47,9 @@ export default {
         loginPasswordInput,
         confirmButton
     },
+    mounted(){
+        // store.state.is_login = !store.state.is_login;
+    },
     methods: {
         passwordOnFocus() {
             this.$emit("passwordOnFocus");
@@ -84,14 +87,16 @@ export default {
                 this.loginTimeout,
                 200,
                 true,
-                4000,
+                1000,
                 {
-                    "success":false
+                    "success":true
                 }
             );
         },
         loginCallback(msg) {
             if(msg.success){
+                // 用户登录成功 数据存入本地数据库
+                store.state.is_login = true;
                 console.log("登录成功");
             }else{
                 this.$refs.loginPasswordInput.setError("用户不存在或密码错误");
