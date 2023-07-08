@@ -14,6 +14,7 @@
                     ></batteryElement>
                 </div>
                 <div class="content_body">
+                <!-- <el-scrollbar  class="content_body_" wrap-class="" min-size="300"> -->
                     <dialogAvatarBox
                         is_left="true"
                         :content="dailog.name.default"
@@ -40,6 +41,7 @@
                         is_left="true"
                         :content="dailog.occu.default"
                     ></dialogAvatarBox>
+                <!-- </el-scrollbar> -->
                 </div>
                 <div class="content_bottom">
                     <transition name="opacity400">
@@ -68,7 +70,7 @@ import store from "@/store/index.js";
 import batteryElement from "./components/batteryElement.vue";
 import Code from "@/assets/js/code/code.js";
 import Storage from "@/assets/js/storage/storage.js";
-import util from "@/assets/js/util.js";
+import util from "@/assets/js/utils.js";
 export default {
     data() {
         return {
@@ -98,12 +100,12 @@ export default {
     },
     created() {
         // 检查登录情况
-        let user_msg = JSON.parse(Code.CryptoJS.decrypt(Storage.get(0, "USER_MSG",  Code.CryptoJS.encrypt("{}"))));
-        let is_login = Code.CryptoJS.decrypt(Storage.get(0, "IS_LOGIN", Code.CryptoJS.encrypt("false")));
-        if(!util.checkIntegrality(user_msg)||is_login==="false"){
-            Storage.set(0, "IS_LOGIN", Code.CryptoJS.encrypt("false"));
-            // this.eleaveSettingxit();
-        }
+        // let user_msg = JSON.parse(Code.CryptoJS.decrypt(Storage.get(0, "USER_MSG",  Code.CryptoJS.encrypt("{}"))));
+        // let is_login = Code.CryptoJS.decrypt(Storage.get(0, "IS_LOGIN", Code.CryptoJS.encrypt("false")));
+        // if(!util.checkIntegrality(user_msg)||is_login==="false"){
+        //     Storage.set(0, "IS_LOGIN", Code.CryptoJS.encrypt("false"));
+        //     // this.eleaveSettingxit();
+        // }
     },
     mounted() {
         
@@ -120,6 +122,11 @@ export default {
     },
     methods: {
         leaveSetting() {
+            console.log("leaveSetting");
+            if (!store.state.can_click_button) return;
+            this.$emit("leaveSetting");
+        },
+        saveSetting() {
             console.log("leaveSetting");
             if (!store.state.can_click_button) return;
             this.$emit("leaveSetting");
@@ -231,22 +238,30 @@ export default {
 }
 .content_body::-webkit-scrollbar {
     width: 12px;
+    margin-right: 5px;
     background-color: rgba(255, 255, 255, 0.485);
+    opacity: 0;
 }
 /* 滚动槽 */
 .content_body::-webkit-scrollbar-track {
+    /* visibility: hidden; */
+    margin-right: 5px;
     -webkit-box-shadow: inset 6px rgba(0, 0, 0, 0.485);
+    /* background-color: aquamarine; */
     border-radius: 10px;
 }
 /* 滚动条滑块 */
 .content_body::-webkit-scrollbar-thumb {
+    opacity: 0;
+    margin-right: 5px;
     border-radius: 10px;
     background: rgba(165, 94, 177, 0.3);
     -webkit-box-shadow: inset 6px rgba(0, 0, 0, 0.5);
+    /* transition: all 0.5 ease; */
 }
-.content_body::-webkit-scrollbar-thumb:window-inactive {
+/* .content_body::-webkit-scrollbar-thumb:window-inactive {
     background: rgba(255, 0, 0, 0.4);
-}
+} */
 .content_ele {
     width: 100%;
     display: flex;
