@@ -2,11 +2,11 @@
     <div class="container">
         <div class="box box--overlay d-flex flex-column">
             <div class="box-header">
-                <h3 class="box-title">Crop your new profile picture</h3>
-                <p v-if="fileError">{{ fileError }}</p>
+                <h3 class="box-title">裁剪新的个人头像</h3>
+                <p class="error-message" v-if="fileError">{{ fileError }}</p>
             </div>
             <div class="box-body overflow-auto">
-                <p v-if="fileError" class="error-message">{{ fileError }}</p>
+                <!-- <p v-if="fileError" class="error-message">{{ fileError }}</p> -->
                 <div class="box-container">
                     <canvas
                         ref="canvas"
@@ -25,8 +25,9 @@
                 </div>
             </div>
             <div class="box-footer">
-                <input type="file" accept="image/*" @change="onFileChange" />
-                <button @click="saveImage">保存图片</button>
+                <button class="upload-button" @click="onFileChange">上传头像</button>
+                <button class="save-button" @click="saveImage">保存头像</button>
+                <input type="file" id="file-input" accept="image/*" @change="onFileSelected" style="display: none;">
             </div>
         </div>
     </div>
@@ -52,10 +53,13 @@ export default {
         this.context = this.$refs.canvas.getContext("2d");
     },
     methods: {
-        onFileChange(e) {
+        onFileChange() {
+            document.getElementById("file-input").click();
+        },
+        onFileSelected(e) {
             let file = e.target.files[0];
             if (file.size > 3000000) {
-                this.fileError = "File size exceeds 3MB. Please choose a smaller file.";
+                this.fileError = "文件大小超过3MB。请选择较小的文件。";
                 return;
             }
             this.fileError = "";
@@ -75,18 +79,6 @@ export default {
 
             reader.readAsDataURL(file);
         },
-        // drawCircle() {
-        //     let canvas = this.$refs.canvas;
-        //     let context = this.context;
-        //     context.filter = "grayscale(100%)";
-        //     const radius = Math.min(canvas.width, canvas.height) / 2 * 0.99; 
-        //     context.beginPath();
-        //     context.setLineDash([5, 5]);
-        //     context.arc(canvas.width/2, canvas.height/2, radius, 0, 2 * Math.PI);
-        //     context.stroke();
-        //     context.closePath();
-        //     context.filter="None";
-        // },
         drawImageToCanvas() {
             let canvas = this.$refs.canvas;
             let context = this.context;
@@ -172,20 +164,28 @@ export default {
     border: 1px solid black;
     margin: auto;
     max-width: 500px;
+    
+    
 }
 .box--overlay {
     background: white;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: var(--borderRadius-medium, 6px);
+    box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.3);
 }
 .box-header {
     padding-bottom: 10px;
-    border-bottom: 1px solid #f1f1f1;
+    border-bottom: 1px solid #000000;
     margin-bottom: 10px;
+    font-family: "FZZJ-WHJZTJW", sans-serif;
+    font-weight: 10;
+    color: #822269;
+    font-size:20px; /* 设置字体大小为16像素 */
+    letter-spacing: 10px; /* 设置字间距为2像素 */
+    font-weight: 1px;
 }
 .box-title {
     margin: 0;
-    font-size: 18px;
     line-height: 1;
 }
 .box-body {
@@ -196,11 +196,16 @@ export default {
     margin-bottom: 20px;
 }
 .box-footer {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
 }
 .error-message {
     color: red;
-    margin-bottom: 20px;
+    font-size:1px;
+    margin-bottom: 0px;
+    letter-spacing: 1px; /* 设置字间距为2像素 */
 }
 canvas {
     position: absolute;
@@ -215,6 +220,7 @@ canvas {
     width: 400px;
     height: 400px;
     overflow: hidden;
+    border-radius: var(--borderRadius-medium, 6px);
 }
 
 .crop-box {
@@ -228,4 +234,47 @@ canvas {
     pointer-events: none;
 }
 
+.save-button {
+    background-color: #822269; /* Green */
+    align-items: center;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: var(--borderRadius-medium, 6px);
+    margin-right: 30px;
+    font-family: "FZZJ-WHJZTJW", sans-serif;
+    font-weight: 10;
+}
+
+.save-button:hover {
+  background-color: #621b6b; /* Dark green */
+}
+
+.upload-button {
+    background-color: #822269; /* Green */
+    align-items: center;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 25px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: var(--borderRadius-medium, 6px);
+    margin-left: 30px;
+    font-family: "FZZJ-WHJZTJW", sans-serif;
+    font-weight: 10;
+}
+
+.upload-button:hover {
+  background-color: #621b6b; /* Dark green */
+}
 </style>
