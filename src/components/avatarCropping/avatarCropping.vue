@@ -2,9 +2,14 @@
     <div class="container">
         <div class="box box--overlay d-flex flex-column">
             <div class="box-header">
-                <h3 class="box-title">裁剪新的个人头像</h3>
-                <p class="error-message" v-if="fileError">{{ fileError }}</p>
+                <div class="header-content">
+                    <h3 class="box-title">裁剪新的个人头像</h3>
+                    <button class="close-button" @click="leaveAvatarCropping">
+                        ×
+                    </button>
+                </div>
             </div>
+            <p class="error-message" v-if="fileError">{{ fileError }}</p>
             <div class="box-body overflow-auto">
                 <!-- <p v-if="fileError" class="error-message">{{ fileError }}</p> -->
                 <div class="box-container">
@@ -21,13 +26,25 @@
                         @touchmove="onTouchMove"
                         @touchend="onTouchEnd"
                     ></canvas>
-                    <div data-crop-box class="crop-box" style="left: 0px; top: 0px; width: 400px; height: 400px;"></div>
+                    <div
+                        data-crop-box
+                        class="crop-box"
+                        style="left: 0px; top: 0px; width: 400px; height: 400px"
+                    ></div>
                 </div>
             </div>
             <div class="box-footer">
-                <button class="upload-button" @click="onFileChange">上传头像</button>
+                <button class="upload-button" @click="onFileChange">
+                    上传头像
+                </button>
                 <button class="save-button" @click="saveImage">保存头像</button>
-                <input type="file" id="file-input" accept="image/*" @change="onFileSelected" style="display: none;">
+                <input
+                    type="file"
+                    id="file-input"
+                    accept="image/*"
+                    @change="onFileSelected"
+                    style="display: none"
+                />
             </div>
         </div>
     </div>
@@ -51,9 +68,30 @@ export default {
     },
     mounted() {
         this.context = this.$refs.canvas.getContext("2d");
+        this.image = this.createWhiteImage(); // Replace with your own base64-encoded white image
+        this.drawImageToCanvas();
     },
+    props: ["exit"],
     methods: {
+        leaveAvatarCropping() {
+            try {
+                this.exit();
+            } catch {
+                //
+            }
+        },
+        createWhiteImage() {
+            let canvas = document.createElement("canvas");
+            canvas.width = 400;
+            canvas.height = 400;
+            let context = canvas.getContext("2d");
+            context.fillStyle = "white";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            return canvas;
+        },
         onFileChange() {
+            this.$emit("uploadAvatarCropping");
+            console.log("uploadAvatarCropping");
             document.getElementById("file-input").click();
         },
         onFileSelected(e) {
@@ -70,7 +108,7 @@ export default {
                 this.image.onload = () => {
                     this.scale = Math.max(
                         this.$refs.canvas.width / this.image.width,
-                        this.$refs.canvas.height / this.image.height,
+                        this.$refs.canvas.height / this.image.height
                     );
                     this.drawImageToCanvas();
                 };
@@ -109,10 +147,18 @@ export default {
             // Bound check...
             if (newTranslateX > 0) newTranslateX = 0;
             if (newTranslateY > 0) newTranslateY = 0;
-            if (newTranslateX < this.$refs.canvas.width - this.image.width * this.scale)
-                newTranslateX = this.$refs.canvas.width - this.image.width * this.scale;
-            if (newTranslateY < this.$refs.canvas.height - this.image.height * this.scale)
-                newTranslateY = this.$refs.canvas.height - this.image.height * this.scale;
+            if (
+                newTranslateX <
+                this.$refs.canvas.width - this.image.width * this.scale
+            )
+                newTranslateX =
+                    this.$refs.canvas.width - this.image.width * this.scale;
+            if (
+                newTranslateY <
+                this.$refs.canvas.height - this.image.height * this.scale
+            )
+                newTranslateY =
+                    this.$refs.canvas.height - this.image.height * this.scale;
 
             this.translateX = newTranslateX;
             this.translateY = newTranslateY;
@@ -126,13 +172,16 @@ export default {
         },
         onWheel(e) {
             let newScale = this.scale * (e.deltaY < 0 ? 1.1 : 0.9);
-            let newTranslateX = this.translateX + newScale*this.image.width;
-            let newTranslateY = this.translateY + newScale*this.image.height;
+            let newTranslateX = this.translateX + newScale * this.image.width;
+            let newTranslateY = this.translateY + newScale * this.image.height;
             // If scaled image size is smaller than canvas size, do not scale
-            if (newTranslateX  < this.$refs.canvas.width || newTranslateY < this.$refs.canvas.height)
+            if (
+                newTranslateX < this.$refs.canvas.width ||
+                newTranslateY < this.$refs.canvas.height
+            )
                 return;
             this.scale = newScale;
-            
+
             this.drawImageToCanvas();
         },
         onTouchStart(e) {
@@ -142,6 +191,8 @@ export default {
             this.touches = Array.from(e.touches);
         },
         saveImage() {
+            console.log("saveAvatarCropping");
+            this.$emit("saveAvatarCropping");
             let link = document.createElement("a");
             link.download = "image.png";
             link.href = this.$refs.canvas.toDataURL();
@@ -152,7 +203,6 @@ export default {
 </script>
 
 <style scoped>
-
 .container {
     display: flex;
     justify-content: center;
@@ -164,8 +214,6 @@ export default {
     border: 1px solid black;
     margin: auto;
     max-width: 500px;
-    
-    
 }
 .box--overlay {
     background: white;
@@ -174,19 +222,26 @@ export default {
     box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.3);
 }
 .box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding-bottom: 10px;
     border-bottom: 1px solid #000000;
     margin-bottom: 10px;
     font-family: "FZZJ-WHJZTJW", sans-serif;
     font-weight: 10;
     color: #822269;
-    font-size:20px; /* 设置字体大小为16像素 */
-    letter-spacing: 10px; /* 设置字间距为2像素 */
-    font-weight: 1px;
+    font-size: 20px;
+    letter-spacing: 10px;
+}
+.header-content {
+    display: flex;
+    align-items: center;
 }
 .box-title {
     margin: 0;
     line-height: 1;
+    margin-left: 65px;
 }
 .box-body {
     height: 400px;
@@ -201,12 +256,7 @@ export default {
     align-items: center;
     padding: 10px;
 }
-.error-message {
-    color: red;
-    font-size:1px;
-    margin-bottom: 0px;
-    letter-spacing: 1px; /* 设置字间距为2像素 */
-}
+
 canvas {
     position: absolute;
     top: 50%;
@@ -253,7 +303,7 @@ canvas {
 }
 
 .save-button:hover {
-  background-color: #621b6b; /* Dark green */
+    background-color: #621b6b; /* Dark green */
 }
 
 .upload-button {
@@ -275,6 +325,22 @@ canvas {
 }
 
 .upload-button:hover {
-  background-color: #621b6b; /* Dark green */
+    background-color: #621b6b; /* Dark green */
+}
+.close-button {
+    background: none;
+    border: none;
+    color: #822269;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 30px;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
 }
 </style>
