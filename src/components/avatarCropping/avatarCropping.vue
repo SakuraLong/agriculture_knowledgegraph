@@ -72,6 +72,10 @@ export default {
                         this.$refs.canvas.width / this.image.width,
                         this.$refs.canvas.height / this.image.height,
                     );
+                    this.lastX=0,
+                    this.lastY=0,
+                    this.translateX=0,
+                    this.translateY=0;
                     this.drawImageToCanvas();
                 };
                 this.image.src = e.target.result;
