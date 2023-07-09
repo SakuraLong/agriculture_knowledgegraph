@@ -69,7 +69,7 @@ export default {
             page: {
                 is_main_page: true,
                 is_func_page: false,
-                is_personal: false,
+                is_personal: true,
                 is_login: false,
                 main: {
                     is_main: true,

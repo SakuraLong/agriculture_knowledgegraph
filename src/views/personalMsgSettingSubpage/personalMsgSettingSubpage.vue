@@ -29,6 +29,9 @@
                         is_left="true"
                         :content="dailog.avatar.default"
                     ></dialogAvatarBox>
+                    <div class="content_ele">
+                        <defaultAvatar class="default_avatar" edit="true" :edit_func="editClick"></defaultAvatar>
+                    </div>
                     <dialogAvatarBox
                         is_left="true"
                         :content="dailog.born.default"
@@ -64,6 +67,7 @@
 // import Checker from "@/assets/js/checker/checker.js";
 // import { ref } from "vue";
 import dialogAvatarBox from "@/components/dialogBoxes/dialogAvatarBox/dialogAvatarBox.vue";
+import defaultAvatar from "@/components/avatar/defaultAvatar.vue";
 import borderInput from "@/components/inputs/borderInput/borderInput.vue";
 import linePrompt from "@/components/prompts/line/linePrompt.vue";
 import store from "@/store/index.js";
@@ -108,7 +112,7 @@ export default {
         // }
     },
     mounted() {
-        
+        store.state.is_login = true;
     },
     components: {
         // avatar,
@@ -119,6 +123,7 @@ export default {
         borderInput,
         linePrompt,
         batteryElement,
+        defaultAvatar
     },
     methods: {
         leaveSetting() {
@@ -131,6 +136,9 @@ export default {
             if (!store.state.can_click_button) return;
             this.$emit("leaveSetting");
         },
+        editClick(){
+            console.log("点击");
+        }
     },
     watch: {},
 };
@@ -276,5 +284,10 @@ export default {
 .battery_element {
     position: absolute;
     right: 3%;
+}
+.default_avatar{
+    width: 150px !important;
+    height: 150px !important;
+    position: relative;
 }
 </style>

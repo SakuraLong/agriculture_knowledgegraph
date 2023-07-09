@@ -3,12 +3,12 @@
         <!-- <img src="" alt="" class="nav_avatar_border"> -->
         <div
             class="nav_avatar"
-            :style="{ backgroundImage: setBackgroundImageUrl }"
         >
             <div class="nav_avatar_img_container" v-show="is_login">
-                <img src="./img/avatar.png" alt="" class="nav_avatar_img" />
+                <img src="./img/avatar.png" alt="" class="nav_avatar_img" draggable="false" />
             </div>
             登录
+            <div v-if="edit" class="avatar_edit" @click="editClick">编辑</div>
         </div>
     </div>
 </template>
@@ -22,9 +22,7 @@ export default {
             is_login: false,
         };
     },
-    props: {
-        setBackgroundImageUrl: {},
-    },
+    props: ["edit", "edit_func"],
     created() {
         if (store.state.is_login) this.is_login = true;
         const $store = useStore();
@@ -35,10 +33,16 @@ export default {
             }
         );
     },
+    methods:{
+        editClick(){
+            this.edit_func();
+        }
+    }
 };
 </script>
 <style scoped>
 .avatar {
+    user-select: none;
     margin: 10px;
     width: 50px;
     height: 50px;
@@ -85,5 +89,21 @@ export default {
 .nav_avatar_img {
     width: 100%;
     height: 100%;
+}
+.avatar_edit{
+    cursor: pointer;
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+    z-index: 10;
+    background-color: white;
+    color: black;
+    font-family: Heiti;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #822296;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
 }
 </style>
