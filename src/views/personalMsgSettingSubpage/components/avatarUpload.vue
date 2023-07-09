@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container_">
         <div class="box box--overlay d-flex flex-column">
             <div class="box-header">
                 <h3 class="box-title">裁剪新的个人头像</h3>
@@ -157,7 +157,7 @@ export default {
 
 <style scoped>
 
-.container {
+.container_ {
     /* position: absolute; */
     display: flex;
     justify-content: center;

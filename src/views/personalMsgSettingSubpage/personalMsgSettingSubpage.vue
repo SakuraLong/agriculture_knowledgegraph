@@ -61,7 +61,9 @@
                 <div class="save_text" data-text="保存">保存</div>
             </div>
         </div>
-        <avatarUpload class="avatar_upload"></avatarUpload>
+        <transition name="opacity400">
+            <avatarUpload v-if="edit_avatar" class="avatar_upload"></avatarUpload>
+        </transition>
     </div>
 </template>
 <script>
@@ -102,6 +104,7 @@ export default {
             line_prompt: {
                 msg: "",
             },
+            edit_avatar:false,
         };
     },
     created() {
@@ -141,6 +144,7 @@ export default {
         },
         editClick(){
             console.log("点击");
+            this.edit_avatar = true;
         }
     },
     watch: {},
