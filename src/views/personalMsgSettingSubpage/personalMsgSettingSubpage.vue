@@ -61,6 +61,7 @@
                 <div class="save_text" data-text="保存">保存</div>
             </div>
         </div>
+        <avatarUpload class="avatar_upload"></avatarUpload>
     </div>
 </template>
 <script>
@@ -75,6 +76,7 @@ import batteryElement from "./components/batteryElement.vue";
 import Code from "@/assets/js/code/code.js";
 import Storage from "@/assets/js/storage/storage.js";
 import util from "@/assets/js/utils.js";
+import avatarUpload from "./components/avatarUpload.vue";
 export default {
     data() {
         return {
@@ -123,7 +125,8 @@ export default {
         borderInput,
         linePrompt,
         batteryElement,
-        defaultAvatar
+        defaultAvatar,
+        avatarUpload
     },
     methods: {
         leaveSetting() {
@@ -144,6 +147,14 @@ export default {
 };
 </script>
 <style scoped>
+.avatar_upload{
+    width: 100%;
+    height: 100%;
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
 .personal_setting {
     width: 100%;
     height: 100%;
