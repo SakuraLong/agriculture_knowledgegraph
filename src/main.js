@@ -2,8 +2,8 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import enLocale from "./components/i18n/en";// 导入项目中用到的英文语言包
-import zhLocale from "./components/i18n/zh-CN";// 导入项目中用到的中文语言包
+import enLocale from "./assets/i18n/en";// 导入项目中用到的英文语言包
+import zhLocale from "./assets/i18n/zh-CN";// 导入项目中用到的中文语言包
 import {createI18n} from "vue-i18n";
 import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
