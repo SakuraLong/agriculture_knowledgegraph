@@ -1,7 +1,10 @@
 <template>
     <div class="shutter" @resize="pageResize">
+
         <img src="./img/top.png" alt="" class="shutter_top" ref="shutter_top" />
+
         <div
+            key="con"
             class="pointer"
             :class="[
                 !has_right_girl
@@ -10,26 +13,24 @@
             ]"
             ref="shutter_top_container"
         >
-            <div style="border: 1px solid red">这里之后会放吉祥物组件</div>
-            <div style="border: 1px solid red"></div>
+            <div>这里之后会放吉祥物组件</div>
+            <div></div>
             <div
                 :class="[
                     has_right_girl
                         ? 'shutter_top_container_4block_leftbot'
                         : 'shutter_top_container_3block_leftbot',
                 ]"
-                style="border: 1px solid red;"
             >
                 <!-- <p>{{ t("message.save") }}</p>
                 <button @click="change">change</button> -->
                 <slot name="show_child_page">用户</slot>
             </div>
-            <div v-if="has_right_girl" style="border: 1px solid red">
+            <div v-if="has_right_girl">
                 这里之后会放吉祥物组件
             </div>
         </div>
         <img
-            src="./img/bottom.png"
             alt=""
             class="shutter_bottom"
             ref="shutter_bottom"
@@ -40,11 +41,16 @@
 export default {
     props: ["has_right_girl"],
     mounted() {
+        console.log(999888);
         window.addEventListener("resize", this.pageResize);
         this.pageResize();
     },
+    beforeUnmount(){
+        window.removeEventListener("resize", this.pageResize);
+    },
     methods: {
         pageResize() {
+            console.log(9999);
             // h=714 t_w=812 b_w=288 r=550 550
             // h=442 t_w=502 b_w=178 r=330
             // h=600 r=430 min
@@ -107,7 +113,7 @@ let change = () => {
 </script>
 <style scoped>
 .shutter {
-    pointer-events: all;
+    pointer-events: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,30 +125,32 @@ let change = () => {
     width: 100%;
     height: 100%;
     z-index: 9999;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     min-height: 600px;
 }
 .pointer{
     pointer-events: all;
+    transform: translateX(0px);
 }
 .shutter_top {
-    border: 2px solid red;
     position: absolute;
     top: 0%;
     right: 0%;
     pointer-events: all;
     height: 100%;
+    content: var(--shutter-top-img-src);
 }
 .shutter_bottom {
     z-index: -1;
     height: 100%;
     position: absolute;
     right: 550px;
+    content: var(--shutter-bottom-img-src);
 }
 .shutter_top_container_4block {
     position: absolute;
     right: 0%;
-    border: 1px solid green;
+    /* border: 1px solid green; */
     width: 80%;
     height: 100%;
 
@@ -157,7 +165,7 @@ let change = () => {
 .shutter_top_container_3block {
     position: absolute;
     right: 0%;
-    border: 1px solid green;
+    /* border: 1px solid green; */
     width: 80%;
     height: 100%;
 

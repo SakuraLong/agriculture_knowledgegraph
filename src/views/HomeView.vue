@@ -1,12 +1,10 @@
 <template>
-    <div class="container" id="container" :class="{ blur: page.is_login||page.is_personal }">
-        <defaultShutters has_right_girl="true">
-            <template #show_child_page>
-                <othersSubpage></othersSubpage>
-            </template>
-        </defaultShutters>
-        <!-- <div class="main_lottie" id="main_lottie__"></div> -->
-        <!-- <router-view></router-view> -->
+    <div
+        class="container"
+        id="container"
+        :class="{ blur: page.is_login || page.is_personal_setting }"
+        onselectstart="return false"
+    >
         <bg />
         <transition name="slide">
             <mainWord v-if="page.main.is_main" :key="page.main.is_main" />
@@ -19,16 +17,21 @@
             <!-- <showerBar v-else-if="page.is_func_page" /> -->
         </transition>
 
-        <!-- <transition name="subpage_change" mode="out-in">
+        <transition name="shutter" mode="out-in">
             <othersSubpage v-if="page.is_main_page && page.main.is_other" />
-            <functionSubpage v-else-if="page.is_main_page && page.main.is_func" />
+            <functionSubpage
+                v-else-if="page.is_main_page && page.main.is_func"
+            />
             <personalSubpage v-else-if="page.is_personal" />
         </transition>
-        
-        <showerSubpage v-if="page.is_func_page" /> -->
+
+        <!-- <showerSubpage v-if="page.is_func_page" /> -->
     </div>
     <transition name="app_subpage" mode="out-in">
-        <personalMsgSettingSubpage v-if="page.is_personal" @leaveSetting="leaveSetting" />
+        <personalMsgSettingSubpage
+            v-if="page.is_personal_setting"
+            @leaveSetting="leaveSetting"
+        />
         <loginAndRegister v-else-if="page.is_login" @leaveLogin="leaveLogin" />
     </transition>
     <!-- 这里还有修改密码和换绑邮箱 -->
@@ -39,8 +42,8 @@
 import loginAndRegister from "@/views/loginAndRegister/loginAndRegister.vue"; // 登录注册--子页面
 // import showerSubpage from "@/views/showerSubpage/showerSubpage.vue"; // 功能界面右侧展示区域
 // import othersSubpage from "@/views/othersSubpage/othersSubpage.vue"; // 其他--子页面
-// import functionSubpage from "@/views/functionSubpage/functionSubpage.vue"; // 功能--子页面
-// import personalSubpage from "@/views/personalSubpage/personalSubpage.vue"; // 个人信息--子页面
+import functionSubpage from "@/views/functionSubpage/functionSubpage.vue"; // 功能--子页面
+import personalSubpage from "@/views/personalSubpage/personalSubpage.vue"; // 个人信息--子页面
 import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/personalMsgSettingSubpage.vue"; // 个人信息修改--子页面
 // 组件
 import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
@@ -59,15 +62,16 @@ import Code from "@/assets/js/code/code.js";
 import CodeConfig from "@/assets/js/code/config.js";
 import Storage from "@/assets/js/storage/storage.js";
 
-import util from "@/assets/js/util.js";
+import utils from "@/assets/js/utils.js";
 export default {
     data() {
         return {
             page: {
                 is_main_page: true,
                 is_func_page: false,
-                is_personal: false,
+                is_personal: true,
                 is_login: false,
+                is_personal_setting:true,
                 main: {
                     is_main: true,
                     is_func: false,
@@ -77,9 +81,9 @@ export default {
             login: {
                 is_login: true,
             },
-            user:{
-                is_login:false
-            }
+            user: {
+                is_login: false,
+            },
         };
     },
     components: {
@@ -88,14 +92,13 @@ export default {
         mainBar,
         // showerBar,
         // showerSubpage,
-        // othersSubpage,
-        // functionSubpage,
-        // personalSubpage,
+        othersSubpage,
+        functionSubpage,
+        personalSubpage,
         personalMsgSettingSubpage,
-        defaultShutters,
+        // defaultShutters,
         bg,
         mainWord,
-        othersSubpage,
         // threeSubpage,
     },
     methods: {
@@ -104,19 +107,10 @@ export default {
             this.page.main.is_func = data.is_func;
             this.page.main.is_other = data.is_other;
         },
-        /**
-         * 导航栏点击登录调用的函数
-         */
         avatarClick() {
-            // console.log("999");
             this.page.is_personal = this.user.is_login ? true : false;
             this.page.is_login = !this.user.is_login ? true : false;
-            // console.log(this.user.is_login);
-            // console.log(this.page);
         },
-        /**
-         * 登录组件点击退出调用的函数
-         */
         leaveLogin() {
             this.page.is_login = false;
         },
@@ -124,24 +118,24 @@ export default {
             this.page.is_personal = false;
             console.log("leaveSetting");
         },
-        
+        autoLoginCallBack(msg) {
+            console.log("自动登录成功");
+        },
+        autoLoginTimeout() {
+            console.log("自动登录失败");
+            this.is_login = false;
+            utils.setLogOut();
+        },
     },
-    created(){
+    created() {
         // console.log(Code.CryptoJS.encrypt("asca87283r23y09c09ywch89y29fh"));
-        let user_msg = "";
-        try{
-            user_msg = JSON.parse(Code.CryptoJS.decrypt(Storage.get(0, "USER_MSG",  Code.CryptoJS.encrypt("{}"))));
-        }catch{
-            user_msg = "";
-        }
-        this.user.is_login = Code.CryptoJS.decrypt(Storage.get(0, "IS_LOGIN", Code.CryptoJS.encrypt("false"))) === "true" ? true : false;
-        if(!util.checkIntegrality(user_msg)){
-            Storage.set(0, "IS_LOGIN", Code.CryptoJS.encrypt("false"));
-            util.userMsgInit(); // 用户信息初始化
-            this.user.is_login = false;
-        }else{
-            // 执行自动登录
-        }
+        let user_msg = utils.checkLogin(); // 检查是否满足登录条件
+        console.log("user_msg", user_msg);
+        utils.autoLogin(
+            user_msg,
+            this.autoLoginCallBack,
+            this.autoLoginTimeout
+        ); // 执行自动登录
     },
     mounted() {
         // let param = {

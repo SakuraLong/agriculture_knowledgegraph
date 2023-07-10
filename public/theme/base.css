@@ -16,7 +16,11 @@
     --snow-probe-default-src:"./img/mascots/snow/probe_base.png"; /* snow 探头默认图片 */
     --snow-probe-password-src:"./img/mascots/snow/probe_base.png"; /* snow 探头输入密码时图片 */
 }
-
+:root{
+    /* shutter相关 */
+    --shutter-top-img-src:url("./img/shutter/top_small.png");
+    --shutter-bottom-img-src:url("./img/shutter/bottom_small.png");
+}
 
 
 
@@ -64,4 +68,52 @@
 .opacity400-enter-from,
 .opacity400-leave-to {
     opacity: 0;
+}
+
+.opacity1000-enter-active,
+.opacity1000-leave-active {
+    transition: opacity 1s ease;
+}
+.opacity1000-enter-from,
+.opacity1000-leave-to {
+    opacity: 0;
+}
+
+.shutter-enter-active,
+.shutter-leave-active {
+    transition: opacity 0.8s ease-out;
+}
+.shutter-enter-from,
+.shutter-leave-to {
+    opacity: 0;
+}
+.shutter-enter-active>#shutter_top{
+    transition: transform 0.7s ease-out;
+}
+.shutter-enter-active>#shutter_top_container{
+    transition: transform 0.7s ease-out;
+}
+.shutter-leave-active>#shutter_top{
+    transition: transform 0.7s ease 0.1s;
+}
+.shutter-leave-active>#shutter_top_container{
+    transition: transform 0.7s ease 0.1s;
+}
+.shutter-enter-active>#shutter_bottom{
+    transition: transform 0.7s ease-out 0.1s;
+}
+.shutter-leave-active>#shutter_bottom{
+    transition: transform 0.7s ease;
+}
+.shutter-enter-from>#shutter_bottom,
+.shutter-leave-to>#shutter_bottom{
+    transform: translateX(800px);
+}
+.shutter-enter-from>#shutter_top,
+.shutter-leave-to>#shutter_top{
+    transform: translateX(500px);
+}
+.shutter-enter-from>#shutter_top_container,
+.shutter-leave-to>#shutter_top_container{
+    transform: translateX(500px);
 }

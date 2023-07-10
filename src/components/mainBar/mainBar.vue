@@ -10,14 +10,28 @@
                         @keydown.arrow-up.prevent="moveUp"
                         @keydown.arrow-down.prevent="moveDown"
                         @keydown.enter.prevent="setActiveTab(activeTab)"
+                        :style="{
+                            transform:
+                                activeTab === 'home'
+                                    ? `translateX(${moveDistance}px)`
+                                    : 'none',
+                        }"
                         tabindex="0"
                     >
-                        <img
-                            v-if="activeTab === 'home'"
-                            src="./img/arrow.png"
-                            style="width: 40px; height: 40px"
-                        />
-                        <a href="#">首页</a>
+                        <div class="tab-content">
+                            <img
+                                v-if="activeTab === 'home'"
+                                src="./img/arrow.png"
+                                style="width: 40px; height: 40px"
+                                class="arrow"
+                            />
+                            <img
+                                v-else
+                                :src="transparentImage"
+                                style="width: 40px; height: 40px"
+                            />
+                            <a href="#">首页</a>
+                        </div>
                     </li>
                     <li
                         :class="{ active: activeTab === 'features' }"
@@ -26,30 +40,58 @@
                         @keydown.arrow-up.prevent="moveUp"
                         @keydown.arrow-down.prevent="moveDown"
                         @keydown.enter.prevent="setActiveTab(activeTab)"
+                        :style="{
+                            transform:
+                                activeTab === 'features'
+                                    ? `translateX(${moveDistance}px)`
+                                    : 'none',
+                        }"
                         tabindex="0"
                     >
-                        <img
-                            v-if="activeTab === 'features'"
-                            src="./img/arrow.png"
-                            style="width: 40px; height: 40px"
-                        />
-                        <a href="#">功能</a>
+                        <div class="tab-content">
+                            <img
+                                v-if="activeTab === 'features'"
+                                src="./img/arrow.png"
+                                style="width: 40px; height: 40px"
+                                class="arrow"
+                            />
+                            <img
+                                v-else
+                                :src="transparentImage"
+                                style="width: 40px; height: 40px"
+                            />
+                            <a href="#">功能</a>
+                        </div>
                     </li>
                     <li
                         :class="{ active: activeTab === 'other' }"
                         @click="setActiveTab('other')"
-                        @mouseenter="move( 'other')"
+                        @mouseenter="move('other')"
                         @keydown.arrow-up.prevent="moveUp"
                         @keydown.arrow-down.prevent="moveDown"
                         @keydown.enter.prevent="setActiveTab(activeTab)"
+                        :style="{
+                            transform:
+                                activeTab === 'other'
+                                    ? `translateX(${moveDistance}px)`
+                                    : 'none',
+                        }"
                         tabindex="0"
                     >
-                        <img
-                            v-if="activeTab === 'other'"
-                            src="./img/arrow.png"
-                            style="width: 40px; height: 40px"
-                        />
-                        <a href="#">其他</a>
+                        <div class="tab-content">
+                            <img
+                                v-if="activeTab === 'other'"
+                                src="./img/arrow.png"
+                                style="width: 40px; height: 40px"
+                                class="arrow"
+                            />
+                            <img
+                                v-else
+                                :src="transparentImage"
+                                style="width: 40px; height: 40px"
+                            />
+                            <a href="#">其他</a>
+                        </div>
                     </li>
                 </ul>
             </nav>
@@ -62,7 +104,7 @@
     width: 300px;
     position: fixed;
     top: 10%;
-    left: 4%;
+    left: 2%;
     height: 100%;
 }
 
@@ -86,15 +128,10 @@ nav li {
 nav li:hover {
     cursor: pointer;
 }
-.tab-content {
-    display: flex;
-    align-items: center;
-}
 
 nav img {
     width: 40px;
     height: 40px;
-    transition: transform 0.3s;
 }
 
 nav a {
@@ -105,15 +142,20 @@ nav a {
     padding: 5px 10px;
     text-decoration: none;
     color: #000000;
-    transition: transform 0.3s;
+}
+/* .arrow {
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1; 
+} */
+.tab-content {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease-in-out;
 }
 
-nav li.active a {
-    transform: translateX(10px);
-}
-
-nav li.active img {
-    transform: translateX(10px);
+.active .tab-content {
+    transform: translateX(45px);
+    transition: transform 0.3s ease-in-out;
 }
 </style>
 
@@ -124,6 +166,16 @@ export default {
             activeTab: "home", // 初始选中的选项
             initialTab: "home", // 初始存储的页面
         };
+    },
+    computed: {
+        transparentImage() {
+            const canvas = document.createElement("canvas");
+            canvas.width = 40;
+            canvas.height = 40;
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            return canvas.toDataURL();
+        },
     },
     mounted() {
         // Add the mouseleave event listener to reset the active tab
@@ -142,7 +194,7 @@ export default {
 
         setActiveTab(tab) {
             this.activeTab = tab;
-            this.initialTab=tab;
+            this.initialTab = tab;
             if (tab === "home") {
                 this.$emit("update-page", {
                     is_main: true,
@@ -164,37 +216,37 @@ export default {
             }
             console.log("传递成功");
         },
-        move(tab){
+        move(tab) {
             this.activeTab = tab;
         },
         moveUp() {
             switch (this.activeTab) {
-                case "home":
-                    this.activeTab = "other";
-                    break;
-                case "features":
-                    this.activeTab = "home";
-                    break;
-                case "other":
-                    this.activeTab = "features";
-                    break;
-                default:
-                    break;
+            case "home":
+                this.activeTab = "other";
+                break;
+            case "features":
+                this.activeTab = "home";
+                break;
+            case "other":
+                this.activeTab = "features";
+                break;
+            default:
+                break;
             }
         },
         moveDown() {
             switch (this.activeTab) {
-                case "home":
-                    this.activeTab = "features";
-                    break;
-                case "features":
-                    this.activeTab = "other";
-                    break;
-                case "other":
-                    this.activeTab = "home";
-                    break;
-                default:
-                    break;
+            case "home":
+                this.activeTab = "features";
+                break;
+            case "features":
+                this.activeTab = "other";
+                break;
+            case "other":
+                this.activeTab = "home";
+                break;
+            default:
+                break;
             }
         },
     },

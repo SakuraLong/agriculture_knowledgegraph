@@ -11,7 +11,7 @@
             :opacity="error"
             style="width: 260px"
             :data_left="error"
-            type="error"
+            :type="prompt_type"
         ></linePrompt>
     </div>
 </template>
@@ -25,6 +25,7 @@ export default {
     data() {
         return {
             error: "",
+            prompt_type:"error"
         };
     },
     components: {
@@ -73,6 +74,18 @@ export default {
                 return false;
             }
         },
+        setError(error){
+            this.error = error;
+        },
+        setWaiting(is_waiting){
+            if(is_waiting){
+                this.prompt_type = "waiting";
+                this.error = "登录中";
+            }else{
+                this.prompt_type = "error";
+                this.error = "";
+            }
+        }
     },
 };
 </script>
