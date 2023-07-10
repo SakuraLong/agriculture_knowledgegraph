@@ -26,11 +26,7 @@
                         @touchmove="onTouchMove"
                         @touchend="onTouchEnd"
                     ></canvas>
-                    <div
-                        data-crop-box
-                        class="crop-box"
-                        style="left: 0px; top: 0px; width: 400px; height: 400px"
-                    ></div>
+                    <div data-crop-box  class="crop-box"></div>
                 </div>
             </div>
             <div class="box-footer">
@@ -174,14 +170,12 @@ export default {
             let newScale = this.scale * (e.deltaY < 0 ? 1.1 : 0.9);
             let newTranslateX = this.translateX + newScale * this.image.width;
             let newTranslateY = this.translateY + newScale * this.image.height;
-            // If scaled image size is smaller than canvas size, do not scale
             if (
                 newTranslateX < this.$refs.canvas.width ||
                 newTranslateY < this.$refs.canvas.height
             )
                 return;
             this.scale = newScale;
-
             this.drawImageToCanvas();
         },
         onTouchStart(e) {
@@ -282,6 +276,10 @@ canvas {
     border-radius: 50%;
     box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.3);
     pointer-events: none;
+    left: 0px; 
+    top: 0px; 
+    width: 400px; 
+    height: 400px
 }
 
 .save-button {
