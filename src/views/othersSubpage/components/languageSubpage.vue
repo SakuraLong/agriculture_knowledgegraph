@@ -7,8 +7,8 @@
                 justify-content: center;
                 align-items: center;
                 width:70%;
-                height: 50%;
-                top:10%;
+                height: 80%;
+                /* top:10%; */
             ">        
             <button
                 class="test_class1"
@@ -90,7 +90,8 @@ export default {
     border: solid 1px red;
 }
 .test_class1 {
-    margin-top: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     width: 150px;
     height: 50px;
     background: none;

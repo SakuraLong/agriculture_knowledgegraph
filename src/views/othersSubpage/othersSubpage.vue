@@ -6,11 +6,9 @@
                     position: relative;
                     width: 100%;
                     height: 100%;
-                    left: 0;
-                    top: 0;
                 "
             >
-                <div class="subpageSelect">
+                <div class="subpageSelect" style="border: solid 1px red;">
                     <button
                         class="subpage_isSelected"
                         id="subpage_button0"
@@ -35,7 +33,7 @@
                         <div class="button_text" data-text="偏好">偏好</div>
                     </button>
                 </div>
-                <threeSubpage :subpageSelected="t"></threeSubpage>
+                <threeSubpage style="border: solid 1px red;" :subpageSelected="t"></threeSubpage>
             </div>
         </template>
     </defaultShutters>
@@ -74,7 +72,7 @@ export default {
 
 <style>
 .subpageSelect {
-    position: absolute;
+    position: relative;
     width: 84%;
     height: 10%;
     left: 8%;

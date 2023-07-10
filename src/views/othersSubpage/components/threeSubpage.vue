@@ -5,29 +5,21 @@
             justify-content: center;
             position: relative;
             width: 100%;
-            height: 100%;
-            left: 0;
-            top: 0;
+            height: 90%;
         "
     >
-        <Transition
-            ><languageSubpage v-show="subpageSelected[0]"></languageSubpage
-        ></Transition>
-        <transition
-            ><aboutSubpage v-show="subpageSelected[1]"></aboutSubpage
-        ></transition>
-        <transition
-            ><div
-                style="background-color: aqua"
-                v-show="subpageSelected[2]"
-            ></div
+        <transition name="opacity400">
+            <languageSubpage v-if="subpageSelected[0]"></languageSubpage>
+            <aboutSubpage v-else-if="subpageSelected[1]"></aboutSubpage>
+            <preferenceSubpage v-else-if="subpageSelected[2]"></preferenceSubpage
         ></transition>
     </div>
 </template>
 
 <script>
-import languageSubpage from "@/views/othersSubpage/components/languageSubpage.vue";
-import aboutSubpage from "@/views/othersSubpage/components/aboutSubpage.vue";
+import languageSubpage from "./languageSubpage.vue";
+import aboutSubpage from "./aboutSubpage.vue";
+import preferenceSubpage from "./preferenceSubpage.vue";
 export default {
     props: {
         subpageSelected: {
@@ -38,6 +30,7 @@ export default {
     components: {
         languageSubpage,
         aboutSubpage,
+        preferenceSubpage,
     },
     mounted() {
         console.log(this.subpageSelected[0]);
@@ -46,30 +39,4 @@ export default {
 </script>
 
 <style scoped>
-.page0_transition-enter{
-    opacity: 0;
-    background-color: red;
-}
-.page0_transition-enter-active{
-    transition: opacity 0.5s ease;
-}
-.page0_transition-enter-to{
-    opacity: 1;
-}
-.v-leave-active {
-  transition: opacity 0.5s ease;
-  
-}
-
-.v-enter-active
-{
-  transition: opacity 0.5s ease;
-  transition-delay: 0.1s;
-}
-.v-enter-from{
-    opacity: 0;
-}
-.v-leave-to {
-  opacity: 0;
-}
 </style>

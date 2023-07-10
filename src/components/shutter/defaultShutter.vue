@@ -5,7 +5,7 @@
 
         <div
             key="con"
-            class="pointer"
+            class="pointer shutter_top_container"
             :class="[
                 !has_right_girl
                     ? 'shutter_top_container_4block'

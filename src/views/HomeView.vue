@@ -17,7 +17,7 @@
             <!-- <showerBar v-else-if="page.is_func_page" /> -->
         </transition>
 
-        <transition name="shutter" mode="out-in">
+        <transition name="shutter">
             <othersSubpage v-if="page.is_main_page && page.main.is_other" />
             <functionSubpage
                 v-else-if="page.is_main_page && page.main.is_func"
@@ -67,15 +67,18 @@ export default {
     data() {
         return {
             page: {
-                is_main_page: true,
-                is_func_page: false,
-                is_personal: true,
-                is_login: false,
-                is_personal_setting:true,
+                is_main_page: true, // 在主页面
+                is_func_page: false, // 在功能页面
+                is_personal: false, // 个人信息界面显示
+                is_login: false, // 登录注册页面显示
+                is_personal_setting:false, // 个人信息设置页面显示
+                is_forget_password:false, // 忘记密码界面显示
+                is_update_password:false, // 更新密码界面显示
+                is_update_email:false, // 更新邮箱界面显示
                 main: {
-                    is_main: true,
-                    is_func: false,
-                    is_other: false,
+                    is_main: true, // 主页面主页
+                    is_func: false, // 主页面选择功能页面
+                    is_other: false, // 主页面其他页面
                 },
             },
             login: {
@@ -115,7 +118,7 @@ export default {
             this.page.is_login = false;
         },
         leaveSetting() {
-            this.page.is_personal = false;
+            this.page.is_personal_setting = false;
             console.log("leaveSetting");
         },
         autoLoginCallBack(msg) {

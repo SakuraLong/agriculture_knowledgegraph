@@ -70,6 +70,15 @@
     opacity: 0;
 }
 
+.opacity300-enter-active,
+.opacity300-leave-active {
+    transition: opacity 0.3s ease;
+}
+.opacity300-enter-from,
+.opacity300-leave-to {
+    opacity: 0;
+}
+
 .opacity1000-enter-active,
 .opacity1000-leave-active {
     transition: opacity 1s ease;
@@ -87,33 +96,33 @@
 .shutter-leave-to {
     opacity: 0;
 }
-.shutter-enter-active>#shutter_top{
+.shutter-enter-active>.shutter_top{
     transition: transform 0.7s ease-out;
 }
-.shutter-enter-active>#shutter_top_container{
+.shutter-enter-active>.shutter_top_container{
     transition: transform 0.7s ease-out;
 }
-.shutter-leave-active>#shutter_top{
+.shutter-leave-active>.shutter_top{
     transition: transform 0.7s ease 0.1s;
 }
-.shutter-leave-active>#shutter_top_container{
+.shutter-leave-active>.shutter_top_container{
     transition: transform 0.7s ease 0.1s;
 }
-.shutter-enter-active>#shutter_bottom{
+.shutter-enter-active>.shutter_bottom{
     transition: transform 0.7s ease-out 0.1s;
 }
-.shutter-leave-active>#shutter_bottom{
+.shutter-leave-active>.shutter_bottom{
     transition: transform 0.7s ease;
 }
-.shutter-enter-from>#shutter_bottom,
-.shutter-leave-to>#shutter_bottom{
+.shutter-enter-from>.shutter_bottom,
+.shutter-leave-to>.shutter_bottom{
     transform: translateX(800px);
 }
-.shutter-enter-from>#shutter_top,
-.shutter-leave-to>#shutter_top{
+.shutter-enter-from>.shutter_top,
+.shutter-leave-to>.shutter_top{
     transform: translateX(500px);
 }
-.shutter-enter-from>#shutter_top_container,
-.shutter-leave-to>#shutter_top_container{
+.shutter-enter-from>.shutter_top_container,
+.shutter-leave-to>.shutter_top_container{
     transform: translateX(500px);
 }
