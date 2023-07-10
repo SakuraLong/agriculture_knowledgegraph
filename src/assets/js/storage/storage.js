@@ -116,6 +116,7 @@ const set = (save_type, key, value, type) => {
  *
  * @param {int} save_type 数据库保存方式0:长期;1:短期
  * @param {string} key 键
+ * @param {string} default_value 默认值
  * @param {string} type 值的类型能直接存的就不用填
  * 
  * @returns 存储的数据
@@ -139,7 +140,7 @@ export default {
     del
 };
 /**
- * import Storage from "@/assets/js/storage/storage.js;"
+ * import Storage from "@/assets/js/storage/storage.js";
  * Storage.set(0, "bus", 1000);
  * Storage.get(0, "bus", {"name":"bus_1"}, "JSON");
  */
