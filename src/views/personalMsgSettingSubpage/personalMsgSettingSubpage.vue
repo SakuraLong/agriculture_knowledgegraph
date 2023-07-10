@@ -62,7 +62,7 @@
             </div>
         </div>
         <transition name="opacity400">
-            <avatarUpload v-if="edit_avatar" class="avatar_upload"></avatarUpload>
+            <avatarUpload v-if="edit_avatar" class="avatar_upload" :exit="leaveEdit"></avatarUpload>
         </transition>
     </div>
 </template>
@@ -143,8 +143,10 @@ export default {
             this.$emit("leaveSetting");
         },
         editClick(){
-            console.log("点击");
             this.edit_avatar = true;
+        },
+        leaveEdit(){
+            this.edit_avatar = false;
         }
     },
     watch: {},
