@@ -2,7 +2,7 @@
     <div
         class="container"
         id="container"
-        :class="{ blur: page.is_login || page.is_personal }"
+        :class="{ blur: page.is_login || page.is_personal_setting }"
         onselectstart="return false"
     >
         <bg />
@@ -29,7 +29,7 @@
     </div>
     <transition name="app_subpage" mode="out-in">
         <personalMsgSettingSubpage
-            v-if="page.is_personal"
+            v-if="page.is_personal_setting"
             @leaveSetting="leaveSetting"
         />
         <loginAndRegister v-else-if="page.is_login" @leaveLogin="leaveLogin" />
@@ -71,6 +71,7 @@ export default {
                 is_func_page: false,
                 is_personal: true,
                 is_login: false,
+                is_personal_setting:true,
                 main: {
                     is_main: true,
                     is_func: false,
