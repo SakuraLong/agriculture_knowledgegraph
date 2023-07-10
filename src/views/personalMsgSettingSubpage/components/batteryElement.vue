@@ -5,9 +5,7 @@
     >
         <div class="battery_border"></div>
         <div class="level_container">
-            <div
-                class="battery_bg"
-            >
+            <div class="battery_bg">
                 <div
                     class="battery_bg_color"
                     :class="{ charging: charging }"
@@ -38,21 +36,24 @@ export default {
                 (parseInt(this.battery_width) * 0.6).toString() + "px";
         }
         let ele = this;
-        navigator.getBattery().then(function (battery) {
-            ele.updateBatteryStatus(battery);
-            battery.addEventListener("chargingchange", function () {
+        try {
+            navigator.getBattery().then(function (battery) {
                 ele.updateBatteryStatus(battery);
+                battery.addEventListener("chargingchange", function () {
+                    ele.updateBatteryStatus(battery);
+                });
+                battery.addEventListener("levelchange", function () {
+                    ele.updateBatteryStatus(battery);
+                });
+                battery.addEventListener("chargingtimechange", function () {
+                    ele.updateBatteryStatus(battery);
+                });
+                battery.addEventListener("dischargingtimechange", function () {
+                    ele.updateBatteryStatus(battery);
+                });
             });
-            battery.addEventListener("levelchange", function () {
-                ele.updateBatteryStatus(battery);
-            });
-            battery.addEventListener("chargingtimechange", function () {
-                ele.updateBatteryStatus(battery);
-            });
-            battery.addEventListener("dischargingtimechange", function () {
-                ele.updateBatteryStatus(battery);
-            });
-        });
+        } catch {//
+        }
     },
     methods: {
         updateBatteryStatus(battery) {
@@ -126,7 +127,7 @@ export default {
     border-radius: 10%;
     overflow: hidden;
 }
-.battery_bg_color{
+.battery_bg_color {
     position: absolute;
     left: 0;
     top: 0;

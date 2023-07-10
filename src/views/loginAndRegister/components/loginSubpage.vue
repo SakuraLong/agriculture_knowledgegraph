@@ -18,6 +18,9 @@ import store from "@/store/index.js";
 import loginEmailInput from "./inputs/loginEmailInput.vue";
 import loginPasswordInput from "./inputs/loginPasswordInput.vue";
 import confirmButton from "@/components/buttons/loginAndRegisterButton/confirmButton/confirmButton.vue";
+import Code from "@/assets/js/code/code.js";
+import Storage from "@/assets/js/storage/storage.js";
+import utils from "@/assets/js/utils.js";
 export default {
     data() {
         return {
@@ -44,6 +47,9 @@ export default {
         loginPasswordInput,
         confirmButton
     },
+    mounted(){
+        // store.state.is_login = !store.state.is_login;
+    },
     methods: {
         passwordOnFocus() {
             this.$emit("passwordOnFocus");
@@ -64,30 +70,48 @@ export default {
 
             this.login(id_email, password);
         },
-        login(id_email, password, ) {
+        login(id_email, password) {
             console.log(id_email);
             console.log(password);
-            Connector.send(
-                [1, 2, 3],
-                "register",
+            let is_id = id_email.type === "id";
+            let send_id_email = id_email.msg;
+            let send_password = Code.MD5.encrypt(password);
+            // 此时会把密码存入本地数据库
+            let user_msg = utils.getUserMsg();
+            console.log("user_msg_",user_msg);
+            user_msg.password = send_password;
+            utils.saveUserMsg(user_msg);
+            Connector.test(
                 this.loginCallback,
                 this.loginWaiting,
-                this.loginTimeout
+                this.loginTimeout,
+                200,
+                true,
+                1000,
+                {
+                    "success":true
+                }
             );
         },
         loginCallback(msg) {
-            store.state.can_click_button = true;
+            if(msg.success){
+                // 用户登录成功 数据存入本地数据库
+                store.state.is_login = true;
+                console.log("登录成功");
+            }else{
+                this.$refs.loginPasswordInput.setError("用户不存在或密码错误");
+            }
         },
         loginWaiting(is_waiting) {
-            this.waiting.is_waiting = is_waiting;
+            this.$refs.loginPasswordInput.setWaiting(is_waiting);
             if (is_waiting) {
                 store.state.can_click_button = false;
+            }else{
+                store.state.can_click_button = true;
             }
         },
         loginTimeout() {
-            store.state.can_click_button = true;
-            this.back_error.has_error = true;
-            this.back_error.content = "登录失败";
+            this.$refs.loginPasswordInput.setError("服务器连接异常");
         },
     },
 };
