@@ -1,6 +1,8 @@
 <template>
     <div class="shutter" @resize="pageResize">
-        <img alt="" class="shutter_top" id="shutter_top" />
+
+        <img src="./img/top.png" alt="" class="shutter_top" ref="shutter_top" />
+
         <div
             key="con"
             class="pointer"
@@ -9,7 +11,7 @@
                     ? 'shutter_top_container_4block'
                     : 'shutter_top_container_3block',
             ]"
-            id="shutter_top_container"
+            ref="shutter_top_container"
         >
             <div>这里之后会放吉祥物组件</div>
             <div></div>
@@ -31,7 +33,7 @@
         <img
             alt=""
             class="shutter_bottom"
-            id="shutter_bottom"
+            ref="shutter_bottom"
         />
     </div>
 </template>
@@ -64,11 +66,11 @@ export default {
             let top_r = 1.14;
             let bot_r = 0.4;
             let shutter_height =
-                document.getElementById("shutter_top").clientHeight;
+            this.$refs.shutter_top.clientHeight;
             let shutter_top_w =
-                document.getElementById("shutter_top").clientWidth;
+            this.$refs.shutter_top.clientWidth;
             let shutter_bottom_w =
-                document.getElementById("shutter_bottom").clientWidth;
+            this.$refs.shutter_bottom.clientWidth;
             shutter_top_w =
                 shutter_top_w === 0 ? shutter_height * top_r : shutter_top_w;
             shutter_bottom_w =
@@ -76,12 +78,12 @@ export default {
                     ? shutter_height * bot_r
                     : shutter_bottom_w;
 
-            document.getElementById("shutter_bottom").style.right =
+            this.$refs.shutter_bottom.style.right =
                 ((shutter_height - ratio.h) * ratio.ra + ratio.r).toString() +
                 "px";
-            document.getElementById("shutter_top_container").style.width =
+            this.$refs.shutter_top_container.style.width =
                 (shutter_top_w * 0.85).toString() + "px";
-            document.getElementById("shutter_top_container").style.height =
+            this.$refs.shutter_top_container.style.height =
                 (shutter_top_w * 0.85).toString() + "px";
 
             let num =
@@ -91,12 +93,9 @@ export default {
             let str_0 = num.toString() + " auto";
             let str_1 = "auto " + num.toString();
 
-            document.getElementById(
-                "shutter_top_container"
-            ).style.gridTemplateColumns = str_0;
-            document.getElementById(
-                "shutter_top_container"
-            ).style.gridTemplateRows = str_1;
+            this.$refs.
+                shutter_top_container.style.gridTemplateColumns = str_0;
+            this.$refs.shutter_top_container.style.gridTemplateRows = str_1;
         },
     },
 };

@@ -12,14 +12,14 @@
             ">        
             <button
                 class="test_class1"
-                id="test_button1"
+                ref="test_button1"
                 @click="changeLanguage_zhHans"
             >
                 <div class="button_text" data-text="简体中文">简体中文</div>
             </button>
             <button
                 class="test_class1"
-                id="test_button2"
+                ref="test_button2"
                 @click="changeLanguage_en"
             >
             <div class="button_text" data-text="English">English</div>
@@ -54,32 +54,32 @@ export default {
             console.log(this.radio1);
             window.localStorage.setItem("LANGUAGE", this.radio1);
             if (this.radio1 === "en") {
-                document.getElementById("test_button2").className =
+                this.$refs.test_button2.className =
                     "test_class3";
-                document.getElementById("test_button1").className =
+                this.$refs.test_button1.className =
                     "test_class1";
             } else {
-                document.getElementById("test_button1").className =
+                this.$refs.test_button1.className =
                     "test_class3";
-                document.getElementById("test_button2").className =
+                this.$refs.test_button2.className =
                     "test_class1";
             }
         },
     },
-    created() {
+    mounted() {
         this.radio1 = window.localStorage.getItem("LANGUAGE");
         if (this.radio1 == null) {
             window.localStorage.setItem("LANGUAGE", "en");
             this.radio1 = "en";
         }
-    },
-    mounted() {
+    
+    
         if (this.radio1 === "en") {
-            document.getElementById("test_button2").className = "test_class3";
-            document.getElementById("test_button1").className = "test_class1";
+            this.$refs.test_button2.className = "test_class3";
+            this.$refs.test_button1.className = "test_class1";
         } else {
-            document.getElementById("test_button1").className = "test_class3";
-            document.getElementById("test_button2").className = "test_class1";
+            this.$refs.test_button1.className = "test_class3";
+            this.$refs.test_button2.className = "test_class1";
         }
     },
 };
