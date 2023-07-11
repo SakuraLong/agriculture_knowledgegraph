@@ -16,11 +16,6 @@
     --snow-probe-default-src:"./img/mascots/snow/probe_base.png"; /* snow 探头默认图片 */
     --snow-probe-password-src:"./img/mascots/snow/probe_base.png"; /* snow 探头输入密码时图片 */
 }
-:root{
-    /* shutter相关 */
-    --shutter-top-img-src:url("./img/shutter/top_small.png");
-    --shutter-bottom-img-src:url("./img/shutter/bottom_small.png");
-}
 
 
 

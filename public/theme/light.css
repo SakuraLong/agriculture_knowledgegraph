@@ -1,3 +1,27 @@
 :root{
     --login-background-color:rgb(255, 255, 255);
 }
+/* homeview */
+:root{
+    --homeview-bg-color:rgb(255, 255, 255);
+}
+/* 主页背景 */
+:root{
+    --bg-img-src:url("./img/bg/bg_light.png");
+}
+/* 主页文字 */
+:root{
+    --main-bar-font-color:rgb(0, 0, 0);
+    --main-text-font-color:rgb(0, 0, 0);
+}
+/* shutter */
+:root{
+    --shutter-top-img-src:url("./img/shutter/top_light.png");
+    --shutter-bottom-img-src:url("./img/shutter/bottom_light.png");
+}
+/* navbar */
+:root{
+    --navbar-bg-bg-img:url("./img/bar/nav/bg_light.png");
+    --navbar-bar-bg-img:url("./img/bar/nav/nav_bar_light.png");
+    --navbar-font-color:rgb(0, 0, 0);
+}
