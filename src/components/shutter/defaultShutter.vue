@@ -1,47 +1,56 @@
 <template>
-    <div class="shutter" @resize="pageResize">
-        <img src="./img/top.png" alt="" class="shutter_top" id="shutter_top" />
+    <div class="shutter" :class="{black_bg:black_bg}" @resize="pageResize">
+
+        <img alt="" class="shutter_top" ref="shutter_top" />
+
         <div
+            key="con"
+            class="pointer shutter_top_container"
             :class="[
                 !has_right_girl
                     ? 'shutter_top_container_4block'
                     : 'shutter_top_container_3block',
             ]"
-            id="shutter_top_container"
+            ref="shutter_top_container"
         >
-            <div style="border: 1px solid red">这里之后会放吉祥物组件</div>
-            <div style="border: 1px solid red"></div>
+            <div>这里之后会放吉祥物组件</div>
+            <div></div>
             <div
                 :class="[
                     has_right_girl
                         ? 'shutter_top_container_4block_leftbot'
                         : 'shutter_top_container_3block_leftbot',
                 ]"
-                style="border: 1px solid red"
             >
+                <!-- <p>{{ t("message.save") }}</p>
+                <button @click="change">change</button> -->
                 <slot name="show_child_page">用户</slot>
             </div>
-            <div v-if="has_right_girl" style="border: 1px solid red">
+            <div v-if="has_right_girl">
                 这里之后会放吉祥物组件
             </div>
         </div>
         <img
-            src="./img/bottom.png"
             alt=""
             class="shutter_bottom"
-            id="shutter_bottom"
+            ref="shutter_bottom"
         />
     </div>
 </template>
 <script>
 export default {
-    props: ["has_right_girl"],
+    props: ["has_right_girl", "black_bg"],
     mounted() {
+        console.log(999888);
         window.addEventListener("resize", this.pageResize);
         this.pageResize();
     },
+    beforeUnmount(){
+        window.removeEventListener("resize", this.pageResize);
+    },
     methods: {
         pageResize() {
+            console.log(9999);
             // h=714 t_w=812 b_w=288 r=550 550
             // h=442 t_w=502 b_w=178 r=330
             // h=600 r=430 min
@@ -57,11 +66,11 @@ export default {
             let top_r = 1.14;
             let bot_r = 0.4;
             let shutter_height =
-                document.getElementById("shutter_top").clientHeight;
+            this.$refs.shutter_top.clientHeight;
             let shutter_top_w =
-                document.getElementById("shutter_top").clientWidth;
+            this.$refs.shutter_top.clientWidth;
             let shutter_bottom_w =
-                document.getElementById("shutter_bottom").clientWidth;
+            this.$refs.shutter_bottom.clientWidth;
             shutter_top_w =
                 shutter_top_w === 0 ? shutter_height * top_r : shutter_top_w;
             shutter_bottom_w =
@@ -69,12 +78,12 @@ export default {
                     ? shutter_height * bot_r
                     : shutter_bottom_w;
 
-            document.getElementById("shutter_bottom").style.right =
+            this.$refs.shutter_bottom.style.right =
                 ((shutter_height - ratio.h) * ratio.ra + ratio.r).toString() +
                 "px";
-            document.getElementById("shutter_top_container").style.width =
+            this.$refs.shutter_top_container.style.width =
                 (shutter_top_w * 0.85).toString() + "px";
-            document.getElementById("shutter_top_container").style.height =
+            this.$refs.shutter_top_container.style.height =
                 (shutter_top_w * 0.85).toString() + "px";
 
             let num =
@@ -84,16 +93,24 @@ export default {
             let str_0 = num.toString() + " auto";
             let str_1 = "auto " + num.toString();
 
-            document.getElementById(
-                "shutter_top_container"
-            ).style.gridTemplateColumns = str_0;
-            document.getElementById(
-                "shutter_top_container"
-            ).style.gridTemplateRows = str_1;
+            this.$refs.
+                shutter_top_container.style.gridTemplateColumns = str_0;
+            this.$refs.shutter_top_container.style.gridTemplateRows = str_1;
         },
     },
 };
 </script>
+<!-- <script setup>
+import { useI18n } from "vue-i18n";
+const { t, locale } = useI18n();
+let change = () => {
+    if (locale.value === "en") {
+        locale.value = "ch";
+    } else {
+        locale.value = "en";
+    }
+};
+</script> -->
 <style scoped>
 .shutter {
     pointer-events: none;
@@ -108,27 +125,36 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 9999;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     min-height: 600px;
 }
+.black_bg{
+    pointer-events: all;
+    background-color: rgba(0, 0, 0, .3);
+}
+.pointer{
+    pointer-events: all;
+    transform: translateX(0px);
+}
 .shutter_top {
-    border: 2px solid red;
     position: absolute;
     top: 0%;
     right: 0%;
     pointer-events: all;
     height: 100%;
+    content: var(--shutter-top-img-src);
 }
 .shutter_bottom {
     z-index: -1;
     height: 100%;
     position: absolute;
     right: 550px;
+    content: var(--shutter-bottom-img-src);
 }
 .shutter_top_container_4block {
     position: absolute;
     right: 0%;
-    border: 1px solid green;
+    /* border: 1px solid green; */
     width: 80%;
     height: 100%;
 
@@ -143,7 +169,7 @@ export default {
 .shutter_top_container_3block {
     position: absolute;
     right: 0%;
-    border: 1px solid green;
+    /* border: 1px solid green; */
     width: 80%;
     height: 100%;
 
@@ -164,11 +190,17 @@ export default {
 .shutter_top_container_3block_leftbot {
     grid-column-start: 1;
     grid-column-end: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .shutter_top_container_4block_leftbot {
     grid-column-start: 1;
     grid-column-end: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 @media screen and (max-height: 650px) {
     .shutter_top_container {

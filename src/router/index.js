@@ -1,11 +1,17 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import VerifyView from "../views/VerifyView.vue";
 
 const routes = [
     {
         path: "/",
         name: "home",
         component: HomeView,
+    },
+    {
+        path: "/verify/:code",
+        name: "verify",
+        component: VerifyView,
     },
     // {
     //     path: "/about",

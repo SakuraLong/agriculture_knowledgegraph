@@ -1,9 +1,27 @@
 <template>
-    <div></div>
+    <div class="preference">
+        <themeManager></themeManager>
+    </div>
 </template>
 
 <script>
-export default {};
+import themeManager from "./themeManager/themeManager.vue";
+export default {
+    components:{
+        themeManager
+    }
+};
 </script>
 
-<style></style>
+<style scoped>
+.preference{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+</style>

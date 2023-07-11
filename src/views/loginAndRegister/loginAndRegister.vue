@@ -20,7 +20,6 @@
                         <div class="login_msg_title" data-text="农业知识图谱">
                             农业知识图谱
                         </div>
-                        <iii style="width: 200px;" data_left="assss"></iii>
                         <!-- <transition name="login_register" mode="out-in">
                             
                         </transition> -->
@@ -46,18 +45,20 @@
             </transition>
             <transition name="login_register" mode="out-in">
                 <loginSubpage
-                    v-if="is_login && no_setting"
+                    v-show="is_login && no_setting"
                     class="login_area_container"
                     @passwordOnFocus="passwordOnFocus"
                     @passwordOnBlur="passwordOnBlur"
+                    @exitPage = "leaveLogin"
                 ></loginSubpage>
             </transition>
             <transition name="login_register" mode="out-in">
                 <registerSubpage
-                    v-if="is_register && no_setting"
+                    v-show="is_register && no_setting"
                     class="register_area_container"
                     @passwordOnFocus="passwordOnFocus"
                     @passwordOnBlur="passwordOnBlur"
+                    @exitPage = "leaveLogin"
                 ></registerSubpage>
             </transition>
             <transition name="login_register">
@@ -74,7 +75,6 @@ import loginMsg from "./components/loginMsg.vue";
 import registerMsg from "./components/registerMsg.vue";
 import store from "@/store/index.js";
 
-import iii from "@/components/prompts/line/linePrompt.vue";
 export default {
     data() {
         return {
@@ -90,10 +90,10 @@ export default {
         backButton,
         loginMsg,
         registerMsg,
-        iii
     },
     methods: {
         leaveLogin() {
+            console.log("leaveLogin");
             if (!store.state.can_click_button) return;
             this.$emit("leaveLogin");
         },

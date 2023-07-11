@@ -23,6 +23,7 @@
                                 v-if="activeTab === 'home'"
                                 src="./img/arrow.png"
                                 style="width: 40px; height: 40px"
+                                class="arrow"
                             />
                             <img
                                 v-else
@@ -47,19 +48,12 @@
                         }"
                         tabindex="0"
                     >
-                        <div class="tab-content">
-                            <img
-                                v-if="activeTab === 'features'"
-                                src="./img/arrow.png"
-                                style="width: 40px; height: 40px"
-                            />
-                            <img
-                                v-else
-                                :src="transparentImage"
-                                style="width: 40px; height: 40px"
-                            />
-                            <a href="#">功能</a>
-                        </div>
+                        <img
+                            v-if="activeTab === 'features'"
+                            src="./img/arrow.png"
+                            style="width: 40px; height: 40px"
+                        />
+                        <a href="#">功能</a>
                     </li>
                     <li
                         :class="{ active: activeTab === 'other' }"
@@ -76,19 +70,12 @@
                         }"
                         tabindex="0"
                     >
-                        <div class="tab-content">
-                            <img
-                                v-if="activeTab === 'other'"
-                                src="./img/arrow.png"
-                                style="width: 40px; height: 40px"
-                            />
-                            <img
-                                v-else
-                                :src="transparentImage"
-                                style="width: 40px; height: 40px"
-                            />
-                            <a href="#">其他</a>
-                        </div>
+                        <img
+                            v-if="activeTab === 'other'"
+                            src="./img/arrow.png"
+                            style="width: 40px; height: 40px"
+                        />
+                        <a href="#">其他</a>
                     </li>
                 </ul>
             </nav>
@@ -101,8 +88,9 @@
     width: 300px;
     position: fixed;
     top: 10%;
-    left: 2%;
+    left: 4%;
     height: 100%;
+    position: relative;
 }
 
 .login-container {
@@ -139,17 +127,15 @@ nav a {
     padding: 5px 10px;
     text-decoration: none;
     color: #000000;
+    transition: transform 0.3s;
 }
 
-.tab-content {
-    display: flex;
-    align-items: center;
-    transition: transform 0.3s ease-in-out;
+nav li.active a {
+    transform: translateX(10px);
 }
 
-.active .tab-content {
-    transform: translateX(45px);
-    transition: transform 0.3s ease-in-out;
+nav li.active img {
+    transform: translateX(10px);
 }
 </style>
 

@@ -26,7 +26,7 @@ export default{
     methods:{
         toLogin(){
             console.log(0);
-            this.$emit("toLogin", "msg changed by childA");
+            this.$emit("avatarClick");
         }
     }
 };
@@ -46,7 +46,7 @@ export default{
     position: absolute;
     width: 100%;
     height: 70%;
-    background-image: url("./img/bg.png");
+    background-image: var(--navbar-bg-bg-img);
     background-size: contain;
     background-repeat: repeat-x;
 }
@@ -54,7 +54,7 @@ export default{
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: url("./img/nav_bar.png");
+    background-image: var(--navbar-bar-bg-img);
     background-size: cover;
     /* background-repeat: repeat-x; */
 }
@@ -104,6 +104,7 @@ export default{
     align-items: center;
     font-family: FZZJ-WHJZTJW;
     font-size: var(--nav-bar-font-size);
+    color: var(--navbar-font-color);
 }
 .nav_bar_content{
     flex-direction: row;

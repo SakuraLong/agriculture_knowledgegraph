@@ -1,15 +1,17 @@
 <template>
-    <div class="nav_avatar">
-        <!-- <img src="" alt="" class="nav_avatar_border"> -->
-        <div class="nav_avatar_img" @click="clickAvatar">登录</div>
-    </div>
-    <div class="nav_avatar_name">登录发现更多事物</div>
+    <defaultAvatar class="" @click="clickAvatar" id="nav_avatar">登录</defaultAvatar>
+    <div class="nav_avatar_name">{{ user_name }}</div>
 </template>
 <script>
+import defaultAvatar from "@/components/avatar/defaultAvatar.vue";
 export default{
+    components:{
+        defaultAvatar
+    },
     data(){
         return {
-            is_logged:false
+            is_logged:false,
+            user_name:"登录发现更多事物"
         };
     },
     methods:{

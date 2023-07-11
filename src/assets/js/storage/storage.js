@@ -46,17 +46,33 @@ class Storage {
      * @example get("bus")
      * @example get("car", "JSON")
      */
-    get(key, type) {
+    get(key, type, default_value) {
         if (type == null) {
             if (this.type === 0) {
+                let t = window.localStorage.getItem(key);
+                if(t==null){
+                    this.set(key, default_value, type);
+                }
                 return window.localStorage.getItem(key);
             } else {
+                let t = window.sessionStorage.getItem(key);
+                if(t==null){
+                    this.set(key, default_value, type);
+                }
                 return window.sessionStorage.getItem(key);
             }
         } else if (type === "JSON") {
             if (this.type === 0) {
+                let t = JSON.parse(window.localStorage.getItem(key));
+                if(t==null){
+                    this.set(key, default_value, type);
+                }
                 return JSON.parse(window.localStorage.getItem(key));
             } else {
+                let t = JSON.parse(window.sessionStorage.getItem(key));
+                if(t==null){
+                    this.set(key, default_value, type);
+                }
                 return JSON.parse(window.sessionStorage.getItem(key));
             }
         }
@@ -100,12 +116,13 @@ const set = (save_type, key, value, type) => {
  *
  * @param {int} save_type 数据库保存方式0:长期;1:短期
  * @param {string} key 键
+ * @param {string} default_value 默认值
  * @param {string} type 值的类型能直接存的就不用填
  * 
  * @returns 存储的数据
  */
-const get = (save_type, key, type) => {
-    return new Storage(save_type).get(key, type);
+const get = (save_type, key, default_value, type) => {
+    return new Storage(save_type).get(key, type, default_value);
 };
 /**
  *
@@ -123,5 +140,7 @@ export default {
     del
 };
 /**
- * Storage.set("bus", 1000);
+ * import Storage from "@/assets/js/storage/storage.js";
+ * Storage.set(0, "bus", 1000);
+ * Storage.get(0, "bus", {"name":"bus_1"}, "JSON");
  */

@@ -1,57 +1,140 @@
 <template>
-    <div class="avatar">
+    <div class="avatar" id="avatar">
         <!-- <img src="" alt="" class="nav_avatar_border"> -->
-        <div class="nav_avatar_img" :style="{backgroundImage:setBackgroundImageUrl}">登录</div>
+        <div class="nav_avatar">
+            <div
+                class="nav_avatar_img_container"
+                v-show="is_login"
+                ref="nav_avatar_img_container"
+            >
+                <!-- <img src="" alt="" id="nav_avatar_img" class="nav_avatar_img" draggable="false" /> -->
+            </div>
+            登录
+            <div v-if="edit" class="avatar_edit" @click="editClick">编辑</div>
+        </div>
     </div>
 </template>
 <script>
-export default{
-    data(){
+import { watch } from "vue";
+import { useStore } from "vuex";
+import store from "@/store/index.js";
+import utils from "@/assets/js/utils.js";
+export default {
+    data() {
         return {
-            is_logged:false
+            is_login: false,
         };
     },
-    props:{
-        "setBackgroundImageUrl":{}
+    props: ["edit", "edit_func"],
+    created() {
+        if (store.state.is_login) this.is_login = true;
+        const $store = useStore();
+        watch(
+            () => $store.state.is_login,
+            (val, old) => {
+                this.is_login = val;
+            }
+        );
+    },
+    methods: {
+        editClick() {
+            this.edit_func();
+        },
+        async loadAvatar(){
+            let image = new Image();
+            image.setAttribute(
+                "src",
+                utils.getUserMsg().avatar
+            );
+            image.onload = () => {
+                image.setAttribute("class", "nav_avatar_img");
+                this.$refs.nav_avatar_img_container.appendChild(image);
+            };
+        },
+        removeAvatar(){
+            this.$refs.nav_avatar_img_container.innerHTML = "";
+        }
+    },
+    mounted() {
+        this.loadAvatar();
+    },
+    watch:{
+        "is_login"(){
+            if(this.is_login){
+                this.loadAvatar();
+            }else{
+                this.removeAvatar();
+            }
+        }
     }
 };
 </script>
 <style scoped>
-.avatar{
-    width: 45px;
-    height: 45px;
+.avatar {
+    user-select: none;
+    margin: 10px;
+    width: 50px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.nav_avatar_img{
+.nav_avatar {
     pointer-events: all;
     position: relative;
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
-    background-color: #8222965F;
+    background-color: #8222965f;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #FFF;
+    color: #fff;
     font-weight: 500;
     -webkit-text-stroke: 0.3px white;
-    font-size: 15px;
-
-    background-image: url("./img/back.png");
-    background-size: contain;
-    background-repeat: no-repeat;
+    font-size: 16px;
+    font-family: Heiti;
 }
-.nav_avatar_img::after{
+.nav_avatar::after {
     content: " ";
     background-image: var(--avatar-border, " ");
     background-size: cover;
-    width: 160%;
-    height: 160%;
+    background-position: center;
+    width: 140%;
+    height: 140%;
     position: absolute;
-    left: -30%;
-    top: -30%;
+    left: -20%;
+    top: -20%;
     overflow: hidden;
+    /* border: 1px solid red; */
+}
+.nav_avatar_img_container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.avatar_edit {
+    cursor: pointer;
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+    z-index: 10;
+    background-color: white;
+    color: black;
+    font-family: Heiti;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #822296;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
+}
+</style>
+<style>
+.nav_avatar_img {
+    width: 100%;
+    height: 100%;
 }
 </style>
