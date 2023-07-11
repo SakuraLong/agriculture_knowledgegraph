@@ -22,10 +22,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .showerbar {
-    width: 250px;
-    height: 400px;
+    position: relative;
+    border: solid 1px black;
 }
 
 .showerbar-ele {

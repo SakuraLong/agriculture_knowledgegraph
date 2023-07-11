@@ -35,6 +35,7 @@
                         v-else-if="page.is_main_page && page.main.is_func"
                     />
                     <personalSubpage v-else-if="page.is_personal" />
+                    <realNameSetting v-else-if="page.is_realname" />
                 </transition>
             </div>
         </transition>
@@ -96,6 +97,8 @@ export default {
                 is_forget_password: false, // 忘记密码界面显示
                 is_update_password: false, // 更新密码界面显示
                 is_update_email: false, // 更新邮箱界面显示
+                is_realname: true, // 实名认证界面显示
+
                 main: {
                     is_main: true, // 主页面主页
                     is_func: false, // 主页面选择功能页面
@@ -140,9 +143,9 @@ export default {
             this.page.main.is_other = data.is_other;
         },
         avatarClick() {
-            if(store.state.is_login){
+            if (store.state.is_login) {
                 this.page.is_personal = true;
-            }else{
+            } else {
                 this.page.is_login = true;
             }
         },

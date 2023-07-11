@@ -86,7 +86,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .personal-profile-container {
     position: relative;
     left: 100px;
