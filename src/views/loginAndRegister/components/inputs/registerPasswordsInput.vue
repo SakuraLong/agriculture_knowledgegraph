@@ -6,6 +6,7 @@
             ref="borderInput"
             :msg="password.password"
             placeholder="请输入6~20位密码"
+            :disabled="disabled"
         ></borderInput>
         <borderInput
             title="确认密码"
@@ -14,12 +15,13 @@
             :msg="password.password_confirm"
             placeholder="请确认密码"
             class="border_input_2"
+            :disabled="disabled"
         ></borderInput>
         <linePrompt
             :opacity="error"
             style="width: 260px"
             :data_left="error"
-            type="error"
+            :type="prompt_type"
         ></linePrompt>
     </div>
 </template>
@@ -35,6 +37,7 @@ export default {
         return {
             error: "",
             is_email: true,
+            prompt_type:"error",
             password: {
                 password: "",
                 password_confirm: "",
@@ -48,6 +51,7 @@ export default {
         borderInput,
         linePrompt,
     },
+    props:["disabled"],
     methods: {
         passwordChange(msg) {
             this.password.password = msg;
@@ -95,6 +99,18 @@ export default {
                 }
             }
         },
+        setError(error){
+            this.error = error;
+        },
+        setWaiting(is_waiting, msg){
+            if(is_waiting){
+                this.prompt_type = "waiting";
+                this.error = msg;
+            }else{
+                this.prompt_type = "error";
+                this.error = "";
+            }
+        }
     },
 };
 </script>

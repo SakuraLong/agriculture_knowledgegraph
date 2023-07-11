@@ -4,8 +4,8 @@
             title="邮箱"
             @msgChange="emailChange"
             ref="borderInput"
-            :msg="email.email"
             placeholder="请输入需要绑定的邮箱"
+            :disabled="disabled"
         ></borderInput>
         <linePrompt
             :opacity="error"
@@ -37,10 +37,11 @@ export default {
         borderInput,
         linePrompt,
     },
+    props:["disabled"],
     methods: {
         get() {
             this.error_right = "";
-            let str = this.email.email;
+            let str = this.$refs.borderInput.get();
             if (new Checker(str, ["no-null"]).check()) {
                 if (new Checker(str, ["is-email"]).check()) {
                     if (

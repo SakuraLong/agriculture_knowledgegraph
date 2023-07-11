@@ -1,86 +1,61 @@
 <template>
-    <div style="
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                /* left: 40%; */
-                justify-content: center;
-                align-items: center;
-                width:70%;
-                height: 80%;
-                /* top:10%; */
-            ">        
-            <button
-                class="test_class1"
-                ref="test_button1"
-                @click="changeLanguage_zhHans"
-            >
-                <div class="button_text" data-text="简体中文">简体中文</div>
-            </button>
-            <button
-                class="test_class1"
-                ref="test_button2"
-                @click="changeLanguage_en"
-            >
+    <div
+        style="
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            /* left: 40%; */
+            justify-content: center;
+            align-items: center;
+            width: 70%;
+            height: 80%;
+            /* top:10%; */
+        "
+    >
+        <button
+            class="test_class1"
+            :class="{test_class3:index_arr[0]}"
+            @click="changeLanguage(0)"
+        >
+            <div class="button_text" data-text="简体中文">简体中文</div>
+        </button>
+        <button
+            class="test_class1"
+            :class="{test_class3:index_arr[1]}"
+            @click="changeLanguage(1)"
+        >
             <div class="button_text" data-text="English">English</div>
-            </button>
-        
+        </button>
     </div>
 </template>
 
 <script>
 import Storage from "@/assets/js/storage/storage.js";
-
+const language_arr = ["zh-Hans", "en"];
 export default {
     methods: {
-        changeLanguage_zhHans() {
-            if (this.radio1 === "en") {
-                this.radio1 = "zh-Hans";
-            }
-        },
-        changeLanguage_en() {
-            if (this.radio1 === "zh-Hans") {
-                this.radio1 = "en";
-            }
-        },
+        changeLanguage(index){
+            this.radio1 = language_arr[index];
+            this.index_arr.forEach((element, index)=>{
+                this.index_arr[index] = false;
+            });
+            this.index_arr[index] = true;
+        }
     },
     data() {
         return {
             radio1: "en",
+            index_arr:[false, false]
         };
     },
     watch: {
         radio1() {
-            console.log(this.radio1);
-            window.localStorage.setItem("LANGUAGE", this.radio1);
-            if (this.radio1 === "en") {
-                this.$refs.test_button2.className =
-                    "test_class3";
-                this.$refs.test_button1.className =
-                    "test_class1";
-            } else {
-                this.$refs.test_button1.className =
-                    "test_class3";
-                this.$refs.test_button2.className =
-                    "test_class1";
-            }
+            Storage.set(0, "LANGUAGE", this.radio1);
         },
     },
     mounted() {
-        this.radio1 = window.localStorage.getItem("LANGUAGE");
-        if (this.radio1 == null) {
-            window.localStorage.setItem("LANGUAGE", "en");
-            this.radio1 = "en";
-        }
-    
-    
-        if (this.radio1 === "en") {
-            this.$refs.test_button2.className = "test_class3";
-            this.$refs.test_button1.className = "test_class1";
-        } else {
-            this.$refs.test_button1.className = "test_class3";
-            this.$refs.test_button2.className = "test_class1";
-        }
+        this.radio1 = Storage.get(0, "LANGUAGE", "en");
+        this.changeLanguage(language_arr.indexOf(this.radio1));
     },
 };
 </script>
@@ -134,7 +109,8 @@ export default {
     color: #3498db;
 }
 .test_class3 {
-    margin-top: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     width: 150px;
     height: 50px;
     background-color: #d5b4dc;
@@ -167,7 +143,7 @@ export default {
     bottom: -4px;
     right: 80%;
 }
-.button_text{
+.button_text {
     left: 0;
     top: 0;
     position: absolute;
@@ -178,10 +154,10 @@ export default {
     align-items: center;
     z-index: 1;
 }
-.test_class1:hover>.button_text{
+.test_class1:hover > .button_text {
     color: white;
 }
-.test_class1:hover>.button_text::after{
+.test_class1:hover > .button_text::after {
     content: attr(data-text);
     position: absolute;
     width: 100%;

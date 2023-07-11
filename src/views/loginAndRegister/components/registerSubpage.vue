@@ -1,13 +1,14 @@
 <template>
     <div class="register_comp" onselectstart="return false">
         <div class="register_text">R E G I S T E R</div>
-        <registerEmailInput ref="registerEmailInput"></registerEmailInput>
+        <registerEmailInput ref="registerEmailInput" :disabled="disabled"></registerEmailInput>
         <registerPasswordsInput
             ref="registerPasswordsInput"
+            :disabled="disabled"
         ></registerPasswordsInput>
         <confirmButton
             @confirmClick="registerClick"
-            content="注册"
+            :content="content"
         ></confirmButton>
     </div>
 </template>
@@ -31,6 +32,9 @@ export default {
         return {
             email: "",
             password: "",
+            content:"注册",
+            disabled:null,
+            timer:null
         };
     },
     watch: {},
@@ -40,7 +44,7 @@ export default {
             // 发送注册请求
             this.email = this.$refs.registerEmailInput.get();
             this.password = this.$refs.registerPasswordsInput.get();
-            if (!this.email || !this.id || !this.vcode || !this.password) {
+            if (!this.email || !this.password) {
                 return;
             } else {
                 // 执行注册
@@ -57,20 +61,53 @@ export default {
                 );
             }
         },
-        registerCallback() {
-            store.state.can_click_button = true;
+        registerCallback(msg) {
+            console.log("成功");
+            if(msg.success){
+                // 开始循环发送注册请求
+                this.intervalLogin();
+            }else{
+                this.$refs.registerPasswordsInput.setError("邮件发送失败");
+            }
         },
         registerWaiting(is_waiting) {
             if (is_waiting) {
                 store.state.can_click_button = false;
-                this.password.msg_left = "发送中";
+                this.$refs.registerPasswordsInput.setWaiting(is_waiting, "注册中");
             } else {
                 store.state.can_click_button = true;
+                this.$refs.registerPasswordsInput.setWaiting(is_waiting);
             }
         },
         registerTimeout() {
-            store.state.can_click_button = true;
+            console.log("超时");
+            this.$refs.registerPasswordsInput.setError("访问服务器失败");
         },
+        intervalLogin(){
+            clearInterval(this.timer);
+            this.$refs.registerPasswordsInput.setWaiting(true, "请点击您邮箱中的验证链接");
+            this.disabled = "disabled";
+            this.content = "重新发送";
+            const waiting_time = 300000; // 5min
+            let begin = new Date().getTime();
+            this.timer = setInterval(()=>{
+                let now = new Date().getTime();
+                if(now - begin >= waiting_time){
+                    clearInterval(this.timer);
+                    this.$refs.registerPasswordsInput.setWaiting(false);
+                    return;
+                }
+            }, 3000);
+        },
+        autoLoginCallback(msg){
+
+        },
+        autoLoginWaiting(is_waiting){
+
+        },
+        autoLoginTimeout(){
+            console.log("超时");
+        }
     },
 };
 </script>
