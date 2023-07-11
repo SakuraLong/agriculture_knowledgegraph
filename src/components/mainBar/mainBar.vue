@@ -157,6 +157,18 @@ nav a {
     transform: translateX(45px);
     transition: transform 0.3s ease-in-out;
 }
+
+.arrow{
+    animation: example .8s infinite linear;
+}
+
+@keyframes example {
+        0% {transform: translateX(0);}
+        25% {transform: translateX(-5px);}
+        50% {transform: translateX(0);}
+        75% {transform: translateX(5px);}
+        100% {transform: translateX(0);}
+    }
 </style>
 
 <script>

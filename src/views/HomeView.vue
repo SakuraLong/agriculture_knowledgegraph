@@ -12,6 +12,7 @@
                     <mainWord
                         v-if="page.main.is_main"
                         :key="page.main.is_main"
+                        @update-page="updatePage"
                     />
                 </transition>
 
