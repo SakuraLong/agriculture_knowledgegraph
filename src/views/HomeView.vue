@@ -108,6 +108,11 @@ export default {
         bg,
         mainWord,
         realNameSetting,
+
+        // baseBox,
+        // forgetPassword,
+        // updateEmail,
+        // threeSubpage,
     },
     methods: {
         updatePage(data) {
