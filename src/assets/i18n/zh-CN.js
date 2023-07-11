@@ -4,6 +4,18 @@ export default {
             language:"语言",
             about:"关于我们",
             preference:"偏好",
+            aboutSubpage:{
+                developers:"开发人员",
+                group_leader:"组长",
+                group_members:"组员",
+                interface_design:"界面设计",
+                interface_framework:"界面框架",
+                interface_details:"界面细节",
+                art_designing:"美工",
+                character_line_draft:"人物线稿",
+                character_coloring:"人物着色",    
+                home_page_dynamic_effect:"主页动效"
+            }
         },
         functionSubpage:{
             entity_recognition:"实体识别",
@@ -12,17 +24,6 @@ export default {
             agricultural_knowledge_graph:"农业知识图谱",
             agricultural_knowledge_QA:"农知问答"
         },
-        aboutSubpage:{
-            developers:"开发人员",
-            group_leader:"组长",
-            group_members:"组员",
-            interface_design:"界面设计",
-            interface_framework:"界面框架",
-            interface_details:"界面细节",
-            art_designing:"美工",
-            character_line_draft:"人物线稿",
-            character_coloring:"人物着色",    
-            home_page_dynamic_effect:"主页动效"
-        }
+        
     }
 };
