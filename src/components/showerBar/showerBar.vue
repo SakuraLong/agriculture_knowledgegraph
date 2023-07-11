@@ -1,7 +1,4 @@
 <template>
-    <div class="navBar">
-        <div class="login-containr"></div>
-    </div>
     <div class="showerbar">
         <div class="showerbar-ele" @click="BackToHome">回到首页</div>
         <div class="showerbar-ele" @click="BackToHome">实体查询</div>
@@ -27,9 +24,6 @@ export default {
 
 <style>
 .showerbar {
-    position: relative;
-    left: 100px;
-    top: 250px;
     width: 250px;
     height: 400px;
 }
@@ -61,10 +55,12 @@ export default {
 .showerbar-ele:hover::before {
     left: 0;
     opacity: 1;
+    /* transition: all 0.3s; */
 }
 
 .showerbar-ele:hover {
     border-left-color: #000; /* 在 hover 时设置边框左侧颜色 */
     transform: scale(1.1);
+    /* transition: all 0.3s; */
 }
 </style>

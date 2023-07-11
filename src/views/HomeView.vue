@@ -12,17 +12,19 @@
                     <mainWord
                         v-if="page.main.is_main"
                         :key="page.main.is_main"
+                        @click="test"
                     />
                 </transition>
 
                 <navBar @avatarClick="avatarClick" />
 
-                <transition name="bar_change" mode="out-in">
+                <transition :name="bar_change">
                     <mainBar
                         v-if="page.is_main_page"
                         @update-page="updatePage"
+                        class="home_view_bar"
                     />
-                    <!-- <showerBar v-else-if="page.is_func_page" /> -->
+                    <showerBar class="home_view_bar" v-else-if="page.is_func_page" />
                 </transition>
                 <transition name="shutter">
                     <othersSubpage
@@ -35,7 +37,6 @@
                 </transition>
             </div>
         </transition>
-        <!-- <showerSubpage v-if="page.is_func_page" /> -->
     </div>
     <transition name="app_subpage" mode="out-in">
         <personalMsgSettingSubpage
@@ -60,7 +61,7 @@ import realNameSetting from "@/views/realNameSetting/realNameSetting.vue"; //实
 // 组件
 import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
 import mainBar from "@/components/mainBar/mainBar.vue"; // 主页左侧导航栏
-// import showerBar from "@/components/showerBar/showerBar.vue"; // 功能界面左侧导航栏
+import showerBar from "@/components/showerBar/showerBar.vue"; // 功能界面左侧导航栏
 import othersSubpage from "@/views/othersSubpage/othersSubpage.vue";
 import defaultShutters from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
 
@@ -84,6 +85,7 @@ export default {
     data() {
         return {
             show: false,
+            bar_change:"bar_change_1",
             page: {
                 is_main_page: true, // 在主页面
                 is_func_page: false, // 在功能页面
@@ -111,7 +113,7 @@ export default {
         loginAndRegister,
         navBar,
         mainBar,
-        // showerBar,
+        showerBar,
         // showerSubpage,
         othersSubpage,
         functionSubpage,
@@ -120,7 +122,7 @@ export default {
         // defaultShutters,
         bg,
         mainWord,
-        realNameSetting,
+        // realNameSetting,
 
         // baseBox,
         // forgetPassword,
@@ -128,6 +130,11 @@ export default {
         // threeSubpage,
     },
     methods: {
+        test(){
+            this.bar_change = this.bar_change === "bar_change_0" ? "bar_change_1" : "bar_change_0";
+            this.page.is_main_page = !this.page.is_main_page;
+            this.page.is_func_page = !this.page.is_func_page;
+        },
         updatePage(data) {
             this.page.main.is_main = data.is_main;
             this.page.main.is_func = data.is_func;
@@ -188,7 +195,7 @@ export default {
     mounted() {
         setTimeout(() => {
             this.show = true;
-        }, 500);
+        }, 400);
         // let param = {
         //     container: document.getElementById("main_lottie__"), // the dom element that will contain the animation
         //     renderer: "svg",
@@ -203,6 +210,14 @@ export default {
 </script>
 
 <style scoped>
+.home_view_bar{
+    /* border: 1px solid red; */
+    width: 300px;
+    height: 700px;
+    position: absolute;
+    top: 10%;
+    left: 2%;
+}
 .main_lottie {
     position: absolute;
     z-index: 100;
