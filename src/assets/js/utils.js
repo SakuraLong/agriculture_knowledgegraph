@@ -246,7 +246,7 @@ export default {
     autoLogin, // 执行自动登录
     setLogOut,
     objectEqual,
-    // getUserMsg,
+    getUserMsg,
     saveUserMsg,
     userLoginInit,
 };
