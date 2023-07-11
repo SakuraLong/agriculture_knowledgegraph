@@ -2,28 +2,27 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import enLocale from "./assets/i18n/en";// 导入项目中用到的英文语言包
-import zhLocale from "./assets/i18n/zh-CN";// 导入项目中用到的中文语言包
-import {createI18n} from "vue-i18n";
+// import enLocale from "./assets/i18n/en"; // 导入项目中用到的英文语言包
+// import zhLocale from "./assets/i18n/zh-CN"; // 导入项目中用到的中文语言包
+// import { createI18n } from "vue-i18n";
 import ElementPlus from "element-plus";
 import Storage from "./assets/js/storage/storage";
 import "element-plus/dist/index.css";
-const messages ={
-    en: {
-        ...enLocale,
-    },
-    ch: {
-        ...zhLocale,
-    },
-};
-const i18n =createI18n({
-    locale:"en",//主语言
-    fallbackLocale:"ch",//备用语言
-    legacy:false,
-    messages,
-
-});
-
+import i18n from "./assets/i18n/index.js";
+// const messages = {
+//     en: {
+//         ...enLocale,
+//     },
+//     "zh-Hans": {
+//         ...zhLocale,
+//     },
+// };
+// const i18n = createI18n({
+//     locale: "en", //主语言
+//     fallbackLocale: "zh-Hans", //备用语言
+//     legacy: false,
+//     messages,
+// });
 createApp(App).use(store).use(router).use(i18n).use(ElementPlus).mount("#app");
 
 document.getElementById("html").onkeydown = (e) => {

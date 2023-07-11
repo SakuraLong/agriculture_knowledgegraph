@@ -14,15 +14,23 @@
                         id="subpage_button0"
                         @click="changeSubButton(0)"
                     >
-                        <div class="button_text" data-text="语言">语言</div>
+                        <div
+                            class="button_text"
+                            :data-text="$t('views.othersSubpage.language')"
+                        >
+                            {{ $t("views.othersSubpage.language") }}
+                        </div>
                     </button>
                     <button
                         class="subpage_unSelected"
                         id="subpage_button1"
                         @click="changeSubButton(1)"
                     >
-                        <div class="button_text" data-text="关于我们">
-                            关于我们
+                        <div
+                            class="button_text"
+                            :data-text="$t('views.othersSubpage.about')"
+                        >
+                            {{ $t("views.othersSubpage.about") }}
                         </div>
                     </button>
                     <button
@@ -30,42 +38,49 @@
                         id="subpage_button2"
                         @click="changeSubButton(2)"
                     >
-                        <div class="button_text" data-text="偏好">偏好</div>
+                        <div
+                            class="button_text"
+                            :data-text="$t('views.othersSubpage.preference')"
+                        >
+                            {{ $t("views.othersSubpage.preference") }}
+                        </div>
                     </button>
                 </div>
-                <threeSubpage :subpageSelected="t"></threeSubpage>
+                <threeSubpage
+                    style="border: solid 1px red"
+                    :subpageSelected="subpageSelected_judge"
+                ></threeSubpage>
             </div>
         </template>
     </defaultShutters>
 </template>
-
 <script>
 import threeSubpage from "@/views/othersSubpage/components/threeSubpage.vue";
 import defaultShutters from "@/components/shutter/defaultShutter.vue";
 export default {
     data() {
         return {
-            t: [true, false, false],
+            subpageSelected_judge: [true, false, false],
         };
     },
     methods: {
         changeSubButton(page) {
-            this.t[page] = true;
+            this.subpageSelected_judge[page] = true;
             document.getElementById("subpage_button" + page).className =
                 "subpage_isSelected";
             for (let i = 0; i < 3; i++) {
                 if (i !== page) {
                     document.getElementById("subpage_button" + i).className =
                         "subpage_unSelected";
-                    this.t[i] = false;
+                    this.subpageSelected_judge[i] = false;
                 }
             }
-            console.log(this.t);
+            // console.log(this.t);
         },
     },
     components: {
         threeSubpage,
-        defaultShutters
+        defaultShutters,
     },
 };
 </script>

@@ -24,7 +24,6 @@
                     />
                     <!-- <showerBar v-else-if="page.is_func_page" /> -->
                 </transition>
-
                 <transition name="shutter">
                     <othersSubpage
                         v-if="page.is_main_page && page.main.is_other"
@@ -57,6 +56,7 @@ import loginAndRegister from "@/views/loginAndRegister/loginAndRegister.vue"; //
 import functionSubpage from "@/views/functionSubpage/functionSubpage.vue"; // 功能--子页面
 import personalSubpage from "@/views/personalSubpage/personalSubpage.vue"; // 个人信息--子页面
 import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/personalMsgSettingSubpage.vue"; // 个人信息修改--子页面
+import realNameSetting from "@/views/realNameSetting/realNameSetting.vue"; //实名认证--子页面
 // 组件
 import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
 import mainBar from "@/components/mainBar/mainBar.vue"; // 主页左侧导航栏
@@ -120,6 +120,8 @@ export default {
         // defaultShutters,
         bg,
         mainWord,
+        realNameSetting,
+
         // baseBox,
         // forgetPassword,
         // updateEmail,
