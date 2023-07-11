@@ -5,26 +5,37 @@
         :class="{ blur: page.is_login || page.is_personal_setting }"
         onselectstart="return false"
     >
-        <bg />
-        <transition name="slide">
-            <mainWord v-if="page.main.is_main" :key="page.main.is_main" />
+        <transition name="opacity400">
+            <div v-show="show">
+                <bg />
+                <transition name="slide">
+                    <mainWord
+                        v-if="page.main.is_main"
+                        :key="page.main.is_main"
+                    />
+                </transition>
+
+                <navBar @avatarClick="avatarClick" />
+
+                <transition name="bar_change" mode="out-in">
+                    <mainBar
+                        v-if="page.is_main_page"
+                        @update-page="updatePage"
+                    />
+                    <!-- <showerBar v-else-if="page.is_func_page" /> -->
+                </transition>
+
+                <transition name="shutter">
+                    <othersSubpage
+                        v-if="page.is_main_page && page.main.is_other"
+                    />
+                    <functionSubpage
+                        v-else-if="page.is_main_page && page.main.is_func"
+                    />
+                    <personalSubpage v-else-if="page.is_personal" />
+                </transition>
+            </div>
         </transition>
-
-        <navBar @toLogin="avatarClick" />
-
-        <transition name="bar_change" mode="out-in">
-            <mainBar v-if="page.is_main_page" @update-page="updatePage" />
-            <!-- <showerBar v-else-if="page.is_func_page" /> -->
-        </transition>
-
-        <transition name="shutter">
-            <othersSubpage v-if="page.is_main_page && page.main.is_other" />
-            <functionSubpage
-                v-else-if="page.is_main_page && page.main.is_func"
-            />
-            <personalSubpage v-else-if="page.is_personal" />
-        </transition>
-
         <!-- <showerSubpage v-if="page.is_func_page" /> -->
     </div>
     <transition name="app_subpage" mode="out-in">
@@ -68,18 +79,20 @@ import forgetPassword from "./forgetPassword/forgetPassword.vue";
 import updateEmail from "./updateEmail/updateEmail.vue";
 
 import utils from "@/assets/js/utils.js";
+import store from "@/store/index.js";
 export default {
     data() {
         return {
+            show: false,
             page: {
                 is_main_page: true, // 在主页面
                 is_func_page: false, // 在功能页面
                 is_personal: false, // 个人信息界面显示
                 is_login: false, // 登录注册页面显示
-                is_personal_setting:false, // 个人信息设置页面显示
-                is_forget_password:false, // 忘记密码界面显示
-                is_update_password:false, // 更新密码界面显示
-                is_update_email:false, // 更新邮箱界面显示
+                is_personal_setting: false, // 个人信息设置页面显示
+                is_forget_password: false, // 忘记密码界面显示
+                is_update_password: false, // 更新密码界面显示
+                is_update_email: false, // 更新邮箱界面显示
                 main: {
                     is_main: true, // 主页面主页
                     is_func: false, // 主页面选择功能页面
@@ -119,8 +132,11 @@ export default {
             this.page.main.is_other = data.is_other;
         },
         avatarClick() {
-            this.page.is_personal = this.user.is_login ? true : false;
-            this.page.is_login = !this.user.is_login ? true : false;
+            if(store.state.is_login){
+                this.page.is_personal = true;
+            }else{
+                this.page.is_login = true;
+            }
         },
         leaveLogin() {
             this.page.is_login = false;
@@ -140,15 +156,37 @@ export default {
     },
     created() {
         // console.log(Code.CryptoJS.encrypt("asca87283r23y09c09ywch89y29fh"));
-        let user_msg = utils.checkLogin(); // 检查是否满足登录条件
-        console.log("user_msg", user_msg);
-        utils.autoLogin(
-            user_msg,
-            this.autoLoginCallBack,
-            this.autoLoginTimeout
-        ); // 执行自动登录
+        // let user_msg = utils.checkLogin(); // 检查是否满足登录条件
+        // console.log("user_msg", user_msg);
+        // utils.autoLogin(
+        //     user_msg,
+        //     this.autoLoginCallBack,
+        //     this.autoLoginTimeout
+        // ); // 执行自动登录
+        let t = Code.CryptoJS.encrypt("123456longwen", "aisjdnfu3jdf98h2");
+        console.log(t);
+        console.log(Code.CryptoJS.decrypt(t, "aisjdnfu3jdf98h2"));
+        let j = {
+            name: "longwen",
+            avatar: "caibcvnLVIBCJCAKSNCNIblln",
+            born: "2002-12-09",
+            sex: "1",
+            occu: "mprq31i93LM+uws+CtcYWQ==",
+            id: "25f9e794323b453885f5181f1b624d0b",
+            password: "EAAyB92jdgDd1f8GW3dTcQ==",
+            email: "XKJrIgHdeKgRfdIfCj2xWw==",
+        };
+        let b = JSON.stringify(j).toString();
+        console.log(b);
+        let a = Code.CryptoJS.encrypt(b);
+        Storage.set(0, "USER_MSG", a);
+        console.log(a);
+        utils.userLoginInit();
     },
     mounted() {
+        setTimeout(() => {
+            this.show = true;
+        }, 500);
         // let param = {
         //     container: document.getElementById("main_lottie__"), // the dom element that will contain the animation
         //     renderer: "svg",
