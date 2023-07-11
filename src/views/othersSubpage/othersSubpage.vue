@@ -8,7 +8,7 @@
                     height: 100%;
                 "
             >
-                <div class="subpageSelect" style="border: solid 1px red;">
+                <div class="subpageSelect">
                     <button
                         class="subpage_isSelected"
                         id="subpage_button0"
@@ -33,7 +33,7 @@
                         <div class="button_text" data-text="偏好">偏好</div>
                     </button>
                 </div>
-                <threeSubpage style="border: solid 1px red;" :subpageSelected="t"></threeSubpage>
+                <threeSubpage :subpageSelected="t"></threeSubpage>
             </div>
         </template>
     </defaultShutters>
