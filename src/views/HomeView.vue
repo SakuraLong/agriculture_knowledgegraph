@@ -30,7 +30,7 @@
                     <othersSubpage
                         v-if="page.is_main_page && page.main.is_other"
                     />
-                    <functionSubpage
+                    <functionSelectpage
                         v-else-if="page.is_main_page && page.main.is_func"
                     />
                     <personalSubpage v-else-if="page.is_personal" />
@@ -55,6 +55,7 @@ import loginAndRegister from "@/views/loginAndRegister/loginAndRegister.vue"; //
 // import showerSubpage from "@/views/showerSubpage/showerSubpage.vue"; // 功能界面右侧展示区域
 // import othersSubpage from "@/views/othersSubpage/othersSubpage.vue"; // 其他--子页面
 import functionSubpage from "@/views/functionSubpage/functionSubpage.vue"; // 功能--子页面
+import functionSelectPage from "@/views/functionSubpage/functionSelectage.vue"; // 功能--功能选择
 import personalSubpage from "@/views/personalSubpage/personalSubpage.vue"; // 个人信息--子页面
 import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/personalMsgSettingSubpage.vue"; // 个人信息修改--子页面
 import realNameSetting from "@/views/realNameSetting/realNameSetting.vue"; //实名认证--子页面
@@ -122,8 +123,7 @@ export default {
         // defaultShutters,
         bg,
         mainWord,
-        // realNameSetting,
-
+        functionSelectPage,
         // baseBox,
         // forgetPassword,
         // updateEmail,
