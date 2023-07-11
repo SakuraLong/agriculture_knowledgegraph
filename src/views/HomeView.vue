@@ -23,8 +23,11 @@
                 v-else-if="page.is_main_page && page.main.is_func"
             />
             <personalSubpage v-else-if="page.is_personal" />
+            <realNameSetting v-else-if="page.is_realname" />
         </transition>
 
+        import RealNameEdit from
+        "./personalSubpage/components/realNameEdit.vue";
         <!-- <showerSubpage v-if="page.is_func_page" /> -->
     </div>
     <transition name="app_subpage" mode="out-in">
@@ -46,6 +49,7 @@ import loginAndRegister from "@/views/loginAndRegister/loginAndRegister.vue"; //
 import functionSubpage from "@/views/functionSubpage/functionSubpage.vue"; // 功能--子页面
 import personalSubpage from "@/views/personalSubpage/personalSubpage.vue"; // 个人信息--子页面
 import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/personalMsgSettingSubpage.vue"; // 个人信息修改--子页面
+import realNameSetting from "@/views/realNameSetting/realNameSetting.vue"; //实名认证--子页面
 // 组件
 import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
 import mainBar from "@/components/mainBar/mainBar.vue"; // 主页左侧导航栏
@@ -76,10 +80,11 @@ export default {
                 is_func_page: false, // 在功能页面
                 is_personal: false, // 个人信息界面显示
                 is_login: false, // 登录注册页面显示
-                is_personal_setting:false, // 个人信息设置页面显示
-                is_forget_password:false, // 忘记密码界面显示
-                is_update_password:false, // 更新密码界面显示
-                is_update_email:false, // 更新邮箱界面显示
+                is_personal_setting: false, // 个人信息设置页面显示
+                is_forget_password: false, // 忘记密码界面显示
+                is_update_password: false, // 更新密码界面显示
+                is_update_email: false, // 更新邮箱界面显示
+                is_realname: false, // 实名认证界面显示
                 main: {
                     is_main: true, // 主页面主页
                     is_func: false, // 主页面选择功能页面
@@ -107,6 +112,8 @@ export default {
         // defaultShutters,
         bg,
         mainWord,
+        realNameSetting,
+
         // baseBox,
         // forgetPassword,
         // updateEmail,

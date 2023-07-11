@@ -1,0 +1,169 @@
+<template>
+    <div class="divSelect">
+        <label class="select" @click="openValue" :data-text="title">
+            <input
+                class="input_ele"
+                type="text"
+                v-model="input_value"
+                :onfocus="focus"
+                :onblur="blur"
+                :placeholder="placeholder"
+                disabled
+            />
+            <span class="arrow" :class="{ rotate: show }"></span>
+        </label>
+        <transition name="slide-down">
+            <div class="list" v-show="show">
+                <ul>
+                    <li
+                        @click="getvalue(item)"
+                        v-for="item in items"
+                        :key="item.index"
+                    >
+                        {{ item }}
+                    </li>
+                </ul>
+            </div>
+        </transition>
+    </div>
+</template>
+
+<script>
+export default {
+    props: {
+        items: Array, // 选择元素的数组
+        title: String,
+        placeholder: String,
+        index: Number, // 开始默认选择的元素序号（不赋值则默认选择为空）
+    },
+    data() {
+        return {
+            show: false,
+            input_value: "",
+        };
+    },
+    methods: {
+        openValue() {
+            this.show = !this.show;
+            const arrow = document.querySelector(".arrow");
+            arrow.classList.toggle("rotate");
+        },
+        getvalue(item) {
+            this.input_value = item;
+            this.show = false;
+        },
+    },
+    mounted() {
+        if (this.value !== "") this.input_value = this.items[this.index];
+    },
+};
+</script>
+
+<style scoped>
+.select {
+    font-family: Heiti;
+    position: relative;
+    width: 260px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgba(144, 119, 149, 0.5);
+    margin-top: 10px;
+}
+
+.select::after {
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: 20px;
+    position: absolute;
+    left: 5%;
+    top: -12px;
+    background-color: white;
+    content: attr(data-text);
+    z-index: 1;
+    color: rgb(144, 119, 149);
+}
+.select:has(.input_ele:focus)::after {
+    color: #e77ffb;
+}
+.select:has(.input_ele:focus) {
+    border: 2px solid #e77ffb;
+}
+.select:has(.input_ele:hover) {
+    box-shadow: 0px 0px 2px #e77ffb;
+}
+
+.select input::placeholder {
+    font-size: 16px;
+    color: rgba(144, 119, 149, 0.5);
+}
+
+.input_ele {
+    cursor: default;
+    position: relative;
+    width: 240px;
+    height: 40px;
+    border: 0; /*清除自带的2px的边框*/
+    padding: 0; /*清除自带的padding间距*/
+    outline: none; /*清除input点击之后的黑色边框*/
+    /* border: 1px solid red; */
+    z-index: 0;
+    font-size: 24px;
+    color: black;
+    text-indent: 12px;
+}
+.input_ele:focus {
+    caret-color: #e77ffb;
+}
+
+.arrow {
+    position: relative;
+    left: -5px;
+    background: url("./img/arrow.png") no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.rotate {
+    transform: rotate(90deg);
+}
+
+.list {
+    width: 261px;
+    border: 1px solid #cccccc;
+    overflow: hidden;
+}
+
+.list ul {
+    padding: 0;
+}
+
+.list ul li {
+    list-style: none;
+    width: 100%;
+    height: 0;
+    cursor: pointer;
+    line-height: 30px;
+    animation: slideDown 0.07s forwards;
+}
+
+.list ul li:hover {
+    background-color: #cccccc;
+}
+
+@keyframes slideDown {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: auto;
+    }
+}
+</style>
