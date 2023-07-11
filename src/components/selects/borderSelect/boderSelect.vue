@@ -60,6 +60,9 @@ export default {
 </script>
 
 <style scoped>
+.divSelect {
+    position: relative; /* 添加这行样式 */
+}
 .select {
     font-family: Heiti;
     position: relative;
@@ -136,9 +139,12 @@ export default {
 }
 
 .list {
+    position: absolute;
     width: 261px;
     border: 1px solid #cccccc;
+    background-color: snow;
     overflow: hidden;
+    z-index: 100;
 }
 
 .list ul {

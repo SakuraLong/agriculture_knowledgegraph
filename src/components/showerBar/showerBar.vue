@@ -25,7 +25,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .showerbar {
     position: relative;
     left: 100px;

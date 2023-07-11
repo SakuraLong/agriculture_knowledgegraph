@@ -1,15 +1,22 @@
 <template>
-    <form>
-        <borderInput title="真实姓名" :msg="name" />
-        <borderInput title="电话号码" :msg="phonenumber" />
-        <borderSelect title="证件类型" :items="IDtypes" />
-        <borderInput title="证件号" :msg="ID" />
-    </form>
+    <div class="rn-input-container">
+        <div class="realname-bg"></div>
+        <!-- 表单等后端明确后再完善 -->
+        <div>
+            <form>
+                <realNameEdit :name="name" />
+                <realPhoneEdit :phonenumber="phonenumber" />
+                <realidEdit :IDtype="IDtype" :ID="ID" />
+            </form>
+        </div>
+    </div>
 </template>
 
 <script>
-import borderInput from "@/components/inputs/borderInput/borderInput.vue";
-import borderSelect from "@/components/selects/borderSelect/boderSelect.vue";
+import realNameEdit from "./realNameEdit.vue";
+import realPhoneEdit from "./realPhoneEdit.vue";
+import realidEdit from "./realidEdit.vue";
+
 export default {
     props: {
         name: String,
@@ -18,15 +25,26 @@ export default {
         ID: String,
     },
     data() {
-        return {
-            IDtypes: ["居民身份证"],
-        };
+        return {};
     },
     components: {
-        borderInput,
-        borderSelect,
+        realNameEdit,
+        realPhoneEdit,
+        realidEdit,
     },
 };
 </script>
 
-<style></style>
+<style scoped>
+.rn-input-container {
+    display: flex;
+}
+
+.realname-bg {
+    position: relative;
+    background: url("../img/realname.png") no-repeat;
+    background-size: contain;
+    width: 200px;
+    height: 150px;
+}
+</style>
