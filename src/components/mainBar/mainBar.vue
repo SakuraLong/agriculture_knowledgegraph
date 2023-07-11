@@ -141,7 +141,7 @@ nav a {
     display: block;
     padding: 5px 10px;
     text-decoration: none;
-    color: #000000;
+    color: var(--main-bar-font-color);
 }
 /* .arrow {
     transition: opacity 0.3s ease-in-out;

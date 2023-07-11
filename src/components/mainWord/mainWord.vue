@@ -27,7 +27,7 @@ export default {
     display: block;
     padding: 5px 10px;
     text-decoration: none;
-    color: #000000;
+    color: var(--main-text-font-color);
     text-align:left;
     letter-spacing:1px;
 }
@@ -38,7 +38,7 @@ export default {
     display: block;
     padding: 5px 10px;
     text-decoration: none;
-    color: #000000;
+    color: var(--main-text-font-color);
     text-align:left;
     letter-spacing:1px;
 }
@@ -49,7 +49,7 @@ export default {
     display: block;
     padding: 5px 10px;
     text-decoration: none;
-    color: #000000;
+    color: var(--main-text-font-color);
     text-align:left;
 }
 </style>
