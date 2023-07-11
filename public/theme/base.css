@@ -121,3 +121,27 @@
 .shutter-leave-to>.shutter_top_container{
     transform: translateX(500px);
 }
+.bar_change_0-enter-active,
+.bar_change_0-leave-active {
+    transition: all 0.4s ease;
+}
+.bar_change_0-enter-from{
+    transform-origin: 50% 50% -120px;
+    transform: rotateY(-90deg);
+}
+.bar_change_0-leave-to {
+    transform-origin: 50% 50% -120px;
+    transform: rotateY(90deg);
+}
+.bar_change_1-enter-active,
+.bar_change_1-leave-active {
+    transition: all 0.4s ease;
+}
+.bar_change_1-enter-from{
+    transform-origin: 50% 50% -120px;
+    transform: rotateY(90deg);
+}
+.bar_change_1-leave-to {
+    transform-origin: 50% 50% -120px;
+    transform: rotateY(-90deg);
+}
