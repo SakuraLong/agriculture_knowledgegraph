@@ -1,5 +1,5 @@
 const USER_MSG_CODE = {
-    "key":"Qar8YIa7RPRvkXqwquYJWVypl+4NAP8ySx7QrrHGo/I=",
+    "key":"jBxv1CbbQOgYE46xJh2vurBsumCR0rMzqNf/zHPhiHs=",
     "encrypt":["password", "email"]
 };
 
