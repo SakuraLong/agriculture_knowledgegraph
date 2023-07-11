@@ -100,7 +100,7 @@ export default {
     },
 };
 </script>
-<script setup>
+<!-- <script setup>
 import { useI18n } from "vue-i18n";
 const { t, locale } = useI18n();
 let change = () => {
@@ -110,7 +110,7 @@ let change = () => {
         locale.value = "en";
     }
 };
-</script>
+</script> -->
 <style scoped>
 .shutter {
     pointer-events: none;
