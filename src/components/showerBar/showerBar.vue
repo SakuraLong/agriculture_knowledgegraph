@@ -28,10 +28,9 @@ export default {
 <style scoped>
 .showerbar {
     position: relative;
-    left: 100px;
-    top: 250px;
     width: 250px;
     height: 400px;
+    border: solid 1px black;
 }
 
 .showerbar-ele {

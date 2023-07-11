@@ -5,8 +5,6 @@
                 class="input_ele"
                 type="text"
                 v-model="input_value"
-                :onfocus="focus"
-                :onblur="blur"
                 :placeholder="placeholder"
                 disabled
             />
@@ -52,9 +50,14 @@ export default {
             this.input_value = item;
             this.show = false;
         },
+        get() {
+            // console.log(typeof this.input_value);
+            return this.input_value;
+        },
     },
     mounted() {
-        if (this.value !== "") this.input_value = this.items[this.index];
+        if (this.items[this.index] !== undefined)
+            this.input_value = this.items[this.index];
     },
 };
 </script>
