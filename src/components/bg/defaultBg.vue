@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <!-- <div class="background_img"></div> -->
-        <img src="./img/white.png" alt="" class="background_img">
+        <img alt="" class="background_img">
     </div>
 </template>
 
@@ -27,6 +27,7 @@ export default {
 .background_img {
     /* position: absolute; */
     width: 100%;
+    content: var(--bg-img-src, "");
     /* height: 100%; */
     /* background-image: url("./img/white.png"); */
     /* background-size: cover; */

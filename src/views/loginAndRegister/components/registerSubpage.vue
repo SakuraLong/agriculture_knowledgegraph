@@ -88,7 +88,8 @@ export default {
             this.$refs.registerPasswordsInput.setWaiting(true, "请点击您邮箱中的验证链接");
             this.disabled = "disabled";
             this.content = "重新发送";
-            const waiting_time = 300000; // 5min
+            let waiting_time = 300000; // 5min
+            // waiting_time = 10000;
             let begin = new Date().getTime();
             this.timer = setInterval(()=>{
                 let now = new Date().getTime();
@@ -97,10 +98,27 @@ export default {
                     this.$refs.registerPasswordsInput.setWaiting(false);
                     return;
                 }
+                // 模拟自动登录
+                Connector.test(
+                    this.autoLoginCallback,
+                    this.autoLoginWaiting,
+                    this.autoLoginTimeout,
+                    4000,
+                    true,
+                    1000,
+                    {
+                        success: true,
+                    }
+                );
             }, 3000);
         },
         autoLoginCallback(msg){
-
+            if(msg.success){
+                // 保存信息到本地
+                // 更改登录状态
+                // 退出此界面
+                this.$emit("exitPage");
+            }
         },
         autoLoginWaiting(is_waiting){
 

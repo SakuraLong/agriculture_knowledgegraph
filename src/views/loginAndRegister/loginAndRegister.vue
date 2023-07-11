@@ -49,6 +49,7 @@
                     class="login_area_container"
                     @passwordOnFocus="passwordOnFocus"
                     @passwordOnBlur="passwordOnBlur"
+                    @exitPage = "leaveLogin"
                 ></loginSubpage>
             </transition>
             <transition name="login_register" mode="out-in">
@@ -57,6 +58,7 @@
                     class="register_area_container"
                     @passwordOnFocus="passwordOnFocus"
                     @passwordOnBlur="passwordOnBlur"
+                    @exitPage = "leaveLogin"
                 ></registerSubpage>
             </transition>
             <transition name="login_register">
@@ -91,6 +93,7 @@ export default {
     },
     methods: {
         leaveLogin() {
+            console.log("leaveLogin");
             if (!store.state.can_click_button) return;
             this.$emit("leaveLogin");
         },
