@@ -6,112 +6,128 @@
                     position: relative;
                     width: 100%;
                     height: 100%;
-                    left: 0;
-                    top: 0;
+                    /* border: solid 2px red; */
                 "
             >
-                <div class="subpageSelect">
-                    <button
-                        class="subpage_isSelected"
-                        id="subpage_button0"
-                        @click="changeSubButton(0)"
-                    >
-                        <div class="button_text" data-text="语言">语言</div>
-                    </button>
-                    <button
-                        class="subpage_unSelected"
-                        id="subpage_button1"
-                        @click="changeSubButton(1)"
-                    >
-                        <div class="button_text" data-text="关于我们">
-                            关于我们
+                <div
+                    style="
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        position: relative;
+                        width: 100%;
+                        height: 90%;
+                        /* border: solid 2px blue; */
+                        flex-direction: column;
+                    "
+                >
+                    <button class="test_class1" @click="changeFunction(0)">
+                        <div
+                            class="button_text"
+                            :data-text="
+                                $t('views.functionSubpage.entity_recognition')
+                            "
+                        >
+                            {{ $t("views.functionSubpage.entity_recognition") }}
                         </div>
                     </button>
-                    <button
-                        class="subpage_unSelected"
-                        id="subpage_button2"
-                        @click="changeSubButton(2)"
-                    >
-                        <div class="button_text" data-text="偏好">偏好</div>
+                    <button class="test_class1" @click="changeFunction(1)">
+                        <div class="button_text" :data-text="$t('views.functionSubpage.entity_query')">
+                            {{ $t("views.functionSubpage.entity_query") }}
+                        </div>
+                    </button>
+                    <button class="test_class1" @click="changeFunction(2)">
+                        <div class="button_text" :data-text="$t('views.functionSubpage.relationship_query')">
+                            {{ $t("views.functionSubpage.relationship_query") }}
+                        </div>
+                    </button>
+                    <button class="test_class1" @click="changeFunction(3)">
+                        <div class="button_text" :data-text="$t('views.functionSubpage.agricultural_knowledge_graph')">
+                            {{ $t("views.functionSubpage.agricultural_knowledge_graph") }}
+                        </div>
+                    </button>
+                    <button class="test_class1" @click="changeFunction(4)">
+                        <div class="button_text" :data-text="$t('views.functionSubpage.agricultural_knowledge_QA')">
+                            {{ $t("views.functionSubpage.agricultural_knowledge_QA") }}
+                        </div>
                     </button>
                 </div>
-                <threeSubpage :subpageSelected="t"></threeSubpage>
             </div>
         </template>
     </defaultShutters>
 </template>
 
 <script>
-import threeSubpage from "@/views/othersSubpage/components/threeSubpage.vue";
 import defaultShutters from "@/components/shutter/defaultShutter.vue";
+const function_arr = [0, 1, 2, 3, 4];
+//实体识别、实体查询、关系查询、农业知识图谱、农知问答
 export default {
-    data() {
-        return {
-            t: [true, false, false],
-        };
-    },
-    methods: {
-        changeSubButton(page) {
-            this.t[page] = true;
-            document.getElementById("subpage_button" + page).className =
-                "subpage_isSelected";
-            for (let i = 0; i < 3; i++) {
-                if (i !== page) {
-                    document.getElementById("subpage_button" + i).className =
-                        "subpage_unSelected";
-                    this.t[i] = false;
-                }
-            }
-            console.log(this.t);
+    // props:{cur_function:{type:Number}},
+    props: {
+        changeFunction: {
+            type: Function,
         },
     },
+    methods: {},
+    data() {
+        return {
+            cur_function: -1,
+        };
+    },
+    mounted() {
+        // this.radio1 = Storage.get(0, "LANGUAGE", "en");
+        // this.changeLanguage(language_arr.indexOf(this.radio1));
+    },
     components: {
-        threeSubpage,
-        defaultShutters
+        defaultShutters,
     },
 };
 </script>
 
-<style>
-.subpageSelect {
-    position: absolute;
-    width: 84%;
-    height: 10%;
-    left: 8%;
-    top: 0;
-    /* border: solid 1px red; */
-    display: flex;
-    flex-direction: row;
-    pointer-events: all;
-    z-index: 100;
-}
-.subpage_isSelected {
-    width: 33.3%;
-    height: 100%;
-    cursor: pointer;
-    border: solid 2px #d5b4dc;
-    font-family: FZZJ-WHJZTJW;
-    font-weight: 400;
-    font-size: 20px;
-    background-color: #d5b4dc;
-    position: relative;
-    color: white;
-    /* border: none; */
-}
-.subpage_unSelected {
-    width: 33.3%;
-    height: 100%;
-    cursor: pointer;
-    border: solid 2px #d5b4dc;
-    font-family: FZZJ-WHJZTJW;
-    font-weight: 400;
-    font-size: 20px;
-    position: relative;
+<style scoped>
+.test_class1 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 150px;
+    height: 100px;
+    background: none;
+    border: 4px solid rgb(205, 199, 199);
     color: #d5b4dc;
-    /* border: none; */
+    font-family: FZZJ-WHJZTJW;
+    font-weight: 400;
+    font-size: 20px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* text-transform: uppercase; 大写文本 */
+    cursor: pointer;
+    position: relative;
 }
-.subpage_isSelected:hover {
-    background-color: #d5b4dc;
+.test_class1::before,
+.test_class1::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 4px;
+    background: white;
+    transform: skewX(50deg);
+    transition: 0.4s linear;
+}
+.test_class1::before {
+    top: -4px;
+    left: 10%;
+}
+.test_class1::after {
+    bottom: -4px;
+    right: 10%;
+}
+.test_class1:hover::before {
+    left: 80%;
+}
+.test_class1:hover::after {
+    right: 80%;
+}
+.test_class1:hover {
+    color: #3498db;
 }
 .button_text {
     left: 0;
@@ -124,17 +140,17 @@ export default {
     align-items: center;
     z-index: 1;
 }
-.subpage_unSelected:hover > .button_text {
+.test_class1:hover > .button_text {
     color: white;
 }
-.subpage_unSelected:hover > .button_text::after {
+.test_class1:hover > .button_text::after {
     content: attr(data-text);
     position: absolute;
     width: 100%;
     height: 100%;
     left: 0;
     top: 0;
-    -webkit-text-stroke: 8px #d5b4dc;
+    -webkit-text-stroke: 6px #d5b4dc;
     z-index: -1;
     display: flex;
     justify-content: center;
