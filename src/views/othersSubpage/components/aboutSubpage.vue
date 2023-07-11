@@ -23,24 +23,24 @@
                 font-family: Heiti;
             "
         >
-            <h2>开发人员</h2>
-            <h3>组长</h3>
+            <h2>{{ $t("views.aboutSubpage.developers") }}</h2>
+            <h3>{{ $t("views.aboutSubpage.group_leader") }}</h3>
             <p>Sakura</p>
-            <h3>组员</h3>
+            <h3>{{ $t("views.aboutSubpage.group_members") }}</h3>
             <p>ShmilyAyu</p>
             <p>水木</p>
             <p>绵满</p>
-            <h2>界面设计</h2>
-            <h3>界面框架</h3>
+            <h2>{{ $t("views.aboutSubpage.interface_design") }}</h2>
+            <h3>{{ $t("views.aboutSubpage.interface_framework") }}</h3>
             <p>KrieN</p>
-            <h3>界面细节</h3>
+            <h3>{{ $t("views.aboutSubpage.interface_details") }}</h3>
             <p>KrieN Sakura</p>
-            <h2>美工</h2>
-            <h3>人物线稿</h3>
+            <h2>{{ $t("views.aboutSubpage.art_designing") }}</h2>
+            <h3>{{ $t("views.aboutSubpage.character_line_draft") }}</h3>
             <p>myra_xiangyuff</p>
-            <h3>人物着色</h3>
+            <h3>{{ $t("views.aboutSubpage.character_coloring") }}</h3>
             <p>抹茶</p>
-            <h3>主页动效</h3>
+            <h3>{{ $t("views.aboutSubpage.home_page_dynamic_effect") }}</h3>
             <p>dyh</p>
         </el-scrollbar>
     </div>
