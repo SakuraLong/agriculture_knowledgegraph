@@ -112,7 +112,6 @@ export default {
         // defaultShutters,
         bg,
         mainWord,
-
         realNameSetting,
 
         // baseBox,
