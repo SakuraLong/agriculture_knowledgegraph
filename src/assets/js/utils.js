@@ -140,31 +140,33 @@ const objectEqual = (obj1, obj2) => {
  * @returns 用户信息，全部解密
  */
 const getUserMsg = () => {
-    let user_msg = "";
+    let user_msg = Storage.get(0, "USER_MSG", null);
     try {
-        user_msg = JSON.parse(
-            Code.CryptoJS.decrypt(
-                Storage.get(0, "USER_MSG", Code.CryptoJS.encrypt("{}"))
-            )
-        );
+        user_msg = Code.CryptoJS.decrypt(user_msg);
     } catch {
-        user_msg = "";
+        user_msg = null;
+        saveUserMsg(StorageConfig.USER_MSG);
     }
-    if (user_msg==="") {
-        Storage.set(0, "IS_LOGIN", Code.CryptoJS.encrypt("false"));
-        store.state.is_login = false;
-        userMsgInit(); // 用户信息初始化
-        return StorageConfig.USER_MSG;
-    } else {
-        CodeConfig.USER_MSG_CODE.encrypt.forEach((element) => {
-            user_msg[element] = Code.CryptoJS.decrypt(
-                user_msg[element],
-                Code.CryptoJS.decrypt(CodeConfig.USER_MSG_CODE.key)
-            );
-        });
-        console.log("拿到", user_msg);
-        return user_msg;
+    if (user_msg == null) return StorageConfig.USER_MSG;
+    try {
+        user_msg = JSON.parse(user_msg);
+    } catch {
+        user_msg = null;
+        saveUserMsg(StorageConfig.USER_MSG);
     }
+    if (user_msg == null) return StorageConfig.USER_MSG;
+    let has_error = false;
+    let key = Code.CryptoJS.decrypt(CodeConfig.USER_MSG_CODE.key);
+    CodeConfig.USER_MSG_CODE.encrypt.forEach((element) => {
+        if (has_error) return;
+        try {
+            user_msg[element] = Code.CryptoJS.decrypt(user_msg[element], key);
+        } catch {
+            has_error = true;
+        }
+    });
+    if (has_error) return StorageConfig.USER_MSG;
+    return user_msg;
 };
 /**
  * 存储用户信息
@@ -182,15 +184,69 @@ const saveUserMsg = (user_msg) => {
     user_msg = Code.CryptoJS.encrypt(JSON.stringify(user_msg).toString());
     Storage.set(0, "USER_MSG", user_msg);
 };
-const imgPreloading = () => {
-    let image = new Image();
-    image.src = "images/01.jpg";
+/**
+ * 为用户自动执行登录
+ * 当用户信息不存在则自动创建并且将IS_LOGIN设置为false（加密），并且自动创建初始化用户信息（加密），并且将全局变量is_login设置为false
+ * 当用户信息不完整同上
+ * 当用户登录失败同上
+ * 当用户登陆成功则自动将IS_LOGIN设置为true（加密），并且更新用户信息USER_MSG，并且将is_login设置为true
+ * 先更新用户信息，再设置全局变量
+ * 此处执行自动登录的等待时间很短
+ */
+const userLoginInit = () => {
+    let is_login =
+        Code.CryptoJS.decrypt(
+            Storage.get(0, "IS_LOGIN", Code.CryptoJS.encrypt("false"))
+        ) === "true"
+            ? true
+            : false; // IS_LOGIN是加密的
+    // let user_msg = getUserMsg();
+    let user_msg = getUserMsg();
+    if (
+        user_msg.password !== "" &&
+        user_msg.id !== "" &&
+        user_msg.email !== ""
+    ) {
+        // 登录信息存在
+        Connector.test(
+            autoLoginCallback,
+            autoLoginWaiting,
+            autoLoginTimeout,
+            1000,
+            true,
+            500,
+            {
+                success:true,
+                log:{
+
+                },
+                msg:{
+
+                }
+            }
+        );
+    }
+    console.log(is_login);
+    console.log(user_msg);
+};
+const autoLoginCallback = (msg) => {
+    if(msg.success){
+        console.log("自动登录成功");
+        store.state.is_login = true;
+    }
+};
+const autoLoginWaiting = (is_waiting) => {
+
+};
+const autoLoginTimeout = () => {
+
 };
 export default {
     checkLogin, // 检查登录情况，返回用户信息
     autoLogin, // 执行自动登录
     setLogOut,
     objectEqual,
-    getUserMsg,
+    // getUserMsg,
     saveUserMsg,
+    userLoginInit,
 };

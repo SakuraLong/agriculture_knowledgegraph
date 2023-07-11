@@ -1,5 +1,5 @@
 <template>
-    <div class="shutter" @resize="pageResize">
+    <div class="shutter" :class="{black_bg:black_bg}" @resize="pageResize">
 
         <img alt="" class="shutter_top" ref="shutter_top" />
 
@@ -39,7 +39,7 @@
 </template>
 <script>
 export default {
-    props: ["has_right_girl"],
+    props: ["has_right_girl", "black_bg"],
     mounted() {
         console.log(999888);
         window.addEventListener("resize", this.pageResize);
@@ -127,6 +127,10 @@ let change = () => {
     z-index: 9999;
     /* border: 1px solid red; */
     min-height: 600px;
+}
+.black_bg{
+    pointer-events: all;
+    background-color: rgba(0, 0, 0, .3);
 }
 .pointer{
     pointer-events: all;

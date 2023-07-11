@@ -41,4 +41,6 @@ document.getElementById("html").onkeydown = (e) => {
     link_suit.rel = "stylesheet";
     link_suit.href = "./theme/light.css";
     document.getElementsByTagName("head")[0].appendChild(link_suit);
-})();
+})(); // 加载css文件
+
+

@@ -26,7 +26,7 @@ export default{
     methods:{
         toLogin(){
             console.log(0);
-            this.$emit("toLogin", "msg changed by childA");
+            this.$emit("avatarClick");
         }
     }
 };
