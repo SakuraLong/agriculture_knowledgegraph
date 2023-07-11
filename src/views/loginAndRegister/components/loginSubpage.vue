@@ -96,8 +96,10 @@ export default {
         loginCallback(msg) {
             if(msg.success){
                 // 用户登录成功 数据存入本地数据库
-                store.state.is_login = true;
                 console.log("登录成功");
+                // 更改登录状态
+                // 退出此页面
+                this.$emit("exitPage");
             }else{
                 this.$refs.loginPasswordInput.setError("用户不存在或密码错误");
             }

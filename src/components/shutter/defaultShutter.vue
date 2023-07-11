@@ -1,7 +1,7 @@
 <template>
     <div class="shutter" @resize="pageResize">
 
-        <img src="./img/top.png" alt="" class="shutter_top" ref="shutter_top" />
+        <img alt="" class="shutter_top" ref="shutter_top" />
 
         <div
             key="con"

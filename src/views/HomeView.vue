@@ -37,6 +37,7 @@
         />
         <loginAndRegister v-else-if="page.is_login" @leaveLogin="leaveLogin" />
     </transition>
+    <!-- <updateEmail></updateEmail> -->
     <!-- 这里还有修改密码和换绑邮箱 -->
 </template>
 
@@ -65,6 +66,10 @@ import mainWord from "@/components/mainWord/mainWord.vue";
 import Code from "@/assets/js/code/code.js";
 import CodeConfig from "@/assets/js/code/config.js";
 import Storage from "@/assets/js/storage/storage.js";
+import baseBox from "@/components/baseBox/baseBox.vue";
+
+import forgetPassword from "./forgetPassword/forgetPassword.vue";
+import updateEmail from "./updateEmail/updateEmail.vue";
 
 import utils from "@/assets/js/utils.js";
 export default {
@@ -107,6 +112,7 @@ export default {
         // defaultShutters,
         bg,
         mainWord,
+
         realNameSetting,
 
         // baseBox,
@@ -180,6 +186,7 @@ export default {
     top: 0px;
     width: 100%;
     height: 100%;
+    background-color: var(--homeview-bg-color, rgb(255, 255, 255));
     /* border: 1px solid red; */
 }
 .blur {
