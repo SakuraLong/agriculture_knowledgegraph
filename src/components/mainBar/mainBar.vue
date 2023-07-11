@@ -102,10 +102,8 @@
 <style scoped>
 .mainBar {
     width: 300px;
-    position: fixed;
-    top: 10%;
-    left: 2%;
     height: 100%;
+    position: relative;
 }
 
 .login-container {
