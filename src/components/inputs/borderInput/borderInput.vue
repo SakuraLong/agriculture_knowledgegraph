@@ -7,6 +7,7 @@
             :onfocus="focus"
             :onblur="blur"
             :placeholder="placeholder"
+            :readonly="disabled"
         />
     </label>
 </template>
@@ -18,7 +19,7 @@ export default {
             input_msg: "",
         };
     },
-    props: ["title", "focus", "blur", "msg", "placeholder"],
+    props: ["title", "focus", "blur", "msg", "placeholder", "disabled"],
     mounted() {
         if (this.msg !== "") this.input_msg = this.msg;
     },

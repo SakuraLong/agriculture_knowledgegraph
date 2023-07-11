@@ -51,8 +51,8 @@ export default {
     },
     setup(){
         let changeTheme = (theme) => {
-            document.getElementById("theme").href = "./theme/"+theme.toString()+".css";
-            console.log(document.getElementById("theme").href);
+            document.getElementById("link_suit").href = "./theme/"+theme.toString()+".css";
+            console.log(document.getElementById("link_suit").href);
         };
         return {changeTheme};
     },
