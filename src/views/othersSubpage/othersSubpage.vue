@@ -1,8 +1,14 @@
 <template>
     <defaultShutters has_right_girl="true">
         <template #show_child_page>
-            <div style="position: relative; width: 100%; height: 100%">
-                <div class="subpageSelect" style="border: solid 1px red">
+            <div
+                style="
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                "
+            >
+                <div class="subpageSelect">
                     <button
                         class="subpage_isSelected"
                         id="subpage_button0"
