@@ -4,7 +4,12 @@
             <div class="container" v-if="show" onselectstart="return false">
                 <bg></bg>
                 <div
-                    :class="{ error: error, verify_text: !error, waiting: is_waiting,success: success }"
+                    :class="{
+                        error: error,
+                        verify_text: !error,
+                        waiting: is_waiting,
+                        success: success,
+                    }"
                     :data-text="msg"
                     @click="clickVerify"
                 >
@@ -28,8 +33,8 @@ export default {
             code: "",
             msg: "验证",
             error: false,
-            is_waiting:false,
-            success:false
+            is_waiting: false,
+            success: false,
         };
     },
     components: {
@@ -52,7 +57,10 @@ export default {
             }
             this.code.vcode = parseInt(this.code.vcode);
             this.code.timestamp = parseInt(this.code.timestamp);
-            if(new Date().getTime() - this.code.timestamp >= 1000*60*10 || new Date().getTime() - this.code.timestamp <= 0){
+            if (
+                new Date().getTime() - this.code.timestamp >= 1000 * 60 * 10 ||
+                new Date().getTime() - this.code.timestamp <= 0
+            ) {
                 this.error = true;
                 this.msg = "验证信息错误";
                 return;
@@ -65,48 +73,53 @@ export default {
                 true,
                 2000,
                 {
-                    success:false
+                    success: false,
                 }
             );
             console.log(this.code.email);
             console.log(this.code.vcode);
             console.log(this.code.timestamp);
         },
-        verifyCallback(msg){
-            if(msg.success){
+        verifyCallback(msg) {
+            if (msg.success) {
                 this.success = true;
                 this.msg = "验证成功";
-            }else{
+            } else {
                 this.error = true;
                 this.msg = "验证失败";
             }
         },
-        verifyWaiting(is_waiting){
+        verifyWaiting(is_waiting) {
             this.msg = "验证中";
             this.is_waiting = is_waiting;
         },
-        verifyTimeout(){
+        verifyTimeout() {
             this.error = true;
             this.msg = "验证超时";
-        }
+        },
     },
     mounted() {
         const test =
-            "RFBHZ3NGOFBDbktZYnRUc3hoNUNVWFVQREFiam1xMy96MytFVzhZVFY1dm04aEZKY3hid1lWVTN2WnpHMXp6UzZBMGtBcTEzaC9sTlB3MGMxRWVoekpCZEx5KzY3ZUhaSFhpNWJ2R0thVk09";
+            "MnJ2ssPGZZ/d+r3nUg8AGvyHtcwHz095lQ32zpwXVJfYrUS2JDA+2k5hqyn+Dtqrzm8728/TvBlXPbvz67RuTkocYV4LLDaXv5/9UbAoo7ScDW8n18s35C4tkbhfSvdY";
         let a = {
-            email:"1897111@qq.com",
-            vcode:"123098",
-            timestamp:new Date().getTime()
+            email: "2112794@mail.nankai.edu.cn",
+            vcode: "123456",
+            timestamp: 1689142103710,
         };
-        console.log(Code.Base64.encode(Code.CryptoJS.encrypt(JSON.stringify(a).toString())));
+        console.log(Code.CryptoJS.decrypt(test));
+        console.log(
+            Code.Base64.encode(
+                Code.CryptoJS.encrypt(JSON.stringify(a).toString())
+            )
+        );
         try {
-            this.code = JSON.parse(
-                Code.CryptoJS.decrypt(
-                    Code.Base64.decode(this.$route.params.code.toString())
-                )
-            );
+            this.code = Code.CryptoJS.decrypt(
+                Code.Base64.decode(this.$route.params.code.toString())
+            ).replace("'", "\"");
+            this.code = JSON.parse(this.code);
         } catch {
             this.code = "";
+            console.log("读取失败");
         }
         setTimeout(() => {
             this.show = true;
@@ -159,10 +172,10 @@ export default {
     border: 3px solid rgb(255, 65, 65);
     color: rgb(255, 65, 65);
 }
-.waiting{
+.waiting {
     pointer-events: none;
 }
-.waiting::before{
+.waiting::before {
     content: " ";
     width: 10px;
     height: 10px;
@@ -177,14 +190,14 @@ export default {
     transform-origin: 50% 131.5px;
 }
 @keyframes waiting_moving {
-    from{
+    from {
         transform: rotateZ(0deg);
     }
-    to{
+    to {
         transform: rotateZ(-360deg);
     }
 }
-.success{
+.success {
     pointer-events: none;
     color: rgb(0, 255, 34);
     border: 3px solid rgb(0, 255, 34);

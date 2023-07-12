@@ -1,7 +1,10 @@
 <template>
     <div class="register_comp" onselectstart="return false">
         <div class="register_text">R E G I S T E R</div>
-        <registerEmailInput ref="registerEmailInput" :disabled="disabled"></registerEmailInput>
+        <registerEmailInput
+            ref="registerEmailInput"
+            :disabled="disabled"
+        ></registerEmailInput>
         <registerPasswordsInput
             ref="registerPasswordsInput"
             :disabled="disabled"
@@ -18,6 +21,8 @@
 // import Checker from "@/assets/js/checker/checker.js";
 import store from "@/store/index.js";
 import Connector from "@/assets/js/connector/connector.js";
+import Code from "@/assets/js/code/code.js";
+import utils from "@/assets/js/utils.js";
 
 import registerEmailInput from "./inputs/registerEmailInput.vue";
 import registerPasswordsInput from "./inputs/registerPasswordsInput.vue";
@@ -32,9 +37,9 @@ export default {
         return {
             email: "",
             password: "",
-            content:"注册",
-            disabled:null,
-            timer:null
+            content: "注册",
+            disabled: null,
+            timer: null,
         };
     },
     watch: {},
@@ -63,17 +68,27 @@ export default {
         },
         registerCallback(msg) {
             console.log("成功");
-            if(msg.success){
+            if (msg.success) {
+                // 存储数据
+                let send_password = Code.MD5.encrypt(this.password);
+                // 此时会把密码存入本地数据库
+                let user_msg = utils.getUserMsg();
+                console.log("user_msg_", user_msg);
+                user_msg.password = send_password;
+                utils.saveUserMsg(user_msg);
                 // 开始循环发送注册请求
                 this.intervalLogin();
-            }else{
+            } else {
                 this.$refs.registerPasswordsInput.setError("邮件发送失败");
             }
         },
         registerWaiting(is_waiting) {
             if (is_waiting) {
                 store.state.can_click_button = false;
-                this.$refs.registerPasswordsInput.setWaiting(is_waiting, "注册中");
+                this.$refs.registerPasswordsInput.setWaiting(
+                    is_waiting,
+                    "注册中"
+                );
             } else {
                 store.state.can_click_button = true;
                 this.$refs.registerPasswordsInput.setWaiting(is_waiting);
@@ -83,17 +98,20 @@ export default {
             console.log("超时");
             this.$refs.registerPasswordsInput.setError("访问服务器失败");
         },
-        intervalLogin(){
+        intervalLogin() {
             clearInterval(this.timer);
-            this.$refs.registerPasswordsInput.setWaiting(true, "请点击您邮箱中的验证链接");
+            this.$refs.registerPasswordsInput.setWaiting(
+                true,
+                "请点击您邮箱中的验证链接"
+            );
             this.disabled = "disabled";
             this.content = "重新发送";
             let waiting_time = 300000; // 5min
             // waiting_time = 10000;
             let begin = new Date().getTime();
-            this.timer = setInterval(()=>{
+            this.timer = setInterval(() => {
                 let now = new Date().getTime();
-                if(now - begin >= waiting_time){
+                if (now - begin >= waiting_time) {
                     clearInterval(this.timer);
                     this.$refs.registerPasswordsInput.setWaiting(false);
                     return;
@@ -112,20 +130,20 @@ export default {
                 );
             }, 3000);
         },
-        autoLoginCallback(msg){
-            if(msg.success){
+        autoLoginCallback(msg) {
+            if (msg.success) {
+                clearInterval(this.timer);
                 // 保存信息到本地
                 // 更改登录状态
+                store.state.is_login = true;
                 // 退出此界面
                 this.$emit("exitPage");
             }
         },
-        autoLoginWaiting(is_waiting){
-
-        },
-        autoLoginTimeout(){
+        autoLoginWaiting(is_waiting) {},
+        autoLoginTimeout() {
             console.log("超时");
-        }
+        },
     },
 };
 </script>
