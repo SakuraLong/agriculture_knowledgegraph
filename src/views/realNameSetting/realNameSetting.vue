@@ -32,7 +32,7 @@ export default {
             return {
                 name: "张三",
                 phonenumber: "18755557723",
-                IDtype: 1,
+                IDtype: 0,
                 ID: "372923202312013419",
             };
         },

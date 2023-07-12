@@ -5,8 +5,6 @@
                 class="input_ele"
                 type="text"
                 v-model="input_value"
-                :onfocus="focus"
-                :onblur="blur"
                 :placeholder="placeholder"
                 disabled
             />
@@ -52,14 +50,22 @@ export default {
             this.input_value = item;
             this.show = false;
         },
+        get() {
+            // console.log(typeof this.input_value);
+            return this.input_value;
+        },
     },
     mounted() {
-        if (this.value !== "") this.input_value = this.items[this.index];
+        if (this.items[this.index] !== undefined)
+            this.input_value = this.items[this.index];
     },
 };
 </script>
 
 <style scoped>
+.divSelect {
+    position: relative; /* 添加这行样式 */
+}
 .select {
     font-family: Heiti;
     position: relative;
@@ -136,9 +142,12 @@ export default {
 }
 
 .list {
+    position: absolute;
     width: 261px;
     border: 1px solid #cccccc;
+    background-color: snow;
     overflow: hidden;
+    z-index: 100;
 }
 
 .list ul {

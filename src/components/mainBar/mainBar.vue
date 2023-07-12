@@ -6,7 +6,8 @@
                     <li
                         :class="{ active: activeTab === 'home' }"
                         @click="setActiveTab('home')"
-                        @mouseenter="move('home')"
+                        @mouseenter="move('home');activateArrowAnimation()"
+                        @mouseleave="deactivateArrowAnimation()"
                         @keydown.arrow-up.prevent="moveUp"
                         @keydown.arrow-down.prevent="moveDown"
                         @keydown.enter.prevent="setActiveTab(activeTab)"
@@ -23,7 +24,7 @@
                                 v-if="activeTab === 'home'"
                                 src="./img/arrow.png"
                                 style="width: 40px; height: 40px"
-                                class="arrow"
+                                :class="{ arrow: isArrowAnimated }"
                             />
                             <img
                                 v-else
@@ -36,7 +37,8 @@
                     <li
                         :class="{ active: activeTab === 'features' }"
                         @click="setActiveTab('features')"
-                        @mouseenter="move('features')"
+                        @mouseenter="move('features');activateArrowAnimation()"
+                        @mouseleave="deactivateArrowAnimation()"
                         @keydown.arrow-up.prevent="moveUp"
                         @keydown.arrow-down.prevent="moveDown"
                         @keydown.enter.prevent="setActiveTab(activeTab)"
@@ -48,17 +50,26 @@
                         }"
                         tabindex="0"
                     >
-                        <img
-                            v-if="activeTab === 'features'"
-                            src="./img/arrow.png"
-                            style="width: 40px; height: 40px"
-                        />
-                        <a href="#">功能</a>
+                        <div class="tab-content">
+                            <img
+                                v-if="activeTab === 'features'"
+                                src="./img/arrow.png"
+                                style="width: 40px; height: 40px"
+                                :class="{ arrow: isArrowAnimated }"
+                            />
+                            <img
+                                v-else
+                                :src="transparentImage"
+                                style="width: 40px; height: 40px"
+                            />
+                            <a href="#">功能</a>
+                        </div>
                     </li>
                     <li
                         :class="{ active: activeTab === 'other' }"
                         @click="setActiveTab('other')"
-                        @mouseenter="move('other')"
+                        @mouseenter="move('other');activateArrowAnimation()"
+                        @mouseleave="deactivateArrowAnimation()"
                         @keydown.arrow-up.prevent="moveUp"
                         @keydown.arrow-down.prevent="moveDown"
                         @keydown.enter.prevent="setActiveTab(activeTab)"
@@ -70,12 +81,20 @@
                         }"
                         tabindex="0"
                     >
-                        <img
-                            v-if="activeTab === 'other'"
-                            src="./img/arrow.png"
-                            style="width: 40px; height: 40px"
-                        />
-                        <a href="#">其他</a>
+                        <div class="tab-content">
+                            <img
+                                v-if="activeTab === 'other'"
+                                src="./img/arrow.png"
+                                style="width: 40px; height: 40px"
+                                :class="{ arrow: isArrowAnimated }"
+                            />
+                            <img
+                                v-else
+                                :src="transparentImage"
+                                style="width: 40px; height: 40px"
+                            />
+                            <a href="#">其他</a>
+                        </div>
                     </li>
                 </ul>
             </nav>
@@ -133,9 +152,29 @@ nav a {
 nav li.active a {
     transform: translateX(10px);
 }
+/* .tab-content:hover{
+    animation: example .8s infinite linear;
+} */
+.arrow{
+    animation: example .8s infinite linear;
+}
 
-nav li.active img {
-    transform: translateX(10px);
+@keyframes example {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    50% {
+        transform: translateX(0);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
 </style>
 
@@ -145,6 +184,7 @@ export default {
         return {
             activeTab: "home", // 初始选中的选项
             initialTab: "home", // 初始存储的页面
+            isArrowAnimated: false,
         };
     },
     computed: {
@@ -168,6 +208,13 @@ export default {
         mainBar.removeEventListener("mouseleave", this.resetActiveTab);
     },
     methods: {
+        activateArrowAnimation() {
+            this.isArrowAnimated = true;
+        },
+
+        deactivateArrowAnimation() {
+            this.isArrowAnimated = false;
+        },
         resetActiveTab() {
             this.activeTab = this.initialTab;
         },

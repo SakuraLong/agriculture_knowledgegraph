@@ -14,8 +14,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .personal-edit-container {
+    cursor: pointer;
     margin: auto;
     width: 130px;
     height: 100px;
