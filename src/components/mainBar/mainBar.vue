@@ -151,8 +151,10 @@ nav a {
 .tab-content {
     display: flex;
     align-items: center;
+    cursor: pointer;
     transition: transform 0.3s ease-in-out;
 }
+
 
 .active .tab-content {
     transform: translateX(45px);

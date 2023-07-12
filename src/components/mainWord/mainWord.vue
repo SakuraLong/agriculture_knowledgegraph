@@ -21,6 +21,7 @@ export default {
     top: 45%; /* 距离顶部的距离 */
     left: 45%; /* 距离左侧的距离 */
     height: 300px; /* 设置导航栏的高度 */
+    cursor: pointer;
     /* border: 1px solid red; */
     /* transition: transform 0.3s ease-in-out; */
 }
