@@ -47,7 +47,6 @@
                     </button>
                 </div>
                 <threeSubpage
-                    style="border: solid 1px red"
                     :subpageSelected="subpageSelected_judge"
                 ></threeSubpage>
             </div>
