@@ -188,7 +188,7 @@ export default {
         // let a = Code.CryptoJS.encrypt(b);
         // Storage.set(0, "USER_MSG", a);
         // console.log(a);
-        utils.userLoginInit();
+        // utils.userLoginInit();
     },
     mounted() {
         setTimeout(() => {

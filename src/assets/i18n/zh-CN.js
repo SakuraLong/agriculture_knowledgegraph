@@ -1,29 +1,85 @@
 export default {
     views:{
-        othersSubpage:{
-            language:"语言",
-            about:"关于我们",
-            preference:"偏好",
-            aboutSubpage:{
-                developers:"开发人员",
-                group_leader:"组长",
-                group_members:"组员",
-                interface_design:"界面设计",
-                interface_framework:"界面框架",
-                interface_details:"界面细节",
-                art_designing:"美工",
-                character_line_draft:"人物线稿",
-                character_coloring:"人物着色",    
-                home_page_dynamic_effect:"主页动效"
+        main_page:{
+            others_subpage:{
+                language_subpage:{
+                    title:"语言"
+                },
+                about_subpage:{
+                    title:"关于我们",
+                    content:{
+                        developers:"开发人员",
+                        group_leader:"组长",
+                        group_members:"组员",
+                        interface_design:"界面设计",
+                        interface_framework:"界面框架",
+                        interface_details:"界面细节",
+                        art_designing:"美工",
+                        character_line_draft:"人物线稿",
+                        character_coloring:"人物着色",
+                        home_page_dynamic_effect:"主页动效"
+                    }
+                },
+                preference_subpage:{
+                    title:"偏好"
+                }
+            },
+            function_subpage:{
+                title:"功能选择",
+                content:{
+                    entity_recognition:"实体识别",
+                    entity_query:"实体查询",
+                    relationship_query:"关系查询",
+                    agricultural_knowledge_graph:"农业知识图谱",
+                    agricultural_knowledge_QA:"农知问答"
+                }
+            },
+            bar:{
+                home:"首页",
+                methods:"功能",
+                other:"其他"
             }
         },
-        functionSubpage:{
-            entity_recognition:"实体识别",
-            entity_query:"实体查询",
-            relationship_query:"关系查询",
-            agricultural_knowledge_graph:"农业知识图谱",
-            agricultural_knowledge_QA:"农知问答"
+        shower_page:{
+            bar:{
+
+            }
         },
-        
+        nav_bar:{
+            title:"农业知识图谱",
+
+        },
+        login_and_register:{
+            login:{
+                title:"",
+                input:{
+                    id_email:"登录邮箱或ID",
+                    password:"密码"
+                },
+                confirm:"登录",
+                forget:"忘记密码？",
+                login_explain:{
+                    change:"没有账号？注册一个！"
+                },
+                prompt:{
+                    success:{},
+                    error:{},
+                    warning:{}
+                }
+            },
+            register:{
+                title:"",
+                input:{
+                    email:"邮箱",
+                    password:"密码",
+                    password_confirm:"密码确认"
+                },
+                confirm:"登录",
+            },
+            login_explain:{
+                title:"农业知识图谱",
+                back:"返回"
+            }
+        }
     }
 };
