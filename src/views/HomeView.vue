@@ -6,7 +6,7 @@
         onselectstart="return false"
     >
         <transition name="opacity400">
-            <div v-show="show">
+            <div style="position: absolute;width: 100%;height: 100%;left: 0;top: 0;" v-show="show">
                 <bg />
                 <transition name="slide">
                     <mainWord
@@ -66,7 +66,7 @@ import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/persona
 import realNameSetting from "@/views/realNameSetting/realNameSetting.vue"; //实名认证--子页面
 // 组件
 import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
-import mainBar from "@/components/mainBar/mainBar.vue"; // 主页左侧导航栏
+import mainBar from "@/components/mainBar/mainBarNew.vue"; // 主页左侧导航栏
 import showerBar from "@/components/showerBar/showerBar.vue"; // 功能界面左侧导航栏
 import othersSubpage from "@/views/othersSubpage/othersSubpage.vue";
 import defaultShutters from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
