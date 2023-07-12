@@ -5,7 +5,7 @@
             :key="index"
             class="showerbar-ele"
             :class="{ selected: item.selected }"
-            @click="selectItem(item)"
+            @click="selectItem(item, index)"
         >
             {{ item.text }}
         </div>
@@ -27,10 +27,11 @@ export default {
         };
     },
     methods: {
-        BackToHome() {
+        backToHome() {
             // ...
+            this.$emit("backToHome");
         },
-        selectItem(curItem) {
+        selectItem(curItem, index) {
             // 上一个选中的元素
             var lastItem = null;
 
@@ -44,6 +45,10 @@ export default {
             curItem.selected = true;
             // 根据index执行相应函数
             // ...
+            switch(index){
+            case 0:
+                this.backToHome();break;
+            }
         },
     },
 };

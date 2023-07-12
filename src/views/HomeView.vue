@@ -12,8 +12,7 @@
                     <mainWord
                         v-if="page.main.is_main&&page.is_main_page"
                         :key="page.main.is_main"
-                        @update-page="updatePage"
-                        @click="test"
+                        @click="goToShower"
                     />
                 </transition>
 
@@ -27,6 +26,7 @@
                     />
                     <showerBar
                         class="home_view_bar"
+                        @backToHome="backToHome"
                         v-else-if="page.is_func_page"
                     />
                 </transition>
@@ -139,10 +139,15 @@ export default {
         changeFunction(index){
             console.log(index);
         },
-        test(){
-            this.bar_change = this.bar_change === "bar_change_0" ? "bar_change_1" : "bar_change_0";
-            this.page.is_main_page = !this.page.is_main_page;
-            this.page.is_func_page = !this.page.is_func_page;
+        backToHome(){
+            this.bar_change = "bar_change_1";
+            this.page.is_main_page = true;
+            this.page.is_func_page = false;
+        },
+        goToShower(){
+            this.bar_change = "bar_change_0";
+            this.page.is_main_page = false;
+            this.page.is_func_page = true;
         },
         updatePage(data) {
             this.page.main.is_main = data.is_main;
