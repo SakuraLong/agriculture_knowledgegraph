@@ -25,7 +25,10 @@
                         @update-page="updatePage"
                         class="home_view_bar"
                     />
-                    <showerBar class="home_view_bar" v-else-if="page.is_func_page" />
+                    <showerBar
+                        class="home_view_bar"
+                        v-else-if="page.is_func_page"
+                    />
                 </transition>
                 <transition name="shutter">
                     <othersSubpage
@@ -88,11 +91,11 @@ export default {
     data() {
         return {
             show: false,
-            bar_change:"bar_change_1",
+            bar_change: "bar_change_1",
             page: {
                 is_main_page: true, // 在主页面
                 is_func_page: false, // 在功能页面
-                is_personal: true, // 个人信息界面显示
+                is_personal: false, // 个人信息界面显示
                 is_login: false, // 登录注册页面显示
                 is_personal_setting: false, // 个人信息设置页面显示
                 is_forget_password: false, // 忘记密码界面显示
@@ -216,7 +219,7 @@ export default {
 </script>
 
 <style scoped>
-.home_view_bar{
+.home_view_bar {
     /* border: 1px solid red; */
     width: 300px;
     height: 700px;
