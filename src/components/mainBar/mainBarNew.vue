@@ -36,7 +36,7 @@ export default {
 <style scoped>
 .main_bar{
     position: relative;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 100%;
 }
 </style>
