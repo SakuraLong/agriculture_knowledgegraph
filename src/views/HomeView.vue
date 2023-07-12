@@ -10,7 +10,7 @@
                 <bg />
                 <transition name="slide">
                     <mainWord
-                        v-if="page.main.is_main"
+                        v-if="page.main.is_main&&page.is_main_page"
                         :key="page.main.is_main"
                         @update-page="updatePage"
                         @click="test"
@@ -36,6 +36,7 @@
                     />
                     <functionSubpage
                         v-else-if="page.is_main_page && page.main.is_func"
+                        :changeFunction="changeFunction"
                     />
                     <personalSubpage v-else-if="page.is_personal" />
                     <realNameSetting v-else-if="page.is_realname" />
@@ -135,11 +136,11 @@ export default {
         // threeSubpage,
     },
     methods: {
-        test() {
-            this.bar_change =
-                this.bar_change === "bar_change_0"
-                    ? "bar_change_1"
-                    : "bar_change_0";
+        changeFunction(index){
+            console.log(index);
+        },
+        test(){
+            this.bar_change = this.bar_change === "bar_change_0" ? "bar_change_1" : "bar_change_0";
             this.page.is_main_page = !this.page.is_main_page;
             this.page.is_func_page = !this.page.is_func_page;
         },
@@ -198,7 +199,7 @@ export default {
         // let a = Code.CryptoJS.encrypt(b);
         // Storage.set(0, "USER_MSG", a);
         // console.log(a);
-        utils.userLoginInit();
+        // utils.userLoginInit();
     },
     mounted() {
         setTimeout(() => {
