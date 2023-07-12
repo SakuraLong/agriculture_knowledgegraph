@@ -88,13 +88,13 @@ export default {
             page: {
                 is_main_page: true, // 在主页面
                 is_func_page: false, // 在功能页面
-                is_personal: false, // 个人信息界面显示
+                is_personal: true, // 个人信息界面显示
                 is_login: false, // 登录注册页面显示
                 is_personal_setting: false, // 个人信息设置页面显示
                 is_forget_password: false, // 忘记密码界面显示
                 is_update_password: false, // 更新密码界面显示
                 is_update_email: false, // 更新邮箱界面显示
-                is_realname: true, // 实名认证界面显示
+                is_realname: false, // 实名认证界面显示
 
                 main: {
                     is_main: true, // 主页面主页
