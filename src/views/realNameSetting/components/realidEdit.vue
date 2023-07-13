@@ -39,13 +39,27 @@ export default {
                 ) {
                     if (
                         new Checker(str, [
-                            "is-num",
                             "@length-max=18",
                             "@length-min=18",
                         ]).check()
                     ) {
-                        this.error = "";
-                        return { msg: str, type: "ID" };
+                        if (new Checker(str, ["is-num"]).check()) {
+                            this.error = "";
+                            return { msg: str, type: "ID" };
+                        } else {
+                            if (
+                                str[16] === "X" &&
+                                new Checker(str.slice(0, str.length - 1), [
+                                    "is-num",
+                                ]).check()
+                            ) {
+                                this.error = "";
+                                return { msg: str, type: "ID" };
+                            } else {
+                                this.error = "证件号中不能包含非法字符";
+                                return false;
+                            }
+                        }
                     } else {
                         this.error = "证件号码是18位数字";
                         return false;

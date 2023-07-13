@@ -3,7 +3,7 @@
         <div class="realname-bg"></div>
         <div>
             <form>
-                <realNameEdit :name="name" ref="realNameEdit" />
+                <realNameEdit :real_name="real_name" ref="realNameEdit" />
                 <realPhoneEdit :phonenumber="phonenumber" ref="realPhoneEdit" />
                 <realidTypeEdit :IDtype="IDtype" ref="realidTypeEdit" />
                 <realidEdit :ID="ID" ref="realidEdit" />
@@ -22,7 +22,7 @@ import realidEdit from "./realidEdit.vue";
 
 export default {
     props: {
-        name: String,
+        real_name: String,
         phonenumber: String,
         IDtype: Number,
         ID: String,
@@ -70,6 +70,7 @@ export default {
 }
 
 .confirm-btn {
+    cursor: pointer;
     width: 50px;
     height: 50px;
     border: solid 5px rgba(144, 119, 149, 0.5);
