@@ -31,7 +31,8 @@ export default {
                     entity_query:"实体查询",
                     relationship_query:"关系查询",
                     agricultural_knowledge_graph:"农业知识图谱",
-                    agricultural_knowledge_QA:"农知问答"
+                    agricultural_knowledge_QA:"农知问答",
+                    function_selection:"功能选择"
                 }
             },
             bar:{
