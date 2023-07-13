@@ -7,6 +7,7 @@
                     :phonenumber="getRealNameMsg().phonenumber"
                     :IDtype="getRealNameMsg().IDtype"
                     :ID="getRealNameMsg().ID"
+                    @toPersonal="toPersonal"
                 />
             </div>
         </template>
@@ -16,6 +17,7 @@
 <script>
 import defaultShutter from "@/components/shutter/defaultShutter.vue";
 import realNameContent from "./components/realNameContent.vue";
+import store from "@/store/index.js";
 export default {
     data() {
         return {};
@@ -35,6 +37,10 @@ export default {
                 IDtype: 0,
                 ID: "372923202312013419",
             };
+        },
+        toPersonal() {
+            if (!store.state.can_click_button) return;
+            this.$emit("toPersonal");
         },
     },
 };
