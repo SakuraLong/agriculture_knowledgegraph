@@ -16,9 +16,9 @@
                     >
                         <div
                             class="button_text"
-                            :data-text="$t('views.othersSubpage.language')"
+                            :data-text="$t('views.main_page.others_subpage.language_subpage.title')"
                         >
-                            {{ $t("views.othersSubpage.language") }}
+                            {{ $t("views.main_page.others_subpage.language_subpage.title") }}
                         </div>
                     </button>
                     <button
@@ -28,9 +28,9 @@
                     >
                         <div
                             class="button_text"
-                            :data-text="$t('views.othersSubpage.about')"
+                            :data-text="$t('views.main_page.others_subpage.about_subpage.title')"
                         >
-                            {{ $t("views.othersSubpage.about") }}
+                            {{ $t("views.main_page.others_subpage.about_subpage.title") }}
                         </div>
                     </button>
                     <button
@@ -40,14 +40,13 @@
                     >
                         <div
                             class="button_text"
-                            :data-text="$t('views.othersSubpage.preference')"
+                            :data-text="$t('views.main_page.others_subpage.preference_subpage.title')"
                         >
-                            {{ $t("views.othersSubpage.preference") }}
+                            {{ $t("views.main_page.others_subpage.preference_subpage.title") }}
                         </div>
                     </button>
                 </div>
                 <threeSubpage
-                    style="border: solid 1px red"
                     :subpageSelected="subpageSelected_judge"
                 ></threeSubpage>
             </div>

@@ -71,6 +71,8 @@ export default {
 </script>
 <style scoped>
 .avatar {
+    pointer-events: all;
+    cursor: pointer;
     user-select: none;
     margin: 10px;
     width: 50px;

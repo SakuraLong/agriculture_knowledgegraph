@@ -6,33 +6,53 @@
         onselectstart="return false"
     >
         <transition name="opacity400">
-            <div v-show="show">
+            <div
+                style="
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    left: 0;
+                    top: 0;
+                "
+                v-show="show"
+            >
                 <bg />
-                <transition name="slide">
-                    <mainWord
-                        v-if="page.main.is_main"
-                        :key="page.main.is_main"
-                        @update-page="updatePage"
-                        @click="test"
-                    />
-                </transition>
-
-                <navBar @avatarClick="avatarClick" />
-
-                <transition :name="bar_change">
-                    <mainBar
-                        v-if="page.is_main_page"
-                        @update-page="updatePage"
-                        class="home_view_bar"
-                    />
-                    <showerBar class="home_view_bar" v-else-if="page.is_func_page" />
-                </transition>
+                <navBar @avatarClick="avatarClick" class="nav_bar" />
+                <div class="body_container">
+                    <div class="body_bar_container">
+                        <transition :name="bar_change">
+                            <mainBar
+                                v-if="page.is_main_page"
+                                @update-page="updatePage"
+                                class="home_view_bar"
+                            />
+                            <showerBar
+                                class="home_view_bar home_view_bar_shower"
+                                @backToHome="backToHome"
+                                v-else-if="page.is_func_page"
+                            />
+                        </transition>
+                    </div>
+                    <div class="body_shower_container">
+                        <transition name="slide">
+                            <mainWord
+                                v-if="page.main.is_main && page.is_main_page"
+                                :key="page.main.is_main"
+                                @click="goToShower"
+                            />
+                            <showerSubpage
+                                v-else-if="page.is_func_page"
+                            ></showerSubpage>
+                        </transition>
+                    </div>
+                </div>
                 <transition name="shutter">
                     <othersSubpage
                         v-if="page.is_main_page && page.main.is_other"
                     />
                     <functionSubpage
                         v-else-if="page.is_main_page && page.main.is_func"
+                        :changeFunction="changeFunction"
                     />
                     <personalSubpage v-else-if="page.is_personal" />
                     <realNameSetting v-else-if="page.is_realname" />
@@ -62,7 +82,7 @@ import personalMsgSettingSubpage from "@/views/personalMsgSettingSubpage/persona
 import realNameSetting from "@/views/realNameSetting/realNameSetting.vue"; //实名认证--子页面
 // 组件
 import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
-import mainBar from "@/components/mainBar/mainBar.vue"; // 主页左侧导航栏
+import mainBar from "@/components/mainBar/mainBarNew.vue"; // 主页左侧导航栏
 import showerBar from "@/components/showerBar/showerBar.vue"; // 功能界面左侧导航栏
 import othersSubpage from "@/views/othersSubpage/othersSubpage.vue";
 import defaultShutters from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
@@ -80,14 +100,16 @@ import baseBox from "@/components/baseBox/baseBox.vue";
 
 import forgetPassword from "./forgetPassword/forgetPassword.vue";
 import updateEmail from "./updateEmail/updateEmail.vue";
+import showerSubpage from "./showerSubpage/showerSubpage.vue";
 
 import utils from "@/assets/js/utils.js";
 import store from "@/store/index.js";
+import testMsg from "@/assets/js/testMsg.js"; 
 export default {
     data() {
         return {
             show: false,
-            bar_change:"bar_change_1",
+            bar_change: "bar_change_1",
             page: {
                 is_main_page: true, // 在主页面
                 is_func_page: false, // 在功能页面
@@ -97,7 +119,7 @@ export default {
                 is_forget_password: false, // 忘记密码界面显示
                 is_update_password: false, // 更新密码界面显示
                 is_update_email: false, // 更新邮箱界面显示
-                is_realname: true, // 实名认证界面显示
+                is_realname: false, // 实名认证界面显示
 
                 main: {
                     is_main: true, // 主页面主页
@@ -126,16 +148,25 @@ export default {
         // defaultShutters,
         bg,
         mainWord,
+        showerSubpage,
         // baseBox,
         // forgetPassword,
         // updateEmail,
         // threeSubpage,
     },
     methods: {
-        test(){
-            this.bar_change = this.bar_change === "bar_change_0" ? "bar_change_1" : "bar_change_0";
-            this.page.is_main_page = !this.page.is_main_page;
-            this.page.is_func_page = !this.page.is_func_page;
+        changeFunction(index) {
+            console.log(index);
+        },
+        backToHome() {
+            this.bar_change = "bar_change_1";
+            this.page.is_main_page = true;
+            this.page.is_func_page = false;
+        },
+        goToShower() {
+            this.bar_change = "bar_change_0";
+            this.page.is_main_page = false;
+            this.page.is_func_page = true;
         },
         updatePage(data) {
             this.page.main.is_main = data.is_main;
@@ -192,7 +223,8 @@ export default {
         // let a = Code.CryptoJS.encrypt(b);
         // Storage.set(0, "USER_MSG", a);
         // console.log(a);
-        utils.userLoginInit();
+        // utils.userLoginInit();
+        testMsg.localStorageIsLogin();
     },
     mounted() {
         setTimeout(() => {
@@ -212,13 +244,43 @@ export default {
 </script>
 
 <style scoped>
-.home_view_bar{
-    /* border: 1px solid red; */
-    width: 300px;
-    height: 700px;
+.nav_bar{
+    position: relative;
+    z-index: 20;
+}
+.body_container{
     position: absolute;
-    top: 10%;
-    left: 2%;
+    width: 100%;
+    height: 90%;
+    bottom: 0;
+    left: 0;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: row;
+}
+.body_bar_container{
+    position: relative;
+    height: 100%;
+    width: 20%;
+    /* border: 1px solid red; */
+}
+.body_shower_container{
+    position: relative;
+    height: 100%;
+    width: 80%;
+    /* border: 1px solid red; */
+}
+.home_view_bar {
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 90%;
+    position: absolute;
+    /* top: 10%; */
+}
+.home_view_bar_shower{
+    height: 100vh;
+    position: absolute;
+    bottom: 0;
 }
 .main_lottie {
     position: absolute;

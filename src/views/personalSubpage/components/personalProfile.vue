@@ -51,37 +51,48 @@
                 </el-row>
             </el-col>
             <el-col :span="14">
-                <el-collapse v-model="activeNames" @change="handleChange">
-                    <el-collapse-item title="实名认证信息" name="1">
-                        <div>
-                            <el-row style="margin-top: 10px">
-                                <time id="profess">姓名:</time>
-                                <label for="profess">Name</label>
-                            </el-row>
-                            <el-row style="margin-top: 10px">
-                                <time id="profess">证件类型:</time>
-                                <label for="profess">xxx.xx.xx.xx</label>
-                            </el-row>
-                            <el-row style="margin-top: 10px">
-                                <time id="profess">证件号码:</time>
-                                <label for="profess">xxx.xx.xx.xx</label>
-                            </el-row>
-                            <el-row style="margin-top: 10px">
-                                <time id="profess">电话号码:</time>
-                                <label for="profess">xxx.xx.xx.xx</label>
-                            </el-row>
-                        </div>
-                    </el-collapse-item>
-                </el-collapse>
+                <div style="display: flex">
+                    <el-collapse
+                        style="width: 230px"
+                        v-model="activeNames"
+                        @change="handleChange"
+                    >
+                        <el-collapse-item title="实名认证信息" name="1">
+                            <div>
+                                <el-row style="margin-top: 10px">
+                                    <time id="profess">姓名:</time>
+                                    <label for="profess">Name</label>
+                                </el-row>
+                                <el-row style="margin-top: 10px">
+                                    <time id="profess">证件类型:</time>
+                                    <label for="profess">xxx.xx.xx.xx</label>
+                                </el-row>
+                                <el-row style="margin-top: 10px">
+                                    <time id="profess">证件号码:</time>
+                                    <label for="profess">xxx.xx.xx.xx</label>
+                                </el-row>
+                                <el-row style="margin-top: 10px">
+                                    <time id="profess">电话号码:</time>
+                                    <label for="profess">xxx.xx.xx.xx</label>
+                                </el-row>
+                            </div>
+                        </el-collapse-item>
+                    </el-collapse>
+                    <realNameEdit />
+                </div>
             </el-col>
         </el-row>
     </div>
 </template>
 
 <script>
+import realNameEdit from "./realNameEdit.vue";
 export default {
     data() {
         return {};
+    },
+    components: {
+        realNameEdit,
     },
 };
 </script>
@@ -89,13 +100,10 @@ export default {
 <style scoped>
 .personal-profile-container {
     position: relative;
-    left: 100px;
-    top: 50px;
+    left: 50px;
+    top: 30px;
     width: 600px;
     height: 400px;
-}
-
-.el-avatar {
 }
 
 .profile-ele {
@@ -104,5 +112,18 @@ export default {
 
 .el-tag {
     margin: 5px;
+}
+
+.realname-edit-btn {
+    cursor: pointer;
+    position: relative;
+    top: 7px;
+    left: 10px;
+    background: url("../img/realnameedit.png") no-repeat;
+    background-size: contain;
+    width: 27px;
+    height: 27px;
+    border-radius: 100%;
+    border: solid 3px #907795;
 }
 </style>

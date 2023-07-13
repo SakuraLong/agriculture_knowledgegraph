@@ -1,42 +1,87 @@
 <template>
     <div class="showerbar">
-        <div class="showerbar-ele" @click="BackToHome">回到首页</div>
-        <div class="showerbar-ele" @click="BackToHome">实体查询</div>
-        <div class="showerbar-ele" @click="BackToHome">关系查询</div>
-        <div class="showerbar-ele" @click="BackToHome">知识概览</div>
-        <div class="showerbar-ele" @click="BackToHome">知识问答</div>
-        <div class="showerbar-ele" @click="BackToHome">关于我们</div>
+        <div class="shower_bar_cantainer">
+            <div
+                v-for="(item, index) in menuItems"
+                :key="index"
+                class="showerbar-ele"
+                :class="{ selected: item.selected }"
+                @click="selectItem(item, index)"
+            >
+                {{ item.text }}
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
     data() {
-        // 实时添加需要的数据信息
-        return {};
+        return {
+            menuItems: [
+                { text: "回到首页", selected: false },
+                { text: "实体查询", selected: false },
+                { text: "关系查询", selected: false },
+                { text: "知识概览", selected: false },
+                { text: "知识问答", selected: false },
+                { text: "关于我们", selected: false },
+            ],
+        };
     },
     methods: {
-        // 返回主页函数
-        BackToHome() {},
+        backToHome() {
+            // ...
+            this.$emit("backToHome");
+        },
+        selectItem(curItem, index) {
+            // 上一个选中的元素
+            var lastItem = null;
+
+            this.menuItems.forEach((item) => {
+                if (item.selected === true) {
+                    lastItem = item;
+                    lastItem.selected = false;
+                }
+            });
+
+            curItem.selected = true;
+            // 根据index执行相应函数
+            // ...
+            switch (index) {
+            case 0:
+                this.backToHome();
+                break;
+            }
+        },
     },
 };
 </script>
 
 <style scoped>
 .showerbar {
-    position: relative;
-    border: solid 1px black;
+    position: absolute;
+    bottom: 0;
+    height: 100vh;
+    border: 1px solid red;
+    /* border: solid 1px black; */
 }
-
+.shower_bar_cantainer{
+    position: relative;
+    margin: 100px 20px 0px 20px;
+    border: 1px solid red;
+}
 .showerbar-ele {
     cursor: pointer;
     font-family: "幼圆";
     font-size: 30px;
     color: #000;
-    border: 2px solid transparent; /* 使用 transparent 设置初始边框颜色为透明 */
-    margin: 15px;
+    border: 2px solid transparent;
+    margin: 20px 0px 20px 0px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgb(0, 55, 255);
     position: relative;
     overflow: hidden;
+    transition: border-left-color 0.3s, transform 0.3s;
 }
 
 .showerbar-ele::before {
@@ -46,21 +91,32 @@ export default {
     left: -100%;
     width: 100%;
     height: 100%;
-    background-color: lightgray;
+    background-color: rgba(153, 114, 161, 0.2);
     opacity: 0;
     transition: left 0.3s, opacity 0.3s;
-    z-index: -1; /* 使伪元素位于文本和边框之下 */
+    z-index: -1;
 }
 
-.showerbar-ele:hover::before {
+.showerbar-ele:hover::before,
+.showerbar-ele.selected::before {
     left: 0;
     opacity: 1;
-    /* transition: all 0.3s; */
 }
 
 .showerbar-ele:hover {
-    border-left-color: #000; /* 在 hover 时设置边框左侧颜色 */
+    border-left-color: rgb(153, 114, 161);
     transform: scale(1.1);
-    /* transition: all 0.3s; */
+}
+
+.showerbar-ele.selected {
+    background-color: rgba(153, 114, 161, 0.2);
+    border-left-color: rgb(153, 114, 161);
+    transform: scale(1.1);
+}
+
+.showerbar-ele:not(:hover) {
+    transition: border-left-color 0.3s, transform 0.3s;
+    border-left-color: transparent;
+    transform: scale(1);
 }
 </style>

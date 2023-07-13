@@ -75,7 +75,7 @@ export default {
             console.log(password);
             let is_id = id_email.type === "id";
             let send_id_email = id_email.msg;
-            let send_password = Code.MD5.encrypt(password);
+            let send_password = Code.CryptoJS.encrypt(Code.MD5.encrypt(password));
             // 此时会把密码存入本地数据库
             let user_msg = utils.getUserMsg();
             console.log("user_msg_",user_msg);
@@ -96,8 +96,23 @@ export default {
         loginCallback(msg) {
             if(msg.success){
                 // 用户登录成功 数据存入本地数据库
+                let user_msg = utils.getUserMsg();
+                // 等待测试样例
+                // user_msg.name = msg.content.name;
+                // user_msg.avatar = msg.content.avatar;
+                // user_msg.sex = msg.content.sex;
+                // user_msg.born = msg.content.born;
+                // user_msg.occu = msg.content.occu;
+                // user_msg.id = msg.content.id;
+                // user_msg.email = msg.content.email;
+                // if(msg.content.has_real_name){
+                //     user_msg.has_real_name = true;
+                // }else{
+                //     user_msg.has_real_name = false;
+                // }
                 console.log("登录成功");
                 // 更改登录状态
+                store.state.is_login = true;
                 // 退出此页面
                 this.$emit("exitPage");
             }else{

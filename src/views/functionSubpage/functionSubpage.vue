@@ -30,62 +30,31 @@
                         <div
                             class="button_text"
                             :data-text="
-                                $t('views.functionSubpage.entity_recognition')
+                                $t('views.main_page.function_subpage.content.entity_recognition')
                             "
                         >
-                            {{ $t("views.functionSubpage.entity_recognition") }}
+                            {{ $t("views.main_page.function_subpage.content.entity_recognition") }}
                         </div>
                     </button>
                     <button class="test_class1" @click="changeFunction(1)">
-                        <div
-                            class="button_text"
-                            :data-text="
-                                $t('views.functionSubpage.entity_query')
-                            "
-                        >
-                            {{ $t("views.functionSubpage.entity_query") }}
+
+                        <div class="button_text" :data-text="$t('views.main_page.function_subpage.content.entity_query')">
+                            {{ $t("views.main_page.function_subpage.content.entity_query") }}
                         </div>
                     </button>
                     <button class="test_class1" @click="changeFunction(2)">
-                        <div
-                            class="button_text"
-                            :data-text="
-                                $t('views.functionSubpage.relationship_query')
-                            "
-                        >
-                            {{ $t("views.functionSubpage.relationship_query") }}
+                        <div class="button_text" :data-text="$t('views.main_page.function_subpage.content.relationship_query')">
+                            {{ $t("views.main_page.function_subpage.content.relationship_query") }}
                         </div>
                     </button>
                     <button class="test_class1" @click="changeFunction(3)">
-                        <div
-                            class="button_text"
-                            :data-text="
-                                $t(
-                                    'views.functionSubpage.agricultural_knowledge_graph'
-                                )
-                            "
-                        >
-                            {{
-                                $t(
-                                    "views.functionSubpage.agricultural_knowledge_graph"
-                                )
-                            }}
+                        <div class="button_text" :data-text="$t('views.main_page.function_subpage.content.agricultural_knowledge_graph')">
+                            {{ $t("views.main_page.function_subpage.content.agricultural_knowledge_graph") }}
                         </div>
                     </button>
                     <button class="test_class1" @click="changeFunction(4)">
-                        <div
-                            class="button_text"
-                            :data-text="
-                                $t(
-                                    'views.functionSubpage.agricultural_knowledge_QA'
-                                )
-                            "
-                        >
-                            {{
-                                $t(
-                                    "views.functionSubpage.agricultural_knowledge_QA"
-                                )
-                            }}
+                        <div class="button_text" :data-text="$t('views.main_page.function_subpage.content.agricultural_knowledge_QA')">
+                            {{ $t("views.main_page.function_subpage.content.agricultural_knowledge_QA") }}
                         </div>
                     </button>
                 </div>
