@@ -1,11 +1,16 @@
 <template>
-    <div class="realname-edit-btn"></div>
+    <div @click="toEditRealName" class="realname-edit-btn"></div>
 </template>
 
 <script>
 export default {
     data() {
         return {};
+    },
+    methods: {
+        toEditRealName() {
+            this.$emit("toEditRealName");
+        },
     },
 };
 </script>

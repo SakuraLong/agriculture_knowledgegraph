@@ -6,11 +6,20 @@
         onselectstart="return false"
     >
         <transition name="opacity400">
-            <div style="position: absolute;width: 100%;height: 100%;left: 0;top: 0;" v-show="show">
+            <div
+                style="
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    left: 0;
+                    top: 0;
+                "
+                v-show="show"
+            >
                 <bg />
                 <transition name="slide">
                     <mainWord
-                        v-if="page.main.is_main&&page.is_main_page"
+                        v-if="page.main.is_main && page.is_main_page"
                         :key="page.main.is_main"
                         @click="goToShower"
                     />
@@ -38,8 +47,16 @@
                         v-else-if="page.is_main_page && page.main.is_func"
                         :changeFunction="changeFunction"
                     />
-                    <personalSubpage v-else-if="page.is_personal" />
-                    <realNameSetting v-else-if="page.is_realname" />
+                    <personalSubpage
+                        v-else-if="page.is_personal"
+                        @leavePersonal="leavePersonal"
+                        @toEditRealName="toEditRealName"
+                        @toEditPersonal="toEditPersonal"
+                    />
+                    <realNameSetting
+                        v-else-if="page.is_realname"
+                        @toPersonal="toPersonal"
+                    />
                 </transition>
             </div>
         </transition>
@@ -95,7 +112,7 @@ export default {
             page: {
                 is_main_page: true, // 在主页面
                 is_func_page: false, // 在功能页面
-                is_personal: false, // 个人信息界面显示
+                is_personal: true, // 个人信息界面显示
                 is_login: false, // 登录注册页面显示
                 is_personal_setting: false, // 个人信息设置页面显示
                 is_forget_password: false, // 忘记密码界面显示
@@ -130,21 +147,22 @@ export default {
         // defaultShutters,
         bg,
         mainWord,
+        realNameSetting,
         // baseBox,
         // forgetPassword,
         // updateEmail,
         // threeSubpage,
     },
     methods: {
-        changeFunction(index){
+        changeFunction(index) {
             console.log(index);
         },
-        backToHome(){
+        backToHome() {
             this.bar_change = "bar_change_1";
             this.page.is_main_page = true;
             this.page.is_func_page = false;
         },
-        goToShower(){
+        goToShower() {
             this.bar_change = "bar_change_0";
             this.page.is_main_page = false;
             this.page.is_func_page = true;
@@ -175,6 +193,21 @@ export default {
             console.log("自动登录失败");
             this.is_login = false;
             utils.setLogOut();
+        },
+        leavePersonal() {
+            this.page.is_personal = false;
+        },
+        toEditRealName() {
+            this.page.is_personal = false;
+            this.page.is_realname = true;
+        },
+        toEditPersonal() {
+            this.page.is_personal = false;
+            this.page.is_personal_setting = true;
+        },
+        toPersonal() {
+            this.page.is_personal_setting = false;
+            this.page.is_personal = true;
         },
     },
     created() {
