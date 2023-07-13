@@ -9,14 +9,19 @@
                     /* border: solid 2px red; */
                 "
             >
+                <div class="function_title" style="position: absolute;height: 10%;top:0;width: 100%;">
+                    {{ $t("views.functionSubpage.function_selection") }}
+                </div>
                 <div
                     style="
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        position: relative;
+                        position: absolute;
+                        top:10%;
+                        left: 0;
                         width: 100%;
-                        height: 90%;
+                        height: 80%;
                         /* border: solid 2px blue; */
                         flex-direction: column;
                     "
@@ -32,6 +37,7 @@
                         </div>
                     </button>
                     <button class="test_class1" @click="changeFunction(1)">
+
                         <div class="button_text" :data-text="$t('views.main_page.function_subpage.content.entity_query')">
                             {{ $t("views.main_page.function_subpage.content.entity_query") }}
                         </div>
@@ -88,7 +94,7 @@ export default {
 .test_class1 {
     margin-top: 15px;
     margin-bottom: 15px;
-    width: 150px;
+    width: 190px;
     height: 100px;
     background: none;
     border: 4px solid rgb(205, 199, 199);
@@ -155,5 +161,11 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.function_title{
+    font-family: "FZZJ-WHJZTJW", sans-serif;
+    text-align: center;
+    font-size: 40px;
+    color: #d5b4dc;
 }
 </style>
