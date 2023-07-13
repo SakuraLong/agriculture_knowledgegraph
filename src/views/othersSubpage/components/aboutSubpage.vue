@@ -10,6 +10,7 @@
             top: 0;
             left: 0;
             overflow: hidden;
+            color: var(--subpage-aboutSubpage-color);
         "
     >
         <el-scrollbar

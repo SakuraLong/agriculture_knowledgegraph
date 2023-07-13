@@ -35,9 +35,12 @@ export default {
                 }
             },
             bar:{
-                home:"首页",
-                methods:"功能",
-                other:"其他"
+                home:"Home",
+                feature:"Feature",
+                other:"Other"
+            },
+            main_word:{
+                from:"ICSS&NKCS"
             }
         },
         shower_page:{

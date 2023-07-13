@@ -26,3 +26,15 @@
     --navbar-bar-bg-img:url("./img/bar/nav/nav_bar_light.png");
     --navbar-font-color:rgb(0, 0, 0);
 }
+/* otherSubpage */
+:root{
+    --subpage-button-selected-border:solid 2px #d5b4dc;
+    --subpage-button-selected-background-color: #d5b4dc;
+    --subpage-button-selected-color:rgb(255, 255, 255);
+    --subpage-button-unselected-border:solid 2px #d5b4dc;
+    --subpage-button-unselected-background-color: auto;
+    --subpage-button-unselected-color:#d5b4dc;
+    --subpage-button-unselected-hover-color:rgb(255, 255, 255);
+    --subpage-button-webkit-text-stroke:8px #d5b4dc;
+    --subpage-aboutSubpage-color:auto;
+}

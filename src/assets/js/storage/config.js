@@ -6,7 +6,12 @@ const USER_MSG = {
     "occu":"",
     "id":"",
     "password":"",
-    "email":""
+    "email":"",
+    "real":"",
+    "real_name":"",
+    "tel":"",
+    "card_type":"",
+    "id_card":""
 };
 
 export default {

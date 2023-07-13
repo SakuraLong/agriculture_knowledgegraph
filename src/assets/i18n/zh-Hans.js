@@ -36,8 +36,11 @@ export default {
             },
             bar:{
                 home:"首页",
-                methods:"功能",
+                feature:"功能",
                 other:"其他"
+            },
+            main_word:{
+                from:"中软国际&南开大学软件学院"
             }
         },
         shower_page:{
