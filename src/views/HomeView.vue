@@ -225,6 +225,7 @@ export default {
         // console.log(a);
         // utils.userLoginInit();
         testMsg.localStorageIsLogin();
+        console.log(utils.getUserMsg());
     },
     mounted() {
         setTimeout(() => {
