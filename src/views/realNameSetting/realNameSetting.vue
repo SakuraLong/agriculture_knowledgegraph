@@ -3,10 +3,7 @@
         <template #show_child_page>
             <div class="realname-container">
                 <realNameContent
-                    :name="getRealNameMsg().name"
-                    :phonenumber="getRealNameMsg().phonenumber"
-                    :IDtype="getRealNameMsg().IDtype"
-                    :ID="getRealNameMsg().ID"
+                    v-bind="getRealNameMsg()"
                     @toPersonal="toPersonal"
                 />
             </div>
@@ -18,6 +15,7 @@
 import defaultShutter from "@/components/shutter/defaultShutter.vue";
 import realNameContent from "./components/realNameContent.vue";
 import store from "@/store/index.js";
+import utils from "@/assets/js/utils.js";
 export default {
     data() {
         return {};
@@ -29,13 +27,17 @@ export default {
     methods: {
         getRealNameMsg() {
             // 获取用户原有的实名认证信息
-
+            let user_msg = utils.getUserMsg();
+            if (user_msg.id === "") {
+                utils.setLogOut();
+                store.state.is_login = false;
+            }
             // 看效果用的，可忽略
             return {
-                name: "张三",
-                phonenumber: "18755557723",
-                IDtype: 0,
-                ID: "372923202312013419",
+                real_name: user_msg.real_name,
+                phonenumber: user_msg.tel,
+                IDtype: user_msg.card_type,
+                ID: user_msg.id_card,
             };
         },
         toPersonal() {
