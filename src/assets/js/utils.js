@@ -165,6 +165,21 @@ const getUserMsg = () => {
             has_error = true;
         }
     });
+    CodeConfig.USER_MSG_CODE.encrypt_check.forEach((element) => {
+        if (has_error) return;
+        if (user_msg[element.check]) {
+            element.encrypt.forEach((element_) => {
+                try {
+                    user_msg[element_] = Code.CryptoJS.decrypt(
+                        user_msg[element_],
+                        key
+                    );
+                } catch {
+                    has_error = true;
+                }
+            });
+        }
+    });
     if (has_error) return StorageConfig.USER_MSG;
     return user_msg;
 };
@@ -180,6 +195,16 @@ const saveUserMsg = (user_msg) => {
             user_msg[element],
             Code.CryptoJS.decrypt(CodeConfig.USER_MSG_CODE.key)
         );
+    });
+    CodeConfig.USER_MSG_CODE.encrypt_check.forEach((element) => {
+        if (user_msg[element.check]) {
+            element.encrypt.forEach((element_) => {
+                user_msg[element_] = Code.CryptoJS.encrypt(
+                    user_msg[element_],
+                    Code.CryptoJS.decrypt(CodeConfig.USER_MSG_CODE.key)
+                );
+            });
+        }
     });
     user_msg = Code.CryptoJS.encrypt(JSON.stringify(user_msg).toString());
     Storage.set(0, "USER_MSG", user_msg);

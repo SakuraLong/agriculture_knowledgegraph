@@ -28,12 +28,12 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10px 0px 10px 0px;
+    margin: 30px 0px 30px 0px;
 }
 .img_container{
     position: absolute;
     /* border: 1px solid red; */
-    height: 70%;
+    height: 50%;
     left: 10%;
     opacity: 0;
     transform: translateX(0px);
@@ -44,7 +44,7 @@ export default {
 }
 .main_bar_element_text {
     position: absolute;
-    font-size: 50px;
+    font-size: 40px;
     color: var(--main-bar-font-color);
     transition: all 0.3s linear;
 }

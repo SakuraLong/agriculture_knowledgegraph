@@ -1,13 +1,15 @@
 <template>
     <div class="showerbar">
-        <div
-            v-for="(item, index) in menuItems"
-            :key="index"
-            class="showerbar-ele"
-            :class="{ selected: item.selected }"
-            @click="selectItem(item, index)"
-        >
-            {{ item.text }}
+        <div class="shower_bar_cantainer">
+            <div
+                v-for="(item, index) in menuItems"
+                :key="index"
+                class="showerbar-ele"
+                :class="{ selected: item.selected }"
+                @click="selectItem(item, index)"
+            >
+                {{ item.text }}
+            </div>
         </div>
     </div>
 </template>
@@ -45,9 +47,10 @@ export default {
             curItem.selected = true;
             // 根据index执行相应函数
             // ...
-            switch(index){
+            switch (index) {
             case 0:
-                this.backToHome();break;
+                this.backToHome();
+                break;
             }
         },
     },
@@ -56,17 +59,26 @@ export default {
 
 <style scoped>
 .showerbar {
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    height: 100vh;
+    border: 1px solid red;
     /* border: solid 1px black; */
 }
-
+.shower_bar_cantainer{
+    position: relative;
+    margin: 100px 20px 0px 20px;
+    border: 1px solid red;
+}
 .showerbar-ele {
     cursor: pointer;
     font-family: "幼圆";
     font-size: 30px;
     color: #000;
     border: 2px solid transparent;
-    margin: 15px;
+    margin: 20px 0px 20px 0px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgb(0, 55, 255);
     position: relative;
     overflow: hidden;
     transition: border-left-color 0.3s, transform 0.3s;

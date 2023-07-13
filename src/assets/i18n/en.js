@@ -25,7 +25,7 @@ export default {
                 }
             },
             function_subpage:{
-                title:"功能选择",
+                title:"Function Selection",
                 content:{
                     entity_recognition:"Entity Recognition",
                     entity_query:"Entity Query",
