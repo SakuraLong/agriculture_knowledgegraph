@@ -1,3 +1,4 @@
+import utils from "./utils";
 import Code from "./code/code";
 import Storage from "./storage/storage";
 import store from "@/store/index.js";
@@ -57,17 +58,15 @@ const localStorageIsLogin = () => {
         sex: 0,
         occu: "O05",
         id: "123456789",
-        password: Code.CryptoJS.encrypt(Code.MD5.encrypt("hahaha123456")),
+        password: Code.MD5.encrypt("hahaha123456"),
         email: "2112794@mail.nankai.edu.cn",
         real: true,
-        real_name: Code.CryptoJS.encrypt("龙文"),
-        tel: Code.CryptoJS.encrypt("86547752195"), // 电话号码 int
+        real_name: "鸡你太美",
+        tel: "86547752195", // 电话号码 int
         card_type: "C01", // 证件类型 string
         id_card: "846264422056515489", // 证件号码 string
     };
-    user_msg = JSON.stringify(user_msg).toString();
-    user_msg = Code.CryptoJS.encrypt(user_msg);
-    Storage.set(0, "USER_MSG", user_msg);
+    utils.saveUserMsg(user_msg);
     store.state.is_login = true;
 };
 export default {
