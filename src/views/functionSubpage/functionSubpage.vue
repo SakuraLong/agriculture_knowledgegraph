@@ -26,37 +26,11 @@
                         flex-direction: column;
                     "
                 >
-                    <button class="test_class1" @click="changeFunction(0)">
-                        <div
-                            class="button_text"
-                            :data-text="
-                                $t('views.main_page.function_subpage.content.entity_recognition')
-                            "
-                        >
-                            {{ $t("views.main_page.function_subpage.content.entity_recognition") }}
-                        </div>
-                    </button>
-                    <button class="test_class1" @click="changeFunction(1)">
-
-                        <div class="button_text" :data-text="$t('views.main_page.function_subpage.content.entity_query')">
-                            {{ $t("views.main_page.function_subpage.content.entity_query") }}
-                        </div>
-                    </button>
-                    <button class="test_class1" @click="changeFunction(2)">
-                        <div class="button_text" :data-text="$t('views.main_page.function_subpage.content.relationship_query')">
-                            {{ $t("views.main_page.function_subpage.content.relationship_query") }}
-                        </div>
-                    </button>
-                    <button class="test_class1" @click="changeFunction(3)">
-                        <div class="button_text" :data-text="$t('views.main_page.function_subpage.content.agricultural_knowledge_graph')">
-                            {{ $t("views.main_page.function_subpage.content.agricultural_knowledge_graph") }}
-                        </div>
-                    </button>
-                    <button class="test_class1" @click="changeFunction(4)">
-                        <div class="button_text" :data-text="$t('views.main_page.function_subpage.content.agricultural_knowledge_QA')">
-                            {{ $t("views.main_page.function_subpage.content.agricultural_knowledge_QA") }}
-                        </div>
-                    </button>
+                    <flowButton @click="changeFunction(0)" :judge_isSelected="false" :content_text='$t("views.main_page.function_subpage.content.entity_recognition")'></flowButton>
+                    <flowButton @click="changeFunction(1)" :judge_isSelected="false" :content_text='$t("views.main_page.function_subpage.content.entity_query")'></flowButton>
+                    <flowButton @click="changeFunction(2)" :judge_isSelected="false" :content_text="$t('views.main_page.function_subpage.content.relationship_query')"></flowButton>
+                    <flowButton @click="changeFunction(3)" :judge_isSelected="false" :content_text="$t('views.main_page.function_subpage.content.agricultural_knowledge_graph')"></flowButton>
+                    <flowButton @click="changeFunction(4)" :judge_isSelected="false" :content_text="$t('views.main_page.function_subpage.content.agricultural_knowledge_QA')"></flowButton>
                 </div>
             </div>
         </template>
@@ -65,6 +39,7 @@
 
 <script>
 import defaultShutters from "@/components/shutter/defaultShutter.vue";
+import flowButton from "@/components/buttons/subpageButton/flowButton.vue";
 const function_arr = [0, 1, 2, 3, 4];
 //实体识别、实体查询、关系查询、农业知识图谱、农知问答
 export default {
@@ -86,6 +61,7 @@ export default {
     },
     components: {
         defaultShutters,
+        flowButton
     },
 };
 </script>
