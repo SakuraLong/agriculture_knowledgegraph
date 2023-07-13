@@ -2,7 +2,6 @@
     <div class="shutter" :class="{black_bg:black_bg}" @resize="pageResize">
 
         <img alt="" class="shutter_top" ref="shutter_top" />
-
         <div
             key="con"
             class="pointer shutter_top_container"
@@ -13,7 +12,8 @@
             ]"
             ref="shutter_top_container"
         >
-            <div>这里之后会放吉祥物组件</div>
+            <div>这里之后会放吉祥物组件
+            </div>
             <div></div>
             <div
                 :class="[
@@ -113,6 +113,7 @@ let change = () => {
 </script> -->
 <style scoped>
 .shutter {
+    filter: none;
     pointer-events: none;
     display: flex;
     justify-content: center;
@@ -164,7 +165,6 @@ let change = () => {
         ". .";
     grid-template-columns: 550px auto;
     grid-template-rows: auto 550px;
-    opacity: 0.5;
 }
 .shutter_top_container_3block {
     position: absolute;
@@ -179,7 +179,6 @@ let change = () => {
         ". .";
     grid-template-columns: 550px auto;
     grid-template-rows: auto 550px;
-    opacity: 0.5;
 }
 .shutter_top_container_4block_right {
     display: block;

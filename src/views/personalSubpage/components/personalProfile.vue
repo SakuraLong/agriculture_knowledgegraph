@@ -7,7 +7,7 @@
         <el-row>
             <div class="profile-container">
                 <el-row class="profile-ele" style="margin-top: 20px">
-                    <avatar class="profile-avatar" />
+                    <avatar class="profile-avatar" style="pointer-events: none !important;" />
                     <div>
                         <div class="profile-ele-ele" style="text-indent: 13px">
                             昵称: Name
@@ -126,6 +126,8 @@ export default {
 }
 
 .profile-avatar {
+    position: relative;
+    z-index: 100;
     width: 60px;
     height: 60px;
     margin-right: 10px;
