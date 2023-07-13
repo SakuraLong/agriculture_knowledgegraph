@@ -7,7 +7,7 @@
                 <realPhoneEdit :phonenumber="phonenumber" ref="realPhoneEdit" />
                 <realidTypeEdit :IDtype="IDtype" ref="realidTypeEdit" />
                 <realidEdit :ID="ID" ref="realidEdit" />
-                <button @click="buttonClick" class="confirm-btn"></button>
+                <button @click="toPersonal" class="confirm-btn"></button>
             </form>
         </div>
     </div>
@@ -37,7 +37,7 @@ export default {
         realidEdit,
     },
     methods: {
-        buttonClick() {
+        toPersonal() {
             /* 检查字符串 */
             if (!store.state.can_click_button) return;
             let realname = this.$refs.realNameEdit.get();
@@ -50,6 +50,7 @@ export default {
             if (!realid) return;
 
             // 调用数据传入后台数据库的函数
+            this.$emit("toPersonal");
         },
     },
 };

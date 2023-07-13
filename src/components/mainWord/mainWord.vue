@@ -114,8 +114,8 @@ export default {
     left: 0;
     top: 0;
     content: attr(data-text);
-    color: white;
+    color: var(--main-text-after-font-color);
     z-index: -1;
-    -webkit-text-stroke: 5px white;
+    -webkit-text-stroke: 5px var(--main-text-after-font-color);
 }
 </style>

@@ -13,6 +13,7 @@
 :root{
     --main-bar-font-color:#822296;
     --main-text-font-color:#822296;
+    --main-text-after-font-color:rgb(0, 0, 0);
 }
 /* shutter */
 :root{

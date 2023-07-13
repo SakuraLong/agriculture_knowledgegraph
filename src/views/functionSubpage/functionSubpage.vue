@@ -10,6 +10,7 @@
                 "
             >
                 <div class="function_title" style="position: absolute;height: 10%;top:0;width: 100%;">
+
                     {{ $t("views.main_page.function_subpage.content.function_selection") }}
                 </div>
                 <div

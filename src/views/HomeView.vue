@@ -54,8 +54,16 @@
                         v-else-if="page.is_main_page && page.main.is_func"
                         :changeFunction="changeFunction"
                     />
-                    <personalSubpage v-else-if="page.is_personal" />
-                    <realNameSetting v-else-if="page.is_realname" />
+                    <personalSubpage
+                        v-else-if="page.is_personal"
+                        @leavePersonal="leavePersonal"
+                        @toEditRealName="toEditRealName"
+                        @toEditPersonal="toEditPersonal"
+                    />
+                    <realNameSetting
+                        v-else-if="page.is_realname"
+                        @toPersonal="toPersonal"
+                    />
                 </transition>
             </div>
         </transition>
@@ -113,7 +121,7 @@ export default {
             page: {
                 is_main_page: true, // 在主页面
                 is_func_page: false, // 在功能页面
-                is_personal: false, // 个人信息界面显示
+                is_personal: true, // 个人信息界面显示
                 is_login: false, // 登录注册页面显示
                 is_personal_setting: false, // 个人信息设置页面显示
                 is_forget_password: false, // 忘记密码界面显示
@@ -148,7 +156,11 @@ export default {
         // defaultShutters,
         bg,
         mainWord,
+
+        realNameSetting,
+
         showerSubpage,
+
         // baseBox,
         // forgetPassword,
         // updateEmail,
@@ -195,6 +207,21 @@ export default {
             this.is_login = false;
             utils.setLogOut();
         },
+        leavePersonal() {
+            this.page.is_personal = false;
+        },
+        toEditRealName() {
+            this.page.is_personal = false;
+            this.page.is_realname = true;
+        },
+        toEditPersonal() {
+            this.page.is_personal = false;
+            this.page.is_personal_setting = true;
+        },
+        toPersonal() {
+            this.page.is_personal_setting = false;
+            this.page.is_personal = true;
+        },
     },
     created() {
         // console.log(Code.CryptoJS.encrypt("asca87283r23y09c09ywch89y29fh"));
@@ -225,6 +252,7 @@ export default {
         // console.log(a);
         // utils.userLoginInit();
         testMsg.localStorageIsLogin();
+        console.log(utils.getUserMsg());
     },
     mounted() {
         setTimeout(() => {

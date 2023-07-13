@@ -1,16 +1,21 @@
 <template>
     <div class="personal-profile-container">
+        <div @click="leavePersonal" class="exit-btn">
+            <div class="exit-btn-bg"></div>
+            <div class="exit-btn-text">返回</div>
+        </div>
         <el-row>
-            <el-avatar
-                src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-                :size="100"
-            />
-            <div style="padding: 14px">
-                <span style="margin-top: 10px">昵称：Name</span>
+            <div class="profile-container">
                 <el-row class="profile-ele" style="margin-top: 20px">
-                    <span>职业：学生</span>
+                    <avatar class="profile-avatar" />
+                    <div>
+                        <div class="profile-ele-ele" style="text-indent: 13px">
+                            昵称: Name
+                        </div>
+                        <div class="profile-ele-ele">职业: 学生</div>
+                    </div>
                 </el-row>
-                <el-row style="margin-top: 10px">
+                <el-row class="profile-tags">
                     <!-- 这里获取数据库信息判断就行 -->
                     <el-tag
                         color="rgb(208,195,213)"
@@ -78,7 +83,7 @@
                             </div>
                         </el-collapse-item>
                     </el-collapse>
-                    <realNameEdit />
+                    <realNameEdit @toEditRealName="toEditRealName" />
                 </div>
             </el-col>
         </el-row>
@@ -86,6 +91,7 @@
 </template>
 
 <script>
+import avatar from "@/components/avatar/defaultAvatar.vue";
 import realNameEdit from "./realNameEdit.vue";
 export default {
     data() {
@@ -93,6 +99,15 @@ export default {
     },
     components: {
         realNameEdit,
+        avatar,
+    },
+    methods: {
+        leavePersonal() {
+            this.$emit("leavePersonal");
+        },
+        toEditRealName() {
+            this.$emit("toEditRealName");
+        },
     },
 };
 </script>
@@ -101,13 +116,29 @@ export default {
 .personal-profile-container {
     position: relative;
     left: 50px;
-    top: 30px;
     width: 600px;
     height: 400px;
 }
 
 .profile-ele {
-    left: 155px;
+    display: flex;
+    left: 40%;
+}
+
+.profile-avatar {
+    width: 60px;
+    height: 60px;
+    margin-right: 10px;
+}
+
+.profile-ele-ele {
+    margin-top: 15px;
+}
+
+.profile-tags {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    left: 15%;
 }
 
 .el-tag {
@@ -125,5 +156,30 @@ export default {
     height: 27px;
     border-radius: 100%;
     border: solid 3px #907795;
+}
+
+.exit-btn {
+    cursor: pointer;
+    position: absolute;
+    top: -50px;
+    left: -15px;
+}
+
+.exit-btn-bg {
+    position: absolute;
+    background: url("../img/back.png") no-repeat;
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+    transition: transform 0.3s ease;
+}
+
+.exit-btn-text {
+    line-height: 50px;
+    text-indent: 9px;
+}
+
+.exit-btn-bg:hover {
+    transform: rotate(360deg);
 }
 </style>
