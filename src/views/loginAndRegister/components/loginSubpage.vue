@@ -75,7 +75,7 @@ export default {
             console.log(password);
             let is_id = id_email.type === "id";
             let send_id_email = id_email.msg;
-            let send_password = Code.MD5.encrypt(password);
+            let send_password = Code.CryptoJS.encrypt(Code.MD5.encrypt(password));
             // 此时会把密码存入本地数据库
             let user_msg = utils.getUserMsg();
             console.log("user_msg_",user_msg);

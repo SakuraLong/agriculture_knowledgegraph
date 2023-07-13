@@ -1,8 +1,8 @@
 <template>
     <div class="background_word">
-        <div class="background_word1">中软国际</div>
-        <div class="background_word2">农业知识图谱</div>
-        <div class="background_word3">Agriculture Knowledgegraph</div>
+        <div class="background_word2 word_border" data-text="农业知识图谱">农业知识图谱</div>
+        <div class="background_word3 word_border" data-text="Agriculture Knowledgegraph">Agriculture Knowledgegraph</div>
+        <div class="background_word1 word_border" data-text="中软国际&南开大学软件学院">中软国际&南开大学软件学院</div>
         <img src="./img/arrow.png" class="arrow" />
     </div>
 </template>
@@ -70,11 +70,12 @@ export default {
 }
 
 .background_word1 {
-    font-family: "FZZJ-WHJZTJW", sans-serif; /* 使用自定义字体 */
-    font-size: 70px; /* 设置字体大小 */
-    font-weight: 100; /* 设置字体粗细 */
+    position: relative;
+    z-index: 1;
+    font-family: Sonti; /* 使用自定义字体 */
+    font-size: 20px; /* 设置字体大小 */
+    font-weight: 900; /* 设置字体粗细 */
     display: block;
-    padding: 5px 10px;
     text-decoration: none;
     color: var(--main-text-font-color);
     text-align: left;
@@ -82,24 +83,39 @@ export default {
 }
 
 .background_word2 {
+    position: relative;
+    z-index: 1;
     font-family: "FZZJ-WHJZTJW", sans-serif; /* 使用自定义字体 */
     font-size: 90px; /* 设置字体大小 */
     font-weight: 300; /* 设置字体粗细 */
     display: block;
-    padding: 5px 10px;
+    /* padding: 5px 10px; */
     text-decoration: none;
     color: var(--main-text-font-color);
     text-align: left;
     letter-spacing: 1px;
 }
 .background_word3 {
+    position: relative;
+    z-index: 1;
     font-family: "FZZJ-WHJZTJW", sans-serif; /* 使用自定义字体 */
     font-size: 37px; /* 设置字体大小 */
     font-weight: 0; /* 设置字体粗细 */
     display: block;
-    padding: 5px 10px;
     text-decoration: none;
     color: var(--main-text-font-color);
+    margin: 5px 0px 20px 0px;
     text-align: left;
+}
+.word_border::after{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: attr(data-text);
+    color: white;
+    z-index: -1;
+    -webkit-text-stroke: 5px white;
 }
 </style>

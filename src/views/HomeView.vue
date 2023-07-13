@@ -6,30 +6,46 @@
         onselectstart="return false"
     >
         <transition name="opacity400">
-            <div style="position: absolute;width: 100%;height: 100%;left: 0;top: 0;" v-show="show">
+            <div
+                style="
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    left: 0;
+                    top: 0;
+                "
+                v-show="show"
+            >
                 <bg />
-                <transition name="slide">
-                    <mainWord
-                        v-if="page.main.is_main&&page.is_main_page"
-                        :key="page.main.is_main"
-                        @click="goToShower"
-                    />
-                </transition>
-
-                <navBar @avatarClick="avatarClick" />
-
-                <transition :name="bar_change">
-                    <mainBar
-                        v-if="page.is_main_page"
-                        @update-page="updatePage"
-                        class="home_view_bar"
-                    />
-                    <showerBar
-                        class="home_view_bar"
-                        @backToHome="backToHome"
-                        v-else-if="page.is_func_page"
-                    />
-                </transition>
+                <navBar @avatarClick="avatarClick" class="nav_bar" />
+                <div class="body_container">
+                    <div class="body_bar_container">
+                        <transition :name="bar_change">
+                            <mainBar
+                                v-if="page.is_main_page"
+                                @update-page="updatePage"
+                                class="home_view_bar"
+                            />
+                            <showerBar
+                                class="home_view_bar home_view_bar_shower"
+                                @backToHome="backToHome"
+                                v-else-if="page.is_func_page"
+                            />
+                        </transition>
+                    </div>
+                    <div class="body_shower_container">
+                        <transition name="slide">
+                            <mainWord
+                                v-if="page.main.is_main && page.is_main_page"
+                                :key="page.main.is_main"
+                                @click="goToShower"
+                            />
+                            <showerSubpage
+                                v-else-if="page.is_func_page"
+                            ></showerSubpage>
+                        </transition>
+                    </div>
+                </div>
                 <transition name="shutter">
                     <othersSubpage
                         v-if="page.is_main_page && page.main.is_other"
@@ -84,9 +100,11 @@ import baseBox from "@/components/baseBox/baseBox.vue";
 
 import forgetPassword from "./forgetPassword/forgetPassword.vue";
 import updateEmail from "./updateEmail/updateEmail.vue";
+import showerSubpage from "./showerSubpage/showerSubpage.vue";
 
 import utils from "@/assets/js/utils.js";
 import store from "@/store/index.js";
+import testMsg from "@/assets/js/testMsg.js"; 
 export default {
     data() {
         return {
@@ -130,21 +148,22 @@ export default {
         // defaultShutters,
         bg,
         mainWord,
+        showerSubpage,
         // baseBox,
         // forgetPassword,
         // updateEmail,
         // threeSubpage,
     },
     methods: {
-        changeFunction(index){
+        changeFunction(index) {
             console.log(index);
         },
-        backToHome(){
+        backToHome() {
             this.bar_change = "bar_change_1";
             this.page.is_main_page = true;
             this.page.is_func_page = false;
         },
-        goToShower(){
+        goToShower() {
             this.bar_change = "bar_change_0";
             this.page.is_main_page = false;
             this.page.is_func_page = true;
@@ -205,6 +224,7 @@ export default {
         // Storage.set(0, "USER_MSG", a);
         // console.log(a);
         // utils.userLoginInit();
+        testMsg.localStorageIsLogin();
     },
     mounted() {
         setTimeout(() => {
@@ -224,13 +244,43 @@ export default {
 </script>
 
 <style scoped>
+.nav_bar{
+    position: relative;
+    z-index: 20;
+}
+.body_container{
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    bottom: 0;
+    left: 0;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: row;
+}
+.body_bar_container{
+    position: relative;
+    height: 100%;
+    width: 20%;
+    /* border: 1px solid red; */
+}
+.body_shower_container{
+    position: relative;
+    height: 100%;
+    width: 80%;
+    /* border: 1px solid red; */
+}
 .home_view_bar {
     /* border: 1px solid red; */
-    width: 300px;
-    height: 700px;
+    width: 100%;
+    height: 90%;
     position: absolute;
-    top: 10%;
-    left: 2%;
+    /* top: 10%; */
+}
+.home_view_bar_shower{
+    height: 100vh;
+    position: absolute;
+    bottom: 0;
 }
 .main_lottie {
     position: absolute;
