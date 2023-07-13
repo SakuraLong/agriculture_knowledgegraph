@@ -121,7 +121,7 @@ export default {
             page: {
                 is_main_page: true, // 在主页面
                 is_func_page: false, // 在功能页面
-                is_personal: true, // 个人信息界面显示
+                is_personal: false, // 个人信息界面显示
                 is_login: false, // 登录注册页面显示
                 is_personal_setting: false, // 个人信息设置页面显示
                 is_forget_password: false, // 忘记密码界面显示
@@ -136,7 +136,7 @@ export default {
                 },
             },
             login: {
-                is_login: true,
+                is_login: false,
             },
             user: {
                 is_login: false,
