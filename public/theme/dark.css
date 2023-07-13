@@ -26,3 +26,15 @@
     --navbar-bar-bg-img:url("./img/bar/nav/nav_bar_dark.png");
     --navbar-font-color:#822296;
 }
+/* otherSubpage */
+:root{
+    --subpage-button-selected-border:solid 2px #822296;
+    --subpage-button-selected-background-color: #822296;
+    --subpage-button-selected-color:rgb(0, 0, 0);
+    --subpage-button-unselected-border:solid 2px #822296;
+    --subpage-button-unselected-background-color: auto;
+    --subpage-button-unselected-color:#822296;
+    --subpage-button-unselected-hover-color:rgb(0, 0, 0);
+    --subpage-button-webkit-text-stroke:8px #822296;
+    --subpage-aboutSubpage-color:#822296;
+}

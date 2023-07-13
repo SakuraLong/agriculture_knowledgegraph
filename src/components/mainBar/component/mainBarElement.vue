@@ -44,6 +44,7 @@ export default {
 }
 .main_bar_element_text {
     position: absolute;
+    left: 30%;
     font-size: 40px;
     color: var(--main-bar-font-color);
     transition: all 0.3s linear;
