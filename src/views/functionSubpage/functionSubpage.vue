@@ -143,6 +143,6 @@ export default {
     font-family: "FZZJ-WHJZTJW", sans-serif;
     text-align: center;
     font-size: 40px;
-    color: #d5b4dc;
+    color: var(--functionSubpage-title-color);
 }
 </style>
