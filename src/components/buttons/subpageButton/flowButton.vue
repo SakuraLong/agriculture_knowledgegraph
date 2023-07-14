@@ -1,6 +1,6 @@
 <template>
-    <button class="test_class1"
-            :class="{ test_class3: judge_isSelected }">
+    <button class="button_unSelected"
+            :class="{ button_isSelected: judge_isSelected }">
         <div class="button_text" :data-text='content_text'>
             {{ content_text }}
         </div>
@@ -12,7 +12,7 @@ export default {
 };
 </script>
 <style scoped>
-.test_class1 {
+.button_unSelected {
     margin-top: 20px;
     margin-bottom: 20px;
     width: 150px;
@@ -29,8 +29,8 @@ export default {
     cursor: pointer;
     position: relative;
 }
-.test_class1::before,
-.test_class1::after {
+.button_unSelected::before,
+.button_unSelected::after {
     content: "";
     position: absolute;
     width: 14px;
@@ -39,24 +39,24 @@ export default {
     transform: skewX(50deg);
     transition: 0.4s linear;
 }
-.test_class1::before {
+.button_unSelected::before {
     top: -4px;
     left: 10%;
 }
-.test_class1::after {
+.button_unSelected::after {
     bottom: -4px;
     right: 10%;
 }
-.test_class1:hover::before {
+.button_unSelected:hover::before {
     left: 80%;
 }
-.test_class1:hover::after {
+.button_unSelected:hover::after {
     right: 80%;
 }
-.test_class1:hover {
+.button_unSelected:hover {
     /* color: #3498db; */
 }
-.test_class3 {
+.button_isSelected {
     margin-top: 20px;
     margin-bottom: 20px;
     width: 150px;
@@ -73,8 +73,8 @@ export default {
     cursor: pointer;
     position: relative;
 }
-.test_class3::before,
-.test_class3::after {
+.button_isSelected::before,
+.button_isSelected::after {
     content: "";
     position: absolute;
     width: 14px;
@@ -83,11 +83,11 @@ export default {
     transform: skewX(50deg);
     transition: 0.4s linear;
 }
-.test_class3::before {
+.button_isSelected::before {
     top: -4px;
     left: 80%;
 }
-.test_class3::after {
+.button_isSelected::after {
     bottom: -4px;
     right: 80%;
 }
@@ -102,10 +102,10 @@ export default {
     align-items: center;
     z-index: 1;
 }
-.test_class1:hover > .button_text {
+.button_unSelected:hover > .button_text {
     color: var(--flowButton-hover-button-color);
 }
-.test_class1:hover > .button_text::after {
+.button_unSelected:hover > .button_text::after {
     content: attr(data-text);
     position: absolute;
     width: 100%;

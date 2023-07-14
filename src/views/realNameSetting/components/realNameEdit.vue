@@ -4,7 +4,7 @@
             @click="get"
             ref="borderInput"
             title="真实姓名"
-            :msg="name"
+            :msg="real_name"
         />
         <linePrompt
             :opacity="error"
@@ -21,7 +21,7 @@ import linePrompt from "@/components/prompts/line/linePrompt.vue";
 import Checker from "@/assets/js/checker/checker.js";
 export default {
     props: {
-        name: String,
+        real_name: String,
     },
     data() {
         return {

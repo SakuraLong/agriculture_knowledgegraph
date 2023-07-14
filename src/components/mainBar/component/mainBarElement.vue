@@ -1,15 +1,17 @@
 <template>
     <div class="main_bar_element">
-        <div class="img_container" :class="{selected:type}">
+        <div class="img_container" :class="{ selected: type }">
             <img
-            src="../img/arrow.png"
-            alt=""
-            draggable="false"
-            class="main_bar_element_img"
-            :class="{no_animation:type}"
-        />
+                src="../img/arrow.png"
+                alt=""
+                draggable="false"
+                class="main_bar_element_img"
+                :class="{ no_animation: type }"
+            />
         </div>
-        <div class="main_bar_element_text" :class="{selected_text:type}">{{ content }}</div>
+        <div class="main_bar_element_text" :class="{ selected_text: type }">
+            {{ content }}
+        </div>
     </div>
 </template>
 
@@ -21,6 +23,7 @@ export default {
 
 <style scoped>
 .main_bar_element {
+    cursor: pointer;
     position: relative;
     width: 100%;
     height: 80px;
@@ -30,7 +33,7 @@ export default {
     align-items: center;
     margin: 30px 0px 30px 0px;
 }
-.img_container{
+.img_container {
     position: absolute;
     /* border: 1px solid red; */
     height: 50%;
@@ -49,28 +52,28 @@ export default {
     color: var(--main-bar-font-color);
     transition: all 0.3s linear;
 }
-.main_bar_element:hover>.img_container{
+.main_bar_element:hover > .img_container {
     opacity: 1;
     transform: translateX(30px);
     transition: all 0.3s linear;
 }
-.main_bar_element:hover>.img_container>img{
+.main_bar_element:hover > .img_container > img {
     animation: moving 0.8s infinite linear 0.3s;
 }
-.main_bar_element:hover>.main_bar_element_text{
+.main_bar_element:hover > .main_bar_element_text {
     transition: all 0.3s linear;
     transform: translateX(30px);
 }
-.selected{
+.selected {
     opacity: 1;
     transition: all 0.3s linear;
     transform: translateX(30px);
     animation: none !important;
 }
-.no_animation{
+.no_animation {
     animation: none !important;
 }
-.selected_text{
+.selected_text {
     transform: translateX(30px);
     transition: all 0.3s linear;
 }

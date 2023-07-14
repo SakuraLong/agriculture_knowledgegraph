@@ -112,7 +112,7 @@ import showerSubpage from "./showerSubpage/showerSubpage.vue";
 
 import utils from "@/assets/js/utils.js";
 import store from "@/store/index.js";
-import testMsg from "@/assets/js/testMsg.js"; 
+import testMsg from "@/assets/js/testMsg.js";
 export default {
     data() {
         return {
@@ -219,7 +219,7 @@ export default {
             this.page.is_personal_setting = true;
         },
         toPersonal() {
-            this.page.is_personal_setting = false;
+            this.page.is_realname = false;
             this.page.is_personal = true;
         },
     },
@@ -272,11 +272,11 @@ export default {
 </script>
 
 <style scoped>
-.nav_bar{
+.nav_bar {
     position: relative;
     z-index: 20;
 }
-.body_container{
+.body_container {
     position: absolute;
     width: 100%;
     height: 90%;
@@ -286,13 +286,13 @@ export default {
     display: flex;
     flex-direction: row;
 }
-.body_bar_container{
+.body_bar_container {
     position: relative;
     height: 100%;
     width: 20%;
     /* border: 1px solid red; */
 }
-.body_shower_container{
+.body_shower_container {
     position: relative;
     height: 100%;
     width: 80%;
@@ -305,7 +305,7 @@ export default {
     position: absolute;
     /* top: 10%; */
 }
-.home_view_bar_shower{
+.home_view_bar_shower {
     height: 100vh;
     position: absolute;
     bottom: 0;
