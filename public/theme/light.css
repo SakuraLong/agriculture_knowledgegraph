@@ -38,3 +38,15 @@
     --subpage-button-webkit-text-stroke:8px #d5b4dc;
     --subpage-aboutSubpage-color:auto;
 }
+/* flowButton */
+:root{
+    --flowButton-border-color:rgb(205, 199, 199);
+    --flowButton-color: #d5b4dc;
+    --flowButton-after-background-color:white;
+    --flowButton-hover-button-color:white;
+    --flowButton-hover-button-after-webkit-text-stroke-color:#d5b4dc;
+    --flowButton-selected-background-color:#d5b4dc;
+    --flowButton-selected-border-color:rgb(205, 199, 199);
+    --flowButton-selected-color: white;
+    --flowButton-selected-after-background-color:white;
+}

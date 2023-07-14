@@ -12,22 +12,8 @@
             /* top:10%; */
         "
     >
-        <!-- <button
-            class="test_class1"
-            :class="{ test_class3: index_arr[0] }"
-            @click="changeLanguage(0)"
-        >
-            <div class="button_text" data-text="简体中文">简体中文</div>
-        </button> -->
         <flowButton :judge_isSelected="index_arr[0]" content_text='简体中文' @click="changeLanguage(0)"></flowButton>
         <flowButton :judge_isSelected="index_arr[1]" content_text='English' @click="changeLanguage(1)"></flowButton>
-        <!-- <button
-            class="test_class1"
-            :class="{ test_class3: index_arr[1] }"
-            @click="changeLanguage(1)"
-        >
-            <div class="button_text" data-text="English">English</div>
-        </button> -->
     </div>
 </template>
 <script>
@@ -70,8 +56,4 @@ export default {
 };
 </script>
 <style scoped>
-.radio_class > input {
-    /* width: 1000px !important; */
-    border: solid 1px red;
-}
 </style>
