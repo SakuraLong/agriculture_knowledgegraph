@@ -5,6 +5,7 @@
             style="margin-bottom: 30px"
             title="证件类型"
             :items="IDtypes"
+            :index="getIDType(IDtype)"
         />
         <linePrompt
             :opacity="error"
@@ -21,7 +22,7 @@ import linePrompt from "@/components/prompts/line/linePrompt.vue";
 import Checker from "@/assets/js/checker/checker.js";
 export default {
     props: {
-        IDtype: Number,
+        IDtype: String,
     },
     data() {
         return {
@@ -42,6 +43,13 @@ export default {
             } else {
                 this.error = "证件类型不能为空";
                 return false;
+            }
+        },
+        getIDType(str) {
+            if (str === "C01") {
+                return 0;
+            } else {
+                console.log("证件类型错误");
             }
         },
     },

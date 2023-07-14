@@ -2,7 +2,7 @@
     <div class="background_word">
         <div class="background_word2 word_border" data-text="农业知识图谱">农业知识图谱</div>
         <div class="background_word3 word_border" data-text="Agriculture Knowledgegraph">Agriculture Knowledgegraph</div>
-        <div class="background_word1 word_border" data-text="中软国际&南开大学软件学院">中软国际&南开大学软件学院</div>
+        <div class="background_word1 word_border" :data-text="$t('views.main_page.main_word.from')">{{ $t("views.main_page.main_word.from") }}</div>
         <img src="./img/arrow.png" class="arrow" />
     </div>
 </template>
@@ -116,6 +116,6 @@ export default {
     content: attr(data-text);
     color: var(--main-text-after-font-color);
     z-index: -1;
-    -webkit-text-stroke: 5px var(--main-text-after-font-color);
+    -webkit-text-stroke: 3px var(--main-text-after-font-color);
 }
 </style>

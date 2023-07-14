@@ -1,8 +1,8 @@
 <template>
     <div class="main_bar">
-        <mainBarElement content="首页" :type=index_arr[0] @click="clickElement(0)"></mainBarElement>
-        <mainBarElement content="功能" :type=index_arr[1] @click="clickElement(1)"></mainBarElement>
-        <mainBarElement content="其他" :type=index_arr[2] @click="clickElement(2)"></mainBarElement>
+        <mainBarElement :content="$t('views.main_page.bar.home')" :type=index_arr[0] @click="clickElement(0)"></mainBarElement>
+        <mainBarElement :content="$t('views.main_page.bar.feature')" :type=index_arr[1] @click="clickElement(1)"></mainBarElement>
+        <mainBarElement :content="$t('views.main_page.bar.other')" :type=index_arr[2] @click="clickElement(2)"></mainBarElement>
     </div>
 </template>
 <script>

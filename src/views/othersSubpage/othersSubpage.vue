@@ -10,8 +10,7 @@
             >
                 <div class="subpageSelect">
                     <button
-                        class="subpage_isSelected"
-                        id="subpage_button0"
+                        :class="{subpage_isSelected:subpageSelected_judge[0],subpage_unSelected:!subpageSelected_judge[0]}"
                         @click="changeSubButton(0)"
                     >
                         <div
@@ -22,8 +21,7 @@
                         </div>
                     </button>
                     <button
-                        class="subpage_unSelected"
-                        id="subpage_button1"
+                    :class="{subpage_isSelected:subpageSelected_judge[1],subpage_unSelected:!subpageSelected_judge[1]}"
                         @click="changeSubButton(1)"
                     >
                         <div
@@ -34,8 +32,7 @@
                         </div>
                     </button>
                     <button
-                        class="subpage_unSelected"
-                        id="subpage_button2"
+                    :class="{subpage_isSelected:subpageSelected_judge[2],subpage_unSelected:!subpageSelected_judge[2]}"
                         @click="changeSubButton(2)"
                     >
                         <div
@@ -64,17 +61,9 @@ export default {
     },
     methods: {
         changeSubButton(page) {
-            this.subpageSelected_judge[page] = true;
-            document.getElementById("subpage_button" + page).className =
-                "subpage_isSelected";
-            for (let i = 0; i < 3; i++) {
-                if (i !== page) {
-                    document.getElementById("subpage_button" + i).className =
-                        "subpage_unSelected";
-                    this.subpageSelected_judge[i] = false;
-                }
-            }
-            // console.log(this.t);
+            this.subpageSelected_judge.forEach((element, index)=>{
+                this.subpageSelected_judge[index] = index === page ? true : false;
+            });
         },
     },
     components: {
@@ -101,29 +90,30 @@ export default {
     width: 33.3%;
     height: 100%;
     cursor: pointer;
-    border: solid 2px #d5b4dc;
+    border: var(--subpage-button-selected-border);
     font-family: FZZJ-WHJZTJW;
     font-weight: 400;
     font-size: 20px;
-    background-color: #d5b4dc;
+    background-color: var(--subpage-button-selected-background-color);
     position: relative;
-    color: white;
+    color: var(--subpage-button-selected-color);
     /* border: none; */
 }
 .subpage_unSelected {
     width: 33.3%;
     height: 100%;
     cursor: pointer;
-    border: solid 2px #d5b4dc;
+    border: var(--subpage-button-unselected-border);
     font-family: FZZJ-WHJZTJW;
     font-weight: 400;
     font-size: 20px;
     position: relative;
-    color: #d5b4dc;
+    color: var(--subpage-button-unselected-color);
+    background-color: var(--subpage-button-unselected-background-color);
     /* border: none; */
 }
 .subpage_isSelected:hover {
-    background-color: #d5b4dc;
+    /* background-color: #d5b4dc; */
 }
 .button_text {
     left: 0;
@@ -137,7 +127,7 @@ export default {
     z-index: 1;
 }
 .subpage_unSelected:hover > .button_text {
-    color: white;
+    color: var(--subpage-button-unselected-hover-color);
 }
 .subpage_unSelected:hover > .button_text::after {
     content: attr(data-text);
@@ -146,7 +136,7 @@ export default {
     height: 100%;
     left: 0;
     top: 0;
-    -webkit-text-stroke: 8px #d5b4dc;
+    -webkit-text-stroke: var(--subpage-button-webkit-text-stroke);
     z-index: -1;
     display: flex;
     justify-content: center;

@@ -31,13 +31,17 @@ export default {
                     entity_query:"实体查询",
                     relationship_query:"关系查询",
                     agricultural_knowledge_graph:"农业知识图谱",
-                    agricultural_knowledge_QA:"农知问答"
+                    agricultural_knowledge_QA:"农知问答",
+                    function_selection:"功能选择"
                 }
             },
             bar:{
                 home:"首页",
-                methods:"功能",
+                feature:"功能",
                 other:"其他"
+            },
+            main_word:{
+                from:"中软国际&南开大学软件学院"
             }
         },
         shower_page:{

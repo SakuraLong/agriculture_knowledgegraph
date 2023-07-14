@@ -31,13 +31,17 @@ export default {
                     entity_query:"Entity Query",
                     relationship_query:"Relationship Query",
                     agricultural_knowledge_graph:"Agricultural Knowledge Graph",
-                    agricultural_knowledge_QA:"Agricultural Knowledge Q&A"
+                    agricultural_knowledge_QA:"Agricultural Knowledge Q&A",
+                    function_selection:"Function Selection"
                 }
             },
             bar:{
-                home:"首页",
-                methods:"功能",
-                other:"其他"
+                home:"Home",
+                feature:"Feature",
+                other:"Other"
+            },
+            main_word:{
+                from:"ICSS&NKCS"
             }
         },
         shower_page:{
