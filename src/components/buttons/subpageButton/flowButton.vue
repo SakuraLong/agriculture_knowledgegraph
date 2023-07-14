@@ -15,8 +15,8 @@ export default {
 .button_unSelected {
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 150px;
-    height: 50px;
+    /* width: 150px; */
+    /* height: 50px; */
     background: none;
     border: 4px solid var(--flowButton-border-color);
     color: var(--flowButton-color);
@@ -28,6 +28,7 @@ export default {
     /* text-transform: uppercase; 大写文本 */
     cursor: pointer;
     position: relative;
+    box-sizing: border-box;
 }
 .button_unSelected::before,
 .button_unSelected::after {
@@ -59,8 +60,8 @@ export default {
 .button_isSelected {
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 150px;
-    height: 50px;
+    /* width: 150px; */
+    /* height: 50px; */
     background-color: var(--flowButton-selected-background-color);
     border: 4px solid var(--flowButton-selected-border-color);
     color: var(--flowButton-selected-color);
@@ -72,6 +73,7 @@ export default {
     /* text-transform: uppercase; 大写文本 */
     cursor: pointer;
     position: relative;
+    box-sizing: border-box;
 }
 .button_isSelected::before,
 .button_isSelected::after {
