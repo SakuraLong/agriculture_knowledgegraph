@@ -18,8 +18,8 @@ export default {
     width: 150px;
     height: 50px;
     background: none;
-    border: 4px solid rgb(205, 199, 199);
-    color: #d5b4dc;
+    border: 4px solid var(--flowButton-border-color);
+    color: var(--flowButton-color);
     font-family: FZZJ-WHJZTJW;
     font-weight: 400;
     font-size: 20px;
@@ -35,7 +35,7 @@ export default {
     position: absolute;
     width: 14px;
     height: 4px;
-    background: white;
+    background: var(--flowButton-after-background-color);
     transform: skewX(50deg);
     transition: 0.4s linear;
 }
@@ -54,16 +54,16 @@ export default {
     right: 80%;
 }
 .test_class1:hover {
-    color: #3498db;
+    /* color: #3498db; */
 }
 .test_class3 {
     margin-top: 20px;
     margin-bottom: 20px;
     width: 150px;
     height: 50px;
-    background-color: #d5b4dc;
-    border: 4px solid rgb(205, 199, 199);
-    color: white;
+    background-color: var(--flowButton-selected-background-color);
+    border: 4px solid var(--flowButton-selected-border-color);
+    color: var(--flowButton-selected-color);
     font-family: FZZJ-WHJZTJW;
     font-weight: 400;
     font-size: 20px;
@@ -79,7 +79,7 @@ export default {
     position: absolute;
     width: 14px;
     height: 4px;
-    background: white;
+    background: var(--flowButton-selected-after-background-color);
     transform: skewX(50deg);
     transition: 0.4s linear;
 }
@@ -103,7 +103,7 @@ export default {
     z-index: 1;
 }
 .test_class1:hover > .button_text {
-    color: white;
+    color: var(--flowButton-hover-button-color);
 }
 .test_class1:hover > .button_text::after {
     content: attr(data-text);
@@ -112,7 +112,7 @@ export default {
     height: 100%;
     left: 0;
     top: 0;
-    -webkit-text-stroke: 6px #d5b4dc;
+    -webkit-text-stroke: 6px var(--flowButton-hover-button-after-webkit-text-stroke-color);
     z-index: -1;
     display: flex;
     justify-content: center;
