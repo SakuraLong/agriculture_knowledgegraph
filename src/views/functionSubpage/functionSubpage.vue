@@ -22,12 +22,11 @@
                         top:10%;
                         left: 0;
                         width: 100%;
-                        height: 80%;
-                        /* border: solid 2px blue; */
+                        height: 90%;
                         flex-direction: column;
                     "
                 >
-                <flowButton class="button_change_size" @click="changeFunction(0)" :judge_isSelected="false" :content_text='$t("views.main_page.function_subpage.content.entity_recognition")'></flowButton>
+                    <flowButton class="button_change_size" @click="changeFunction(0)" :judge_isSelected="false" :content_text='$t("views.main_page.function_subpage.content.entity_recognition")'></flowButton>
                     <flowButton class="button_change_size" @click="changeFunction(1)" :judge_isSelected="false" :content_text='$t("views.main_page.function_subpage.content.entity_query")'></flowButton>
                     <flowButton class="button_change_size" @click="changeFunction(2)" :judge_isSelected="false" :content_text="$t('views.main_page.function_subpage.content.relationship_query')"></flowButton>
                     <flowButton class="button_change_size" @click="changeFunction(3)" :judge_isSelected="false" :content_text="$t('views.main_page.function_subpage.content.agricultural_knowledge_graph')"></flowButton>
@@ -70,7 +69,7 @@ export default {
 <style scoped>
 .button_change_size{
     width:190px;
-    height: 100px;
+    height: 60px;
 }
 .function_title{
     font-family: "FZZJ-WHJZTJW", sans-serif;
