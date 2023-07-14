@@ -9,6 +9,8 @@ import ElementPlus from "element-plus";
 import Storage from "./assets/js/storage/storage";
 import "element-plus/dist/index.css";
 import i18n from "./assets/i18n/index.js";
+import zhCn from "element-plus/dist/locale/zh-cn.mjs";
+
 // const messages = {
 //     en: {
 //         ...enLocale,
@@ -23,7 +25,12 @@ import i18n from "./assets/i18n/index.js";
 //     legacy: false,
 //     messages,
 // });
-createApp(App).use(store).use(router).use(i18n).use(ElementPlus).mount("#app");
+createApp(App)
+    .use(store)
+    .use(router)
+    .use(i18n)
+    .use(ElementPlus, { locale: zhCn })
+    .mount("#app");
 
 document.getElementById("html").onkeydown = (e) => {
     // console.log(e.key);
@@ -49,8 +56,7 @@ document.getElementById("html").onkeydown = (e) => {
     link_suit.type = "text/css";
     link_suit.id = "link_suit";
     link_suit.rel = "stylesheet";
-    link_suit.href = theme.theme === "light" ? "./theme/light.css" : "./theme/dark.css";
+    link_suit.href =
+        theme.theme === "light" ? "./theme/light.css" : "./theme/dark.css";
     document.getElementsByTagName("head")[0].appendChild(link_suit);
 })(); // 加载css文件
-
-
