@@ -6,7 +6,7 @@
                     position: relative;
                     width: 100%;
                     height: 100%;
-                    /* border: solid 2px red; */
+                    /* border: solid 1px red; */
                 "
             >
                 <div
@@ -118,9 +118,6 @@ export default {
 </script>
 
 <style scoped>
-.button_change_size {
-    width: 190px;
-    height: 100px;
 .button_change_size{
     width:190px;
     height: 60px;
