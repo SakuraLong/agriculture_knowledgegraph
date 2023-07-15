@@ -12,10 +12,11 @@
             ]"
             ref="shutter_top_container"
         >
-            <div>这里之后会放吉祥物组件
+            <div style="border: 1px solid green;">这里之后会放吉祥物组件
             </div>
-            <div></div>
+            <div style="border: 1px solid green;"></div>
             <div
+                style="border: 1px solid green;"
                 :class="[
                     has_right_girl
                         ? 'shutter_top_container_4block_leftbot'
@@ -24,9 +25,9 @@
             >
                 <!-- <p>{{ t("message.save") }}</p>
                 <button @click="change">change</button> -->
-                <slot name="show_child_page">用户</slot>
+                <slot name="show_child_page" style="border: 1px solid green;">用户</slot>
             </div>
-            <div v-if="has_right_girl">
+            <div v-if="has_right_girl" style="border: 1px solid green;">
                 这里之后会放吉祥物组件
             </div>
         </div>

@@ -11,7 +11,7 @@
             >
                 <div
                     class="function_title"
-                    style="position: absolute; height: 10%; top: 0; width: 100%"
+                    style="position: relative; height: 10%; width: 100%"
                 >
                     {{
                         $t(
@@ -19,70 +19,78 @@
                         )
                     }}
                 </div>
-                <div
+                <el-scrollbar
                     style="
                         display: flex;
+                        flex-direction: row !important;
                         justify-content: center;
                         align-items: center;
-                        position: absolute;
-                        top: 10%;
-                        left: 0;
+                        position: relative;
                         width: 100%;
-                        height: 90%;
-                        flex-direction: column;
+                        height: 80%;
                     "
                 >
-                    <flowButton
-                        class="button_change_size"
-                        @click="changeFunction(0)"
-                        :judge_isSelected="false"
-                        :content_text="
-                            $t(
-                                'views.main_page.function_subpage.content.entity_recognition'
-                            )
-                        "
-                    ></flowButton>
-                    <flowButton
-                        class="button_change_size"
-                        @click="changeFunction(1)"
-                        :judge_isSelected="false"
-                        :content_text="
-                            $t(
-                                'views.main_page.function_subpage.content.entity_query'
-                            )
-                        "
-                    ></flowButton>
-                    <flowButton
-                        class="button_change_size"
-                        @click="changeFunction(2)"
-                        :judge_isSelected="false"
-                        :content_text="
-                            $t(
-                                'views.main_page.function_subpage.content.relationship_query'
-                            )
-                        "
-                    ></flowButton>
-                    <flowButton
-                        class="button_change_size"
-                        @click="changeFunction(3)"
-                        :judge_isSelected="false"
-                        :content_text="
-                            $t(
-                                'views.main_page.function_subpage.content.agricultural_knowledge_graph'
-                            )
-                        "
-                    ></flowButton>
-                    <flowButton
-                        class="button_change_size"
-                        @click="changeFunction(4)"
-                        :judge_isSelected="false"
-                        :content_text="
-                            $t(
-                                'views.main_page.function_subpage.content.agricultural_knowledge_QA'
-                            )
-                        "
-                    ></flowButton>
-                </div>
+                    <div style="width: 100%">
+                        <flowButton
+                            class="button_change_size"
+                            @click="changeFunction(0)"
+                            :judge_isSelected="false"
+                            :content_text="
+                                $t(
+                                    'views.main_page.function_subpage.content.entity_recognition'
+                                )
+                            "
+                        ></flowButton>
+                    </div>
+                    <div style="width: 100%">
+                        <flowButton
+                            class="button_change_size"
+                            @click="changeFunction(1)"
+                            :judge_isSelected="false"
+                            :content_text="
+                                $t(
+                                    'views.main_page.function_subpage.content.entity_query'
+                                )
+                            "
+                        ></flowButton>
+                    </div>
+                    <div style="width: 100%">
+                        <flowButton
+                            class="button_change_size"
+                            @click="changeFunction(2)"
+                            :judge_isSelected="false"
+                            :content_text="
+                                $t(
+                                    'views.main_page.function_subpage.content.relationship_query'
+                                )
+                            "
+                        ></flowButton>
+                    </div>
+                    <div style="width: 100%">
+                        <flowButton
+                            class="button_change_size"
+                            @click="changeFunction(3)"
+                            :judge_isSelected="false"
+                            :content_text="
+                                $t(
+                                    'views.main_page.function_subpage.content.agricultural_knowledge_graph'
+                                )
+                            "
+                        ></flowButton>
+                    </div>
+                    <div style="width: 100%">
+                        <flowButton
+                            class="button_change_size"
+                            @click="changeFunction(4)"
+                            :judge_isSelected="false"
+                            :content_text="
+                                $t(
+                                    'views.main_page.function_subpage.content.agricultural_knowledge_QA'
+                                )
+                            "
+                        ></flowButton>
+                    </div>
+                </el-scrollbar>
             </div>
         </template>
     </defaultShutters>
@@ -118,8 +126,8 @@ export default {
 </script>
 
 <style scoped>
-.button_change_size{
-    width:190px;
+.button_change_size {
+    width: 190px;
     height: 60px;
 }
 .function_title {
