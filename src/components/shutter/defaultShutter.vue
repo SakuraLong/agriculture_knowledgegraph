@@ -155,7 +155,7 @@ let change = () => {
 .shutter_top_container_4block {
     position: absolute;
     right: 0%;
-    /* border: 1px solid green; */
+    border: 1px solid green;
     width: 80%;
     height: 100%;
 
@@ -169,7 +169,7 @@ let change = () => {
 .shutter_top_container_3block {
     position: absolute;
     right: 0%;
-    /* border: 1px solid green; */
+    border: 1px solid green;
     width: 80%;
     height: 100%;
 
