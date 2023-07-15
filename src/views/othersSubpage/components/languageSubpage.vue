@@ -12,8 +12,8 @@
             /* top:10%; */
         "
     >
-        <flowButton :judge_isSelected="index_arr[0]" content_text='简体中文' @click="changeLanguage(0)"></flowButton>
-        <flowButton :judge_isSelected="index_arr[1]" content_text='English' @click="changeLanguage(1)"></flowButton>
+        <flowButton :judge_isSelected="index_arr[0]" content_text='简体中文' @click="changeLanguage(0)" class="button_change_size"></flowButton>
+        <flowButton :judge_isSelected="index_arr[1]" content_text='English' @click="changeLanguage(1)" class="button_change_size"></flowButton>
     </div>
 </template>
 <script>
@@ -56,4 +56,8 @@ export default {
 };
 </script>
 <style scoped>
+.button_change_size{
+    width: 150px;
+    height: 50px;
+}
 </style>

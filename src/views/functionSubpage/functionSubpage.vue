@@ -28,8 +28,7 @@
                         top: 10%;
                         left: 0;
                         width: 100%;
-                        height: 80%;
-                        /* border: solid 2px blue; */
+                        height: 90%;
                         flex-direction: column;
                     "
                 >
@@ -122,6 +121,9 @@ export default {
 .button_change_size {
     width: 190px;
     height: 100px;
+.button_change_size{
+    width:190px;
+    height: 60px;
 }
 .function_title {
     font-family: "FZZJ-WHJZTJW", sans-serif;
