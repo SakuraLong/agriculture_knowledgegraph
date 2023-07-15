@@ -4,12 +4,7 @@
         <img alt="" class="shutter_top" ref="shutter_top" />
         <div
             key="con"
-            class="pointer shutter_top_container"
-            :class="[
-                !has_right_girl
-                    ? 'shutter_top_container_4block'
-                    : 'shutter_top_container_3block',
-            ]"
+            class="shutter_top_container_4block"
             ref="shutter_top_container"
         >
             <div style="border: 1px solid green;">这里之后会放吉祥物组件
