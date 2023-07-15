@@ -9,9 +9,15 @@
                     /* border: solid 2px red; */
                 "
             >
-                <div class="function_title" style="position: absolute;height: 10%;top:0;width: 100%;">
-
-                    {{ $t("views.main_page.function_subpage.content.function_selection") }}
+                <div
+                    class="function_title"
+                    style="position: absolute; height: 10%; top: 0; width: 100%"
+                >
+                    {{
+                        $t(
+                            "views.main_page.function_subpage.content.function_selection"
+                        )
+                    }}
                 </div>
                 <div
                     style="
@@ -19,18 +25,63 @@
                         justify-content: center;
                         align-items: center;
                         position: absolute;
-                        top:10%;
+                        top: 10%;
                         left: 0;
                         width: 100%;
                         height: 90%;
                         flex-direction: column;
                     "
                 >
-                    <flowButton class="button_change_size" @click="changeFunction(0)" :judge_isSelected="false" :content_text='$t("views.main_page.function_subpage.content.entity_recognition")'></flowButton>
-                    <flowButton class="button_change_size" @click="changeFunction(1)" :judge_isSelected="false" :content_text='$t("views.main_page.function_subpage.content.entity_query")'></flowButton>
-                    <flowButton class="button_change_size" @click="changeFunction(2)" :judge_isSelected="false" :content_text="$t('views.main_page.function_subpage.content.relationship_query')"></flowButton>
-                    <flowButton class="button_change_size" @click="changeFunction(3)" :judge_isSelected="false" :content_text="$t('views.main_page.function_subpage.content.agricultural_knowledge_graph')"></flowButton>
-                    <flowButton class="button_change_size" @click="changeFunction(4)" :judge_isSelected="false" :content_text="$t('views.main_page.function_subpage.content.agricultural_knowledge_QA')"></flowButton>
+                    <flowButton
+                        class="button_change_size"
+                        @click="changeFunction(0)"
+                        :judge_isSelected="false"
+                        :content_text="
+                            $t(
+                                'views.main_page.function_subpage.content.entity_recognition'
+                            )
+                        "
+                    ></flowButton>
+                    <flowButton
+                        class="button_change_size"
+                        @click="changeFunction(1)"
+                        :judge_isSelected="false"
+                        :content_text="
+                            $t(
+                                'views.main_page.function_subpage.content.entity_query'
+                            )
+                        "
+                    ></flowButton>
+                    <flowButton
+                        class="button_change_size"
+                        @click="changeFunction(2)"
+                        :judge_isSelected="false"
+                        :content_text="
+                            $t(
+                                'views.main_page.function_subpage.content.relationship_query'
+                            )
+                        "
+                    ></flowButton>
+                    <flowButton
+                        class="button_change_size"
+                        @click="changeFunction(3)"
+                        :judge_isSelected="false"
+                        :content_text="
+                            $t(
+                                'views.main_page.function_subpage.content.agricultural_knowledge_graph'
+                            )
+                        "
+                    ></flowButton>
+                    <flowButton
+                        class="button_change_size"
+                        @click="changeFunction(4)"
+                        :judge_isSelected="false"
+                        :content_text="
+                            $t(
+                                'views.main_page.function_subpage.content.agricultural_knowledge_QA'
+                            )
+                        "
+                    ></flowButton>
                 </div>
             </div>
         </template>
@@ -61,20 +112,23 @@ export default {
     },
     components: {
         defaultShutters,
-        flowButton
+        flowButton,
     },
 };
 </script>
 
 <style scoped>
+.button_change_size {
+    width: 190px;
+    height: 100px;
 .button_change_size{
     width:190px;
     height: 60px;
 }
-.function_title{
+.function_title {
     font-family: "FZZJ-WHJZTJW", sans-serif;
     text-align: center;
     font-size: 40px;
-    color: #d5b4dc;
+    color: var(--functionSubpage-title-color);
 }
 </style>

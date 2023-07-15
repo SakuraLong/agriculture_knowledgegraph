@@ -26,6 +26,10 @@
     --navbar-bar-bg-img:url("./img/bar/nav/nav_bar_light.png");
     --navbar-font-color:rgb(0, 0, 0);
 }
+/* functionSubpage */
+:root{
+    --functionSubpage-title-color:#d5b4dc;
+}
 /* otherSubpage */
 :root{
     --subpage-button-selected-border:solid 2px #d5b4dc;
