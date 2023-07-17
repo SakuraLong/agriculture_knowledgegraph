@@ -1,8 +1,10 @@
 <template>
     <!-- @click转到个人信息编辑页面 -->
     <div @click="toEditPersonal" class="personal-edit-container">
-        <div id="Edit" class="Edit"></div>
-        <label for="Edit" class="Edit-label">编辑个人信息</label>
+        <div class="personal-edit-btn">
+            <div id="Edit" class="Edit"></div>
+            <label for="Edit" class="Edit-label">编辑个人信息</label>
+        </div>
     </div>
 </template>
 
@@ -26,6 +28,11 @@ export default {
     width: 100px;
     /* height: 70px; */
     height: 100%;
+}
+
+.personal-edit-btn {
+    width: 100%;
+    height: 60%;
     border: solid darkslateblue 3px;
     border-radius: 15px;
     display: flex;
@@ -34,11 +41,12 @@ export default {
     flex-direction: column;
 }
 
-.personal-edit-container:hover {
+.personal-edit-btn:hover {
     transform: scale(1.1);
     background-color: lightgray;
     transition: background-color 0.2s;
 }
+
 .Edit {
     position: relative;
     content: "";
