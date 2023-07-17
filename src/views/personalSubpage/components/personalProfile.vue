@@ -8,7 +8,7 @@
             <div class="profile-container">
                 <el-row class="profile-ele" style="margin-top: 20px">
                     <avatar class="profile-avatar" style="pointer-events: none !important;" />
-                    <div>
+                    <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
                         <div class="profile-ele-ele" style="text-indent: 13px">
                             昵称: {{ name }}
                         </div>
@@ -179,9 +179,12 @@ export default {
 <style scoped>
 .personal-profile-container {
     position: relative;
-    left: 50px;
-    width: 600px;
-    height: 400px;
+    left: 0;
+    top: 0;
+    /* left: 50px; */
+    width: 100%;
+    height: 100%;
+    border: 1px solid red;
 }
 
 .profile-ele {
@@ -192,9 +195,11 @@ export default {
 .profile-avatar {
     position: relative;
     z-index: 100;
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
     margin-right: 10px;
+    pointer-events: none !important;
+    cursor: auto !important;
 }
 
 .profile-ele-ele {
@@ -243,8 +248,9 @@ export default {
 .exit-btn {
     cursor: pointer;
     position: absolute;
-    top: -50px;
-    left: -15px;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
 }
 
 .exit-btn-bg {

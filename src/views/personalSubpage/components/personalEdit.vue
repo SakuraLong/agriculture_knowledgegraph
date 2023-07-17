@@ -22,13 +22,16 @@ export default {
 <style scoped>
 .personal-edit-container {
     position: relative;
-    top: -20px;
     cursor: pointer;
-    margin: auto;
     width: 100px;
-    height: 70px;
+    /* height: 70px; */
+    height: 100%;
     border: solid darkslateblue 3px;
     border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .personal-edit-container:hover {
@@ -41,14 +44,12 @@ export default {
     content: "";
     background: url(../img/edit.png) no-repeat;
     background-size: contain;
-    margin: auto;
-    top: 10px;
-    width: 50px;
-    height: 70px;
+    width: 45px;
+    height: 45px;
 }
 
 .Edit-label {
     position: relative;
-    top: 5px;
+    margin-top: 5px;
 }
 </style>
