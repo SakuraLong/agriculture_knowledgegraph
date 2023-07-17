@@ -215,7 +215,6 @@ export default {
             this.page.is_realname = true;
         },
         toEditPersonal() {
-            this.page.is_personal = false;
             this.page.is_personal_setting = true;
         },
         toPersonal() {

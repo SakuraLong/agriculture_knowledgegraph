@@ -6,9 +6,12 @@
                     v-bind="msg"
                     @leavePersonal="leavePersonal"
                     @toEditRealName="toEditRealName"
-                    style="height: 80%;"
+                    style="height: 77%"
                 ></personalProfile>
-                <personalEdit @toEditPersonal="toEditPersonal" style="height: 20%;"></personalEdit>
+                <personalEdit
+                    @toEditPersonal="toEditPersonal"
+                    style="height: 23%"
+                ></personalEdit>
             </div>
         </template>
     </defaultShutter>
