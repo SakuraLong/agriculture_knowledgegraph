@@ -28,11 +28,14 @@ export default {
     width: 100px;
     /* height: 70px; */
     height: 100%;
+    display: flex;
+    align-items: flex-end;
 }
 
 .personal-edit-btn {
     width: 100%;
-    height: 60%;
+    height: 100%;
+    max-height: 80px;
     border: solid darkslateblue 3px;
     border-radius: 15px;
     display: flex;
@@ -57,6 +60,7 @@ export default {
 }
 
 .Edit-label {
+    font-size: 15px;
     position: relative;
     margin-top: 5px;
 }
