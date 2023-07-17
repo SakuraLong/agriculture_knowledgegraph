@@ -4,7 +4,7 @@
         <img alt="" class="shutter_top" ref="shutter_top" />
         <div
             key="con"
-            class="shutter_top_container_4block"
+            class="shutter_top_container"
             ref="shutter_top_container"
         >
             <div>这里之后会放吉祥物组件
@@ -16,6 +16,7 @@
                         ? 'shutter_top_container_4block_leftbot'
                         : 'shutter_top_container_3block_leftbot',
                 ]"
+                style="border: 1px solid red;"
             >
                 <!-- <p>{{ t("message.save") }}</p>
                 <button @click="change">change</button> -->
@@ -147,21 +148,8 @@ let change = () => {
     right: 550px;
     content: var(--shutter-bottom-img-src);
 }
-.shutter_top_container_4block {
-    position: absolute;
-    right: 0%;
-    /* border: 1px solid green; */
-    width: 80%;
-    height: 100%;
-
-    display: grid;
-    grid:
-        ". ."
-        ". .";
-    grid-template-columns: 550px auto;
-    grid-template-rows: auto 550px;
-}
-.shutter_top_container_3block {
+.shutter_top_container {
+    pointer-events: all;
     position: absolute;
     right: 0%;
     /* border: 1px solid green; */
