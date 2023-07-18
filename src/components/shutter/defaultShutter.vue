@@ -1,17 +1,15 @@
 <template>
-    <div class="shutter" :class="{black_bg:black_bg}" @resize="pageResize">
-
+    <div class="shutter" :class="{ black_bg: black_bg }" @resize="pageResize">
         <img alt="" class="shutter_top" ref="shutter_top" />
         <div
             key="con"
-            class="shutter_top_container_4block"
+            class="pointer shutter_top_container shutter_top_container_4block"
             ref="shutter_top_container"
         >
-            <div style="border: 1px solid green;">这里之后会放吉祥物组件
-            </div>
-            <div style="border: 1px solid green;"></div>
+            <div style="border: 1px solid green">这里之后会放吉祥物组件</div>
+            <div style="border: 1px solid green"></div>
             <div
-                style="border: 1px solid green;"
+                style="border: 1px solid green"
                 :class="[
                     has_right_girl
                         ? 'shutter_top_container_4block_leftbot'
@@ -20,17 +18,15 @@
             >
                 <!-- <p>{{ t("message.save") }}</p>
                 <button @click="change">change</button> -->
-                <slot name="show_child_page" style="border: 1px solid green;">用户</slot>
+                <slot name="show_child_page" style="border: 1px solid green"
+                    >用户</slot
+                >
             </div>
-            <div v-if="has_right_girl" style="border: 1px solid green;">
+            <div v-if="has_right_girl" style="border: 1px solid green">
                 这里之后会放吉祥物组件
             </div>
         </div>
-        <img
-            alt=""
-            class="shutter_bottom"
-            ref="shutter_bottom"
-        />
+        <img alt="" class="shutter_bottom" ref="shutter_bottom" />
     </div>
 </template>
 <script>
@@ -41,7 +37,7 @@ export default {
         window.addEventListener("resize", this.pageResize);
         this.pageResize();
     },
-    beforeUnmount(){
+    beforeUnmount() {
         window.removeEventListener("resize", this.pageResize);
     },
     methods: {
@@ -61,12 +57,9 @@ export default {
             };
             let top_r = 1.14;
             let bot_r = 0.4;
-            let shutter_height =
-            this.$refs.shutter_top.clientHeight;
-            let shutter_top_w =
-            this.$refs.shutter_top.clientWidth;
-            let shutter_bottom_w =
-            this.$refs.shutter_bottom.clientWidth;
+            let shutter_height = this.$refs.shutter_top.clientHeight;
+            let shutter_top_w = this.$refs.shutter_top.clientWidth;
+            let shutter_bottom_w = this.$refs.shutter_bottom.clientWidth;
             shutter_top_w =
                 shutter_top_w === 0 ? shutter_height * top_r : shutter_top_w;
             shutter_bottom_w =
@@ -89,8 +82,7 @@ export default {
             let str_0 = num.toString() + " auto";
             let str_1 = "auto " + num.toString();
 
-            this.$refs.
-                shutter_top_container.style.gridTemplateColumns = str_0;
+            this.$refs.shutter_top_container.style.gridTemplateColumns = str_0;
             this.$refs.shutter_top_container.style.gridTemplateRows = str_1;
         },
     },
@@ -125,11 +117,11 @@ let change = () => {
     /* border: 1px solid red; */
     min-height: 600px;
 }
-.black_bg{
+.black_bg {
     pointer-events: all;
-    background-color: rgba(0, 0, 0, .3);
+    background-color: rgba(0, 0, 0, 0.3);
 }
-.pointer{
+.pointer {
     pointer-events: all;
     transform: translateX(0px);
 }
