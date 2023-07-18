@@ -22,7 +22,7 @@
 }
 /* navbar */
 :root{
-    --navbar-bg-bg-img:url("./img/bar/nav/bg_light.png");
+    --navbar-bg-bg-img:url("./img/bar/nav/bg.png");
     --navbar-bar-bg-img:url("./img/bar/nav/nav_bar_light.png");
     --navbar-font-color:rgb(0, 0, 0);
 }

@@ -1,23 +1,43 @@
 <template>
-    <defaultAvatar class="" @click="clickAvatar" id="nav_avatar">登录</defaultAvatar>
-    <div class="nav_avatar_name">{{ user_name }}</div>
+    <div style="width: 100%;height: 100%;flex-direction: row;display: flex;align-items: center;">
+        <defaultAvatar class="nav_avatar">登录</defaultAvatar>
+        <div class="nav_avatar_name">{{ user_name }}</div>
+    </div>
 </template>
 <script>
 import defaultAvatar from "@/components/avatar/defaultAvatar.vue";
+import store from "@/store/index.js";
+import utils from "@/assets/js/utils.js";
+import { watch } from "vue";
+import { useStore } from "vuex";
 export default{
     components:{
         defaultAvatar
     },
     data(){
         return {
-            is_logged:false,
+            is_login:false,
             user_name:"登录发现更多事物"
         };
     },
+    created() {
+        if (store.state.is_login) this.is_login = true;
+        const $store = useStore();
+        watch(
+            () => $store.state.is_login,
+            (val, old) => {
+                this.is_login = val;
+            }
+        );
+    },
     methods:{
-        clickAvatar(){
-            if(!this.is_logged){
-                this.$emit("toLogin", "msg changed by childA");
+    },
+    watch:{
+        "is_login"(){
+            if(this.is_login){
+                this.user_name = utils.getUserMsg().name;
+            }else{
+                this.user_name = "登录发现更多事物";
             }
         }
     }
@@ -25,8 +45,9 @@ export default{
 </script>
 <style scoped>
 .nav_avatar{
-    width: 45px;
-    height: 45px;
+    pointer-events: none;
+    width: 50px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,5 +82,7 @@ export default{
 .nav_avatar_name{
     font-family: Heiti;
     padding-left: 20px;
+    font-size: 20px;
+    font-weight: 600;
 }
 </style>
