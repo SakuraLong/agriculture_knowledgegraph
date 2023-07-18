@@ -49,7 +49,7 @@
                 <transition name="shutter">
                     <othersSubpage
                         v-if="page.is_main_page && page.main.is_other"
-                    />
+                    ></othersSubpage>
                     <functionSubpage
                         v-else-if="page.is_main_page && page.main.is_func"
                         :changeFunction="changeFunction"
@@ -57,12 +57,14 @@
                     <personalSubpage
                         v-else-if="page.is_personal"
                         @leavePersonal="leavePersonal"
-                        @toEditRealName="toEditRealName"
+                        @toEditRealName="toPersonalRealSetting"
                         @toEditPersonal="toEditPersonal"
                     />
+                </transition>
+                <transition name="shutter">
                     <realNameSetting
-                        v-else-if="page.is_realname"
-                        @toPersonal="toPersonal"
+                        v-if="page.is_realname"
+                        @toPersonal="leavePersonalRealSetting"
                     />
                 </transition>
             </div>
@@ -91,7 +93,7 @@ import realNameSetting from "@/views/realNameSetting/realNameSetting.vue"; //实
 // 组件
 import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
 import mainBar from "@/components/mainBar/mainBarNew.vue"; // 主页左侧导航栏
-import showerBar from "@/components/showerBar/showerBar.vue"; // 功能界面左侧导航栏
+import showerBar from "@/components/showerBar/showerBarNew.vue"; // 功能界面左侧导航栏
 import othersSubpage from "@/views/othersSubpage/othersSubpage.vue";
 import defaultShutters from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
 
@@ -186,6 +188,7 @@ export default {
             this.page.main.is_other = data.is_other;
         },
         avatarClick() {
+            console.log(1234567);
             if (store.state.is_login) {
                 this.page.is_personal = true;
             } else {
@@ -210,15 +213,16 @@ export default {
         leavePersonal() {
             this.page.is_personal = false;
         },
-        toEditRealName() {
-            this.page.is_personal = false;
+        leavePersonalRealSetting(){
+            this.page.is_realname = false;
+        },
+        toPersonalRealSetting(){
             this.page.is_realname = true;
         },
         toEditPersonal() {
             this.page.is_personal_setting = true;
         },
         toPersonal() {
-            this.page.is_realname = false;
             this.page.is_personal = true;
         },
     },
