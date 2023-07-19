@@ -1,11 +1,15 @@
 <template>
-    <div class="shutter" :class="{ black_bg: black_bg }" @resize="pageResize">
+    <div
+        class="shutter"
+        :class="{ black_bg: black_bg, transparent_bg: transparent_bg }"
+        @resize="pageResize"
+        @click="clickBg"
+    >
         <img alt="" class="shutter_top" ref="shutter_top" />
         <div
             key="con"
             class="shutter_top_container"
             ref="shutter_top_container"
-            style="border: 1px solid red"
         >
             <div>这里之后会放吉祥物组件</div>
             <div></div>
@@ -15,11 +19,12 @@
                         ? 'shutter_top_container_4block_leftbot'
                         : 'shutter_top_container_3block_leftbot',
                 ]"
-                style="border: 1px solid rgb(102, 0, 255)"
             >
                 <!-- <p>{{ t("message.save") }}</p>
                 <button @click="change">change</button> -->
-                <slot name="show_child_page" style="position: relative;">用户</slot>
+                <slot name="show_child_page" style="position: relative"
+                    >用户</slot
+                >
             </div>
             <div v-if="has_right_girl">这里之后会放吉祥物组件</div>
         </div>
@@ -28,16 +33,39 @@
 </template>
 <script>
 export default {
-    props: ["has_right_girl", "black_bg"],
+    props: ["has_right_girl", "black_bg", "transparent_bg", "bg_click_func"],
     mounted() {
         console.log(999888);
         window.addEventListener("resize", this.pageResize);
         this.pageResize();
+        this.eventInit();
     },
     beforeUnmount() {
         window.removeEventListener("resize", this.pageResize);
     },
     methods: {
+        eventInit(){
+            if(this.black_bg || this.transparent_bg){
+                const eventStop = (e) => {
+                    e = e || window.Event;
+                    try{
+                        e.stopPropagation();
+                    }catch{
+                        e.cancelBubble = true;
+                    }
+                };
+                this.$refs.shutter_top.addEventListener("click", eventStop);
+                this.$refs.shutter_top_container.addEventListener("click", eventStop);
+                this.$refs.shutter_bottom.addEventListener("click", eventStop);
+            }
+        },
+        clickBg() {
+            try {
+                this.bg_click_func();
+            } catch {
+                // no func
+            }
+        },
         pageResize() {
             console.log(9999);
             // h=714 t_w=812 b_w=288 r=550 550
@@ -125,6 +153,9 @@ let change = () => {
 .black_bg {
     pointer-events: all;
     background-color: rgba(0, 0, 0, 0.3);
+}
+.transparent_bg {
+    pointer-events: all;
 }
 .pointer {
     pointer-events: all;

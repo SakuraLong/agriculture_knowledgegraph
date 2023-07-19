@@ -11,27 +11,17 @@ import "element-plus/dist/index.css";
 import i18n from "./assets/i18n/index.js";
 import zhCn from "element-plus/dist/locale/zh-cn.mjs";
 
-// const messages = {
-//     en: {
-//         ...enLocale,
-//     },
-//     "zh-Hans": {
-//         ...zhLocale,
-//     },
-// };
-// const i18n = createI18n({
-//     locale: "en", //主语言
-//     fallbackLocale: "zh-Hans", //备用语言
-//     legacy: false,
-//     messages,
-// });
-createApp(App)
+import * as ELIcons from "@element-plus/icons-vue";
+
+const app = createApp(App)
     .use(store)
     .use(router)
     .use(i18n)
-    .use(ElementPlus, { locale: zhCn })
-    .mount("#app");
-
+    .use(ElementPlus, { locale: zhCn });
+for (let iconName in ELIcons) {
+    app.component(iconName, ELIcons[iconName]);
+}
+app.mount("#app");
 document.getElementById("html").onkeydown = (e) => {
     // console.log(e.key);
 };

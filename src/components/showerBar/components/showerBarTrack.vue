@@ -97,6 +97,9 @@ export default {
             if (!store.state.can_click_button) return;
             if(index===0){
                 this.$emit("backToHome");
+            }else if(index === this.ele_list.length - 1){
+                // 点击其他
+                this.$emit("goToOther");
             }else{
                 let delta = index - this.container_index;
                 this.ease(this.container_top - delta * 70, index);

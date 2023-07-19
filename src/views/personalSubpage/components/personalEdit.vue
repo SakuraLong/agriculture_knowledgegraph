@@ -1,9 +1,8 @@
 <template>
-    <!-- @click转到个人信息编辑页面 -->
-    <div @click="toEditPersonal" class="personal-edit-container">
+    <div @click="clickEle" class="personal-edit-container">
         <div class="personal-edit-btn">
-            <div id="Edit" class="Edit"></div>
-            <label for="Edit" class="Edit-label">编辑个人信息</label>
+            <div class="Edit"></div>
+            <label for="Edit" class="Edit-label">{{ title }}</label>
         </div>
     </div>
 </template>
@@ -14,10 +13,15 @@ export default {
         return {};
     },
     methods: {
-        toEditPersonal() {
-            this.$emit("toEditPersonal");
+        clickEle() {
+            try{
+                this.$emit("clickFunc");
+            }catch{
+                // no func
+            }
         },
     },
+    props:["title"]
 };
 </script>
 
@@ -29,7 +33,9 @@ export default {
     /* height: 70px; */
     height: 100%;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    margin: 0px 20px 0px 20px;
+    /* border: 1px solid red; */
 }
 
 .personal-edit-btn {

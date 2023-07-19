@@ -208,6 +208,7 @@ export default {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow-y: scroll;
 }
 
 .box {
@@ -244,6 +245,7 @@ export default {
     margin-left: 65px;
 }
 .box-body {
+    /* border: 1px solid red; */
     height: 400px;
     width: 400px;
     position: relative;

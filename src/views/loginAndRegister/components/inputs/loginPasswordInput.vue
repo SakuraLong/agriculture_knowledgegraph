@@ -6,6 +6,7 @@
             ref="borderInput"
             :focus="onFoucs"
             :blur="onBlur"
+            password="true"
         ></borderInput>
         <linePrompt
             :opacity="error"

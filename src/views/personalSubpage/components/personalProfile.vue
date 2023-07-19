@@ -1,12 +1,38 @@
 <template>
     <div class="personal-profile-container">
-        <div @click="leavePersonal" class="exit-btn">
+        <div class="profile_top_container">
+            <div class="profile_top_body">
+                <avatar
+                    class="profile-avatar"
+                    style="pointer-events: none !important"
+                />
+                <div class="profile_name">
+                    <div
+                        class="profile-ele-ele"
+                        style="font-size: 35px; font-weight: 600"
+                    >
+                        {{ name }}
+                    </div>
+                    <div class="profile-ele-ele">
+                        IP: {{ getProfess(occu) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="profile_body_container">
+
+        </div>
+        <div class="profile_bottom_container">
+            <personalEdit title="个人信息编辑" @clickFunc="toEditPersonal"></personalEdit>
+            <personalEdit title="实名信息编辑" @clickFunc="toEditRealName"></personalEdit>
+        </div>
+        <!-- <div @click="leavePersonal" class="exit-btn">
             <div class="exit-btn-bg"></div>
             <div class="exit-btn-text">返回</div>
-        </div>
-        <el-row>
+        </div> -->
+        <!-- <el-row style="border: 1px solid red;">
             <div class="profile-container">
-                <el-row class="profile-ele" style="margin-top: 20px">
+                <el-row class="profile-ele" style="margin-top: 20px;border: 1px solid red;">
                     <avatar class="profile-avatar" style="pointer-events: none !important;" />
                     <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
                         <div class="profile-ele-ele" style="text-indent: 13px">
@@ -18,7 +44,7 @@
                     </div>
                 </el-row>
                 <el-row class="profile-tags">
-                    <!-- 这里获取数据库信息判断就行 -->
+                    这里获取数据库信息判断就行
                     <el-tag
                         color="rgb(208,195,213)"
                         style="color: darkslateblue"
@@ -86,7 +112,7 @@
                     <realNameEdit @toEditRealName="toEditRealName" />
                 </div>
             </el-col>
-        </el-row>
+        </el-row> -->
     </div>
 </template>
 
@@ -94,6 +120,7 @@
 import avatar from "@/components/avatar/defaultAvatar.vue";
 import realNameEdit from "./realNameEdit.vue";
 import Storage from "@/assets/js/storage/storage";
+import personalEdit from "./personalEdit.vue";
 const default_theme = {
     theme: "light",
     color: "",
@@ -122,15 +149,16 @@ export default {
         return {};
     },
     components: {
-        realNameEdit,
+        // realNameEdit,
+        personalEdit,
         avatar,
     },
     methods: {
-        leavePersonal() {
-            this.$emit("leavePersonal");
-        },
         toEditRealName() {
             this.$emit("toEditRealName");
+        },
+        toEditPersonal(){
+            this.$emit("toEditPersonal");
         },
         getProfess(str) {
             switch (str) {
@@ -184,26 +212,77 @@ export default {
     /* left: 50px; */
     width: 100%;
     height: 100%;
+    /* border: 1px solid red; */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.profile_top_container {
+    position: relative;
+    width: 100%;
+    height: 40%;
+    min-height: 120px;
+    /* border: 1px solid red; */
+}
+.profile_body_container{
+    position: relative;
+    width: 100%;
+    height: calc(60% - 100px);
+    /* border: 1px solid red; */
+    min-height: 70px;
+}
+.profile_bottom_container{
+    position: relative;
+    width: 100%;
+    height: 100px;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+.profile_top_body {
+    width: 85%;
+    height: 90%;
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+    padding: 0px 10px 0px 10px;
+}
+.profile-container {
     border: 1px solid red;
 }
-
 .profile-ele {
     display: flex;
     left: 40%;
 }
-
+.profile_name {
+    width: calc(100% - 150px);
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    margin-left: 30px;
+    font-family: Heiti;
+    overflow-x: auto;
+}
 .profile-avatar {
     position: relative;
     z-index: 100;
-    width: 100px;
-    height: 100px;
+    width: 100px !important;
+    height: 100px !important;
     margin-right: 10px;
     pointer-events: none !important;
     cursor: auto !important;
+    /* border: 1px solid red; */
 }
 
 .profile-ele-ele {
-    margin-top: 15px;
+    /* margin-top: 15px; */
+    /* border: 1px solid red; */
+    margin: 5px 0px 5px 0px;
 }
 
 .profile-tags {

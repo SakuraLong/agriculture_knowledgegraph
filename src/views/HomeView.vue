@@ -29,6 +29,7 @@
                             <showerBar
                                 class="home_view_bar home_view_bar_shower"
                                 @backToHome="backToHome"
+                                @goToShowerOther="goToShowerOther"
                                 v-else-if="page.is_func_page"
                             />
                         </transition>
@@ -50,6 +51,10 @@
                     <othersSubpage
                         v-if="page.is_main_page && page.main.is_other"
                     ></othersSubpage>
+                    <othersSubpageShower
+                        @leaveOtherShower="leaveOtherShower"
+                        v-else-if="page.is_shower_other"
+                    ></othersSubpageShower>
                     <functionSubpage
                         v-else-if="page.is_main_page && page.main.is_func"
                         :changeFunction="changeFunction"
@@ -65,7 +70,7 @@
                     <realNameSetting
                         v-if="page.is_realname"
                         @toPersonal="leavePersonalRealSetting"
-                    />
+                    ></realNameSetting>
                 </transition>
             </div>
         </transition>
@@ -95,6 +100,7 @@ import navBar from "@/components/navBar/navBar.vue"; // 顶部导航栏组件
 import mainBar from "@/components/mainBar/mainBarNew.vue"; // 主页左侧导航栏
 import showerBar from "@/components/showerBar/showerBarNew.vue"; // 功能界面左侧导航栏
 import othersSubpage from "@/views/othersSubpage/othersSubpage.vue";
+import othersSubpageShower from "@/views/othersSubpage/othersSubpageShower.vue";
 import defaultShutters from "@/components/shutter/defaultShutter.vue"; // 个人信息--子页面
 
 // import lottie from "lottie-web";
@@ -130,7 +136,7 @@ export default {
                 is_update_password: false, // 更新密码界面显示
                 is_update_email: false, // 更新邮箱界面显示
                 is_realname: false, // 实名认证界面显示
-
+                is_shower_other:false, // 功能页面的other
                 main: {
                     is_main: true, // 主页面主页
                     is_func: false, // 主页面选择功能页面
@@ -151,6 +157,7 @@ export default {
         mainBar,
         showerBar,
         // showerSubpage,
+        othersSubpageShower,
         othersSubpage,
         functionSubpage,
         personalSubpage,
@@ -181,6 +188,13 @@ export default {
             this.bar_change = "bar_change_0";
             this.page.is_main_page = false;
             this.page.is_func_page = true;
+        },
+        goToShowerOther(){
+            console.log(12);
+            this.page.is_shower_other = true;
+        },
+        leaveOtherShower(){
+            this.page.is_shower_other = false;
         },
         updatePage(data) {
             this.page.main.is_main = data.is_main;
