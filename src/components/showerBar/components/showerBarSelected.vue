@@ -1,6 +1,6 @@
 <template>
     <div class="shower_bar_selected" :class="{has_pointer_event:type==='back'}">
-        <div class="container" v-if="type!=='back'">
+        <div class="container" v-if="type!=='back'" :style="{cursor: type==='other' ? 'pointer' : 'default'}">
             <div class="title">{{ title }}</div>
             <div class="detail">{{ detail }}</div>
         </div>
@@ -19,7 +19,7 @@ export default {
 
 <style scoped>
 .shower_bar_selected{
-    cursor: auto;
+    cursor: default;
     pointer-events: all;
     position: absolute;
     width: 100%;

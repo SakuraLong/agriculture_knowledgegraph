@@ -84,5 +84,6 @@ export default{
     padding-left: 20px;
     font-size: 20px;
     font-weight: 600;
+    color: var(--nav-user-name-color, black);
 }
 </style>

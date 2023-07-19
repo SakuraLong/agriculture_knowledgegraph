@@ -16,6 +16,7 @@
 <script>
 import showerBarEle from "./showerBarEle.vue";
 import store from "@/store/index.js";
+import storage from "@/assets/js/storage/storage";
 export default {
     data() {
         return {
@@ -26,6 +27,11 @@ export default {
                     detail: "",
                 },
                 {
+                    title: "实体识别",
+                    type: "default",
+                    detail: "通过检索实体查询相关资料",
+                },
+                {
                     title: "实体查询",
                     type: "default",
                     detail: "通过检索实体进行查询",
@@ -33,22 +39,22 @@ export default {
                 {
                     title: "关系查询",
                     type: "default",
-                    detail: "通过检索实体进行查询",
+                    detail: "通过检索关系进行查询",
                 },
                 {
                     title: "知识概览",
                     type: "default",
-                    detail: "通过检索实体进行查询",
+                    detail: "查看数据库全部知识",
                 },
                 {
-                    title: "知识问答",
+                    title: "农知问答",
                     type: "default",
-                    detail: "通过检索实体进行查询",
+                    detail: "向AI提问咨询相关问题",
                 },
                 {
                     title: "其他",
                     type: "other",
-                    detail: "",
+                    detail: "设置语言和样式",
                 },
             ],
             container_top: 0,
@@ -87,13 +93,19 @@ export default {
             if (len % 2 === 0) {
                 top = delta_ele * 70 - 70 / 2;
             } else {
-                top = delta_ele * 70;
+                top = delta_ele * 70 - 70 / 2;
             }
             this.container_top = top;
             this.container_index = 1;
             this.$refs.shower_bar_elements[this.container_index].setSelected(true);
+            let index = parseInt(storage.get(0, "METHODS", 1));
+            if(index<=0||index>=this.ele_list.length){
+                storage.set(0, "METHODS", 1);
+            }else{
+                this.clickBarEle(index, true);
+            }
         },
-        clickBarEle(index) {
+        clickBarEle(index, no_animation) {
             if (!store.state.can_click_button) return;
             if(index===0){
                 this.$emit("backToHome");
@@ -101,9 +113,18 @@ export default {
                 // 点击其他
                 this.$emit("goToOther");
             }else{
+                storage.set(0, "METHODS", index);
                 let delta = index - this.container_index;
-                this.ease(this.container_top - delta * 70, index);
+                if(no_animation){
+                    this.container_top -= delta * 70;
+                    this.$refs.shower_bar_elements[this.container_index].setSelected(false);
+                    this.container_index = index;
+                    this.$refs.shower_bar_elements[index].setSelected(true);
+                }else{
+                    this.ease(this.container_top - delta * 70, index);
+                }
             }
+            console.log(this.container_index);
         },
         ease(target, target_index) {
             store.state.can_click_button = false;
