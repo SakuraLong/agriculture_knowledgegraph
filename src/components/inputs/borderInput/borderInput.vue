@@ -2,26 +2,41 @@
     <label class="border_input" :data-text="title">
         <input
             class="input_ele"
-            type="text"
+            :type="input_type"
             v-model="input_msg"
             :onfocus="focus"
             :onblur="blur"
             :placeholder="placeholder"
             :readonly="disabled"
         />
+        <View v-if="view&&is_password" @click="viewClick" style="width: 20px;height: 20px;position: absolute;right: 10px;" />
+        <Hide v-if="!view&&is_password" @click="viewClick" style="width: 20px;height: 20px;position: absolute;right: 10px;" />
     </label>
 </template>
 
 <script>
+import { View, Hide } from "@element-plus/icons-vue";
 export default {
+    setup() {
+        return {
+            View,
+        };
+    },
     data() {
         return {
             input_msg: "",
+            input_type: "text",
+            is_password:false,
+            view:false
         };
     },
-    props: ["title", "focus", "blur", "msg", "placeholder", "disabled"],
+    props: ["title", "focus", "blur", "msg", "placeholder", "disabled", "password"],
     mounted() {
         if (this.msg !== "") this.input_msg = this.msg;
+        if(this.password){
+            this.is_password = true;
+            this.input_type = "password";
+        }
     },
     methods: {
         msgChange() {
@@ -30,6 +45,10 @@ export default {
         get() {
             return this.input_msg;
         },
+        viewClick(){
+            this.view = !this.view;
+            this.input_type = this.input_type === "text" ? "password" : "text";
+        }
     },
     watch: {
         input_msg() {
@@ -47,7 +66,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid rgba(144, 119, 149, .5);
+    border: 2px solid rgba(144, 119, 149, 0.5);
     margin-top: 10px;
     margin-bottom: 10px;
 }

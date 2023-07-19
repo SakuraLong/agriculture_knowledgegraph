@@ -1,5 +1,5 @@
 <template>
-    <div class="avatar" id="avatar">
+    <div class="avatar">
         <!-- <img src="" alt="" class="nav_avatar_border"> -->
         <div class="nav_avatar">
             <div

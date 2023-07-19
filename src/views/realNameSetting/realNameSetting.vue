@@ -1,5 +1,5 @@
 <template>
-    <defaultShutter black_bg="true">
+    <defaultShutter transparent_bg="true">
         <template #show_child_page>
             <div class="realname-container">
                 <realNameContent

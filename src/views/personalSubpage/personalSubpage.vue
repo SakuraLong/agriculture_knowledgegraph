@@ -1,17 +1,18 @@
 <template>
-    <defaultShutter black_bg="true">
+    <defaultShutter black_bg="true" :bg_click_func="leavePersonal">
         <template #show_child_page>
             <div class="personal-container">
                 <personalProfile
                     v-bind="msg"
                     @leavePersonal="leavePersonal"
                     @toEditRealName="toEditRealName"
-                    style="height: 77%"
+                    @toEditPersonal="toEditPersonal"
+                    style="height: 100%"
                 ></personalProfile>
-                <personalEdit
+                <!-- <personalEdit
                     @toEditPersonal="toEditPersonal"
                     style="height: 23%"
-                ></personalEdit>
+                ></personalEdit> -->
             </div>
         </template>
     </defaultShutter>
@@ -47,7 +48,7 @@ export default {
     components: {
         defaultShutter,
         personalProfile,
-        personalEdit,
+        // personalEdit,
     },
     methods: {
         leavePersonal() {
@@ -88,6 +89,6 @@ export default {
     width: 100%;
     height: 100%;
     pointer-events: all;
-    border: 1px solid gold;
+    /* border: 1px solid gold; */
 }
 </style>

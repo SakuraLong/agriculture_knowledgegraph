@@ -1,7 +1,17 @@
 <template>
     <div class="shower_bar" ref="shower_bar">
-        <showerBarTrack ref="shower_bar_track" @setSelected="setSelected" @backToHome="backToHome"></showerBarTrack>
-        <showerBarSelected :title="selected.title" :type="selected.type" :detail="selected.detail" @click="clickSelected"></showerBarSelected>
+        <showerBarTrack
+            ref="shower_bar_track"
+            @setSelected="setSelected"
+            @backToHome="backToHome"
+            @goToOther="goToOther"
+        ></showerBarTrack>
+        <showerBarSelected
+            :title="selected.title"
+            :type="selected.type"
+            :detail="selected.detail"
+            @click="clickSelected"
+        ></showerBarSelected>
     </div>
 </template>
 
@@ -10,59 +20,62 @@ import showerBarTrack from "./components/showerBarTrack.vue";
 import showerBarSelected from "./components/showerBarSelected.vue";
 import showerBarBack from "./components/showerBarBack.vue";
 export default {
-    data(){
+    data() {
         return {
-            selected:{
-                type:"",
-                title:"",
-                detail:""
+            selected: {
+                type: "",
+                title: "",
+                detail: "",
             },
-            mouse_y:0,
-            can_wheel:false,
+            mouse_y: 0,
+            can_wheel: false,
         };
     },
-    components:{
+    components: {
         showerBarTrack,
-        showerBarSelected
+        showerBarSelected,
     },
-    methods:{
-        clickSelected(){
+    methods: {
+        clickSelected() {
             console.log("点击selected");
-            if(this.selected.type === "back"){
+            if (this.selected.type === "back") {
                 this.$emit("backToHome");
             }
         },
-        backToHome(){
+        backToHome() {
             this.$emit("backToHome");
         },
-        wheelEvent(event){
-            if(this.can_wheel){
+        goToOther() {
+            this.$emit("goToShowerOther");
+        },
+        wheelEvent(event) {
+            if (this.can_wheel) {
                 this.$refs.shower_bar_track.wheelEvent(event);
             }
         },
-        mouseMove(evevt){
-            if(evevt.clientY <= 50){
+        mouseMove(evevt) {
+            if (evevt.clientY <= 50) {
                 this.can_wheel = false;
-            }else{
+            } else {
                 this.can_wheel = true;
             }
         },
-        setSelected(title, type, detail){
+        setSelected(title, type, detail) {
             console.log("1234567");
             this.selected.title = title;
             this.selected.type = type;
             this.selected.detail = detail;
-        }
+        },
     },
-    mounted(){
+    mounted() {
         this.$refs.shower_bar.addEventListener("wheel", this.wheelEvent);
         this.$refs.shower_bar.addEventListener("mousemove", this.mouseMove);
-    }
+    },
 };
 </script>
 
 <style scoped>
-.shower_bar{
+.shower_bar {
     width: 100%;
     height: 100vh;
     border: 1px solid red;
