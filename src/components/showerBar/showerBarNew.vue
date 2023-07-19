@@ -37,9 +37,11 @@ export default {
     },
     methods: {
         clickSelected() {
-            console.log("点击selected");
             if (this.selected.type === "back") {
                 this.$emit("backToHome");
+            }else if(this.selected.type === "other"){
+                console.log("点击selected");
+                this.$emit("goToShowerOther");
             }
         },
         backToHome() {
@@ -78,7 +80,7 @@ export default {
 .shower_bar {
     width: 100%;
     height: 100vh;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     display: flex;
     align-items: center;
     justify-content: center;

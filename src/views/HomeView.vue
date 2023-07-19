@@ -121,6 +121,7 @@ import showerSubpage from "./showerSubpage/showerSubpage.vue";
 import utils from "@/assets/js/utils.js";
 import store from "@/store/index.js";
 import testMsg from "@/assets/js/testMsg.js";
+import storage from "@/assets/js/storage/storage.js";
 export default {
     data() {
         return {
@@ -177,7 +178,10 @@ export default {
     },
     methods: {
         changeFunction(index) {
-            console.log(index);
+            storage.set(0, "METHODS", index + 1);
+            this.page.main.is_main = true;
+            this.page.main.is_func = false;
+            this.goToShower();
         },
         backToHome() {
             this.bar_change = "bar_change_1";
@@ -334,7 +338,7 @@ export default {
     height: 90%;
     top: 0%;
     left: 0%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .container {
     position: absolute;
