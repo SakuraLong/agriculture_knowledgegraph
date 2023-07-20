@@ -13,7 +13,7 @@
 See [后端项目仓库](https://github.com/nkuAlexLee/agriculture_knowledgegraph_django)
 
 ### 项目文件结构
-./doucments/文件结构.md （此文件并不是最新的🥲）
+./doucments/文件结构.md 请在CODE模式下查看！！！ （此文件并不是最新的🥲）
 
 ## Project setup
 
