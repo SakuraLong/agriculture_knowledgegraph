@@ -45,7 +45,7 @@ export default {
     position: absolute;
     left: -35%;
     bottom: -8%;
-    height: 100%;
+    width: 230%;
     content: var(--snow-probe-default-src);
 }
 .snow_probe_dash{
