@@ -146,6 +146,7 @@ export default {
 
 <style>
 .mouse_selector {
+    cursor: default !important;
     position: absolute;
     left: 0;
     top: 0;

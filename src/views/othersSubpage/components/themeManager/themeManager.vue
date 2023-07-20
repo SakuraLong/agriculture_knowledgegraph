@@ -1,5 +1,5 @@
 <template>
-    <div class="container" @click="clickButton">
+    <div class="theme_container" @click="clickButton">
         <div
             class="sky"
             :style="{
@@ -98,7 +98,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.theme_container {
     position: relative;
     width: 70px;
     height: 70px;
