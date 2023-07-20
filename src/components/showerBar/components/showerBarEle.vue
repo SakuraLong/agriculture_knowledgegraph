@@ -43,7 +43,7 @@ export default {
     height: 70px;
     line-height: 70px;
     font-size: 30px;
-    color: white;
+    color: var(--shower-bar-color);
     /* border: 1px solid red; */
 }
 .container {
@@ -60,11 +60,7 @@ export default {
     top: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        135deg,
-        rgb(255, 255, 255) 40%,
-        rgb(255, 255, 255) 70%
-    );
+    background: var(--shower-bar-color);
     -webkit-mask-image: url("./img/back.png");
     -webkit-mask-size: 45px;
     -webkit-mask-repeat: no-repeat;

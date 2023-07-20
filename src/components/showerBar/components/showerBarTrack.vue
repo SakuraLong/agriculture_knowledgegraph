@@ -4,7 +4,7 @@
             <showerBarEle
                 v-for="(item, index) in ele_list"
                 :key="index"
-                :title="item.title"
+                :title="$t(item.title)"
                 :type="item.type"
                 @click="clickBarEle(index)"
                 ref="shower_bar_elements"
@@ -22,39 +22,39 @@ export default {
         return {
             ele_list: [
                 {
-                    title: "返回",
+                    title: "views.shower_page.bar.back.title",
                     type: "back",
                     detail: "",
                 },
                 {
-                    title: "实体识别",
+                    title: "views.shower_page.bar.entity_recognition.title",
                     type: "default",
-                    detail: "通过检索实体查询相关资料",
+                    detail: "views.shower_page.bar.entity_recognition.detail",
                 },
                 {
-                    title: "实体查询",
+                    title: "views.shower_page.bar.entity_query.title",
                     type: "default",
-                    detail: "通过检索实体进行查询",
+                    detail: "views.shower_page.bar.entity_query.detail",
                 },
                 {
-                    title: "关系查询",
+                    title: "views.shower_page.bar.relationship_query.title",
                     type: "default",
-                    detail: "通过检索关系进行查询",
+                    detail: "views.shower_page.bar.relationship_query.detail",
                 },
                 {
-                    title: "知识概览",
+                    title: "views.shower_page.bar.agricultural_knowledge_graph.title",
                     type: "default",
-                    detail: "查看数据库全部知识",
+                    detail: "views.shower_page.bar.agricultural_knowledge_graph.detail",
                 },
                 {
-                    title: "农知问答",
+                    title: "views.shower_page.bar.agricultural_knowledge_QA.title",
                     type: "default",
-                    detail: "向AI提问咨询相关问题",
+                    detail: "views.shower_page.bar.agricultural_knowledge_QA.detail",
                 },
                 {
-                    title: "其他",
+                    title: "views.shower_page.bar.other.title",
                     type: "other",
-                    detail: "设置语言和样式",
+                    detail: "views.shower_page.bar.other.detail",
                 },
             ],
             container_top: 0,

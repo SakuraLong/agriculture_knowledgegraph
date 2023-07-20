@@ -6,7 +6,10 @@
                     <li
                         :class="{ active: activeTab === 'home' }"
                         @click="setActiveTab('home')"
-                        @mouseenter="move('home');activateArrowAnimation()"
+                        @mouseenter="
+                            move('home');
+                            activateArrowAnimation();
+                        "
                         @mouseleave="deactivateArrowAnimation()"
                         @keydown.arrow-up.prevent="moveUp"
                         @keydown.arrow-down.prevent="moveDown"
@@ -37,7 +40,10 @@
                     <li
                         :class="{ active: activeTab === 'features' }"
                         @click="setActiveTab('features')"
-                        @mouseenter="move('features');activateArrowAnimation()"
+                        @mouseenter="
+                            move('features');
+                            activateArrowAnimation();
+                        "
                         @mouseleave="deactivateArrowAnimation()"
                         @keydown.arrow-up.prevent="moveUp"
                         @keydown.arrow-down.prevent="moveDown"
@@ -68,7 +74,10 @@
                     <li
                         :class="{ active: activeTab === 'other' }"
                         @click="setActiveTab('other')"
-                        @mouseenter="move('other');activateArrowAnimation()"
+                        @mouseenter="
+                            move('other');
+                            activateArrowAnimation();
+                        "
                         @mouseleave="deactivateArrowAnimation()"
                         @keydown.arrow-up.prevent="moveUp"
                         @keydown.arrow-down.prevent="moveDown"
@@ -155,7 +164,6 @@ nav a {
     transition: transform 0.3s ease-in-out;
 }
 
-
 .active .tab-content {
     transform: translateX(45px);
     transition: transform 0.3s ease-in-out;
@@ -163,8 +171,8 @@ nav a {
 /* .tab-content:hover{
     animation: example .8s infinite linear;
 } */
-.arrow{
-    animation: example .8s infinite linear;
+.arrow {
+    animation: example 0.8s infinite linear;
 }
 
 @keyframes example {
@@ -256,32 +264,32 @@ export default {
         },
         moveUp() {
             switch (this.activeTab) {
-            case "home":
-                this.activeTab = "other";
-                break;
-            case "features":
-                this.activeTab = "home";
-                break;
-            case "other":
-                this.activeTab = "features";
-                break;
-            default:
-                break;
+                case "home":
+                    this.activeTab = "other";
+                    break;
+                case "features":
+                    this.activeTab = "home";
+                    break;
+                case "other":
+                    this.activeTab = "features";
+                    break;
+                default:
+                    break;
             }
         },
         moveDown() {
             switch (this.activeTab) {
-            case "home":
-                this.activeTab = "features";
-                break;
-            case "features":
-                this.activeTab = "other";
-                break;
-            case "other":
-                this.activeTab = "home";
-                break;
-            default:
-                break;
+                case "home":
+                    this.activeTab = "features";
+                    break;
+                case "features":
+                    this.activeTab = "other";
+                    break;
+                case "other":
+                    this.activeTab = "home";
+                    break;
+                default:
+                    break;
             }
         },
     },
