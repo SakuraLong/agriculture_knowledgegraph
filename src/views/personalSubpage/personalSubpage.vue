@@ -6,8 +6,12 @@
                     v-bind="msg"
                     @leavePersonal="leavePersonal"
                     @toEditRealName="toEditRealName"
+                    style="height: 77%"
                 ></personalProfile>
-                <personalEdit @toEditPersonal="toEditPersonal"></personalEdit>
+                <personalEdit
+                    @toEditPersonal="toEditPersonal"
+                    style="height: 23%"
+                ></personalEdit>
             </div>
         </template>
     </defaultShutter>
@@ -77,6 +81,13 @@ export default {
 
 <style scoped>
 .personal-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    height: 100%;
     pointer-events: all;
+    border: 1px solid gold;
 }
 </style>

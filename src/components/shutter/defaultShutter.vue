@@ -1,30 +1,28 @@
 <template>
     <div class="shutter" :class="{ black_bg: black_bg }" @resize="pageResize">
+    <div class="shutter" :class="{ black_bg: black_bg }" @resize="pageResize">
         <img alt="" class="shutter_top" ref="shutter_top" />
         <div
             key="con"
-            class="pointer shutter_top_container shutter_top_container_4block"
+            class="shutter_top_container"
             ref="shutter_top_container"
+            style="border: 1px solid red"
         >
-            <div style="border: 1px solid green">这里之后会放吉祥物组件</div>
-            <div style="border: 1px solid green"></div>
+            <div>这里之后会放吉祥物组件</div>
+            <div></div>
             <div
-                style="border: 1px solid green"
                 :class="[
                     has_right_girl
                         ? 'shutter_top_container_4block_leftbot'
                         : 'shutter_top_container_3block_leftbot',
                 ]"
+                style="border: 1px solid rgb(102, 0, 255)"
             >
                 <!-- <p>{{ t("message.save") }}</p>
                 <button @click="change">change</button> -->
-                <slot name="show_child_page" style="border: 1px solid green"
-                    >用户</slot
-                >
+                <slot name="show_child_page" style="position: relative;">用户</slot>
             </div>
-            <div v-if="has_right_girl" style="border: 1px solid green">
-                这里之后会放吉祥物组件
-            </div>
+            <div v-if="has_right_girl">这里之后会放吉祥物组件</div>
         </div>
         <img alt="" class="shutter_bottom" ref="shutter_bottom" />
     </div>
@@ -70,15 +68,23 @@ export default {
             this.$refs.shutter_bottom.style.right =
                 ((shutter_height - ratio.h) * ratio.ra + ratio.r).toString() +
                 "px";
-            this.$refs.shutter_top_container.style.width =
-                (shutter_top_w * 0.85).toString() + "px";
-            this.$refs.shutter_top_container.style.height =
-                (shutter_top_w * 0.85).toString() + "px";
-
+            console.log(shutter_top_w * 0.85);
+            console.log(shutter_height * 0.95);
+            if (shutter_top_w * 0.85 > shutter_height * 0.95) {
+                this.$refs.shutter_top_container.style.width =
+                    (shutter_height * 0.95).toString() + "px";
+                this.$refs.shutter_top_container.style.height =
+                    (shutter_height * 0.95).toString() + "px";
+            } else {
+                this.$refs.shutter_top_container.style.width =
+                    (shutter_top_w * 0.85).toString() + "px";
+                this.$refs.shutter_top_container.style.height =
+                    (shutter_top_w * 0.85).toString() + "px";
+            }
+            // this.$refs.shutter_top_container.style.height = "400px";
             let num =
                 ((shutter_height - ratio.h) * ratio.ra_ + ratio.r).toString() +
                 "px";
-            console.log(num);
             let str_0 = num.toString() + " auto";
             let str_1 = "auto " + num.toString();
 
@@ -115,7 +121,7 @@ let change = () => {
     height: 100%;
     z-index: 9999;
     /* border: 1px solid red; */
-    min-height: 600px;
+    /* min-height: 600px; */
 }
 .black_bg {
     pointer-events: all;
@@ -140,24 +146,11 @@ let change = () => {
     right: 550px;
     content: var(--shutter-bottom-img-src);
 }
-.shutter_top_container_4block {
+.shutter_top_container {
+    pointer-events: all;
     position: absolute;
     right: 0%;
-    border: 1px solid green;
-    width: 80%;
-    height: 100%;
-
-    display: grid;
-    grid:
-        ". ."
-        ". .";
-    grid-template-columns: 550px auto;
-    grid-template-rows: auto 550px;
-}
-.shutter_top_container_3block {
-    position: absolute;
-    right: 0%;
-    border: 1px solid green;
+    /* border: 1px solid green; */
     width: 80%;
     height: 100%;
 
@@ -175,6 +168,7 @@ let change = () => {
     display: none;
 }
 .shutter_top_container_3block_leftbot {
+    position: relative;
     grid-column-start: 1;
     grid-column-end: 3;
     display: flex;
@@ -183,15 +177,11 @@ let change = () => {
 }
 
 .shutter_top_container_4block_leftbot {
+    position: relative;
     grid-column-start: 1;
     grid-column-end: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-@media screen and (max-height: 650px) {
-    .shutter_top_container {
-        height: 50%;
-    }
 }
 </style>

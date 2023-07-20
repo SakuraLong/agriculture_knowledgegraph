@@ -28,7 +28,7 @@ module.exports = {
         "vue"
     ],
     "rules": {
-        "indent": ["error", 4], // 必须是4个空格缩进
+        "indent": ["error", 4, {"SwitchCase": 1}], // 必须是4个空格缩进
         "semi": ["error", "always"],    // 句尾必须有分号
         "quotes": ["error", "double"],  // 字符串必须为双引号
         "no-unused-vars":"warn",    // 未使用的变量发出警告

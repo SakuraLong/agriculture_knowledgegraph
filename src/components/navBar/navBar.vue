@@ -6,7 +6,7 @@
                 <!-- 网站名字   头像+昵称 -->
                 <div class="nav_bar_title">农业知识图谱</div>
                 <div class="nav_bar_content">
-                    <navLogin @toLogin="toLogin" />
+                    <navLogin style="pointer-events: all;" @click="avatarClick"></navLogin>
                 </div>
             </div>
             <div class="nav_bar_deco">
@@ -24,7 +24,7 @@ export default{
         navLogin
     },
     methods:{
-        toLogin(){
+        avatarClick(){
             console.log(0);
             this.$emit("avatarClick");
         }
@@ -107,6 +107,7 @@ export default{
     color: var(--navbar-font-color);
 }
 .nav_bar_content{
+    pointer-events: all;
     flex-direction: row;
     align-items: center;
     width:auto;

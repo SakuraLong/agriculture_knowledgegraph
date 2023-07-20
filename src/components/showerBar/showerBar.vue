@@ -48,9 +48,9 @@ export default {
             // 根据index执行相应函数
             // ...
             switch (index) {
-            case 0:
-                this.backToHome();
-                break;
+                case 0:
+                    this.backToHome();
+                    break;
             }
         },
     },
@@ -65,7 +65,7 @@ export default {
     border: 1px solid red;
     /* border: solid 1px black; */
 }
-.shower_bar_cantainer{
+.shower_bar_cantainer {
     position: relative;
     margin: 100px 20px 0px 20px;
     border: 1px solid red;

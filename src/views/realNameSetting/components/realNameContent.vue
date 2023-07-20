@@ -2,13 +2,11 @@
     <div class="rn-input-container">
         <div class="realname-bg"></div>
         <div>
-            <form>
-                <realNameEdit :real_name="real_name" ref="realNameEdit" />
-                <realPhoneEdit :phonenumber="phonenumber" ref="realPhoneEdit" />
-                <realidTypeEdit :IDtype="IDtype" ref="realidTypeEdit" />
-                <realidEdit :ID="ID" ref="realidEdit" />
-                <button @click="toPersonal" class="confirm-btn"></button>
-            </form>
+            <realNameEdit :real_name="real_name" ref="realNameEdit" />
+            <realPhoneEdit :phonenumber="phonenumber" ref="realPhoneEdit" />
+            <realidTypeEdit :IDtype="IDtype" ref="realidTypeEdit" />
+            <realidEdit :ID="ID" ref="realidEdit" />
+            <button @click="toPersonal" class="confirm-btn"></button>
         </div>
     </div>
 </template>
