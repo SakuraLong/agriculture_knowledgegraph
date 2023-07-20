@@ -63,11 +63,10 @@ export default {
             }
         },
         setSelected(title, type, detail) {
-            console.log("1234567");
             this.selected.title = title;
             this.selected.type = type;
             this.selected.detail = detail;
-        },
+        }
     },
     mounted() {
         this.$refs.shower_bar.addEventListener("wheel", this.wheelEvent);

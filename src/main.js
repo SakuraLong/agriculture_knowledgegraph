@@ -22,9 +22,6 @@ for (let iconName in ELIcons) {
     app.component(iconName, ELIcons[iconName]);
 }
 app.mount("#app");
-document.getElementById("html").onkeydown = (e) => {
-    // console.log(e.key);
-};
 
 (function () {
     const default_theme = {

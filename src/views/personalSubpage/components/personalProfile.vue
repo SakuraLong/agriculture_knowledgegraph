@@ -25,6 +25,7 @@
         <div class="profile_bottom_container">
             <personalEdit title="个人信息编辑" @clickFunc="toEditPersonal"></personalEdit>
             <personalEdit title="实名信息编辑" @clickFunc="toEditRealName"></personalEdit>
+            <div style="color: gold;font-family: Heiti;" @click="logOut">登出（之后会改）</div>
         </div>
         <!-- <div @click="leavePersonal" class="exit-btn">
             <div class="exit-btn-bg"></div>
@@ -154,6 +155,9 @@ export default {
         avatar,
     },
     methods: {
+        logOut(){
+            this.$emit("logOut");
+        },
         toEditRealName() {
             this.$emit("toEditRealName");
         },

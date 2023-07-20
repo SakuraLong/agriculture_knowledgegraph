@@ -27,10 +27,10 @@ export default {
             function_subpage:{
                 title:"Function Selection",
                 content:{
-                    entity_recognition:"Entity Recognition",
+                    entity_recognition:"Named Entity Recognition",
                     entity_query:"Entity Query",
                     relationship_query:"Relationship Query",
-                    agricultural_knowledge_graph:"Agricultural Knowledge Graph",
+                    knowledge_overview:"Knowledge Overview",
                     agricultural_knowledge_QA:"Agricultural Knowledge Q&A",
                     function_selection:"Function Selection"
                 }
@@ -46,7 +46,33 @@ export default {
         },
         shower_page:{
             bar:{
-
+                back: {
+                    title: "BACK",
+                },
+                entity_recognition: {
+                    title:"NER",
+                    detail:"Named Entity Recognition"
+                },
+                entity_query: {
+                    title:"EQ",
+                    detail:"Entity Query"
+                },
+                relationship_query: {
+                    title:"RQ",
+                    detail:"Relationship Query"
+                },
+                agricultural_knowledge_graph: {
+                    title:"KO",
+                    detail:"Knowledge Overview"
+                },
+                agricultural_knowledge_QA: {
+                    title:"AKQA",
+                    detail:"Agricultural Knowledge Q&A"
+                },
+                other:{
+                    title:"Other",
+                    detail:"Set language and style"
+                }
             }
         },
         nav_bar:{

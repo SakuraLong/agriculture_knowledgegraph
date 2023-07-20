@@ -55,3 +55,7 @@
     --flowButton-selected-color: black;
     --flowButton-selected-after-background-color:black;
 }
+/* showerBar */
+:root{
+    --shower-bar-color:gray;
+}

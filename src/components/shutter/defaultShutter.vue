@@ -11,7 +11,9 @@
             class="shutter_top_container"
             ref="shutter_top_container"
         >
-            <div>这里之后会放吉祥物组件</div>
+            <div style="position: relative;">
+                <harvestProbe></harvestProbe>
+            </div>
             <div></div>
             <div
                 :class="[
@@ -26,13 +28,21 @@
                     >用户</slot
                 >
             </div>
-            <div v-if="has_right_girl">这里之后会放吉祥物组件</div>
+            <div v-if="has_right_girl" style="position: relative;">
+                <snowProbe></snowProbe>
+            </div>
         </div>
         <img alt="" class="shutter_bottom" ref="shutter_bottom" />
     </div>
 </template>
 <script>
+import harvestProbe from "../mascots/harvest/probe/defaultProbe.vue";
+import snowProbe from "../mascots/snow/probe/defaultProbe.vue";
 export default {
+    components:{
+        harvestProbe,
+        snowProbe
+    },
     props: ["has_right_girl", "black_bg", "transparent_bg", "bg_click_func"],
     mounted() {
         console.log(999888);

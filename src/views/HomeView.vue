@@ -25,6 +25,7 @@
                                 v-if="page.is_main_page"
                                 @update-page="updatePage"
                                 class="home_view_bar"
+                                ref="main_bar"
                             />
                             <showerBar
                                 class="home_view_bar home_view_bar_shower"
@@ -64,6 +65,7 @@
                         @leavePersonal="leavePersonal"
                         @toEditRealName="toPersonalRealSetting"
                         @toEditPersonal="toEditPersonal"
+                        @logOut="logOut"
                     />
                 </transition>
                 <transition name="shutter">
@@ -82,6 +84,10 @@
         />
         <loginAndRegister v-else-if="page.is_login" @leaveLogin="leaveLogin" />
     </transition>
+    <mouseSelector
+        ref="mouse_selector"
+        v-if="mouse_selector_show"
+    ></mouseSelector>
     <!-- <updateEmail></updateEmail> -->
     <!-- 这里还有修改密码和换绑邮箱 -->
 </template>
@@ -122,11 +128,13 @@ import utils from "@/assets/js/utils.js";
 import store from "@/store/index.js";
 import testMsg from "@/assets/js/testMsg.js";
 import storage from "@/assets/js/storage/storage.js";
+import mouseSelector from "@/components/mouse/mouseSelector.vue";
 export default {
     data() {
         return {
             show: false,
             bar_change: "bar_change_1",
+            mouse_selector_show: false,
             page: {
                 is_main_page: true, // 在主页面
                 is_func_page: false, // 在功能页面
@@ -137,7 +145,7 @@ export default {
                 is_update_password: false, // 更新密码界面显示
                 is_update_email: false, // 更新邮箱界面显示
                 is_realname: false, // 实名认证界面显示
-                is_shower_other:false, // 功能页面的other
+                is_shower_other: false, // 功能页面的other
                 main: {
                     is_main: true, // 主页面主页
                     is_func: false, // 主页面选择功能页面
@@ -170,6 +178,7 @@ export default {
         realNameSetting,
 
         showerSubpage,
+        mouseSelector,
 
         // baseBox,
         // forgetPassword,
@@ -177,6 +186,10 @@ export default {
         // threeSubpage,
     },
     methods: {
+        logOut() {
+            this.page.is_personal = false;
+            utils.setLogOut();
+        },
         changeFunction(index) {
             storage.set(0, "METHODS", index + 1);
             this.page.main.is_main = true;
@@ -193,11 +206,11 @@ export default {
             this.page.is_main_page = false;
             this.page.is_func_page = true;
         },
-        goToShowerOther(){
+        goToShowerOther() {
             console.log(12);
             this.page.is_shower_other = true;
         },
-        leaveOtherShower(){
+        leaveOtherShower() {
             this.page.is_shower_other = false;
         },
         updatePage(data) {
@@ -206,7 +219,6 @@ export default {
             this.page.main.is_other = data.is_other;
         },
         avatarClick() {
-            console.log(1234567);
             if (store.state.is_login) {
                 this.page.is_personal = true;
             } else {
@@ -231,10 +243,10 @@ export default {
         leavePersonal() {
             this.page.is_personal = false;
         },
-        leavePersonalRealSetting(){
+        leavePersonalRealSetting() {
             this.page.is_realname = false;
         },
-        toPersonalRealSetting(){
+        toPersonalRealSetting() {
             this.page.is_realname = true;
         },
         toEditPersonal() {
@@ -242,6 +254,206 @@ export default {
         },
         toPersonal() {
             this.page.is_personal = true;
+        },
+        mouseCenterDown(e) {
+            // 鼠标中键按下
+            if (!store.state.can_click_button) return;
+            if (
+                this.page.is_login ||
+                this.page.is_personal_setting ||
+                this.page.is_forget_password ||
+                this.page.is_update_password ||
+                this.page.is_update_email ||
+                this.page.is_realname
+            )
+                return;
+            if (e.button === 1) {
+                this.mouse_selector_show = true;
+                let x = e.clientX;
+                let y = e.clientY;
+                let t = setInterval(() => {
+                    try {
+                        this.$refs.mouse_selector.mouseNowPos(x, y);
+                        clearInterval(t);
+                    } catch {
+                        //
+                    }
+                }, 50);
+            }
+        },
+        mouseCenterUp(e) {
+            // 鼠标中键抬起
+            if (!store.state.can_click_button) return;
+            if (e.button === 1 && this.mouse_selector_show) {
+                this.mouse_selector_show = false;
+                let a = this.$refs.mouse_selector.mouseCenterUp();
+                switch (a) {
+                    case 1:
+                        // 实体识别
+                        this.page.is_func_page = false;
+                        Storage.set(0, "METHODS", 1);
+                        this.page.is_personal = false; // 个人信息界面显示
+                        this.page.is_login = false; // 登录注册页面显示
+                        this.page.is_personal_setting = false; // 个人信息设置页面显示
+                        this.page.is_forget_password = false; // 忘记密码界面显示
+                        this.page.is_update_password = false; // 更新密码界面显示
+                        this.page.is_update_email = false; // 更新邮箱界面显示
+                        this.page.is_realname = false; // 实名认证界面显示
+                        this.page.main.is_main = true;
+                        this.page.main.is_func = false;
+                        this.page.main.is_other = false;
+                        this.page.is_shower_other = false; // 功能页面的other
+                        setTimeout(() => {
+                            this.goToShower();
+                        }, 50);
+                        break;
+                    case 2:
+                        // 其他
+                        if (this.page.is_main_page) {
+                            this.page.is_personal = false; // 个人信息界面显示
+                            this.page.is_login = false; // 登录注册页面显示
+                            this.page.is_personal_setting = false; // 个人信息设置页面显示
+                            this.page.is_forget_password = false; // 忘记密码界面显示
+                            this.page.is_update_password = false; // 更新密码界面显示
+                            this.page.is_update_email = false; // 更新邮箱界面显示
+                            this.page.is_realname = false; // 实名认证界面显示
+                            this.page.main.is_main = false;
+                            this.page.main.is_func = false;
+                            this.page.main.is_other = true;
+                            this.$refs.main_bar.setSelectedEle(2);
+                        } else {
+                            this.goToShowerOther();
+                        }
+                        break;
+                    case 3:
+                        // 主页
+                        this.page.is_personal = false; // 个人信息界面显示
+                        this.page.is_login = false; // 登录注册页面显示
+                        this.page.is_personal_setting = false; // 个人信息设置页面显示
+                        this.page.is_forget_password = false; // 忘记密码界面显示
+                        this.page.is_update_password = false; // 更新密码界面显示
+                        this.page.is_update_email = false; // 更新邮箱界面显示
+                        this.page.is_realname = false; // 实名认证界面显示
+                        this.page.is_shower_other = false; // 功能页面的other
+                        if (this.page.is_main_page) {
+                            this.page.main.is_main = true;
+                            this.page.main.is_func = false;
+                            this.page.main.is_other = false;
+                            this.$refs.main_bar.setSelectedEle(0);
+                        } else {
+                            this.backToHome();
+                        }
+                        break;
+                    case 4:
+                        // 点击头像
+                        this.page.is_personal_setting = false; // 个人信息设置页面显示
+                        this.page.is_forget_password = false; // 忘记密码界面显示
+                        this.page.is_update_password = false; // 更新密码界面显示
+                        this.page.is_update_email = false; // 更新邮箱界面显示
+                        this.page.is_realname = false; // 实名认证界面显示
+                        this.page.is_shower_other = false; // 功能页面的other
+                        this.page.main.is_main = true;
+                        this.page.main.is_func = false;
+                        this.page.main.is_other = false;
+                        if (store.state.is_login) {
+                            this.page.is_personal = true;
+                        } else {
+                            this.page.is_login = true;
+                        }
+                        break;
+                    case 5:
+                        // 农知问答
+                        this.page.is_func_page = false;
+                        Storage.set(0, "METHODS", 5);
+                        this.page.is_personal = false; // 个人信息界面显示
+                        this.page.is_login = false; // 登录注册页面显示
+                        this.page.is_personal_setting = false; // 个人信息设置页面显示
+                        this.page.is_forget_password = false; // 忘记密码界面显示
+                        this.page.is_update_password = false; // 更新密码界面显示
+                        this.page.is_update_email = false; // 更新邮箱界面显示
+                        this.page.is_realname = false; // 实名认证界面显示
+                        this.page.main.is_main = true;
+                        this.page.main.is_func = false;
+                        this.page.main.is_other = false;
+                        this.page.is_shower_other = false; // 功能页面的other
+                        setTimeout(() => {
+                            this.goToShower();
+                        }, 50);
+                        break;
+                    case 6:
+                        // 知识概览
+                        this.page.is_func_page = false;
+                        Storage.set(0, "METHODS", 4);
+                        this.page.is_personal = false; // 个人信息界面显示
+                        this.page.is_login = false; // 登录注册页面显示
+                        this.page.is_personal_setting = false; // 个人信息设置页面显示
+                        this.page.is_forget_password = false; // 忘记密码界面显示
+                        this.page.is_update_password = false; // 更新密码界面显示
+                        this.page.is_update_email = false; // 更新邮箱界面显示
+                        this.page.is_realname = false; // 实名认证界面显示
+                        this.page.main.is_main = true;
+                        this.page.main.is_func = false;
+                        this.page.main.is_other = false;
+                        this.page.is_shower_other = false; // 功能页面的other
+                        setTimeout(() => {
+                            this.goToShower();
+                        }, 50);
+                        break;
+                    case 7:
+                        // 关系查询
+                        this.page.is_func_page = false;
+                        Storage.set(0, "METHODS", 3);
+                        this.page.is_personal = false; // 个人信息界面显示
+                        this.page.is_login = false; // 登录注册页面显示
+                        this.page.is_personal_setting = false; // 个人信息设置页面显示
+                        this.page.is_forget_password = false; // 忘记密码界面显示
+                        this.page.is_update_password = false; // 更新密码界面显示
+                        this.page.is_update_email = false; // 更新邮箱界面显示
+                        this.page.is_realname = false; // 实名认证界面显示
+                        this.page.main.is_main = true;
+                        this.page.main.is_func = false;
+                        this.page.main.is_other = false;
+                        this.page.is_shower_other = false; // 功能页面的other
+                        setTimeout(() => {
+                            this.goToShower();
+                        }, 50);
+                        break;
+                    case 8:
+                        // 实体查询
+                        this.page.is_func_page = false;
+                        Storage.set(0, "METHODS", 2);
+                        this.page.is_personal = false; // 个人信息界面显示
+                        this.page.is_login = false; // 登录注册页面显示
+                        this.page.is_personal_setting = false; // 个人信息设置页面显示
+                        this.page.is_forget_password = false; // 忘记密码界面显示
+                        this.page.is_update_password = false; // 更新密码界面显示
+                        this.page.is_update_email = false; // 更新邮箱界面显示
+                        this.page.is_realname = false; // 实名认证界面显示
+                        this.page.main.is_main = true;
+                        this.page.main.is_func = false;
+                        this.page.main.is_other = false;
+                        this.page.is_shower_other = false; // 功能页面的other
+                        setTimeout(() => {
+                            this.goToShower();
+                        }, 50);
+                        break;
+                }
+            }
+        },
+        mouseMove(e) {
+            // 鼠标移动事件
+            if (!store.state.can_click_button) return;
+            let x = e.clientX;
+            let y = e.clientY;
+            if (this.mouse_selector_show) {
+                let w = window.innerWidth;
+                let h = window.innerHeight;
+                if (x < 0 || y < 0 || x > w || y > h) {
+                    this.mouse_selector_show = false;
+                    return;
+                }
+                this.$refs.mouse_selector.mouseNowPos(x, y);
+            }
         },
     },
     created() {
@@ -272,13 +484,17 @@ export default {
         // Storage.set(0, "USER_MSG", a);
         // console.log(a);
         // utils.userLoginInit();
-        testMsg.localStorageIsLogin();
+        // testMsg.localStorageIsLogin();
+        utils.setLogOut();
         console.log(utils.getUserMsg());
     },
     mounted() {
         setTimeout(() => {
             this.show = true;
         }, 400);
+        document.getElementById("html").onmousedown = this.mouseCenterDown;
+        document.getElementById("html").onmouseup = this.mouseCenterUp;
+        document.getElementById("html").onmousemove = this.mouseMove;
         // let param = {
         //     container: document.getElementById("main_lottie__"), // the dom element that will contain the animation
         //     renderer: "svg",

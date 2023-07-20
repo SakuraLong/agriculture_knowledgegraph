@@ -7,6 +7,7 @@
                     @leavePersonal="leavePersonal"
                     @toEditRealName="toEditRealName"
                     @toEditPersonal="toEditPersonal"
+                    @logOut="logOut"
                     style="height: 100%"
                 ></personalProfile>
                 <!-- <personalEdit
@@ -51,6 +52,9 @@ export default {
         // personalEdit,
     },
     methods: {
+        logOut(){
+            this.$emit("logOut");
+        },
         leavePersonal() {
             if (!store.state.can_click_button) return;
             this.$emit("leavePersonal");
