@@ -11,7 +11,8 @@ const USER_MSG = {
     "real_name":"",
     "tel":"",
     "card_type":"",
-    "id_card":""
+    "id_card":"",
+    "ip":""
 };
 
 export default {

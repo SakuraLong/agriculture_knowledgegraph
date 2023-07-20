@@ -4,7 +4,7 @@
             <showerBarEle
                 v-for="(item, index) in ele_list"
                 :key="index"
-                :title="item.title"
+                :title="$t(item.title)"
                 :type="item.type"
                 @click="clickBarEle(index)"
                 ref="shower_bar_elements"
@@ -16,39 +16,45 @@
 <script>
 import showerBarEle from "./showerBarEle.vue";
 import store from "@/store/index.js";
+import storage from "@/assets/js/storage/storage";
 export default {
     data() {
         return {
             ele_list: [
                 {
-                    title: "返回",
+                    title: "views.shower_page.bar.back.title",
                     type: "back",
                     detail: "",
                 },
                 {
-                    title: "实体查询",
+                    title: "views.shower_page.bar.entity_recognition.title",
                     type: "default",
-                    detail: "通过检索实体进行查询",
+                    detail: "views.shower_page.bar.entity_recognition.detail",
                 },
                 {
-                    title: "关系查询",
+                    title: "views.shower_page.bar.entity_query.title",
                     type: "default",
-                    detail: "通过检索实体进行查询",
+                    detail: "views.shower_page.bar.entity_query.detail",
                 },
                 {
-                    title: "知识概览",
+                    title: "views.shower_page.bar.relationship_query.title",
                     type: "default",
-                    detail: "通过检索实体进行查询",
+                    detail: "views.shower_page.bar.relationship_query.detail",
                 },
                 {
-                    title: "知识问答",
+                    title: "views.shower_page.bar.agricultural_knowledge_graph.title",
                     type: "default",
-                    detail: "通过检索实体进行查询",
+                    detail: "views.shower_page.bar.agricultural_knowledge_graph.detail",
                 },
                 {
-                    title: "其他",
+                    title: "views.shower_page.bar.agricultural_knowledge_QA.title",
+                    type: "default",
+                    detail: "views.shower_page.bar.agricultural_knowledge_QA.detail",
+                },
+                {
+                    title: "views.shower_page.bar.other.title",
                     type: "other",
-                    detail: "",
+                    detail: "views.shower_page.bar.other.detail",
                 },
             ],
             container_top: 0,
@@ -87,20 +93,38 @@ export default {
             if (len % 2 === 0) {
                 top = delta_ele * 70 - 70 / 2;
             } else {
-                top = delta_ele * 70;
+                top = delta_ele * 70 - 70 / 2;
             }
             this.container_top = top;
             this.container_index = 1;
             this.$refs.shower_bar_elements[this.container_index].setSelected(true);
+            let index = parseInt(storage.get(0, "METHODS", 1));
+            if(index<=0||index>=this.ele_list.length){
+                storage.set(0, "METHODS", 1);
+            }else{
+                this.clickBarEle(index, true);
+            }
         },
-        clickBarEle(index) {
+        clickBarEle(index, no_animation) {
             if (!store.state.can_click_button) return;
             if(index===0){
                 this.$emit("backToHome");
+            }else if(index === this.ele_list.length - 1){
+                // 点击其他
+                this.$emit("goToOther");
             }else{
+                storage.set(0, "METHODS", index);
                 let delta = index - this.container_index;
-                this.ease(this.container_top - delta * 70, index);
+                if(no_animation){
+                    this.container_top -= delta * 70;
+                    this.$refs.shower_bar_elements[this.container_index].setSelected(false);
+                    this.container_index = index;
+                    this.$refs.shower_bar_elements[index].setSelected(true);
+                }else{
+                    this.ease(this.container_top - delta * 70, index);
+                }
             }
+            console.log(this.container_index);
         },
         ease(target, target_index) {
             store.state.can_click_button = false;

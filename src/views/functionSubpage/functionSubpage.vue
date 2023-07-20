@@ -73,7 +73,7 @@
                             :judge_isSelected="false"
                             :content_text="
                                 $t(
-                                    'views.main_page.function_subpage.content.agricultural_knowledge_graph'
+                                    'views.main_page.function_subpage.content.knowledge_overview'
                                 )
                             "
                         ></flowButton>

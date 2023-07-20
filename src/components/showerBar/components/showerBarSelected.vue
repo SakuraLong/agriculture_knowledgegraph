@@ -1,11 +1,11 @@
 <template>
     <div class="shower_bar_selected" :class="{has_pointer_event:type==='back'}">
-        <div class="container" v-if="type!=='back'">
-            <div class="title">{{ title }}</div>
-            <div class="detail">{{ detail }}</div>
+        <div class="container" v-if="type!=='back'" :style="{cursor: type==='other' ? 'pointer' : 'default'}">
+            <div class="title">{{ $t(title) }}</div>
+            <div class="detail">{{ $t(detail) }}</div>
         </div>
         <div class="container back" v-if="type==='back'">
-            <div class="back_title">{{ title }}</div>
+            <div class="back_title">{{ $t(title) }}</div>
             <div class="login_msg_return_logo"></div>
         </div>
     </div>
@@ -19,7 +19,8 @@ export default {
 
 <style scoped>
 .shower_bar_selected{
-    cursor: auto;
+    font-family: Heiti;
+    cursor: default;
     pointer-events: all;
     position: absolute;
     width: 100%;
@@ -41,9 +42,9 @@ export default {
 }
 .title, .detail{
     position: relative;
-    font-family: FZZJ-WHJZTJW;
-    font-weight: 500;
-    color: white;
+    font-family: Heiti;
+    font-weight: 600;
+    color: var(--shower-bar-color);
     padding-left: 30px;
     text-align: left;
 }
@@ -62,7 +63,7 @@ export default {
     position: relative;
     font-family: Heiti;
     font-weight: 600;
-    color: white;
+    color: var(--shower-bar-color);
     text-align: center;
     line-height: 70px;
     height: 70px;

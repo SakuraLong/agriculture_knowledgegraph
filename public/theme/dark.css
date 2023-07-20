@@ -25,6 +25,7 @@
     --navbar-bg-bg-img:url("./img/bar/nav/bg_dark_new.png");
     --navbar-bar-bg-img:url("./img/bar/nav/nav_bar_dark.png");
     --navbar-font-color:#822296;
+    --nav-user-name-color:#822296;
 }
 /* functionSubpage */
 :root{
@@ -53,4 +54,8 @@
     --flowButton-selected-border-color:rgb(205, 199, 199);
     --flowButton-selected-color: black;
     --flowButton-selected-after-background-color:black;
+}
+/* showerBar */
+:root{
+    --shower-bar-color:gray;
 }

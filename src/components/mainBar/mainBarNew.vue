@@ -28,6 +28,12 @@ export default {
                 is_other:this.index_arr[2]
             };
             this.$emit("updatePage", data);
+        },
+        setSelectedEle(index){
+            this.index_arr.forEach((element, index_) => {
+                this.index_arr[index_] = false;
+            });
+            this.index_arr[index] = true;
         }
     }
 };

@@ -22,9 +22,10 @@
 }
 /* navbar */
 :root{
-    --navbar-bg-bg-img:url("./img/bar/nav/bg.png");
+    --navbar-bg-bg-img:url("./img/bar/nav/bg_light_new.png");
     --navbar-bar-bg-img:url("./img/bar/nav/nav_bar_light.png");
     --navbar-font-color:rgb(0, 0, 0);
+    --nav-user-name-color:rgb(0, 0, 0);
 }
 /* functionSubpage */
 :root{
@@ -53,4 +54,8 @@
     --flowButton-selected-border-color:rgb(205, 199, 199);
     --flowButton-selected-color: white;
     --flowButton-selected-after-background-color:white;
+}
+/* showerBar */
+:root{
+    --shower-bar-color:white;
 }
