@@ -79,7 +79,11 @@ export default {
                 // 开始循环发送注册请求
                 this.intervalLogin();
             } else {
-                this.$refs.registerPasswordsInput.setError("邮件发送失败");
+                if(msg.log === "mailbox_is_duplicated"){
+                    this.$refs.registerPasswordsInput.setError("邮箱已被注册");
+                }else if(msg.log === "mailbox_not_exist"){
+                    this.$refs.registerPasswordsInput.setError("邮箱不存在");
+                }
             }
         },
         registerWaiting(is_waiting) {
@@ -110,6 +114,7 @@ export default {
             // waiting_time = 10000;
             let begin = new Date().getTime();
             this.timer = setInterval(() => {
+                // 每3秒模拟一次发送请求
                 let now = new Date().getTime();
                 if (now - begin >= waiting_time) {
                     clearInterval(this.timer);
@@ -122,7 +127,7 @@ export default {
                     this.autoLoginWaiting,
                     this.autoLoginTimeout,
                     4000,
-                    true,
+                    false,
                     1000,
                     {
                         success: true,
