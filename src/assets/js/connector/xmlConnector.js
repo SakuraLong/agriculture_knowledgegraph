@@ -125,6 +125,7 @@ class XMLConnector {
 }
 
 const send = (
+    api_name,
     msg,
     func_callback,
     func_wating,
@@ -132,7 +133,7 @@ const send = (
     time_out
 ) => {
     let xml = new XMLConnector(
-        API.API.host + API.API.port,
+        API.API.host + API.API.port + api_name,
         "POST",
         msg,
         func_callback,

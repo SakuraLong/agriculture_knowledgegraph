@@ -104,19 +104,21 @@ export default {
             if(msg.success){
                 // 用户登录成功 数据存入本地数据库
                 let user_msg = utils.getUserMsg();
-                // 等待测试样例
-                // user_msg.name = msg.content.name;
-                // user_msg.avatar = msg.content.avatar;
-                // user_msg.sex = msg.content.sex;
-                // user_msg.born = msg.content.born;
-                // user_msg.occu = msg.content.occu;
-                // user_msg.id = msg.content.id;
-                // user_msg.email = msg.content.email;
-                // if(msg.content.has_real_name){
-                //     user_msg.has_real_name = true;
-                // }else{
-                //     user_msg.has_real_name = false;
-                // }
+                // 存入token
+                utils.saveToken(msg.content.token);
+                user_msg.name = msg.content.login_name;
+                user_msg.avatar = msg.content.avatar;
+                user_msg.sex = msg.content.sex;
+                user_msg.born = msg.content.born_time;
+                user_msg.occu = msg.content.occupation;
+                user_msg.id = msg.content.id;
+                user_msg.email = msg.content.email;
+                user_msg.avatar = msg.content.avatar;
+                if(msg.content.name !== ""){
+                    user_msg.real = true;
+                }else{
+                    user_msg.real = false;
+                }
                 console.log("登录成功");
                 // 更改登录状态
                 store.state.is_login = true;

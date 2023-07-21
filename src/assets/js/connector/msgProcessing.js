@@ -17,7 +17,7 @@ const processing = (msg, api) => {
     api_para.forEach((element, index) => {
         element[1] = msg[index].toString();
     });
-    return api_para;
+    return {api_para:api_para, api_name:api_name};
 };
 export default {
     processing

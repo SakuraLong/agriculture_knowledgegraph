@@ -261,6 +261,39 @@ const autoLoginCallback = (msg) => {
 };
 const autoLoginWaiting = (is_waiting) => {};
 const autoLoginTimeout = () => {};
+
+const saveToken = (token) => {
+    let key = Code.CryptoJS.generateKey(2);
+    let t = Code.CryptoJS.decrypt(token);
+    t = Code.CryptoJS.encrypt(t, key);
+    key = Code.CryptoJS.encrypt(key);
+    Storage.set(0, "TOKEN", t);
+    Storage.set(0, "KEY", key);
+};
+
+const getToken = () => {
+    let key = Storage.get(0, "KEY", "");
+    let t = Storage.get(0, "TOKEN", "");
+    if(key === "" || t === ""){
+        setLogOut();
+        return;
+    }
+    try{
+        key = Code.CryptoJS.decrypt(key);
+    }catch{
+        setLogOut();
+        return;
+    }
+    try{
+        t = Code.CryptoJS.decrypt(t, key);
+    }catch{
+        setLogOut();
+        return;
+    }
+    t = Code.CryptoJS.encrypt(t);
+    return t;
+};
+
 export default {
     checkLogin, // 检查登录情况，返回用户信息
     autoLogin, // 执行自动登录
@@ -269,4 +302,6 @@ export default {
     getUserMsg,
     saveUserMsg,
     userLoginInit,
+    saveToken,
+    getToken
 };
