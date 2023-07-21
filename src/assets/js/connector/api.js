@@ -2,16 +2,16 @@ const API = {
     host: "http://127.0.0.1",
     port: ":8000/",
     api: {
-        "register": "sendEmailVerification",
+        "register": "sendEmailVerification/",
         "login": "login",
-        "deleteAccount": "sendEmailVerification",
-        "forgetPassword": "sendEmailVerification",
-        "changePassword": "updateUserPassword",
-        "changeEmail":"sendEmailVerification",
-        "updateAvatar": "avatarSubmission",
-        "updateUserMsg": "updateAcountInformation",
-        "getUserMsg": "getUserMessage",
-        "verify":"verifyEmailVerification"
+        "deleteAccount": "sendEmailVerification/",
+        "forgetPassword": "sendEmailVerification/",
+        "changePassword": "updateUserPassword/",
+        "changeEmail":"sendEmailVerification/",
+        "updateAvatar": "avatarSubmission/",
+        "updateUserMsg": "updateAcountInformation/",
+        "getUserMsg": "getUserMessage/",
+        "verify":"verifyEmailVerification/"
     },
 };
 const API_PARA = {
