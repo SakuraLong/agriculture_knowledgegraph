@@ -25,6 +25,10 @@ const API_PARA = {
         ["is_id", false],
         ["password", ""],
     ],
+    "verify":[
+        ["email", ""],
+        ["vcode", ""]
+    ]
 };
 const API_CHECKER = {
     "register": [
@@ -36,6 +40,10 @@ const API_CHECKER = {
         ["ignore"],
         ["ignore"],
         ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"],
+    ],
+    "verify":[
+        ["ignore"],
+        ["ignore"]
     ]
 };
 export default{
