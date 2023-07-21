@@ -1,6 +1,6 @@
 <template>
     <div class="rn-input-ele">
-        <borderInput ref="borderInput" title="电话号码" :msg="phonenumber" />
+        <borderInput ref="borderInput" title="电话号码" :msg="phonenumber" @msgChange="msgChange" />
         <linePrompt
             :opacity="error"
             style="width: 260px"
@@ -28,6 +28,9 @@ export default {
         linePrompt,
     },
     methods: {
+        msgChange(new_msg){
+            this.$emit("msgChange", new_msg, "phone");
+        },
         get() {
             let str = this.$refs.borderInput.get();
             if (new Checker(str, ["no-null"]).check()) {

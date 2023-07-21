@@ -81,17 +81,24 @@ export default {
             console.log("user_msg_",user_msg);
             user_msg.password = send_password;
             utils.saveUserMsg(user_msg);
-            Connector.test(
+            Connector.send(
+                [send_id_email, is_id, send_password],
+                "login",
                 this.loginCallback,
                 this.loginWaiting,
-                this.loginTimeout,
-                200,
-                true,
-                1000,
-                {
-                    "success":true
-                }
+                this.loginTimeout
             );
+            // Connector.test(
+            //     this.loginCallback,
+            //     this.loginWaiting,
+            //     this.loginTimeout,
+            //     200,
+            //     true,
+            //     1000,
+            //     {
+            //         "success":true
+            //     }
+            // );
         },
         loginCallback(msg) {
             if(msg.success){
@@ -116,7 +123,11 @@ export default {
                 // 退出此页面
                 this.$emit("exitPage");
             }else{
-                this.$refs.loginPasswordInput.setError("用户不存在或密码错误");
+                if(msg.log === "fail_to_connect_server"){
+                    this.$refs.loginPasswordInput.setError("服务器拒绝");
+                }else{
+                    this.$refs.loginPasswordInput.setError("用户不存在或密码错误");
+                }
             }
         },
         loginWaiting(is_waiting) {

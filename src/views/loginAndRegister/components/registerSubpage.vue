@@ -53,17 +53,26 @@ export default {
                 return;
             } else {
                 // 执行注册
-                Connector.test(
+                let email = Code.CryptoJS.encrypt(this.email);
+                let password = Code.MD5.encrypt(this.password);
+                Connector.send(
+                    [email, 0, password],
+                    "register",
                     this.registerCallback,
                     this.registerWaiting,
-                    this.registerTimeout,
-                    4000,
-                    true,
-                    1000,
-                    {
-                        success: true,
-                    }
+                    this.registerTimeout
                 );
+                // Connector.test(
+                //     this.registerCallback,
+                //     this.registerWaiting,
+                //     this.registerTimeout,
+                //     4000,
+                //     true,
+                //     1000,
+                //     {
+                //         success: true,
+                //     }
+                // );
             }
         },
         registerCallback(msg) {
@@ -79,9 +88,9 @@ export default {
                 // 开始循环发送注册请求
                 this.intervalLogin();
             } else {
-                if(msg.log === "mailbox_is_duplicated"){
+                if (msg.log === "mailbox_is_duplicated") {
                     this.$refs.registerPasswordsInput.setError("邮箱已被注册");
-                }else if(msg.log === "mailbox_not_exist"){
+                } else if (msg.log === "mailbox_not_exist") {
                     this.$refs.registerPasswordsInput.setError("邮箱不存在");
                 }
             }
@@ -122,17 +131,26 @@ export default {
                     return;
                 }
                 // 模拟自动登录
-                Connector.test(
+                let email = this.email;
+                let password = Code.MD5.encrypt(this.password);
+                Connector.send(
+                    [email, false, password],
+                    "login",
                     this.autoLoginCallback,
                     this.autoLoginWaiting,
-                    this.autoLoginTimeout,
-                    4000,
-                    false,
-                    1000,
-                    {
-                        success: true,
-                    }
+                    this.autoLoginTimeout
                 );
+                // Connector.test(
+                //     this.autoLoginCallback,
+                //     this.autoLoginWaiting,
+                //     this.autoLoginTimeout,
+                //     4000,
+                //     false,
+                //     1000,
+                //     {
+                //         success: true,
+                //     }
+                // );
             }, 3000);
         },
         autoLoginCallback(msg) {

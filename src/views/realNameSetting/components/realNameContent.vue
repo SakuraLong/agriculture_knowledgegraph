@@ -2,11 +2,12 @@
     <div class="rn-input-container">
         <div class="realname-bg"></div>
         <div>
-            <realNameEdit :real_name="real_name" ref="realNameEdit" />
-            <realPhoneEdit :phonenumber="phonenumber" ref="realPhoneEdit" />
-            <realidTypeEdit :IDtype="IDtype" ref="realidTypeEdit" />
-            <realidEdit :ID="ID" ref="realidEdit" />
-            <button @click="toPersonal" class="confirm-btn"></button>
+            <realNameEdit :real_name="real_name" ref="realNameEdit" @msgChange="msgChange" />
+            <realPhoneEdit :phonenumber="phonenumber" ref="realPhoneEdit" @msgChange="msgChange" />
+            <realidTypeEdit :IDtype="IDtype" ref="realidTypeEdit" @msgChange="msgChange" />
+            <realidEdit :ID="ID" ref="realidEdit" @msgChange="msgChange" />
+            <button @click="toPersonal" class="confirm-btn">退出</button>
+            <button @click="toPersonal" class="confirm-btn" v-if="has_change">保存</button>
         </div>
     </div>
 </template>
@@ -26,7 +27,21 @@ export default {
         ID: String,
     },
     data() {
-        return {};
+        return {
+            old:{
+                real_name:"",
+                phonenumber:"",
+                IDtype:"",
+                ID:""
+            },
+            has_change:{
+                change:false,
+                real_name:false,
+                phonenumber:false,
+                IDtype:false,
+                ID:false
+            }
+        };
     },
     components: {
         realNameEdit,
@@ -34,7 +49,23 @@ export default {
         realidTypeEdit,
         realidEdit,
     },
+    mounted(){
+        this.old.real_name = this.real_name;
+        this.old.phonenumber = this.phonenumber;
+        this.old.IDtype = this.IDtype;
+        this.old.ID = this.ID;
+    },
     methods: {
+        msgChange(new_msg, type){
+            if(type === "name"){
+                this.has_change.real_name = new_msg === this.old.real_name ? false : true;
+            }else if(type === "phone"){
+                this.has_change.phonenumber = new_msg === this.old.phonenumber ? false : true;
+            }else if(type === "id"){
+                this.has_change.ID = new_msg === this.old.ID ? false : true;
+            }
+            this.has_change.change = (this.has_change.real_name||this.has_change.phonenumber||this.has_change.ID) ? true : false;
+        },
         toPersonal() {
             /* 检查字符串 */
             if (!store.state.can_click_button) return;

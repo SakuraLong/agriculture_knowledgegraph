@@ -1,6 +1,11 @@
 <template>
     <div class="rn-input-ele">
-        <borderInput ref="borderInput" title="证件号" :msg="ID" />
+        <borderInput
+            ref="borderInput"
+            title="证件号"
+            :msg="ID"
+            @msgChange="msgChange"
+        />
         <linePrompt
             :opacity="error"
             style="width: 260px"
@@ -26,6 +31,9 @@ export default {
         linePrompt,
     },
     methods: {
+        msgChange(new_msg){
+            this.$emit("msgChange", new_msg, "id");
+        },
         get() {
             let str = this.$refs.borderInput.get();
             if (new Checker(str, ["no-null"]).check()) {
