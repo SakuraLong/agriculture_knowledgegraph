@@ -192,11 +192,12 @@ export default {
         },
         saveImage() {
             console.log("saveAvatarCropping");
-            this.$emit("saveAvatarCropping");
-            let link = document.createElement("a");
-            link.download = "image.png";
-            link.href = this.$refs.canvas.toDataURL();
-            link.click();
+            // this.$emit("saveAvatarCropping");
+            // let link = document.createElement("a");
+            // link.download = "image.png";
+            // link.href = this.$refs.canvas.toDataURL();
+            console.log(this.$refs.canvas.toDataURL()); // Base64
+            // link.click();
         },
     },
 };

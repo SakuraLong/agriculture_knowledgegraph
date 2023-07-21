@@ -15,7 +15,7 @@ import XML from "./xmlConnector.js";
 const send = (msg, api, func_callback, func_wating, func_timeout, time_out) => {
     let c = MsgProcessing.processing(msg, api);
     if (!c) return c;
-    XML.send(c, func_callback, func_wating, func_timeout, time_out);
+    XML.send(c.api_name,c.api_para, func_callback, func_wating, func_timeout, time_out);
     return true;
 };
 const test = (func_callback, func_wating, func_timeout, time_out, success, success_waiting, success_msg) => {
