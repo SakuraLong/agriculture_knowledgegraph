@@ -5,8 +5,6 @@
         @resize="pageResize"
         @click="clickBg"
     >
-    <div class="shutter" :class="{ black_bg: black_bg }" @resize="pageResize">
-    <div class="shutter" :class="{ black_bg: black_bg }" @resize="pageResize">
         <img alt="" class="shutter_top" ref="shutter_top" />
         <div
             key="con"
