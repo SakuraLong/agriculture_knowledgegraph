@@ -73,6 +73,7 @@ export default {
         login(id_email, password) {
             console.log(id_email);
             console.log(password);
+            console.log("pass: ", Code.MD5.encrypt(password));
             let is_id = id_email.type === "id";
             let send_id_email = id_email.msg;
             let send_password = Code.CryptoJS.encrypt(Code.MD5.encrypt(password));
@@ -116,10 +117,18 @@ export default {
                 user_msg.avatar = msg.content.avatar;
                 if(msg.content.name !== ""){
                     user_msg.real = true;
+                    user_msg.real_name = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.name));
+                    user_msg.tel = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.tel));
+                    user_msg.card_type = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.card_type));
+                    user_msg.id_card = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.idCard));
                 }else{
                     user_msg.real = false;
+                    user_msg.real_name = "";
+                    user_msg.tel = "";
+                    user_msg.card_type = "";
+                    user_msg.id_card = "";
                 }
-                console.log("登录成功");
+                utils.saveUserMsg(user_msg);
                 // 更改登录状态
                 store.state.is_login = true;
                 // 退出此页面

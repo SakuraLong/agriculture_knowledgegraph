@@ -501,33 +501,7 @@ export default {
         },
     },
     created() {
-        // console.log(Code.CryptoJS.encrypt("asca87283r23y09c09ywch89y29fh"));
-        // let user_msg = utils.checkLogin(); // 检查是否满足登录条件
-        // console.log("user_msg", user_msg);
-        // utils.autoLogin(
-        //     user_msg,
-        //     this.autoLoginCallBack,
-        //     this.autoLoginTimeout
-        // ); // 执行自动登录
-        // let t = Code.CryptoJS.encrypt("123456longwen", "aisjdnfu3jdf98h2");
-        // console.log(t);
-        // console.log(Code.CryptoJS.decrypt(t, "aisjdnfu3jdf98h2"));
-        // let j = {
-        //     name: "longwen",
-        //     avatar: "",
-        //     born: "2002-12-09",
-        //     sex: "1",
-        //     occu: "mprq31i93LM+uws+CtcYWQ==",
-        //     id: "25f9e794323b453885f5181f1b624d0b",
-        //     password: "EAAyB92jdgDd1f8GW3dTcQ==",
-        //     email: "XKJrIgHdeKgRfdIfCj2xWw==",
-        // };
-        // let b = JSON.stringify(j).toString();
-        // console.log(b);
-        // let a = Code.CryptoJS.encrypt(b);
-        // Storage.set(0, "USER_MSG", a);
-        // console.log(a);
-        utils.userLoginInit();
+        utils.userLoginInit(); // 自动登录
         // testMsg.localStorageIsLogin();
         // utils.setLogOut();
         console.log(utils.getUserMsg());
