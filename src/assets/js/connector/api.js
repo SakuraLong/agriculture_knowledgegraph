@@ -2,16 +2,16 @@ const API = {
     host: "http://127.0.0.1",
     port: ":8000/",
     api: {
-        "register": "sendEmailVerification",
-        "login": "login",
-        "deleteAccount": "sendEmailVerification",
-        "forgetPassword": "sendEmailVerification",
-        "changePassword": "updateUserPassword",
-        "changeEmail":"sendEmailVerification",
-        "updateAvatar": "avatarSubmission",
-        "updateUserMsg": "updateAcountInformation",
-        "getUserMsg": "getUserMessage",
-        "verify":"verifyEmailVerification"
+        "register": "sendEmailVerification/",
+        "login": "login/",
+        "deleteAccount": "sendEmailVerification/",
+        "forgetPassword": "sendEmailVerification/",
+        "changePassword": "updateUserPassword/",
+        "changeEmail":"sendEmailVerification/",
+        "updateAvatar": "avatarSubmission/",
+        "updateUserMsg": "updateAcountInformation/",
+        "getUserMsg": "getUserMessage/",
+        "verify":"verifyEmailCode/"
     },
 };
 const API_PARA = {
@@ -25,17 +25,25 @@ const API_PARA = {
         ["is_id", false],
         ["password", ""],
     ],
+    "verify":[
+        ["email", ""],
+        ["vcode", ""]
+    ]
 };
 const API_CHECKER = {
     "register": [
         ["ignore"],
-        ["is-num", "@length-max=1", "@length-min=1"],
+        ["ignore"],
         ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"],
     ],
     "login": [
         ["ignore"],
         ["ignore"],
         ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"],
+    ],
+    "verify":[
+        ["ignore"],
+        ["ignore"]
     ]
 };
 export default{

@@ -5,6 +5,7 @@
             ref="borderInput"
             title="真实姓名"
             :msg="real_name"
+            @msgChange="msgChange"
         />
         <linePrompt
             :opacity="error"
@@ -33,6 +34,9 @@ export default {
         linePrompt,
     },
     methods: {
+        msgChange(new_msg){
+            this.$emit("msgChange", new_msg, "name");
+        },
         get() {
             let str = this.$refs.borderInput.get();
             // console.log(str);

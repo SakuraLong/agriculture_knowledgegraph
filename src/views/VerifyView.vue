@@ -65,16 +65,26 @@ export default {
                 this.msg = "验证信息错误";
                 return;
             }
-            Connector.test(
+            // Connector.test(
+            //     this.verifyCallback,
+            //     this.verifyWaiting,
+            //     this.verifyTimeout,
+            //     2000,
+            //     true,
+            //     2000,
+            //     {
+            //         success: false,
+            //     }
+            // );
+            Connector.send(
+                [
+                    Code.Base64.encode(Code.CryptoJS.encrypt(this.code.email)),
+                    Code.Base64.encode(Code.CryptoJS.encrypt(this.code.vcode)),
+                ],
+                "verify",
                 this.verifyCallback,
                 this.verifyWaiting,
-                this.verifyTimeout,
-                2000,
-                true,
-                2000,
-                {
-                    success: false,
-                }
+                this.verifyTimeout
             );
             console.log(this.code.email);
             console.log(this.code.vcode);
@@ -99,19 +109,19 @@ export default {
         },
     },
     mounted() {
-        const test =
-            "MnJ2ssPGZZ/d+r3nUg8AGvyHtcwHz095lQ32zpwXVJfYrUS2JDA+2k5hqyn+Dtqrzm8728/TvBlXPbvz67RuTkocYV4LLDaXv5/9UbAoo7ScDW8n18s35C4tkbhfSvdY";
-        let a = {
-            email: "2112794@mail.nankai.edu.cn",
-            vcode: "123456",
-            timestamp: 1689142103710,
-        };
-        console.log(Code.CryptoJS.decrypt(test));
-        console.log(
-            Code.Base64.encode(
-                Code.CryptoJS.encrypt(JSON.stringify(a).toString())
-            )
-        );
+        // const test =
+        //     "MnJ2ssPGZZ/d+r3nUg8AGvyHtcwHz095lQ32zpwXVJfYrUS2JDA+2k5hqyn+Dtqrzm8728/TvBlXPbvz67RuTkocYV4LLDaXv5/9UbAoo7ScDW8n18s35C4tkbhfSvdY";
+        // let a = {
+        //     email: "2112794@mail.nankai.edu.cn",
+        //     vcode: "123456",
+        //     timestamp: 1689142103710,
+        // };
+        // console.log(Code.CryptoJS.decrypt(test));
+        // console.log(
+        //     Code.Base64.encode(
+        //         Code.CryptoJS.encrypt(JSON.stringify(a).toString())
+        //     )
+        // );
         try {
             this.code = Code.CryptoJS.decrypt(
                 Code.Base64.decode(this.$route.params.code.toString())

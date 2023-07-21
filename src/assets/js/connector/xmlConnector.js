@@ -47,16 +47,16 @@ class XMLConnector {
                     if (!this_.is_wating) return; // 已经超时
                     this_.is_wating = false;
                     if (
-                        this_.func_callback != null &&
-                        this_.func_callback !== undefined
-                    ) {
-                        this_.func_callback(JSON.parse(this_.xml_http.responseText));
-                    }
-                    if (
                         this_.func_wating != null &&
                         this_.func_wating !== undefined
                     ) {
                         this_.func_wating(false); // 传入false 代表结束
+                    }
+                    if (
+                        this_.func_callback != null &&
+                        this_.func_callback !== undefined
+                    ) {
+                        this_.func_callback(JSON.parse(this_.xml_http.responseText));
                     }
                 }
             };
@@ -105,16 +105,16 @@ class XMLConnector {
                     else {
                         this_.is_wating = false;
                         if (
-                            this_.func_timeout != null &&
-                            this_.func_timeout !== undefined
-                        ) {
-                            this_.func_timeout(); // 超时
-                        }
-                        if (
                             this_.func_wating != null &&
                             this_.func_wating !== undefined
                         ) {
                             this_.func_wating(false); // 传入false 代表结束
+                        }
+                        if (
+                            this_.func_timeout != null &&
+                            this_.func_timeout !== undefined
+                        ) {
+                            this_.func_timeout(); // 超时
                         }
                     }
                 };
@@ -125,6 +125,7 @@ class XMLConnector {
 }
 
 const send = (
+    api_name,
     msg,
     func_callback,
     func_wating,
@@ -132,7 +133,7 @@ const send = (
     time_out
 ) => {
     let xml = new XMLConnector(
-        API.API.host + API.API.port,
+        API.API.host + API.API.port + api_name,
         "POST",
         msg,
         func_callback,

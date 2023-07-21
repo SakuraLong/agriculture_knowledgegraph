@@ -231,61 +231,6 @@ export default {
     animation-fill-mode: forwards;
     z-index: 99;
 }
-.login_msg_girl {
-    width: 100%;
-    height: 45%;
-    position: absolute;
-    bottom: 90%;
-    left: 0%;
-    /* border: 1px solid red; */
-    display: flex;
-    justify-content: center;
-}
-.login_msg_girl_0_0,
-.login_msg_girl_0_1 {
-    /* border: 1px solid red; */
-    position: relative;
-    z-index: 0;
-    top: 0%;
-    content: url("@/assets/img/girls/girl_0_0.png");
-    height: 100%;
-}
-.login_msg_girl_0_1 {
-    content: url("@/assets/img/girls/girl_0_1.png");
-}
-.login_msg_girl_0_l_h,
-.login_msg_girl_0_r_h {
-    position: absolute;
-    bottom: 17%;
-    height: 30px;
-}
-.login_msg_girl_0_l_h {
-    content: url("@/assets/img/girls/left_hand.png");
-    right: 20%;
-}
-.login_msg_girl_0_l_h_p {
-    content: url("@/assets/img/girls/left_hand.png");
-    right: 25%;
-}
-.login_msg_girl_0_r_h {
-    content: url("@/assets/img/girls/right_hand.png");
-    left: 20%;
-}
-.login_msg_girl_0_r_h_p {
-    content: url("@/assets/img/girls/right_hand.png");
-    left: 25%;
-}
-.login_container_girl_1 {
-    position: absolute;
-    left: 93%;
-    bottom: 8.5%;
-    height: 100%;
-    content: url("@/assets/img/girls/girl_1.png");
-    z-index: 0;
-    animation-duration: 0.6s;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in;
-}
 .login_msg_title {
     position: relative;
     margin-top: 40px;

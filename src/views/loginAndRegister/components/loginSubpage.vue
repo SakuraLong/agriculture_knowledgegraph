@@ -73,50 +73,72 @@ export default {
         login(id_email, password) {
             console.log(id_email);
             console.log(password);
+            console.log("pass: ", Code.MD5.encrypt(password));
             let is_id = id_email.type === "id";
             let send_id_email = id_email.msg;
             let send_password = Code.CryptoJS.encrypt(Code.MD5.encrypt(password));
-            // 此时会把密码存入本地数据库
             let user_msg = utils.getUserMsg();
-            console.log("user_msg_",user_msg);
+            // 此时会把密码存入本地数据库
             user_msg.password = send_password;
             utils.saveUserMsg(user_msg);
-            Connector.test(
+            send_password = Code.Base64.encode(send_password);
+            Connector.send(
+                [send_id_email, is_id, send_password],
+                "login",
                 this.loginCallback,
                 this.loginWaiting,
-                this.loginTimeout,
-                200,
-                true,
-                1000,
-                {
-                    "success":true
-                }
+                this.loginTimeout
             );
+            // Connector.test(
+            //     this.loginCallback,
+            //     this.loginWaiting,
+            //     this.loginTimeout,
+            //     200,
+            //     true,
+            //     1000,
+            //     {
+            //         "success":true
+            //     }
+            // );
         },
         loginCallback(msg) {
             if(msg.success){
                 // 用户登录成功 数据存入本地数据库
                 let user_msg = utils.getUserMsg();
-                // 等待测试样例
-                // user_msg.name = msg.content.name;
-                // user_msg.avatar = msg.content.avatar;
-                // user_msg.sex = msg.content.sex;
-                // user_msg.born = msg.content.born;
-                // user_msg.occu = msg.content.occu;
-                // user_msg.id = msg.content.id;
-                // user_msg.email = msg.content.email;
-                // if(msg.content.has_real_name){
-                //     user_msg.has_real_name = true;
-                // }else{
-                //     user_msg.has_real_name = false;
-                // }
-                console.log("登录成功");
+                // 存入token
+                utils.saveToken(msg.token);
+                user_msg.name = msg.content.login_name;
+                user_msg.avatar = msg.content.avatar;
+                user_msg.sex = msg.content.sex;
+                user_msg.born = msg.content.born_time;
+                user_msg.occu = msg.content.occupation;
+                user_msg.id = msg.content.id;
+                user_msg.email = msg.content.email;
+                user_msg.avatar = msg.content.avatar;
+                if(msg.content.name !== ""){
+                    user_msg.real = true;
+                    user_msg.real_name = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.name));
+                    user_msg.tel = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.tel));
+                    user_msg.card_type = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.card_type));
+                    user_msg.id_card = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.idCard));
+                }else{
+                    user_msg.real = false;
+                    user_msg.real_name = "";
+                    user_msg.tel = "";
+                    user_msg.card_type = "";
+                    user_msg.id_card = "";
+                }
+                utils.saveUserMsg(user_msg);
                 // 更改登录状态
                 store.state.is_login = true;
                 // 退出此页面
                 this.$emit("exitPage");
             }else{
-                this.$refs.loginPasswordInput.setError("用户不存在或密码错误");
+                if(msg.log === "fail_to_connect_server"){
+                    this.$refs.loginPasswordInput.setError("服务器拒绝");
+                }else{
+                    this.$refs.loginPasswordInput.setError("用户不存在或密码错误");
+                }
             }
         },
         loginWaiting(is_waiting) {
@@ -128,6 +150,7 @@ export default {
             }
         },
         loginTimeout() {
+            console.log("超时");
             this.$refs.loginPasswordInput.setError("服务器连接异常");
         },
     },

@@ -224,19 +224,29 @@ async function userLoginInitAsync() {
         user_msg.email !== ""
     ) {
         // 登录信息存在
-        Connector.test(
+        let email = user_msg.email;
+        let password = user_msg.password;
+        Connector.send(
+            [email, "false", password],
+            "login",
             autoLoginCallback,
             autoLoginWaiting,
             autoLoginTimeout,
-            1000,
-            true,
-            500,
-            {
-                success: true,
-                log: {},
-                msg: {},
-            }
+            1000
         );
+        // Connector.test(
+        //     autoLoginCallback,
+        //     autoLoginWaiting,
+        //     autoLoginTimeout,
+        //     1000,
+        //     true,
+        //     500,
+        //     {
+        //         success: true,
+        //         log: {},
+        //         msg: {},
+        //     }
+        // );
     }
     console.log(is_login);
     console.log(user_msg);
@@ -255,12 +265,74 @@ const userLoginInit = () => {
 };
 const autoLoginCallback = (msg) => {
     if (msg.success) {
-        console.log("自动登录成功");
+        // 自动登录成功
+        let user_msg = getUserMsg();
+        // 存入token
+        saveToken(msg.token);
+        user_msg.name = msg.content.login_name;
+        user_msg.avatar = msg.content.avatar;
+        user_msg.sex = msg.content.sex;
+        user_msg.born = msg.content.born_time;
+        user_msg.occu = msg.content.occupation;
+        user_msg.id = msg.content.id;
+        user_msg.email = msg.content.email;
+        user_msg.avatar = msg.content.avatar;
+        if(msg.content.name !== ""){
+            user_msg.real = true;
+            user_msg.real_name = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.name));
+            user_msg.tel = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.tel));
+            user_msg.card_type = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.card_type));
+            user_msg.id_card = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.idCard));
+        }else{
+            user_msg.real = false;
+            user_msg.real_name = "";
+            user_msg.tel = "";
+            user_msg.card_type = "";
+            user_msg.id_card = "";
+        }
+        saveUserMsg(user_msg);
         store.state.is_login = true;
+    } else {
+        setLogOut();
     }
 };
 const autoLoginWaiting = (is_waiting) => {};
-const autoLoginTimeout = () => {};
+const autoLoginTimeout = () => {
+    setLogOut();
+};
+
+const saveToken = (token) => {
+    let key = Code.CryptoJS.generateKey(2);
+    let t = Code.CryptoJS.decrypt(token);
+    t = Code.CryptoJS.encrypt(t, key);
+    key = Code.CryptoJS.encrypt(key);
+    Storage.set(0, "TOKEN", t);
+    Storage.set(0, "KEY", key);
+};
+
+const getToken = () => {
+    let key = Storage.get(0, "KEY", "");
+    let t = Storage.get(0, "TOKEN", "");
+    if (key === "" || t === "") {
+        setLogOut();
+        return;
+    }
+    try {
+        key = Code.CryptoJS.decrypt(key);
+    } catch {
+        setLogOut();
+        return;
+    }
+    try {
+        t = Code.CryptoJS.decrypt(t, key);
+    } catch {
+        setLogOut();
+        return;
+    }
+    t = Code.CryptoJS.encrypt(t);
+    return t;
+};
+
 export default {
     checkLogin, // 检查登录情况，返回用户信息
     autoLogin, // 执行自动登录
@@ -269,4 +341,6 @@ export default {
     getUserMsg,
     saveUserMsg,
     userLoginInit,
+    saveToken,
+    getToken,
 };

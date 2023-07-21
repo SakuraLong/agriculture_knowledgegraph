@@ -90,6 +90,19 @@
     ></mouseSelector>
     <!-- <updateEmail></updateEmail> -->
     <!-- 这里还有修改密码和换绑邮箱 -->
+    <div
+        id="loading"
+        style="
+            width: 0;
+            height: 0;
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            left: 0%;
+            top: 0%;
+            z-index: -10000;
+        "
+    ></div>
 </template>
 
 <script>
@@ -157,6 +170,12 @@ export default {
             },
             user: {
                 is_login: false,
+            },
+            mouse: {
+                ctrl: false,
+                judge: false,
+                x: 0,
+                y: 0,
             },
         };
     },
@@ -255,8 +274,8 @@ export default {
         toPersonal() {
             this.page.is_personal = true;
         },
-        mouseCenterDown(e) {
-            // 鼠标中键按下
+        keyDown(e) {
+            // ctrl ~ 按下
             if (!store.state.can_click_button) return;
             if (
                 this.page.is_login ||
@@ -267,10 +286,22 @@ export default {
                 this.page.is_realname
             )
                 return;
-            if (e.button === 1) {
+            console.log(e.key);
+            if (e.key === "Control" && !this.mouse.ctrl) {
+                this.mouse.ctrl = true;
+            }
+            if (e.key === "`" && !this.mouse.judge) {
+                this.mouse.judge = true;
+            }
+            if (
+                this.mouse.ctrl &&
+                this.mouse.judge &&
+                !this.mouse_selector_show
+            ) {
+                console.log("进入");
                 this.mouse_selector_show = true;
-                let x = e.clientX;
-                let y = e.clientY;
+                let x = this.mouse.x;
+                let y = this.mouse.y;
                 let t = setInterval(() => {
                     try {
                         this.$refs.mouse_selector.mouseNowPos(x, y);
@@ -281,10 +312,19 @@ export default {
                 }, 50);
             }
         },
-        mouseCenterUp(e) {
-            // 鼠标中键抬起
+        keyUp(e) {
             if (!store.state.can_click_button) return;
-            if (e.button === 1 && this.mouse_selector_show) {
+            console.log(e.key);
+            if (e.key === "Control") {
+                this.mouse.ctrl = false;
+            }
+            if (e.key === "`") {
+                this.mouse.judge = false;
+            }
+            if (
+                (e.key === "Control" || e.key === "`") &&
+                this.mouse_selector_show
+            ) {
                 this.mouse_selector_show = false;
                 let a = this.$refs.mouse_selector.mouseCenterUp();
                 switch (a) {
@@ -445,11 +485,15 @@ export default {
             if (!store.state.can_click_button) return;
             let x = e.clientX;
             let y = e.clientY;
+            this.mouse.x = x;
+            this.mouse.y = y;
             if (this.mouse_selector_show) {
                 let w = window.innerWidth;
                 let h = window.innerHeight;
                 if (x < 0 || y < 0 || x > w || y > h) {
                     this.mouse_selector_show = false;
+                    this.mouse.ctrl = false;
+                    this.mouse.judge = false;
                     return;
                 }
                 this.$refs.mouse_selector.mouseNowPos(x, y);
@@ -457,44 +501,41 @@ export default {
         },
     },
     created() {
-        // console.log(Code.CryptoJS.encrypt("asca87283r23y09c09ywch89y29fh"));
-        // let user_msg = utils.checkLogin(); // 检查是否满足登录条件
-        // console.log("user_msg", user_msg);
-        // utils.autoLogin(
-        //     user_msg,
-        //     this.autoLoginCallBack,
-        //     this.autoLoginTimeout
-        // ); // 执行自动登录
-        // let t = Code.CryptoJS.encrypt("123456longwen", "aisjdnfu3jdf98h2");
-        // console.log(t);
-        // console.log(Code.CryptoJS.decrypt(t, "aisjdnfu3jdf98h2"));
-        // let j = {
-        //     name: "longwen",
-        //     avatar: "",
-        //     born: "2002-12-09",
-        //     sex: "1",
-        //     occu: "mprq31i93LM+uws+CtcYWQ==",
-        //     id: "25f9e794323b453885f5181f1b624d0b",
-        //     password: "EAAyB92jdgDd1f8GW3dTcQ==",
-        //     email: "XKJrIgHdeKgRfdIfCj2xWw==",
-        // };
-        // let b = JSON.stringify(j).toString();
-        // console.log(b);
-        // let a = Code.CryptoJS.encrypt(b);
-        // Storage.set(0, "USER_MSG", a);
-        // console.log(a);
-        // utils.userLoginInit();
+        utils.userLoginInit(); // 自动登录
         // testMsg.localStorageIsLogin();
-        utils.setLogOut();
+        // utils.setLogOut();
         console.log(utils.getUserMsg());
     },
     mounted() {
         setTimeout(() => {
             this.show = true;
         }, 400);
-        document.getElementById("html").onmousedown = this.mouseCenterDown;
-        document.getElementById("html").onmouseup = this.mouseCenterUp;
         document.getElementById("html").onmousemove = this.mouseMove;
+        document.getElementById("html").onkeydown = this.keyDown;
+        document.getElementById("html").onkeyup = this.keyUp;
+        // 预加载
+        async function loadingImg() {
+            let img_list = [
+                "./img/shutter/bottom_light.png",
+                "./img/shutter/bottom_dark.png",
+                "./img/shutter/top_dark.png",
+                "./img/shutter/top_light.png",
+                "./img/bg/bg_dark.png",
+                "./img/bg/bg_light.png",
+            ];
+            img_list.forEach((element) => {
+                let img = new Image();
+                img.src = element;
+                img.draggable = false;
+                try {
+                    document.getElementById("loading").appendChild(img);
+                } catch {
+                    //
+                    console.log("查找元素失败");
+                }
+            });
+        }
+        loadingImg();
         // let param = {
         //     container: document.getElementById("main_lottie__"), // the dom element that will contain the animation
         //     renderer: "svg",
