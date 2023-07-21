@@ -144,6 +144,7 @@ const getUserMsg = () => {
     try {
         user_msg = Code.CryptoJS.decrypt(user_msg);
     } catch {
+        console.log("错误1");
         user_msg = null;
         saveUserMsg(StorageConfig.USER_MSG);
     }
@@ -151,35 +152,49 @@ const getUserMsg = () => {
     try {
         user_msg = JSON.parse(user_msg);
     } catch {
+        console.log("错误2");
         user_msg = null;
         saveUserMsg(StorageConfig.USER_MSG);
     }
+    console.log("get", user_msg);
     if (user_msg == null) return StorageConfig.USER_MSG;
     let has_error = false;
     let key = Code.CryptoJS.decrypt(CodeConfig.USER_MSG_CODE.key);
+    let return_msg = user_msg;
+    console.log("key", key);
+    console.log(key.length);
     CodeConfig.USER_MSG_CODE.encrypt.forEach((element) => {
         if (has_error) return;
         try {
-            user_msg[element] = Code.CryptoJS.decrypt(user_msg[element], key);
+            console.log(Code.CryptoJS.decrypt(user_msg[element], key));
+            return_msg[element] = Code.CryptoJS.decrypt(user_msg[element], key);
+            console.log(user_msg[element]);
+            console.log(element);
         } catch {
+            console.log("错误3");
             has_error = true;
         }
+        return_msg[element] = Code.CryptoJS.decrypt(user_msg[element], key);
     });
-    CodeConfig.USER_MSG_CODE.encrypt_check.forEach((element) => {
-        if (has_error) return;
-        if (user_msg[element.check]) {
-            element.encrypt.forEach((element_) => {
-                try {
-                    user_msg[element_] = Code.CryptoJS.decrypt(
-                        user_msg[element_],
-                        key
-                    );
-                } catch {
-                    has_error = true;
-                }
-            });
-        }
-    });
+    console.log("user_msg", return_msg);
+    console.log(user_msg.password);
+    // CodeConfig.USER_MSG_CODE.encrypt_check.forEach((element) => {
+    //     if (has_error) return;
+    //     if (user_msg[element.check]) {
+    //         element.encrypt.forEach((element_) => {
+    //             try {
+    //                 user_msg[element_] = Code.CryptoJS.decrypt(
+    //                     user_msg[element_],
+    //                     key
+    //                 );
+    //             } catch {
+    //                 console.log("错误4");
+    //                 has_error = true;
+    //             }
+    //         });
+    //     }
+    // });
+    console.log("user_msg", user_msg);
     if (has_error) return StorageConfig.USER_MSG;
     return user_msg;
 };
@@ -189,7 +204,8 @@ const getUserMsg = () => {
  */
 const saveUserMsg = (user_msg) => {
     // 检查完整性
-    console.log("保存", user_msg);
+    let t = user_msg;
+    console.log("保存", t);
     CodeConfig.USER_MSG_CODE.encrypt.forEach((element) => {
         user_msg[element] = Code.CryptoJS.encrypt(
             user_msg[element],
@@ -206,6 +222,7 @@ const saveUserMsg = (user_msg) => {
             });
         }
     });
+    console.log("真正存储",user_msg);
     user_msg = Code.CryptoJS.encrypt(JSON.stringify(user_msg).toString());
     Storage.set(0, "USER_MSG", user_msg);
 };
@@ -216,18 +233,27 @@ async function userLoginInitAsync() {
         ) === "true"
             ? true
             : false; // IS_LOGIN是加密的
+    console.log(is_login);
     // let user_msg = getUserMsg();
     let user_msg = getUserMsg();
     if (
         user_msg.password !== "" &&
         user_msg.id !== "" &&
         user_msg.email !== "" &&
-        checkIntegrality(user_msg)
+        user_msg.password !== undefined &&
+        user_msg.id !== undefined &&
+        user_msg.email !== undefined &&
+        user_msg.password !== null &&
+        user_msg.id !== null &&
+        user_msg.email !== null &&
+        is_login
     ) {
         console.log("登录信息存在");
         // 登录信息存在
         let email = user_msg.email;
         let password = user_msg.password;
+        password = Code.CryptoJS.encrypt(password);
+        password = Code.Base64.encode(password);
         Connector.send(
             [email, "false", password],
             "login",

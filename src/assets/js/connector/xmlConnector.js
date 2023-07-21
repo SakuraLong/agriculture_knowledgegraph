@@ -56,7 +56,7 @@ class XMLConnector {
                         this_.func_callback != null &&
                         this_.func_callback !== undefined
                     ) {
-                        this_.func_callback(JSON.parse(this_.xml_http.responseText).replace("'", "\""));
+                        this_.func_callback(JSON.parse(this_.xml_http.responseText.replace("'", "\"")));
                     }
                 }
             };
