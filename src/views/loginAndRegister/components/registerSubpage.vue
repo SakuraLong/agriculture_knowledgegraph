@@ -57,8 +57,8 @@ export default {
                 email = Code.Base64.encode(email);
                 let password = Code.MD5.encrypt(this.password);
                 password = Code.Base64.encode(password);
-                console.log(email);
-                console.log(password);
+                // console.log(email);
+                // console.log(password);
                 Connector.send(
                     [email, "1", password],
                     "register",
@@ -80,13 +80,13 @@ export default {
             }
         },
         registerCallback(msg) {
-            console.log("成功");
+            // console.log("成功");
             if (msg.success) {
                 // 存储数据
                 let send_password = Code.MD5.encrypt(this.password);
                 // 此时会把密码存入本地数据库
                 let user_msg = utils.getUserMsg();
-                console.log("user_msg_", user_msg);
+                // console.log("user_msg_", user_msg);
                 user_msg.password = send_password;
                 utils.saveUserMsg(user_msg);
                 // 开始循环发送注册请求
@@ -112,7 +112,7 @@ export default {
             }
         },
         registerTimeout() {
-            console.log("超时");
+            // console.log("超时");
             this.$refs.registerPasswordsInput.setError("访问服务器失败");
         },
         intervalLogin() {
@@ -161,16 +161,41 @@ export default {
         autoLoginCallback(msg) {
             if (msg.success) {
                 clearInterval(this.timer);
-                // 保存信息到本地
+                // 用户登录成功 数据存入本地数据库
+                let user_msg = utils.getUserMsg();
+                // 存入token
+                utils.saveToken(msg.token);
+                user_msg.name = msg.content.login_name;
+                user_msg.avatar = msg.content.avatar;
+                user_msg.sex = msg.content.sex;
+                user_msg.born = msg.content.born_time;
+                user_msg.occu = msg.content.occupation;
+                user_msg.id = msg.content.id;
+                user_msg.email = msg.content.email;
+                user_msg.avatar = msg.content.avatar;
+                if(msg.content.name !== ""){
+                    user_msg.real = true;
+                    user_msg.real_name = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.name));
+                    user_msg.tel = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.tel));
+                    user_msg.card_type = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.card_type));
+                    user_msg.id_card = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.idCard));
+                }else{
+                    user_msg.real = false;
+                    user_msg.real_name = "";
+                    user_msg.tel = "";
+                    user_msg.card_type = "";
+                    user_msg.id_card = "";
+                }
+                utils.saveUserMsg(user_msg);
                 // 更改登录状态
                 store.state.is_login = true;
-                // 退出此界面
+                // 退出此页面
                 this.$emit("exitPage");
             }
         },
         autoLoginWaiting(is_waiting) {},
         autoLoginTimeout() {
-            console.log("超时");
+            // console.log("超时");
         },
     },
 };

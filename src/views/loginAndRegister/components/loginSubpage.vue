@@ -106,7 +106,7 @@ export default {
                 // 用户登录成功 数据存入本地数据库
                 let user_msg = utils.getUserMsg();
                 // 存入token
-                utils.saveToken(msg.content.token);
+                utils.saveToken(msg.token);
                 user_msg.name = msg.content.login_name;
                 user_msg.avatar = msg.content.avatar;
                 user_msg.sex = msg.content.sex;
@@ -117,10 +117,18 @@ export default {
                 user_msg.avatar = msg.content.avatar;
                 if(msg.content.name !== ""){
                     user_msg.real = true;
+                    user_msg.real_name = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.name));
+                    user_msg.tel = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.tel));
+                    user_msg.card_type = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.card_type));
+                    user_msg.id_card = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.idCard));
                 }else{
                     user_msg.real = false;
+                    user_msg.real_name = "";
+                    user_msg.tel = "";
+                    user_msg.card_type = "";
+                    user_msg.id_card = "";
                 }
-                console.log("登录成功");
+                utils.saveUserMsg(user_msg);
                 // 更改登录状态
                 store.state.is_login = true;
                 // 退出此页面
