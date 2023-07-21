@@ -73,6 +73,7 @@ export default {
         login(id_email, password) {
             console.log(id_email);
             console.log(password);
+            console.log("pass: ", Code.MD5.encrypt(password));
             let is_id = id_email.type === "id";
             let send_id_email = id_email.msg;
             let send_password = Code.CryptoJS.encrypt(Code.MD5.encrypt(password));
