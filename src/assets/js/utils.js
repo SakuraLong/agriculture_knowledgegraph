@@ -221,8 +221,10 @@ async function userLoginInitAsync() {
     if (
         user_msg.password !== "" &&
         user_msg.id !== "" &&
-        user_msg.email !== ""
+        user_msg.email !== "" &&
+        checkIntegrality(user_msg)
     ) {
+        console.log("登录信息存在");
         // 登录信息存在
         let email = user_msg.email;
         let password = user_msg.password;
@@ -277,13 +279,21 @@ const autoLoginCallback = (msg) => {
         user_msg.id = msg.content.id;
         user_msg.email = msg.content.email;
         user_msg.avatar = msg.content.avatar;
-        if(msg.content.name !== ""){
+        if (msg.content.name !== "") {
             user_msg.real = true;
-            user_msg.real_name = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.name));
-            user_msg.tel = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.tel));
-            user_msg.card_type = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.card_type));
-            user_msg.id_card = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.idCard));
-        }else{
+            user_msg.real_name = Code.CryptoJS.decrypt(
+                Code.Base64.decode(msg.content.name)
+            );
+            user_msg.tel = Code.CryptoJS.decrypt(
+                Code.Base64.decode(msg.content.tel)
+            );
+            user_msg.card_type = Code.CryptoJS.decrypt(
+                Code.Base64.decode(msg.content.card_type)
+            );
+            user_msg.id_card = Code.CryptoJS.decrypt(
+                Code.Base64.decode(msg.content.idCard)
+            );
+        } else {
             user_msg.real = false;
             user_msg.real_name = "";
             user_msg.tel = "";
