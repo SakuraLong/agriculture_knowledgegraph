@@ -110,6 +110,7 @@ export default {
             if (msg.success) {
                 // 用户登录成功 数据存入本地数据库
                 let user_msg = utils.getUserMsg();
+                console.log("拿到getUserMsg", user_msg);
                 // 存入token
                 utils.saveToken(msg.token);
                 user_msg.name = msg.content.login_name;
@@ -120,7 +121,10 @@ export default {
                 user_msg.id = msg.content.id;
                 user_msg.email = msg.content.email;
                 user_msg.avatar = msg.content.avatar;
-                if (msg.content.name !== "") {
+                if (
+                    msg.content.name !== undefined ||
+                    msg.content.name != null
+                ) {
                     user_msg.real = true;
                     user_msg.real_name = Code.CryptoJS.decrypt(
                         Code.Base64.decode(msg.content.name)
