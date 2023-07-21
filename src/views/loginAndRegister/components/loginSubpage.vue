@@ -139,6 +139,7 @@ export default {
             }
         },
         loginTimeout() {
+            console.log("超时");
             this.$refs.loginPasswordInput.setError("服务器连接异常");
         },
     },
