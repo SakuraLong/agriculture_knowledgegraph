@@ -190,7 +190,6 @@ const getUserMsg = () => {
  */
 const saveUserMsg = (user_msg) => {
     // 检查完整性
-    let t = user_msg;
     let key = Code.CryptoJS.decrypt(CodeConfig.USER_MSG_CODE.key);
     CodeConfig.USER_MSG_CODE.encrypt.forEach((element) => {
         user_msg[element] = Code.CryptoJS.encrypt(
@@ -246,8 +245,7 @@ async function userLoginInitAsync() {
             "login",
             autoLoginCallback,
             autoLoginWaiting,
-            autoLoginTimeout,
-            1000
+            autoLoginTimeout
         );
         // Connector.test(
         //     autoLoginCallback,
@@ -263,8 +261,6 @@ async function userLoginInitAsync() {
         //     }
         // );
     }
-    console.log(is_login);
-    console.log(user_msg);
 }
 /**
  * 为用户自动执行登录
@@ -279,8 +275,10 @@ const userLoginInit = () => {
     userLoginInitAsync();
 };
 const autoLoginCallback = (msg) => {
+    console.log(msg);
     if (msg.success) {
         // 自动登录成功
+        console.log("自动登录成功");
         let user_msg = getUserMsg();
         // 存入token
         saveToken(msg.token);
@@ -292,7 +290,7 @@ const autoLoginCallback = (msg) => {
         user_msg.id = msg.content.id;
         user_msg.email = msg.content.email;
         user_msg.avatar = msg.content.avatar;
-        if (msg.content.name !== "") {
+        if (msg.content.name !== undefined && msg.content.name !== null) {
             user_msg.real = true;
             user_msg.real_name = Code.CryptoJS.decrypt(
                 Code.Base64.decode(msg.content.name)
@@ -322,6 +320,7 @@ const autoLoginCallback = (msg) => {
 const autoLoginWaiting = (is_waiting) => {};
 const autoLoginTimeout = () => {
     setLogOut();
+    console.log("自动登录超时");
 };
 
 const saveToken = (token) => {
