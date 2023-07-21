@@ -33,7 +33,7 @@ const API_PARA = {
 const API_CHECKER = {
     "register": [
         ["ignore"],
-        ["is-num", "@length-max=1", "@length-min=1"],
+        ["ignore"],
         ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"],
     ],
     "login": [

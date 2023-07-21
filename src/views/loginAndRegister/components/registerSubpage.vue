@@ -48,15 +48,17 @@ export default {
             if (!store.state.can_click_button) return;
             // 发送注册请求
             this.email = this.$refs.registerEmailInput.get();
-            this.password = this.$refs.registerPasswordsInput.get();
+            this.password = this.$refs.registerPasswordsInput.get().toString();
             if (!this.email || !this.password) {
                 return;
             } else {
                 // 执行注册
                 let email = Code.CryptoJS.encrypt(this.email);
                 let password = Code.MD5.encrypt(this.password);
+                console.log(email);
+                console.log(password);
                 Connector.send(
-                    [email, 0, password],
+                    [email, "a", password],
                     "register",
                     this.registerCallback,
                     this.registerWaiting,
