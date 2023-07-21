@@ -105,7 +105,7 @@ export default {
                 // 用户登录成功 数据存入本地数据库
                 let user_msg = utils.getUserMsg();
                 // 存入token
-                utils.saveToken(msg.content.token);
+                utils.saveToken(msg.token);
                 user_msg.name = msg.content.login_name;
                 user_msg.avatar = msg.content.avatar;
                 user_msg.sex = msg.content.sex;

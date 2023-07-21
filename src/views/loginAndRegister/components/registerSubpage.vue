@@ -137,7 +137,7 @@ export default {
                 // 模拟自动登录
                 let email = this.email;
                 let password = Code.MD5.encrypt(this.password);
-                password = Code.Base64(password);
+                password = Code.Base64.encode(password);
                 Connector.send(
                     [email, false, password],
                     "login",

@@ -3,7 +3,7 @@ const API = {
     port: ":8000/",
     api: {
         "register": "sendEmailVerification/",
-        "login": "login",
+        "login": "login/",
         "deleteAccount": "sendEmailVerification/",
         "forgetPassword": "sendEmailVerification/",
         "changePassword": "updateUserPassword/",
