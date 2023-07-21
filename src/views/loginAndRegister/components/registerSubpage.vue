@@ -56,6 +56,7 @@ export default {
                 let email = Code.CryptoJS.encrypt(this.email);
                 email = Code.Base64.encode(email);
                 let password = Code.MD5.encrypt(this.password);
+                password = Code.CryptoJS.encrypt(this.password);
                 password = Code.Base64.encode(password);
                 // console.log(email);
                 // console.log(password);
