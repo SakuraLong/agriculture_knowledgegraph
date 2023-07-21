@@ -5,7 +5,10 @@
             <loginEmailInput ref="loginEmailInput"></loginEmailInput>
             <loginPasswordInput ref="loginPasswordInput"></loginPasswordInput>
         </div>
-        <confirmButton @confirmClick="loginClick" content="登录"></confirmButton>
+        <confirmButton
+            @confirmClick="loginClick"
+            content="登录"
+        ></confirmButton>
         <div class="login_forget_password">忘记密码?</div>
     </div>
 </template>
@@ -45,9 +48,9 @@ export default {
     components: {
         loginEmailInput,
         loginPasswordInput,
-        confirmButton
+        confirmButton,
     },
-    mounted(){
+    mounted() {
         // store.state.is_login = !store.state.is_login;
     },
     methods: {
@@ -76,7 +79,9 @@ export default {
             console.log("pass: ", Code.MD5.encrypt(password));
             let is_id = id_email.type === "id";
             let send_id_email = id_email.msg;
-            let send_password = Code.CryptoJS.encrypt(Code.MD5.encrypt(password));
+            let send_password = Code.CryptoJS.encrypt(
+                Code.MD5.encrypt(password)
+            );
             let user_msg = utils.getUserMsg();
             // 此时会把密码存入本地数据库
             user_msg.password = send_password;
@@ -102,7 +107,7 @@ export default {
             // );
         },
         loginCallback(msg) {
-            if(msg.success){
+            if (msg.success) {
                 // 用户登录成功 数据存入本地数据库
                 let user_msg = utils.getUserMsg();
                 // 存入token
@@ -115,13 +120,21 @@ export default {
                 user_msg.id = msg.content.id;
                 user_msg.email = msg.content.email;
                 user_msg.avatar = msg.content.avatar;
-                if(msg.content.name !== ""){
+                if (msg.content.name !== "") {
                     user_msg.real = true;
-                    user_msg.real_name = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.name));
-                    user_msg.tel = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.tel));
-                    user_msg.card_type = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.card_type));
-                    user_msg.id_card = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.idCard));
-                }else{
+                    user_msg.real_name = Code.CryptoJS.decrypt(
+                        Code.Base64.decode(msg.content.name)
+                    );
+                    user_msg.tel = Code.CryptoJS.decrypt(
+                        Code.Base64.decode(msg.content.tel)
+                    );
+                    user_msg.card_type = Code.CryptoJS.decrypt(
+                        Code.Base64.decode(msg.content.card_type)
+                    );
+                    user_msg.id_card = Code.CryptoJS.decrypt(
+                        Code.Base64.decode(msg.content.idCard)
+                    );
+                } else {
                     user_msg.real = false;
                     user_msg.real_name = "";
                     user_msg.tel = "";
@@ -133,11 +146,13 @@ export default {
                 store.state.is_login = true;
                 // 退出此页面
                 this.$emit("exitPage");
-            }else{
-                if(msg.log === "fail_to_connect_server"){
+            } else {
+                if (msg.log === "fail_to_connect_server") {
                     this.$refs.loginPasswordInput.setError("服务器拒绝");
-                }else{
-                    this.$refs.loginPasswordInput.setError("用户不存在或密码错误");
+                } else {
+                    this.$refs.loginPasswordInput.setError(
+                        "用户不存在或密码错误"
+                    );
                 }
             }
         },
@@ -145,7 +160,7 @@ export default {
             this.$refs.loginPasswordInput.setWaiting(is_waiting);
             if (is_waiting) {
                 store.state.can_click_button = false;
-            }else{
+            } else {
                 store.state.can_click_button = true;
             }
         },
@@ -157,7 +172,7 @@ export default {
 };
 </script>
 <style scoped>
-.input_container{
+.input_container {
     position: relative;
     display: flex;
     flex-direction: column;
