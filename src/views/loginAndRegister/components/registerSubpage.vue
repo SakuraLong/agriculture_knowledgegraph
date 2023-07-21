@@ -60,7 +60,7 @@ export default {
                 // console.log(email);
                 // console.log(password);
                 Connector.send(
-                    [email, "1", password],
+                    [email, "0", password],
                     "register",
                     this.registerCallback,
                     this.registerWaiting,
