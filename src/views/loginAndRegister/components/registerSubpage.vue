@@ -48,7 +48,7 @@ export default {
             if (!store.state.can_click_button) return;
             // 发送注册请求
             this.email = this.$refs.registerEmailInput.get();
-            this.password = this.$refs.registerPasswordsInput.get().toString();
+            this.password = this.$refs.registerPasswordsInput.get();
             if (!this.email || !this.password) {
                 return;
             } else {

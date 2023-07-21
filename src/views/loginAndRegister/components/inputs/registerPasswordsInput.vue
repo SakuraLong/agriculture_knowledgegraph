@@ -72,6 +72,7 @@ export default {
                 return false;
             } else {
                 if (this.password.password !== this.password.password_confirm) {
+                    console.log("不相等");
                     this.error = "两次密码不相等";
                     return false;
                 } else {

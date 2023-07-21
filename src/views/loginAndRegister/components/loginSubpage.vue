@@ -107,7 +107,6 @@ export default {
             // );
         },
         loginCallback(msg) {
-            console.log("loginCallback");
             if (msg.success) {
                 // 用户登录成功 数据存入本地数据库
                 let user_msg = utils.getUserMsg();
