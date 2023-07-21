@@ -175,7 +175,7 @@ export default {
                 user_msg.id = msg.content.id;
                 user_msg.email = msg.content.email;
                 user_msg.avatar = msg.content.avatar;
-                if(msg.content.name !== ""){
+                if(msg.content.name !== undefined || msg.content.name != null){
                     user_msg.real = true;
                     user_msg.real_name = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.name));
                     user_msg.tel = Code.CryptoJS.decrypt(Code.Base64.decode(msg.content.tel));
