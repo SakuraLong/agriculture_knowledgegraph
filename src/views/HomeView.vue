@@ -502,16 +502,16 @@ export default {
     },
     created() {
         // utils.userLoginInit(); // 自动登录
-        // testMsg.localStorageIsLogin();
+        testMsg.localStorageIsLogin();
         // utils.setLogOut();
         // console.log(utils.getUserMsg());
-        console.log(Code.CryptoJS.encrypt("123456", "aisjdnfu3jdf98h2"));
-        let a = utils.getUserMsg();
-        console.log(a);
-        a.password = Code.MD5.encrypt("123456");
-        console.log("MD5", Code.MD5.encrypt("123456"));
-        utils.saveUserMsg(a);
-        console.log(utils.getUserMsg());
+        // console.log(Code.CryptoJS.encrypt("123456", "aisjdnfu3jdf98h2"));
+        // let a = utils.getUserMsg();
+        // console.log(a);
+        // a.password = Code.MD5.encrypt("123456");
+        // console.log("MD5", Code.MD5.encrypt("123456"));
+        // utils.saveUserMsg(a);
+        // console.log(utils.getUserMsg());
     },
     mounted() {
         setTimeout(() => {

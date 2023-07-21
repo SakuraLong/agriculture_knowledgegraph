@@ -119,7 +119,7 @@ export default {
         intervalLogin() {
             clearInterval(this.timer);
             this.$refs.registerPasswordsInput.setWaiting(
-                true,
+                true, 
                 "请点击您邮箱中的验证链接"
             );
             this.disabled = "disabled";

@@ -144,7 +144,6 @@ const getUserMsg = () => {
     try {
         user_msg = Code.CryptoJS.decrypt(user_msg);
     } catch {
-        console.log("错误1");
         user_msg = null;
         saveUserMsg(StorageConfig.USER_MSG);
     }
@@ -152,49 +151,36 @@ const getUserMsg = () => {
     try {
         user_msg = JSON.parse(user_msg);
     } catch {
-        console.log("错误2");
         user_msg = null;
         saveUserMsg(StorageConfig.USER_MSG);
     }
-    console.log("get", user_msg);
     if (user_msg == null) return StorageConfig.USER_MSG;
     let has_error = false;
     let key = Code.CryptoJS.decrypt(CodeConfig.USER_MSG_CODE.key);
     let return_msg = user_msg;
-    console.log("key", key);
-    console.log(key.length);
     CodeConfig.USER_MSG_CODE.encrypt.forEach((element) => {
         if (has_error) return;
         try {
-            console.log(Code.CryptoJS.decrypt(user_msg[element], key));
-            return_msg[element] = Code.CryptoJS.decrypt(user_msg[element], key);
-            console.log(user_msg[element]);
-            console.log(element);
+            user_msg[element] = Code.CryptoJS.decrypt(user_msg[element], key);
         } catch {
-            console.log("错误3");
             has_error = true;
         }
-        return_msg[element] = Code.CryptoJS.decrypt(user_msg[element], key);
     });
-    console.log("user_msg", return_msg);
-    console.log(user_msg.password);
-    // CodeConfig.USER_MSG_CODE.encrypt_check.forEach((element) => {
-    //     if (has_error) return;
-    //     if (user_msg[element.check]) {
-    //         element.encrypt.forEach((element_) => {
-    //             try {
-    //                 user_msg[element_] = Code.CryptoJS.decrypt(
-    //                     user_msg[element_],
-    //                     key
-    //                 );
-    //             } catch {
-    //                 console.log("错误4");
-    //                 has_error = true;
-    //             }
-    //         });
-    //     }
-    // });
-    console.log("user_msg", user_msg);
+    CodeConfig.USER_MSG_CODE.encrypt_check.forEach((element) => {
+        if (has_error) return;
+        if (user_msg[element.check]) {
+            element.encrypt.forEach((element_) => {
+                try {
+                    user_msg[element_] = Code.CryptoJS.decrypt(
+                        user_msg[element_],
+                        key
+                    );
+                } catch {
+                    has_error = true;
+                }
+            });
+        }
+    });
     if (has_error) return StorageConfig.USER_MSG;
     return user_msg;
 };
@@ -205,11 +191,11 @@ const getUserMsg = () => {
 const saveUserMsg = (user_msg) => {
     // 检查完整性
     let t = user_msg;
-    console.log("保存", t);
+    let key = Code.CryptoJS.decrypt(CodeConfig.USER_MSG_CODE.key);
     CodeConfig.USER_MSG_CODE.encrypt.forEach((element) => {
         user_msg[element] = Code.CryptoJS.encrypt(
             user_msg[element],
-            Code.CryptoJS.decrypt(CodeConfig.USER_MSG_CODE.key)
+            key
         );
     });
     CodeConfig.USER_MSG_CODE.encrypt_check.forEach((element) => {
@@ -222,7 +208,6 @@ const saveUserMsg = (user_msg) => {
             });
         }
     });
-    console.log("真正存储",user_msg);
     user_msg = Code.CryptoJS.encrypt(JSON.stringify(user_msg).toString());
     Storage.set(0, "USER_MSG", user_msg);
 };
