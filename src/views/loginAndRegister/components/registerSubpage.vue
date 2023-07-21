@@ -54,11 +54,13 @@ export default {
             } else {
                 // 执行注册
                 let email = Code.CryptoJS.encrypt(this.email);
+                email = Code.Base64.encode(email);
                 let password = Code.MD5.encrypt(this.password);
+                password = Code.Base64.encode(password);
                 console.log(email);
                 console.log(password);
                 Connector.send(
-                    [email, "a", password],
+                    [email, "1", password],
                     "register",
                     this.registerCallback,
                     this.registerWaiting,
@@ -135,6 +137,7 @@ export default {
                 // 模拟自动登录
                 let email = this.email;
                 let password = Code.MD5.encrypt(this.password);
+                password = Code.Base64(password);
                 Connector.send(
                     [email, false, password],
                     "login",

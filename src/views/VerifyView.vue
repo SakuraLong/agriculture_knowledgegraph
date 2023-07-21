@@ -77,7 +77,10 @@ export default {
             //     }
             // );
             Connector.send(
-                [Code.CryptoJS.encrypt(this.code.email), Code.CryptoJS.encrypt(this.code.vcode)],
+                [
+                    Code.Base64.encode(Code.CryptoJS.encrypt(this.code.email)),
+                    Code.Base64.encode(Code.CryptoJS.encrypt(this.code.vcode)),
+                ],
                 "verify",
                 this.verifyCallback,
                 this.verifyWaiting,
