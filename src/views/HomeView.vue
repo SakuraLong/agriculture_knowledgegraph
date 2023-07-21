@@ -501,8 +501,9 @@ export default {
         },
     },
     created() {
-        // utils.userLoginInit(); // 自动登录
-        testMsg.localStorageIsLogin();
+        Storage.set(0, "IS_LOGIN", Code.CryptoJS.encrypt("true"));
+        utils.userLoginInit(); // 自动登录
+        // testMsg.localStorageIsLogin();
         // utils.setLogOut();
         // console.log(utils.getUserMsg());
         // console.log(Code.CryptoJS.encrypt("123456", "aisjdnfu3jdf98h2"));

@@ -239,6 +239,8 @@ async function userLoginInitAsync() {
         let password = user_msg.password;
         password = Code.CryptoJS.encrypt(password);
         password = Code.Base64.encode(password);
+        console.log(email);
+        console.log(password);
         Connector.send(
             [email, "false", password],
             "login",
