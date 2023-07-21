@@ -11,7 +11,7 @@ const API = {
         "updateAvatar": "avatarSubmission/",
         "updateUserMsg": "updateAcountInformation/",
         "getUserMsg": "getUserMessage/",
-        "verify":"verifyEmailVerification/"
+        "verify":"verifyEmailCode/"
     },
 };
 const API_PARA = {
