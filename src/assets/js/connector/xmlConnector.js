@@ -70,7 +70,6 @@ class XMLConnector {
             if (this.msg != null && this.msg !== undefined)
                 this.xml_http.send(this.msgToStr());
             else this.xml_http.send();
-            // console.log(this.msgToStr());
         } else if (this.method === "GET") {
             if (this.msg != null && this.msg !== undefined)
                 this.xml_http.open(
@@ -96,7 +95,6 @@ class XMLConnector {
         return str;
     }
     setTimer() {
-        // console.log("设置计时器");
         let this_ = this;
         this.timer = setTimeout(
             (function (this_) {

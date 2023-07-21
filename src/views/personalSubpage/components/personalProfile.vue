@@ -203,7 +203,7 @@ export default {
         },
     },
     mounted() {
-        console.log(this.name);
+        // console.log(this.name);
     },
 };
 </script>

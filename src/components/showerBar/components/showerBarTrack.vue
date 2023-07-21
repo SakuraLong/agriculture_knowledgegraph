@@ -124,7 +124,7 @@ export default {
                     this.ease(this.container_top - delta * 70, index);
                 }
             }
-            console.log(this.container_index);
+            // console.log(this.container_index);
         },
         ease(target, target_index) {
             store.state.can_click_button = false;

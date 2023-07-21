@@ -217,8 +217,6 @@ async function userLoginInitAsync() {
         ) === "true"
             ? true
             : false; // IS_LOGIN是加密的
-    console.log(is_login);
-    // let user_msg = getUserMsg();
     let user_msg = getUserMsg();
     if (
         user_msg.password !== "" &&
@@ -232,14 +230,11 @@ async function userLoginInitAsync() {
         user_msg.email !== null &&
         is_login
     ) {
-        console.log("登录信息存在");
         // 登录信息存在
         let email = user_msg.email;
         let password = user_msg.password;
         password = Code.CryptoJS.encrypt(password);
         password = Code.Base64.encode(password);
-        console.log(email);
-        console.log(password);
         Connector.send(
             [email, "false", password],
             "login",
@@ -247,19 +242,6 @@ async function userLoginInitAsync() {
             autoLoginWaiting,
             autoLoginTimeout
         );
-        // Connector.test(
-        //     autoLoginCallback,
-        //     autoLoginWaiting,
-        //     autoLoginTimeout,
-        //     1000,
-        //     true,
-        //     500,
-        //     {
-        //         success: true,
-        //         log: {},
-        //         msg: {},
-        //     }
-        // );
     }
 }
 /**
@@ -275,10 +257,8 @@ const userLoginInit = () => {
     userLoginInitAsync();
 };
 const autoLoginCallback = (msg) => {
-    console.log(msg);
     if (msg.success) {
         // 自动登录成功
-        console.log("自动登录成功");
         let user_msg = getUserMsg();
         // 存入token
         saveToken(msg.token);

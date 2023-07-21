@@ -40,7 +40,7 @@ export default {
             if (this.selected.type === "back") {
                 this.$emit("backToHome");
             }else if(this.selected.type === "other"){
-                console.log("点击selected");
+                // console.log("点击selected");
                 this.$emit("goToShowerOther");
             }
         },

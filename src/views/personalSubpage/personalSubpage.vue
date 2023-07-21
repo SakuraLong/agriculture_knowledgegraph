@@ -79,7 +79,7 @@ export default {
     },
     mounted() {
         this.msg = this.getPersonalMsg();
-        console.log(this.msg);
+        // console.log(this.msg);
     },
 };
 </script>

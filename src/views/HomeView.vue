@@ -226,7 +226,6 @@ export default {
             this.page.is_func_page = true;
         },
         goToShowerOther() {
-            console.log(12);
             this.page.is_shower_other = true;
         },
         leaveOtherShower() {
@@ -249,15 +248,6 @@ export default {
         },
         leaveSetting() {
             this.page.is_personal_setting = false;
-            console.log("leaveSetting");
-        },
-        autoLoginCallBack(msg) {
-            console.log("自动登录成功");
-        },
-        autoLoginTimeout() {
-            console.log("自动登录失败");
-            this.is_login = false;
-            utils.setLogOut();
         },
         leavePersonal() {
             this.page.is_personal = false;
@@ -286,7 +276,6 @@ export default {
                 this.page.is_realname
             )
                 return;
-            console.log(e.key);
             if (e.key === "Control" && !this.mouse.ctrl) {
                 this.mouse.ctrl = true;
             }
@@ -298,7 +287,6 @@ export default {
                 this.mouse.judge &&
                 !this.mouse_selector_show
             ) {
-                console.log("进入");
                 this.mouse_selector_show = true;
                 let x = this.mouse.x;
                 let y = this.mouse.y;
@@ -314,7 +302,6 @@ export default {
         },
         keyUp(e) {
             if (!store.state.can_click_button) return;
-            console.log(e.key);
             if (e.key === "Control") {
                 this.mouse.ctrl = false;
             }
@@ -501,18 +488,7 @@ export default {
         },
     },
     created() {
-        Storage.set(0, "IS_LOGIN", Code.CryptoJS.encrypt("true"));
         utils.userLoginInit(); // 自动登录
-        // testMsg.localStorageIsLogin();
-        // utils.setLogOut();
-        // console.log(utils.getUserMsg());
-        // console.log(Code.CryptoJS.encrypt("123456", "aisjdnfu3jdf98h2"));
-        // let a = utils.getUserMsg();
-        // console.log(a);
-        // a.password = Code.MD5.encrypt("123456");
-        // console.log("MD5", Code.MD5.encrypt("123456"));
-        // utils.saveUserMsg(a);
-        // console.log(utils.getUserMsg());
     },
     mounted() {
         setTimeout(() => {
@@ -539,7 +515,6 @@ export default {
                     document.getElementById("loading").appendChild(img);
                 } catch {
                     //
-                    console.log("查找元素失败");
                 }
             });
         }

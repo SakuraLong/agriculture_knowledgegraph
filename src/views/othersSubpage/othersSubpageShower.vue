@@ -66,7 +66,6 @@ export default {
             });
         },
         leaveShutter(){
-            console.log(999);
             this.$emit("leaveOtherShower");
         }
     },

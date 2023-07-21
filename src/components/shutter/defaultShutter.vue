@@ -45,7 +45,6 @@ export default {
     },
     props: ["has_right_girl", "black_bg", "transparent_bg", "bg_click_func"],
     mounted() {
-        console.log(999888);
         window.addEventListener("resize", this.pageResize);
         this.pageResize();
         this.eventInit();
@@ -77,7 +76,6 @@ export default {
             }
         },
         pageResize() {
-            console.log(9999);
             // h=714 t_w=812 b_w=288 r=550 550
             // h=442 t_w=502 b_w=178 r=330
             // h=600 r=430 min
@@ -105,8 +103,6 @@ export default {
             this.$refs.shutter_bottom.style.right =
                 ((shutter_height - ratio.h) * ratio.ra + ratio.r).toString() +
                 "px";
-            console.log(shutter_top_w * 0.85);
-            console.log(shutter_height * 0.95);
             if (shutter_top_w * 0.85 > shutter_height * 0.95) {
                 this.$refs.shutter_top_container.style.width =
                     (shutter_height * 0.95).toString() + "px";

@@ -93,7 +93,6 @@ export default {
     },
     methods: {
         leaveLogin() {
-            console.log("leaveLogin");
             if (!store.state.can_click_button) return;
             this.$emit("leaveLogin");
         },

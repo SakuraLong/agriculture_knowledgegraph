@@ -49,7 +49,7 @@ export default {
             if (str === "C01") {
                 return 0;
             } else {
-                console.log("证件类型错误");
+                // console.log("证件类型错误");
             }
         },
     },

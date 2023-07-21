@@ -133,12 +133,10 @@ export default {
     },
     methods: {
         leaveSetting() {
-            console.log("leaveSetting");
             if (!store.state.can_click_button) return;
             this.$emit("leaveSetting");
         },
         saveSetting() {
-            console.log("leaveSetting");
             if (!store.state.can_click_button) return;
             this.$emit("leaveSetting");
         },

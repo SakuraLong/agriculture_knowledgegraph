@@ -139,7 +139,7 @@ export default {
         },
     },
     mounted() {
-        console.log("打开控制界面");
+        // console.log("打开控制界面");
     },
 };
 </script>
