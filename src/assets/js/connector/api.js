@@ -28,6 +28,11 @@ const API_PARA = {
     "verify":[
         ["email", ""],
         ["vcode", ""]
+    ],
+    "updateAvatar":[
+        ["id", ""],
+        ["token", ""],
+        ["avatar", ""]
     ]
 };
 const API_CHECKER = {
@@ -44,6 +49,11 @@ const API_CHECKER = {
     "verify":[
         ["ignore"],
         ["ignore"]
+    ],
+    "updateAvatar":[
+        ["num-only", "@length-min=9", "@length-max=9"],
+        ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"],
+        ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"]
     ]
 };
 export default{

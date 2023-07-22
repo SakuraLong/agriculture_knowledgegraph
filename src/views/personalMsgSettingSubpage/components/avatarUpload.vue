@@ -35,9 +35,15 @@
             </div>
             <div class="box-footer">
                 <button class="upload-button" @click="onFileChange">
-                    上传头像
+                    选择头像
                 </button>
-                <button class="save-button" @click="saveImage">保存头像</button>
+                <button class="save-button" @click="saveImage">上传头像</button>
+                <linePrompt
+                    :opacity="error"
+                    style="width: 260px; position: absolute; top: -20%"
+                    :data_left="error"
+                    :type="prompt_type"
+                ></linePrompt>
                 <input
                     type="file"
                     id="file-input"
@@ -51,7 +57,14 @@
 </template>
 
 <script>
+import utils from "@/assets/js/utils.js";
+import connector from "@/assets/js/connector/connector";
+import store from "@/store/index.js";
+import linePrompt from "@/components/prompts/line/linePrompt.vue";
 export default {
+    components: {
+        linePrompt,
+    },
     data() {
         return {
             context: null,
@@ -64,6 +77,10 @@ export default {
             translateY: 0,
             touches: [],
             fileError: "",
+            can_save: false,
+            avatar_base64: "",
+            error: "",
+            prompt_type: "default",
         };
     },
     mounted() {
@@ -90,11 +107,13 @@ export default {
             return canvas;
         },
         onFileChange() {
+            if (!store.state.can_click_button) return;
             this.$emit("uploadAvatarCropping");
             console.log("uploadAvatarCropping");
             document.getElementById("file-input").click();
         },
         onFileSelected(e) {
+            this.can_save = true;
             let file = e.target.files[0];
             if (file.size > 3000000) {
                 this.fileError = "文件大小超过3MB。请选择较小的文件。";
@@ -191,13 +210,53 @@ export default {
             this.touches = Array.from(e.touches);
         },
         saveImage() {
-            console.log("saveAvatarCropping");
-            // this.$emit("saveAvatarCropping");
-            // let link = document.createElement("a");
-            // link.download = "image.png";
-            // link.href = this.$refs.canvas.toDataURL();
-            console.log(this.$refs.canvas.toDataURL()); // Base64
-            // link.click();
+            if (!store.state.can_click_button) return;
+            if (!this.can_save) return;
+            let avatar = this.$refs.canvas.toDataURL();
+            this.avatar_base64 = avatar;
+            let user_msg = utils.getUserMsg();
+            let id = user_msg.id;
+            let token = utils.getToken();
+            id = id.toString();
+            if(token === undefined) token = "tokenIsNone";
+            console.log(id);
+            console.log(token);
+            connector.send(
+                [id, token, avatar],
+                "updateAvatar",
+                this.saveImageCallback,
+                this.saveImageWaiting,
+                this.saveImageTimeout
+            );
+            user_msg.avatar = this.$refs.canvas.toDataURL();
+            utils.saveUserMsg(user_msg);
+        },
+        saveImageCallback(msg) {
+            if (msg.success) {
+                this.prompt_type = "success";
+                this.error = "上传成功";
+                let user_msg = utils.getUserMsg();
+                user_msg.avatar = this.avatar_base64;
+                utils.saveUserMsg(user_msg);
+            } else {
+                this.prompt_type = "error";
+                this.error = "上传失败";
+            }
+        },
+        saveImageWaiting(is_waiting) {
+            if (is_waiting) {
+                store.state.can_click_button = false;
+                this.prompt_type = "waiting";
+                this.error = "上传中";
+            }else{
+                store.state.can_click_button = false;
+                this.prompt_type = "default";
+                this.error = "";
+            }
+        },
+        saveImageTimeout() {
+            this.prompt_type = "error";
+            this.error = "上传失败";
         },
     },
 };
@@ -254,8 +313,9 @@ export default {
     margin-bottom: 20px;
 }
 .box-footer {
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 10px;
 }
@@ -288,6 +348,7 @@ canvas {
 }
 
 .save-button {
+    margin: 20px;
     background-color: #822269; /* Green */
     align-items: center;
     border: none;
@@ -310,6 +371,7 @@ canvas {
 }
 
 .upload-button {
+    margin: 20px;
     background-color: #822269; /* Green */
     align-items: center;
     border: none;

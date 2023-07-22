@@ -190,6 +190,7 @@ const getUserMsg = () => {
  */
 const saveUserMsg = (user_msg) => {
     // 检查完整性
+    store.state.avatar = user_msg.avatar;
     let key = Code.CryptoJS.decrypt(CodeConfig.USER_MSG_CODE.key);
     CodeConfig.USER_MSG_CODE.encrypt.forEach((element) => {
         user_msg[element] = Code.CryptoJS.encrypt(
@@ -305,7 +306,8 @@ const autoLoginTimeout = () => {
 
 const saveToken = (token) => {
     let key = Code.CryptoJS.generateKey(2);
-    let t = Code.CryptoJS.decrypt(token);
+    let t = Code.Base64.decode(token);
+    t = Code.CryptoJS.decrypt(t);
     t = Code.CryptoJS.encrypt(t, key);
     key = Code.CryptoJS.encrypt(key);
     Storage.set(0, "TOKEN", t);
@@ -332,6 +334,7 @@ const getToken = () => {
         return;
     }
     t = Code.CryptoJS.encrypt(t);
+    t = Code.Base64.encode(t);
     return t;
 };
 

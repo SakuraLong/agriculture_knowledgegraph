@@ -70,6 +70,7 @@ export default {
         getPersonalMsg() {
             let user_msg = utils.getUserMsg();
             if (user_msg.id === "") {
+                console.log("信息不完整");
                 utils.setLogOut();
                 store.state.is_login = false;
             } else {
