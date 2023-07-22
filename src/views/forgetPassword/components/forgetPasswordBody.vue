@@ -36,7 +36,7 @@ export default {
             let password = this.$refs.forget_passwords_input.get();
             console.log(email);
             console.log(password);
-            if(!email && !password){
+            if(!email || !password){
                 return;
             }else{
                 // 执行忘记密码的重置操作
