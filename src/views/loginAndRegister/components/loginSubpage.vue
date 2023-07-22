@@ -114,7 +114,6 @@ export default {
             if (msg.success) {
                 // 用户登录成功 数据存入本地数据库
                 let user_msg = utils.getUserMsg();
-                console.log("拿到getUserMsg", user_msg);
                 // 存入token
                 utils.saveToken(msg.token);
                 user_msg.name = msg.content.login_name;
@@ -125,6 +124,7 @@ export default {
                 user_msg.id = msg.content.id;
                 user_msg.email = msg.content.email;
                 user_msg.avatar = msg.content.avatar;
+                console.log(msg.content.avatar);
                 if (
                     msg.content.name !== undefined ||
                     msg.content.name != null
@@ -150,7 +150,6 @@ export default {
                     user_msg.id_card = "";
                 }
                 utils.saveUserMsg(user_msg);
-                console.log("又拿到", utils.getUserMsg());
                 // 更改登录状态
                 Storage.set(0, "IS_LOGIN", Code.CryptoJS.encrypt("true"));
                 store.state.is_login = true;
