@@ -1,11 +1,11 @@
 <template>
     <div>
         <borderInput
-            title="登录邮箱或ID"
+            title="登录邮箱"
             @msgChange="change"
             ref="borderInput"
             :disabled="disabled"
-            placeholder="请输入你的邮箱或ID"
+            placeholder="请输入你的邮箱"
         ></borderInput>
         <linePrompt
             :opacity="error"
@@ -55,22 +55,11 @@ export default {
                         return false;
                     }
                 } else {
-                    if (
-                        new Checker(str, [
-                            "is-num",
-                            "@length-max=9",
-                            "@length-min=9",
-                        ]).check()
-                    ) {
-                        this.error = "";
-                        return { msg: str, type: "id" };
-                    } else {
-                        this.error = "ID是9位数字";
-                        return false;
-                    }
+                    this.error = "请填写邮箱";
+                    return false;
                 }
             } else {
-                this.error = "邮箱或ID不能为空";
+                this.error = "邮箱不能为空";
                 return false;
             }
         },
