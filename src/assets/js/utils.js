@@ -306,6 +306,7 @@ const autoLoginTimeout = () => {
 
 const saveToken = (token) => {
     let key = Code.CryptoJS.generateKey(2);
+    console.log("key", key);
     let t = Code.Base64.decode(token);
     t = Code.CryptoJS.decrypt(t);
     t = Code.CryptoJS.encrypt(t, key);
@@ -323,12 +324,14 @@ const getToken = () => {
     }
     try {
         key = Code.CryptoJS.decrypt(key);
+        console.log("key", key);
     } catch {
         setLogOut();
         return;
     }
     try {
         t = Code.CryptoJS.decrypt(t, key);
+        console.log(t);
     } catch {
         setLogOut();
         return;
