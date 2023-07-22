@@ -19,20 +19,31 @@ import { watch } from "vue";
 import { useStore } from "vuex";
 import store from "@/store/index.js";
 import utils from "@/assets/js/utils.js";
+import data from "@/assets/js/data.js";
 export default {
     data() {
         return {
             is_login: false,
         };
     },
-    props: ["edit", "edit_func"],
+    props: ["edit", "edit_func", "is_robot"],
     created() {
         if (store.state.is_login) this.is_login = true;
         const $store = useStore();
         watch(
             () => $store.state.is_login,
             (val, old) => {
+                if(this.is_robot) return;
+                console.log("登录状态改变");
                 this.is_login = val;
+            }
+        );
+        watch(
+            () => $store.state.avatar,
+            (val, old) => {
+                if(this.is_robot) return;
+                if(val === old) return;
+                this.loadAvatar();
             }
         );
     },
@@ -41,12 +52,26 @@ export default {
             this.edit_func();
         },
         async loadAvatar(){
+            if(this.is_robot) return;
             let image = new Image();
             image.setAttribute(
                 "src",
                 utils.getUserMsg().avatar
             );
             image.onload = () => {
+                this.removeAvatar();
+                image.setAttribute("class", "nav_avatar_img");
+                this.$refs.nav_avatar_img_container.appendChild(image);
+            };
+        },
+        async loadRobotAvatar(){
+            let image = new Image();
+            image.setAttribute(
+                "src",
+                data.robot_avatar
+            );
+            image.onload = () => {
+                this.removeAvatar();
                 image.setAttribute("class", "nav_avatar_img");
                 this.$refs.nav_avatar_img_container.appendChild(image);
             };
@@ -56,10 +81,12 @@ export default {
         }
     },
     mounted() {
-        this.loadAvatar();
+        if(this.is_robot) this.loadRobotAvatar();
+        else this.loadAvatar();
     },
     watch:{
         "is_login"(){
+            if(this.is_robot) return;
             if(this.is_login){
                 this.loadAvatar();
             }else{

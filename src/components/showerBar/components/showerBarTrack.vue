@@ -84,6 +84,9 @@ export default {
                     this.container_top = this.container_top - 70;
                 }
             }
+            if(this.container_index!==0&&this.container_index!==this.ele_list.length-1){
+                storage.set(0, "METHODS", this.container_index);
+            }
         },
         eleInit() {
             let len = this.ele_list.length;
@@ -124,7 +127,7 @@ export default {
                     this.ease(this.container_top - delta * 70, index);
                 }
             }
-            console.log(this.container_index);
+            // console.log(this.container_index);
         },
         ease(target, target_index) {
             store.state.can_click_button = false;

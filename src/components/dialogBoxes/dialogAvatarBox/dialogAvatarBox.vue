@@ -1,10 +1,10 @@
 <template>
     <div class="dialog_avatar_box">
-        <defaultAvatar v-if="is_left"></defaultAvatar>
+        <defaultAvatar v-if="is_left" is_robot="true"></defaultAvatar>
         <defaultDialogBox :is_left="is_left" :is_right="is_right">
             {{ content }}
         </defaultDialogBox>
-        <defaultAvatar v-if="is_right"></defaultAvatar>
+        <defaultAvatar v-if="is_right" is_robot="true"></defaultAvatar>
     </div>
 </template>
 

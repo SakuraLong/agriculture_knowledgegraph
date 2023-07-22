@@ -58,7 +58,7 @@ const localStorageIsLogin = () => {
         sex: 0,
         occu: "O05",
         id: "123456789",
-        password: Code.MD5.encrypt("hahaha123456"),
+        password: Code.MD5.encrypt("123456"),
         email: "2112794@mail.nankai.edu.cn",
         real: true,
         real_name: "鸡你太美",
@@ -66,6 +66,7 @@ const localStorageIsLogin = () => {
         card_type: "C01", // 证件类型 string
         id_card: "846264422056515489", // 证件号码 string
     };
+    // console.log("准备保存2", user_msg);
     utils.saveUserMsg(user_msg);
     store.state.is_login = true;
 };

@@ -50,6 +50,7 @@
                     @passwordOnFocus="passwordOnFocus"
                     @passwordOnBlur="passwordOnBlur"
                     @exitPage = "leaveLogin"
+                    @goToForgetPassword="goToForgetPassword"
                 ></loginSubpage>
             </transition>
             <transition name="login_register" mode="out-in">
@@ -92,8 +93,10 @@ export default {
         registerMsg,
     },
     methods: {
+        goToForgetPassword(){
+            this.$emit("goToForgetPassword");
+        },
         leaveLogin() {
-            console.log("leaveLogin");
             if (!store.state.can_click_button) return;
             this.$emit("leaveLogin");
         },

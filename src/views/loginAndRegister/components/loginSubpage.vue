@@ -9,7 +9,7 @@
             @confirmClick="loginClick"
             content="登录"
         ></confirmButton>
-        <div class="login_forget_password">忘记密码?</div>
+        <div class="login_forget_password" @click="forgetPassword">忘记密码?</div>
     </div>
 </template>
 <script>
@@ -54,6 +54,10 @@ export default {
         // store.state.is_login = !store.state.is_login;
     },
     methods: {
+        forgetPassword(){
+            console.log("点击忘记密码");
+            this.$emit("goToForgetPassword");
+        },
         passwordOnFocus() {
             this.$emit("passwordOnFocus");
         },
@@ -79,14 +83,14 @@ export default {
             console.log("pass: ", Code.MD5.encrypt(password));
             let is_id = id_email.type === "id";
             let send_id_email = id_email.msg;
-            let send_password = Code.CryptoJS.encrypt(
-                Code.MD5.encrypt(password)
-            );
+            let send_password = Code.MD5.encrypt(password);
             let user_msg = utils.getUserMsg();
             // 此时会把密码存入本地数据库
             user_msg.password = send_password;
             utils.saveUserMsg(user_msg);
+            send_password = Code.CryptoJS.encrypt(send_password);
             send_password = Code.Base64.encode(send_password);
+            console.log("发送之前密码保存", utils.getUserMsg());
             Connector.send(
                 [send_id_email, is_id, send_password],
                 "login",
@@ -110,17 +114,17 @@ export default {
             if (msg.success) {
                 // 用户登录成功 数据存入本地数据库
                 let user_msg = utils.getUserMsg();
-                console.log("拿到getUserMsg", user_msg);
                 // 存入token
                 utils.saveToken(msg.token);
                 user_msg.name = msg.content.login_name;
-                user_msg.avatar = msg.content.avatar;
+                user_msg.avatar = Code.Base64.decode(msg.content.avatar);
                 user_msg.sex = msg.content.sex;
                 user_msg.born = msg.content.born_time;
                 user_msg.occu = msg.content.occupation;
                 user_msg.id = msg.content.id;
                 user_msg.email = msg.content.email;
                 user_msg.avatar = msg.content.avatar;
+                console.log(msg.content.avatar);
                 if (
                     msg.content.name !== undefined ||
                     msg.content.name != null
@@ -147,6 +151,7 @@ export default {
                 }
                 utils.saveUserMsg(user_msg);
                 // 更改登录状态
+                Storage.set(0, "IS_LOGIN", Code.CryptoJS.encrypt("true"));
                 store.state.is_login = true;
                 // 退出此页面
                 this.$emit("exitPage");
@@ -202,6 +207,7 @@ export default {
     height: 10%;
 }
 .login_forget_password {
+    position: relative;
     cursor: pointer;
     margin-top: 20px;
     font-size: 18px;

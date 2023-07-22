@@ -25,7 +25,6 @@ export default{
     },
     methods:{
         avatarClick(){
-            console.log(0);
             this.$emit("avatarClick");
         }
     }

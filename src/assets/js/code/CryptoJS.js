@@ -8,8 +8,8 @@ import CryptoJS from "crypto-js";
  */
 const generateKey = (num) => {
     let library = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let key = "ABCDEF0123456789";
-    for (var i = 0; i < num; i++) {
+    let key = "";
+    for (var i = 0; i < num * 16; i++) {
         let randomPoz = Math.floor(Math.random() * library.length);
         key += library.substring(randomPoz, randomPoz + 1);
     }

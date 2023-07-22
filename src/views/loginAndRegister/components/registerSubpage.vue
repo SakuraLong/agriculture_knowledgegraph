@@ -119,7 +119,7 @@ export default {
         intervalLogin() {
             clearInterval(this.timer);
             this.$refs.registerPasswordsInput.setWaiting(
-                true,
+                true, 
                 "请点击您邮箱中的验证链接"
             );
             this.disabled = "disabled";
@@ -168,7 +168,7 @@ export default {
                 // 存入token
                 utils.saveToken(msg.token);
                 user_msg.name = msg.content.login_name;
-                user_msg.avatar = msg.content.avatar;
+                user_msg.avatar = Code.Base64.decode(msg.content.avatar);
                 user_msg.sex = msg.content.sex;
                 user_msg.born = msg.content.born_time;
                 user_msg.occu = msg.content.occupation;

@@ -257,7 +257,7 @@ export default {
                     is_func: false,
                 });
             }
-            console.log("传递成功");
+            // console.log("传递成功");
         },
         move(tab) {
             this.activeTab = tab;

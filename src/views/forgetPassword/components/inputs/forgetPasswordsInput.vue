@@ -1,21 +1,23 @@
 <template>
     <div class="container">
         <borderInput
-            title="密码"
+            title="新密码"
             @msgChange="passwordChange"
             ref="borderInput"
             :msg="password.password"
             placeholder="请输入6~20位密码"
             :disabled="disabled"
+            password="true"
         ></borderInput>
         <borderInput
-            title="确认密码"
+            title="确认新密码"
             @msgChange="passwordConfirmChange"
             ref="borderInputConfirm"
             :msg="password.password_confirm"
             placeholder="请确认密码"
             class="border_input_2"
             :disabled="disabled"
+            password="true"
         ></borderInput>
         <linePrompt
             :opacity="error"

@@ -157,6 +157,7 @@ const getUserMsg = () => {
     if (user_msg == null) return StorageConfig.USER_MSG;
     let has_error = false;
     let key = Code.CryptoJS.decrypt(CodeConfig.USER_MSG_CODE.key);
+    let return_msg = user_msg;
     CodeConfig.USER_MSG_CODE.encrypt.forEach((element) => {
         if (has_error) return;
         try {
@@ -189,11 +190,12 @@ const getUserMsg = () => {
  */
 const saveUserMsg = (user_msg) => {
     // 检查完整性
-    console.log("保存", user_msg);
+    store.state.avatar = user_msg.avatar;
+    let key = Code.CryptoJS.decrypt(CodeConfig.USER_MSG_CODE.key);
     CodeConfig.USER_MSG_CODE.encrypt.forEach((element) => {
         user_msg[element] = Code.CryptoJS.encrypt(
             user_msg[element],
-            Code.CryptoJS.decrypt(CodeConfig.USER_MSG_CODE.key)
+            key
         );
     });
     CodeConfig.USER_MSG_CODE.encrypt_check.forEach((element) => {
@@ -216,42 +218,32 @@ async function userLoginInitAsync() {
         ) === "true"
             ? true
             : false; // IS_LOGIN是加密的
-    // let user_msg = getUserMsg();
     let user_msg = getUserMsg();
     if (
         user_msg.password !== "" &&
         user_msg.id !== "" &&
         user_msg.email !== "" &&
-        checkIntegrality(user_msg)
+        user_msg.password !== undefined &&
+        user_msg.id !== undefined &&
+        user_msg.email !== undefined &&
+        user_msg.password !== null &&
+        user_msg.id !== null &&
+        user_msg.email !== null &&
+        is_login
     ) {
-        console.log("登录信息存在");
         // 登录信息存在
         let email = user_msg.email;
         let password = user_msg.password;
+        password = Code.CryptoJS.encrypt(password);
+        password = Code.Base64.encode(password);
         Connector.send(
             [email, "false", password],
             "login",
             autoLoginCallback,
             autoLoginWaiting,
-            autoLoginTimeout,
-            1000
+            autoLoginTimeout
         );
-        // Connector.test(
-        //     autoLoginCallback,
-        //     autoLoginWaiting,
-        //     autoLoginTimeout,
-        //     1000,
-        //     true,
-        //     500,
-        //     {
-        //         success: true,
-        //         log: {},
-        //         msg: {},
-        //     }
-        // );
     }
-    console.log(is_login);
-    console.log(user_msg);
 }
 /**
  * 为用户自动执行登录
@@ -279,7 +271,7 @@ const autoLoginCallback = (msg) => {
         user_msg.id = msg.content.id;
         user_msg.email = msg.content.email;
         user_msg.avatar = msg.content.avatar;
-        if (msg.content.name !== "") {
+        if (msg.content.name !== undefined && msg.content.name !== null) {
             user_msg.real = true;
             user_msg.real_name = Code.CryptoJS.decrypt(
                 Code.Base64.decode(msg.content.name)
@@ -309,11 +301,14 @@ const autoLoginCallback = (msg) => {
 const autoLoginWaiting = (is_waiting) => {};
 const autoLoginTimeout = () => {
     setLogOut();
+    console.log("自动登录超时");
 };
 
 const saveToken = (token) => {
     let key = Code.CryptoJS.generateKey(2);
-    let t = Code.CryptoJS.decrypt(token);
+    console.log("key", key);
+    let t = Code.Base64.decode(token);
+    t = Code.CryptoJS.decrypt(t);
     t = Code.CryptoJS.encrypt(t, key);
     key = Code.CryptoJS.encrypt(key);
     Storage.set(0, "TOKEN", t);
@@ -329,17 +324,20 @@ const getToken = () => {
     }
     try {
         key = Code.CryptoJS.decrypt(key);
+        console.log("key", key);
     } catch {
         setLogOut();
         return;
     }
     try {
         t = Code.CryptoJS.decrypt(t, key);
+        console.log(t);
     } catch {
         setLogOut();
         return;
     }
     t = Code.CryptoJS.encrypt(t);
+    t = Code.Base64.encode(t);
     return t;
 };
 

@@ -1,18 +1,12 @@
 <template>
     <div>
         <borderInput
-            title="登录邮箱或ID"
+            title="登录邮箱"
             @msgChange="change"
             ref="borderInput"
+            :disabled="disabled"
+            placeholder="请输入你的邮箱"
         ></borderInput>
-        <!-- <transition name="opacity400">
-            <linePrompt
-                v-visible="888"
-                style="width: 260px"
-                :data_left="error"
-                type="error"
-            ></linePrompt>
-        </transition> -->
         <linePrompt
             :opacity="error"
             style="width: 260px"
@@ -33,6 +27,7 @@ export default {
             error: "",
         };
     },
+    props:["disabled"],
     components: {
         borderInput,
         linePrompt,
@@ -54,28 +49,17 @@ export default {
                         ]).check()
                     ) {
                         this.error = "";
-                        return { msg: str, type: "email" };
+                        return str;
                     } else {
                         this.error = "请填写合法邮箱";
                         return false;
                     }
                 } else {
-                    if (
-                        new Checker(str, [
-                            "is-num",
-                            "@length-max=9",
-                            "@length-min=9",
-                        ]).check()
-                    ) {
-                        this.error = "";
-                        return { msg: str, type: "id" };
-                    } else {
-                        this.error = "ID是9位数字";
-                        return false;
-                    }
+                    this.error = "请填写邮箱";
+                    return false;
                 }
             } else {
-                this.error = "邮箱或ID不能为空";
+                this.error = "邮箱不能为空";
                 return false;
             }
         },

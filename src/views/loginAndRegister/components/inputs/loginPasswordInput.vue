@@ -35,10 +35,10 @@ export default {
     },
     methods: {
         onFoucs() {
-            console.log("foucs");
+            // console.log("foucs");
         },
         onBlur() {
-            console.log("blur");
+            // console.log("blur");
         },
         change(msg) {
             // console.log(msg);

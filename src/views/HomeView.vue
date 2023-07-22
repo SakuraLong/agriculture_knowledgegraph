@@ -82,7 +82,10 @@
             v-if="page.is_personal_setting"
             @leaveSetting="leaveSetting"
         />
-        <loginAndRegister v-else-if="page.is_login" @leaveLogin="leaveLogin" />
+        <loginAndRegister v-else-if="page.is_login" @leaveLogin="leaveLogin" @goToForgetPassword="goToForgetPassword" />
+    </transition>
+    <transition name="app_subpage" mode="out-in">
+        <forgetPassword v-if="page.is_forget_password" @leaveForgetPassword="leaveForgetPassword"></forgetPassword>
     </transition>
     <mouseSelector
         ref="mouse_selector"
@@ -200,7 +203,7 @@ export default {
         mouseSelector,
 
         // baseBox,
-        // forgetPassword,
+        forgetPassword,
         // updateEmail,
         // threeSubpage,
     },
@@ -220,13 +223,19 @@ export default {
             this.page.is_main_page = true;
             this.page.is_func_page = false;
         },
+        goToForgetPassword(){
+            console.log("忘记密码");
+            this.page.is_forget_password = true;
+        },
+        leaveForgetPassword(){
+            this.page.is_forget_password = false;
+        },
         goToShower() {
             this.bar_change = "bar_change_0";
             this.page.is_main_page = false;
             this.page.is_func_page = true;
         },
         goToShowerOther() {
-            console.log(12);
             this.page.is_shower_other = true;
         },
         leaveOtherShower() {
@@ -249,15 +258,6 @@ export default {
         },
         leaveSetting() {
             this.page.is_personal_setting = false;
-            console.log("leaveSetting");
-        },
-        autoLoginCallBack(msg) {
-            console.log("自动登录成功");
-        },
-        autoLoginTimeout() {
-            console.log("自动登录失败");
-            this.is_login = false;
-            utils.setLogOut();
         },
         leavePersonal() {
             this.page.is_personal = false;
@@ -286,7 +286,6 @@ export default {
                 this.page.is_realname
             )
                 return;
-            console.log(e.key);
             if (e.key === "Control" && !this.mouse.ctrl) {
                 this.mouse.ctrl = true;
             }
@@ -298,7 +297,6 @@ export default {
                 this.mouse.judge &&
                 !this.mouse_selector_show
             ) {
-                console.log("进入");
                 this.mouse_selector_show = true;
                 let x = this.mouse.x;
                 let y = this.mouse.y;
@@ -314,7 +312,6 @@ export default {
         },
         keyUp(e) {
             if (!store.state.can_click_button) return;
-            console.log(e.key);
             if (e.key === "Control") {
                 this.mouse.ctrl = false;
             }
@@ -501,10 +498,10 @@ export default {
         },
     },
     created() {
-        utils.userLoginInit(); // 自动登录
-        // testMsg.localStorageIsLogin();
-        // utils.setLogOut();
-        console.log(utils.getUserMsg());
+        store.state.avatar = utils.getUserMsg().avatar;
+        testMsg.localStorageIsLogin();
+        // console.log(store.state.avatar);
+        // utils.userLoginInit(); // 自动登录
     },
     mounted() {
         setTimeout(() => {
@@ -531,7 +528,6 @@ export default {
                     document.getElementById("loading").appendChild(img);
                 } catch {
                     //
-                    console.log("查找元素失败");
                 }
             });
         }

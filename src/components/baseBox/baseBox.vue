@@ -15,38 +15,41 @@
 <script>
 import backButton from "@/components/buttons/loginAndRegisterButton/backButton/backButton.vue";
 export default {
-    props:["title"],
-    components:{
-        backButton
+    props: ["title", "leave_func"],
+    components: {
+        backButton,
     },
-    methods:{
-        leaveBox(){
-
-        }
-    }
+    methods: {
+        leaveBox() {
+            console.log("点击退出");
+            this.leave_func();
+        },
+    },
 };
 </script>
 
 <style scoped>
-.base_box{
+.base_box {
     width: 100%;
     height: 100%;
     position: absolute;
     left: 0;
     top: 0;
-    z-index: 50;
-    background-color: rgba(0, 0, 0, .3);
+    z-index: 10050;
+    background-color: rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: auto;
 }
-.container{
+.container {
     position: relative;
     width: 400px;
     height: 647px;
     background-color: white;
 }
-.title, .bottom{
+.title,
+.bottom {
     position: relative;
     width: 100%;
     height: 10%;
@@ -55,12 +58,21 @@ export default {
     justify-content: center;
     align-items: center;
 }
-.body{
+.body {
     position: relative;
     width: 100%;
     height: 80%;
 }
-.title{
+.title {
     font-size: 30px;
+}
+@media screen and (max-height: 700px) {
+    .container {
+        position: absolute;
+        top: 0;
+        width: 350px;
+        height: 566px;
+        background-color: white;
+    }
 }
 </style>

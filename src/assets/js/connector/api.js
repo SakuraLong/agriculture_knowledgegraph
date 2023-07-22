@@ -25,9 +25,19 @@ const API_PARA = {
         ["is_id", false],
         ["password", ""],
     ],
+    "forgetPassword":[
+        ["email", ""],
+        ["type", ""],
+        ["msg", ""],
+    ],
     "verify":[
         ["email", ""],
         ["vcode", ""]
+    ],
+    "updateAvatar":[
+        ["id", ""],
+        ["token", ""],
+        ["avatar", ""]
     ]
 };
 const API_CHECKER = {
@@ -41,9 +51,19 @@ const API_CHECKER = {
         ["ignore"],
         ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"],
     ],
+    "forgetPassword": [
+        ["ignore"],
+        ["ignore"],
+        ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"],
+    ],
     "verify":[
         ["ignore"],
         ["ignore"]
+    ],
+    "updateAvatar":[
+        ["num-only", "@length-min=9", "@length-max=9"],
+        ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"],
+        ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"]
     ]
 };
 export default{
