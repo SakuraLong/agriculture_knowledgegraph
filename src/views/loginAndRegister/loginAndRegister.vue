@@ -206,7 +206,8 @@ export default {
     height: var(--login-height);
     background-color: var(--login-background-color);
     /* border-radius: 30px; */
-    box-shadow: 0px 0px 20px rgba(130, 34, 150, 0.5);
+    box-shadow: 0px 0px 20px var(--login_container-box-shadow);
+    /* background-color: rgb(187, 86, 207); */
     /* border: 1px solid red; */
 }
 .login_area {
@@ -224,7 +225,7 @@ export default {
     top: -2%;
     width: 39.2%;
     height: 104%;
-    background-color: #d5b4dc;
+    background-color:var(--login-msg-background-color);
     border-radius: 2%;
     animation-duration: 0.8s;
     animation-timing-function: ease-in-out;

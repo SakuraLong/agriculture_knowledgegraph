@@ -40,11 +40,11 @@ export default {
     top: 0;
     z-index: -1;
     /* color: aqua; */
-    -webkit-text-stroke: 3px rgb(217, 149, 230);
+    -webkit-text-stroke: 3px var(--confirm-hover-color);
 }
 .confirm_button:hover {
-    background-color: rgb(217, 149, 230);
-    color: rgb(217, 149, 230);
+    background-color: var(--confirm-hover-color);
+    color: var(--confirm-hover-color);
 }
 .confirm_button:hover::after {
     -webkit-text-stroke: 3px white;

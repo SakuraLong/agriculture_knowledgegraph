@@ -69,6 +69,7 @@ export default {
     border: 2px solid rgba(144, 119, 149, 0.5);
     margin-top: 10px;
     margin-bottom: 10px;
+    background-color: var(--login-background-color);
 }
 .border_input::after {
     padding-left: 5px;
@@ -81,19 +82,20 @@ export default {
     position: absolute;
     left: 5%;
     top: -12px;
-    background-color: white;
+    background-color: var(--input-after-background-color);
     content: attr(data-text);
     z-index: 1;
     color: rgb(144, 119, 149);
 }
 .border_input:has(.input_ele:focus)::after {
-    color: #e77ffb;
+    /* color: var(--input-focus-color); */
+    color: var(--input-focus-color);
 }
 .border_input:has(.input_ele:focus) {
-    border: 2px solid #e77ffb;
+    border: 2px solid var(--input-focus-color)
 }
 .border_input:has(.input_ele:hover) {
-    box-shadow: 0px 0px 2px #e77ffb;
+    box-shadow: 0px 0px 2px var(--input-focus-color)
 }
 .input_ele {
     position: relative;
@@ -105,9 +107,11 @@ export default {
     /* border: 1px solid red; */
     z-index: 0;
     font-size: 24px;
+    background-color: var(--login-background-color);
+    color: var(--input_ele-font-color);
 }
 .input_ele:focus {
-    caret-color: #e77ffb;
+    caret-color: var(--input-focus-color)
 }
 input::placeholder {
     font-size: 16px;

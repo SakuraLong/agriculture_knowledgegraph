@@ -1,5 +1,26 @@
+/* liinPrompt*/
 :root{
-    --login-background-color:rgb(255, 255, 255);
+    --error-color:rgb(181, 10, 10);
+}
+/* borderInput*/
+:root{
+    --input_ele-font-color:rgba(144, 119, 149, 0.5);
+    --input-focus-color:#673a70;
+    --input-after-background-color:rgba(35,38,43,0.7);
+}
+/* confirmButton*/
+:root{
+    --confirm-hover-color:#2e1134;
+}
+/* loginMsg */
+:root{
+    --msg_login_register_text-color:rgb(174, 174, 174);
+}
+/* loginAndRegister*/
+:root{
+    --login-background-color:rgba(35,38,43,0.7);
+    --login_container-box-shadow:rgba(213, 117, 232, 0.5);
+    --login-msg-background-color:#4e2e54;
 }
 /* homeview */
 :root{

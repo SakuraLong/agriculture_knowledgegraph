@@ -173,6 +173,7 @@ export default {
     align-items: center;
     flex-direction: column;
     font-family: FZZJ-WHJZTJW;
+    /* background-color: red; */
 }
 .login_text {
     font-size: 40px;
