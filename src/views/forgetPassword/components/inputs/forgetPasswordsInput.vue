@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <borderInput
-            title="密码"
+            title="新密码"
             @msgChange="passwordChange"
             ref="borderInput"
             :msg="password.password"
@@ -10,7 +10,7 @@
             password="true"
         ></borderInput>
         <borderInput
-            title="确认密码"
+            title="确认新密码"
             @msgChange="passwordConfirmChange"
             ref="borderInputConfirm"
             :msg="password.password_confirm"

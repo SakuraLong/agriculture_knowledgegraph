@@ -49,7 +49,7 @@ export default {
                         ]).check()
                     ) {
                         this.error = "";
-                        return { msg: str, type: "email" };
+                        return str;
                     } else {
                         this.error = "请填写合法邮箱";
                         return false;

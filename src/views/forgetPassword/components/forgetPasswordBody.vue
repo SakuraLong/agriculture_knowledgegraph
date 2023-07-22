@@ -45,6 +45,7 @@ export default {
                 password = Code.MD5.encrypt(password);
                 password = Code.CryptoJS.encrypt(password);
                 password = Code.Base64.encode(password);
+                console.log(email);
                 Connector.send(
                     [email, "2", password],
                     "forgetPassword",
