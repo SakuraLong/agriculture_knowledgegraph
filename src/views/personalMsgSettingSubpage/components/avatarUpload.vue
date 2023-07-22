@@ -37,7 +37,7 @@
                 <button class="upload-button" @click="onFileChange">
                     选择头像
                 </button>
-                <button class="save-button" @click="saveImage">上传头像</button>
+                <button class="save-button" @click="saveImage">保存头像</button>
                 <linePrompt
                     :opacity="error"
                     style="width: 260px; position: absolute; top: -20%"
@@ -91,6 +91,7 @@ export default {
     props: ["exit"],
     methods: {
         leaveAvatarCropping() {
+            if (!store.state.can_click_button) return;
             try {
                 this.exit();
             } catch {
@@ -228,8 +229,6 @@ export default {
                 this.saveImageWaiting,
                 this.saveImageTimeout
             );
-            user_msg.avatar = this.$refs.canvas.toDataURL();
-            utils.saveUserMsg(user_msg);
         },
         saveImageCallback(msg) {
             if (msg.success) {
@@ -249,7 +248,7 @@ export default {
                 this.prompt_type = "waiting";
                 this.error = "上传中";
             }else{
-                store.state.can_click_button = false;
+                store.state.can_click_button = true;
                 this.prompt_type = "default";
                 this.error = "";
             }

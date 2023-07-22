@@ -82,7 +82,10 @@
             v-if="page.is_personal_setting"
             @leaveSetting="leaveSetting"
         />
-        <loginAndRegister v-else-if="page.is_login" @leaveLogin="leaveLogin" />
+        <loginAndRegister v-else-if="page.is_login" @leaveLogin="leaveLogin" @goToForgetPassword="goToForgetPassword" />
+    </transition>
+    <transition name="app_subpage" mode="out-in">
+        <forgetPassword v-if="page.is_forget_password"></forgetPassword>
     </transition>
     <mouseSelector
         ref="mouse_selector"
@@ -200,7 +203,7 @@ export default {
         mouseSelector,
 
         // baseBox,
-        // forgetPassword,
+        forgetPassword,
         // updateEmail,
         // threeSubpage,
     },
@@ -219,6 +222,10 @@ export default {
             this.bar_change = "bar_change_1";
             this.page.is_main_page = true;
             this.page.is_func_page = false;
+        },
+        goToForgetPassword(){
+            console.log("忘记密码");
+            this.page.is_forget_password = true;
         },
         goToShower() {
             this.bar_change = "bar_change_0";

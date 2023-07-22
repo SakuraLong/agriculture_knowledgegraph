@@ -9,7 +9,7 @@
             @confirmClick="loginClick"
             content="登录"
         ></confirmButton>
-        <div class="login_forget_password">忘记密码?</div>
+        <div class="login_forget_password" @click="forgetPassword">忘记密码?</div>
     </div>
 </template>
 <script>
@@ -54,6 +54,10 @@ export default {
         // store.state.is_login = !store.state.is_login;
     },
     methods: {
+        forgetPassword(){
+            console.log("点击忘记密码");
+            this.$emit("goToForgetPassword");
+        },
         passwordOnFocus() {
             this.$emit("passwordOnFocus");
         },
@@ -203,6 +207,7 @@ export default {
     height: 10%;
 }
 .login_forget_password {
+    position: relative;
     cursor: pointer;
     margin-top: 20px;
     font-size: 18px;

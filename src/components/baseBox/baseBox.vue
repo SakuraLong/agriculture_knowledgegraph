@@ -34,11 +34,12 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
-    z-index: 50;
+    z-index: 10050;
     background-color: rgba(0, 0, 0, .3);
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: auto;
 }
 .container{
     position: relative;
@@ -62,5 +63,14 @@ export default {
 }
 .title{
     font-size: 30px;
+}
+@media screen and (max-height: 700px) {
+    .container{
+        position: absolute;
+        top: 0;
+        width: 400px;
+        height: 647px;
+        background-color: white;
+    }
 }
 </style>

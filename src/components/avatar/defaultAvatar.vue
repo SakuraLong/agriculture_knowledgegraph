@@ -33,6 +33,7 @@ export default {
         watch(
             () => $store.state.is_login,
             (val, old) => {
+                if(this.is_robot) return;
                 console.log("登录状态改变");
                 this.is_login = val;
             }
@@ -40,7 +41,7 @@ export default {
         watch(
             () => $store.state.avatar,
             (val, old) => {
-                console.log("头像文件改变");
+                if(this.is_robot) return;
                 if(val === old) return;
                 this.loadAvatar();
             }
