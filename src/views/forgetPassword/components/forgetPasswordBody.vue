@@ -63,6 +63,12 @@ export default {
                     true,
                     "点击邮箱链接完成重置"
                 );
+            }else{
+                if(msg.log === "mailbox_not_exist"){
+                    this.$refs.forget_passwords_input.setError("邮箱不存在");
+                }else{
+                    this.$refs.forget_passwords_input.setError("无法完成验证");
+                }
             }
         },
         forgetPasswordWaiting(is_waiting){
@@ -79,6 +85,7 @@ export default {
         },
         forgetPasswordTimeout(){
             // 超时
+            this.$refs.forget_passwords_input.setError("访问服务器超时");
         }
     }
 };
