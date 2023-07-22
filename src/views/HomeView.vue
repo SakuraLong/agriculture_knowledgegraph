@@ -85,7 +85,7 @@
         <loginAndRegister v-else-if="page.is_login" @leaveLogin="leaveLogin" @goToForgetPassword="goToForgetPassword" />
     </transition>
     <transition name="app_subpage" mode="out-in">
-        <forgetPassword v-if="page.is_forget_password"></forgetPassword>
+        <forgetPassword v-if="page.is_forget_password" @leaveForgetPassword="leaveForgetPassword"></forgetPassword>
     </transition>
     <mouseSelector
         ref="mouse_selector"
@@ -226,6 +226,9 @@ export default {
         goToForgetPassword(){
             console.log("忘记密码");
             this.page.is_forget_password = true;
+        },
+        leaveForgetPassword(){
+            this.page.is_forget_password = false;
         },
         goToShower() {
             this.bar_change = "bar_change_0";

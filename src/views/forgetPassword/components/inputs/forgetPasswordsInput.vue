@@ -7,6 +7,7 @@
             :msg="password.password"
             placeholder="请输入6~20位密码"
             :disabled="disabled"
+            password="true"
         ></borderInput>
         <borderInput
             title="确认密码"
@@ -16,6 +17,7 @@
             placeholder="请确认密码"
             class="border_input_2"
             :disabled="disabled"
+            password="true"
         ></borderInput>
         <linePrompt
             :opacity="error"

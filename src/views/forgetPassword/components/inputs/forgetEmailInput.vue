@@ -4,15 +4,9 @@
             title="登录邮箱或ID"
             @msgChange="change"
             ref="borderInput"
+            :disabled="disabled"
+            placeholder="请输入你的邮箱或ID"
         ></borderInput>
-        <!-- <transition name="opacity400">
-            <linePrompt
-                v-visible="888"
-                style="width: 260px"
-                :data_left="error"
-                type="error"
-            ></linePrompt>
-        </transition> -->
         <linePrompt
             :opacity="error"
             style="width: 260px"
@@ -33,6 +27,7 @@ export default {
             error: "",
         };
     },
+    props:["disabled"],
     components: {
         borderInput,
         linePrompt,

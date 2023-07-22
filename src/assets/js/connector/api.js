@@ -25,6 +25,11 @@ const API_PARA = {
         ["is_id", false],
         ["password", ""],
     ],
+    "forgetPassword":[
+        ["email", ""],
+        ["type", ""],
+        ["msg", ""],
+    ],
     "verify":[
         ["email", ""],
         ["vcode", ""]
@@ -42,6 +47,11 @@ const API_CHECKER = {
         ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"],
     ],
     "login": [
+        ["ignore"],
+        ["ignore"],
+        ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"],
+    ],
+    "forgetPassword": [
         ["ignore"],
         ["ignore"],
         ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"],

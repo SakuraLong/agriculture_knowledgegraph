@@ -17,6 +17,7 @@ export default {
 
 <style scoped>
 .confirm_button {
+    user-select: none;
     margin-top: 20px;
     cursor: pointer;
     position: relative;
