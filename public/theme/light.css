@@ -1,5 +1,26 @@
+/* linePrompt*/
+:root{
+    --error-color:red;
+}
+/* borderInput*/
+:root{
+    --input_ele-font-color:black;
+    --input-focus-color:#d24fec;
+    --input-after-background-color:white;
+}
+/* confirmButton*/
+:root{
+    --confirm-hover-color:rgb(217, 149, 230);
+}
+/* loginMsg */
+:root{
+    --msg_login_register_text-color:white;
+}
+/* loginAndRegister*/
 :root{
     --login-background-color:rgb(255, 255, 255);
+    --login_container-box-shadow:rgba(130, 34, 150, 0.5);
+    --login-msg-background-color:#d5b4dc
 }
 /* homeview */
 :root{

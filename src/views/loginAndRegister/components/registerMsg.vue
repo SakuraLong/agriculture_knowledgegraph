@@ -48,9 +48,10 @@ export default {
     font-size: 18px;
     width: 220px;
     height: 30px;
-    border: 1px solid #d5b4dc;
+    border: 1px solid var(--login-msg-background-color);
     border-radius: 20px;
     overflow: hidden;
+    color: var(--msg_login_register_text-color)
 }
 .msg_login_register{
     position: absolute;
@@ -61,7 +62,7 @@ export default {
     z-index: 1;
     width: 213px;
     height: 23px;
-    background-color: #d5b4dc;
+    background-color: var(--login-msg-background-color);
 }
 .msg_login_register::after{
     content: " ";

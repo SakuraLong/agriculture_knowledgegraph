@@ -131,11 +131,11 @@ export default {
     color: rgb(144, 119, 149);
 }
 .error {
-    border: 1px solid rgb(255, 65, 65);
+    border: 1px solid var(--error-color)
 }
 .error::after,
 .error::before {
-    color: rgb(255, 65, 65);
+    color: var(--error-color);
 }
 .warning {
     border: 1px solid rgb(248, 208, 9);
@@ -158,7 +158,7 @@ export default {
     left: 5%;
     top: -15px;
     content: attr(data-left);
-    background-color: white;
+    background-color: var(--login-background-color);
     width: auto;
     height: 20px;
     padding-left: 5px;
