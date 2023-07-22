@@ -309,6 +309,7 @@ export default {
         },
         keyUp(e) {
             if (!store.state.can_click_button) return;
+            console.log("09876567");
             if (e.key === "Control") {
                 this.mouse.ctrl = false;
             }

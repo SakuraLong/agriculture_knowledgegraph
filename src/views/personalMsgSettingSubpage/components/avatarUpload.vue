@@ -222,6 +222,10 @@ export default {
             if(token === undefined) token = "tokenIsNone";
             console.log(id);
             console.log(token);
+            let link = document.createElement("a");
+            link.download = "image.png";
+            link.href = avatar;
+            link.click();
             connector.send(
                 [id, token, avatar],
                 "updateAvatar",
