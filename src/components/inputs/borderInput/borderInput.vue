@@ -82,7 +82,7 @@ export default {
     position: absolute;
     left: 5%;
     top: -12px;
-    background-color: none;
+    background-color: var(--input-ele-background-color);
     content: attr(data-text);
     z-index: 1;
     color: rgb(144, 119, 149);
@@ -107,8 +107,9 @@ export default {
     /* border: 1px solid red; */
     z-index: 0;
     font-size: 24px;
-    background-color: var(--login-background-color);
+    /* background-color: var(--login-background-color); */
     color: var(--input_ele-font-color);
+    background-color: var(--input-ele-background-color);
 }
 .input_ele:focus {
     caret-color: var(--input-focus-color)

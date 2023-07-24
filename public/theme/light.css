@@ -19,6 +19,7 @@
     --input_ele-font-color:black;
     --input-focus-color:#d24fec;
     --input-after-background-color:white;
+    --input-ele-background-color:white;
 }
 /* borderSelect */
 :root{

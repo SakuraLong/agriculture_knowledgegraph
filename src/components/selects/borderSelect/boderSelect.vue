@@ -90,7 +90,7 @@ export default {
     position: absolute;
     left: 5%;
     top: -12px;
-    background-color: none;
+    background-color: var(--input-ele-background-color);
     content: attr(data-text);
     z-index: 1;
     color: rgb(144, 119, 149);
@@ -123,7 +123,7 @@ export default {
     font-size: 24px;
     color: black;
     text-indent: 12px;
-    background-color: var(--login-background-color);
+    background-color: var(--input-ele-background-color);
     color: var(--input_ele-font-color);
 }
 .input_ele:focus {
