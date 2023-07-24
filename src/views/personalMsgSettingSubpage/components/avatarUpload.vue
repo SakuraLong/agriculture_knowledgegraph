@@ -89,6 +89,17 @@ export default {
         this.image = this.createWhiteImage(); // Replace with your own base64-encoded white image
         this.drawImageToCanvas();
     },
+    beforeUnmount() {
+    // 解绑事件监听
+        this.$refs.canvas.removeEventListener("mousedown", this.onMouseDown);
+        this.$refs.canvas.removeEventListener("mousemove", this.onMouseMove);
+        this.$refs.canvas.removeEventListener("mouseup", this.onMouseUp);
+        this.$refs.canvas.removeEventListener("mouseleave", this.onMouseUp);
+        this.$refs.canvas.removeEventListener("wheel", this.onWheel);
+        this.$refs.canvas.removeEventListener("touchstart", this.onTouchStart);
+        this.$refs.canvas.removeEventListener("touchmove", this.onTouchMove);
+        this.$refs.canvas.removeEventListener("touchend", this.onTouchEnd);
+    },
     props: ["exit"],
     methods: {
         leaveAvatarCropping() {
