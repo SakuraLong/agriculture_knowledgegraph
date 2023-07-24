@@ -38,9 +38,9 @@
             <p>KrieN Sakura</p>
             <h2>{{ $t("views.main_page.others_subpage.about_subpage.content.art_designing") }}</h2>
             <h3>{{ $t("views.main_page.others_subpage.about_subpage.content.character_line_draft") }}</h3>
-            <p>myra_xiangyuff</p>
+            <p>myra_xiangyuff 等</p>
             <h3>{{ $t("views.main_page.others_subpage.about_subpage.content.character_coloring") }}</h3>
-            <p>抹茶</p>
+            <p>抹茶 等</p>
             <h3>{{ $t("views.main_page.others_subpage.about_subpage.content.home_page_dynamic_effect") }}</h3>
             <p>dyh</p>
         </el-scrollbar>
