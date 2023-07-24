@@ -1,5 +1,5 @@
 <template>
-    <div class="avatarUpload-container">
+    <div class="avatarUpload-container" :class="{pointer: is_unmounted}">
         <div class="box box--overlay d-flex flex-column">
             <div class="box-header">
                 <div class="header-content">
@@ -82,6 +82,7 @@ export default {
             avatar_base64: "",
             error: "",
             prompt_type: "default",
+            is_unmounted:false
         };
     },
     mounted() {
@@ -93,6 +94,7 @@ export default {
     methods: {
         leaveAvatarCropping() {
             if (!store.state.can_click_button) return;
+            this.is_unmounted = true;
             try {
                 this.exit();
             } catch {
@@ -157,11 +159,13 @@ export default {
             // this.drawCircle();
         },
         onMouseDown(e) {
+            if(this.is_unmounted) return;
             this.dragging = true;
             this.lastX = e.clientX;
             this.lastY = e.clientY;
         },
         onMouseMove(e) {
+            if(this.is_unmounted) return;
             if (!this.dragging) return;
             let newTranslateX = this.translateX + e.clientX - this.lastX;
             let newTranslateY = this.translateY + e.clientY - this.lastY;
@@ -189,9 +193,11 @@ export default {
             this.drawImageToCanvas();
         },
         onMouseUp(e) {
+            if(this.is_unmounted) return;
             this.dragging = false;
         },
         onWheel(e) {
+            if(this.is_unmounted) return;
             let newScale = this.scale * (e.deltaY < 0 ? 1.1 : 0.9);
             let newTranslateX = this.translateX + newScale * this.image.width;
             let newTranslateY = this.translateY + newScale * this.image.height;
@@ -206,9 +212,11 @@ export default {
             this.drawImageToCanvas();
         },
         onTouchStart(e) {
+            if(this.is_unmounted) return;
             this.touches = Array.from(e.touches);
         },
         onTouchEnd(e) {
+            if(this.is_unmounted) return;
             this.touches = Array.from(e.touches);
         },
         saveImage() {
@@ -277,7 +285,9 @@ export default {
     height: 100vh;
     overflow-y: auto;
 }
-
+.pointer{
+    pointer-events: none;
+}
 .box {
     border: 1px solid black;
     margin: auto;
