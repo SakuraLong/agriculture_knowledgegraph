@@ -9,25 +9,29 @@
             :placeholder="placeholder"
             :readonly="disabled"
         />
-        <View v-if="view&&is_password" @click="viewClick" style="width: 20px;height: 20px;position: absolute;right: 10px;" />
-        <Hide v-if="!view&&is_password" @click="viewClick" style="width: 20px;height: 20px;position: absolute;right: 10px;" />
+        <View :color="eye_color" v-if="view&&is_password" @click="viewClick" style="width: 20px;height: 20px;position: absolute;right: 10px;" />
+        <Hide :color="eye_color" v-if="!view&&is_password" @click="viewClick" style="width: 20px;height: 20px;position: absolute;right: 10px;" />
     </label>
 </template>
 
 <script>
-import { View, Hide } from "@element-plus/icons-vue";
-export default {
-    setup() {
-        return {
-            View,
-        };
+import Storage from "@/assets/js/storage/storage.js";
+const default_theme = {
+    theme: "light",
+    color: "",
+    font_size: {
+        base: "",
+        button: "",
     },
+};
+export default {
     data() {
         return {
             input_msg: "",
             input_type: "text",
             is_password:false,
-            view:false
+            view:false,
+            eye_color:"black"
         };
     },
     props: ["title", "focus", "blur", "msg", "placeholder", "disabled", "password"],
@@ -37,6 +41,8 @@ export default {
             this.is_password = true;
             this.input_type = "password";
         }
+        let theme_json = Storage.get(0, "THEME", default_theme, "JSON");
+        this.eye_color = theme_json.theme === "light" ? "black" : "#822296";
     },
     methods: {
         msgChange() {
