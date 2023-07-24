@@ -1,6 +1,18 @@
-/* liinPrompt*/
+/* liiePrompt*/
 :root{
     --error-color:rgb(181, 10, 10);
+}
+/* :defaultDialogBox */
+:root{
+    --dialog-container-border-color:#54285c;
+}
+/* confirmButton */
+:root{
+    --confirm-button-color:gray;
+}
+/* baseBox */
+:root{
+    --baseBox-container-background-color:rgb(35,38,43)
 }
 /* borderInput*/
 :root{
@@ -8,6 +20,11 @@
     --input-focus-color:#673a70;
     --input-after-background-color:rgba(35,38,43,0.7);
 }
+/* borderSelect */
+:root{
+    --border-select-list-hover-background-color:#393737;
+}
+
 /* confirmButton*/
 :root{
     --confirm-hover-color:#2e1134;

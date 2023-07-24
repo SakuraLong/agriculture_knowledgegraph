@@ -24,7 +24,7 @@ export default {
     font-size: 25px;
     font-family: Heiti;
     z-index: 1;
-    color: white;
+    color: var(--confirm-button-color);
     width: 140px;
     height: 40px;
     line-height: 40px;

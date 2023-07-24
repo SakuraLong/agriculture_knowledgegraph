@@ -100,7 +100,7 @@
 import defaultShutters from "@/components/shutter/defaultShutter.vue";
 import flowButton from "@/components/buttons/subpageButton/flowButton.vue";
 const function_arr = [0, 1, 2, 3, 4];
-//实体识别、实体查询、关系查询、农业知识图谱、农知问答
+//实体识别、实体查询、关系查询、农业知识图谱、农知问答  
 export default {
     // props:{cur_function:{type:Number}},
     props: {

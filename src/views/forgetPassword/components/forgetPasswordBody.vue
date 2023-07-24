@@ -105,13 +105,13 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .bottom{
     width: 100%;
     height: 20%;
     position: relative;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     display: flex;
     align-items: center;
     justify-content: center;

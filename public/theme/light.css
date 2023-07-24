@@ -2,11 +2,27 @@
 :root{
     --error-color:red;
 }
+/* :defaultDialogBox */
+:root{
+    --dialog-container-border-color:rgb(230, 146, 255);
+}
+/* confirmButton */
+:root{
+    --confirm-button-color:white;
+}
+/* baseBox */
+:root{
+    --baseBox-container-background-color:white;
+}
 /* borderInput*/
 :root{
     --input_ele-font-color:black;
     --input-focus-color:#d24fec;
     --input-after-background-color:white;
+}
+/* borderSelect */
+:root{
+    --border-select-list-hover-background-color:rgb(132, 132, 132);
 }
 /* confirmButton*/
 :root{

@@ -76,6 +76,7 @@ export default {
     align-items: center;
     border: 2px solid rgba(144, 119, 149, 0.5);
     margin-top: 10px;
+    background-color: var(--login-background-color);
 }
 
 .select::after {
@@ -89,19 +90,19 @@ export default {
     position: absolute;
     left: 5%;
     top: -12px;
-    background-color: white;
+    background-color: none;
     content: attr(data-text);
     z-index: 1;
     color: rgb(144, 119, 149);
 }
 .select:has(.input_ele:focus)::after {
-    color: #e77ffb;
+    color: var(--input-focus-color);
 }
 .select:has(.input_ele:focus) {
-    border: 2px solid #e77ffb;
+    border: 2px solid var(--input-focus-color);
 }
 .select:has(.input_ele:hover) {
-    box-shadow: 0px 0px 2px #e77ffb;
+    box-shadow: 0px 0px 2px var(--input-focus-color);
 }
 
 .select input::placeholder {
@@ -122,9 +123,11 @@ export default {
     font-size: 24px;
     color: black;
     text-indent: 12px;
+    background-color: var(--login-background-color);
+    color: var(--input_ele-font-color);
 }
 .input_ele:focus {
-    caret-color: #e77ffb;
+    caret-color: var(--input-focus-color);
 }
 
 .arrow {
@@ -144,8 +147,9 @@ export default {
 .list {
     position: absolute;
     width: 261px;
-    border: 1px solid #cccccc;
-    background-color: snow;
+    border: 1px solid var(--input-focus-color);
+    background-color: var(--login-background-color);
+    color: var(--input_ele-font-color);
     overflow: hidden;
     z-index: 100;
 }
@@ -164,7 +168,7 @@ export default {
 }
 
 .list ul li:hover {
-    background-color: #cccccc;
+    background-color: var(--border-select-list-hover-background-color)
 }
 
 @keyframes slideDown {

@@ -46,7 +46,8 @@ export default {
     position: relative;
     width: 400px;
     height: 647px;
-    background-color: white;
+    /* background-color: white; */
+    background-color: var(--baseBox-container-background-color);
 }
 .title,
 .bottom {
