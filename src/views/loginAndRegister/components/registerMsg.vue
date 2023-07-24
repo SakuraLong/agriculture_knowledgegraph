@@ -20,7 +20,7 @@
 export default {
     methods:{
         buttonClick(){
-            this.$emit("buttonClick");
+            this.$emit("buttonClick"); 
         }
     }
 };

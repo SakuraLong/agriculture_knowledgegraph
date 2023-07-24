@@ -82,7 +82,7 @@ export default {
     position: absolute;
     left: 5%;
     top: -12px;
-    background-color: var(--input-after-background-color);
+    background-color: none;
     content: attr(data-text);
     z-index: 1;
     color: rgb(144, 119, 149);

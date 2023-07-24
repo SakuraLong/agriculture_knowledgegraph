@@ -32,7 +32,7 @@ export default {
     font-size: 25px;
     font-family: ZKKLT;
     position: relative;
-    border: 3px solid rgb(230, 146, 255);
+    border: 3px solid var(--dialog-container-border-color);
     z-index: 1;
     min-width: 100px;
     max-width: 330px;
@@ -55,7 +55,7 @@ export default {
     position: absolute;
     top: 0px;
     content: " ";
-    background-color: rgb(230, 146, 255);
+    background-color: var(--dialog-container-border-color);
     mask-image: url("./img/arrow.png");
     -webkit-mask-image: url("./img/arrow.png");
     -webkit-mask-size: 40px;
