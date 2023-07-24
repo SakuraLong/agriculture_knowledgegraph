@@ -1,5 +1,5 @@
 <template>
-    <div class="avatarUpload-container">
+    <div class="avatarUpload-container" :class="{pointer: is_unmounted}">
         <div class="box box--overlay d-flex flex-column">
             <div class="box-header">
                 <div class="header-content">
@@ -82,6 +82,7 @@ export default {
             avatar_base64: "",
             error: "",
             prompt_type: "default",
+            is_unmounted:false
         };
     },
     mounted() {
@@ -89,21 +90,11 @@ export default {
         this.image = this.createWhiteImage(); // Replace with your own base64-encoded white image
         this.drawImageToCanvas();
     },
-    beforeUnmount() {
-    // 解绑事件监听
-        this.$refs.canvas.removeEventListener("mousedown", this.onMouseDown);
-        this.$refs.canvas.removeEventListener("mousemove", this.onMouseMove);
-        this.$refs.canvas.removeEventListener("mouseup", this.onMouseUp);
-        this.$refs.canvas.removeEventListener("mouseleave", this.onMouseUp);
-        this.$refs.canvas.removeEventListener("wheel", this.onWheel);
-        this.$refs.canvas.removeEventListener("touchstart", this.onTouchStart);
-        this.$refs.canvas.removeEventListener("touchmove", this.onTouchMove);
-        this.$refs.canvas.removeEventListener("touchend", this.onTouchEnd);
-    },
     props: ["exit"],
     methods: {
         leaveAvatarCropping() {
             if (!store.state.can_click_button) return;
+            this.is_unmounted = true;
             try {
                 this.exit();
             } catch {
@@ -168,11 +159,13 @@ export default {
             // this.drawCircle();
         },
         onMouseDown(e) {
+            if(this.is_unmounted) return;
             this.dragging = true;
             this.lastX = e.clientX;
             this.lastY = e.clientY;
         },
         onMouseMove(e) {
+            if(this.is_unmounted) return;
             if (!this.dragging) return;
             let newTranslateX = this.translateX + e.clientX - this.lastX;
             let newTranslateY = this.translateY + e.clientY - this.lastY;
@@ -200,9 +193,11 @@ export default {
             this.drawImageToCanvas();
         },
         onMouseUp(e) {
+            if(this.is_unmounted) return;
             this.dragging = false;
         },
         onWheel(e) {
+            if(this.is_unmounted) return;
             let newScale = this.scale * (e.deltaY < 0 ? 1.1 : 0.9);
             let newTranslateX = this.translateX + newScale * this.image.width;
             let newTranslateY = this.translateY + newScale * this.image.height;
@@ -217,9 +212,11 @@ export default {
             this.drawImageToCanvas();
         },
         onTouchStart(e) {
+            if(this.is_unmounted) return;
             this.touches = Array.from(e.touches);
         },
         onTouchEnd(e) {
+            if(this.is_unmounted) return;
             this.touches = Array.from(e.touches);
         },
         saveImage() {
@@ -288,7 +285,9 @@ export default {
     height: 100vh;
     overflow-y: auto;
 }
-
+.pointer{
+    pointer-events: none;
+}
 .box {
     border: 1px solid black;
     margin: auto;
