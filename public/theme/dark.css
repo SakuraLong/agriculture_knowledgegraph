@@ -12,14 +12,14 @@
 }
 /* baseBox */
 :root{
-    --baseBox-container-background-color:black;
+    --baseBox-container-background-color:rgb(35,38,43)
 }
 /* borderInput*/
 :root{
     --input_ele-font-color:rgba(144, 119, 149, 0.5);
     --input-focus-color:#673a70;
     --input-after-background-color:rgb(35,38,43);
-    --input-ele-background-color:black;
+    --input-ele-background-color:rgb(35,38,43);
 }
 /* borderSelect */
 :root{
@@ -36,7 +36,7 @@
 }
 /* loginAndRegister*/
 :root{
-    --login-background-color:black;
+    --login-background-color:rgb(35,38,43);
     --login_container-box-shadow:rgba(213, 117, 232, 0.5);
     --login-msg-background-color:#4e2e54;
 }
