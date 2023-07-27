@@ -14,7 +14,7 @@
                     ></batteryElement>
                 </div>
                 <div class="content_body">
-                <!-- <el-scrollbar  class="content_body_" wrap-class="" min-size="300"> -->
+                    <!-- <el-scrollbar  class="content_body_" wrap-class="" min-size="300"> -->
                     <dialogAvatarBox
                         is_left="true"
                         :content="dailog.name.default"
@@ -30,12 +30,18 @@
                         :content="dailog.avatar.default"
                     ></dialogAvatarBox>
                     <div class="content_ele">
-                        <defaultAvatar class="default_avatar" edit="true" :edit_func="editClick"></defaultAvatar>
+                        <defaultAvatar
+                            class="default_avatar"
+                            edit="true"
+                            :edit_func="editClick"
+                        ></defaultAvatar>
                     </div>
                     <dialogAvatarBox
                         is_left="true"
                         :content="dailog.born.default"
-                    ></dialogAvatarBox>
+                    >
+                    </dialogAvatarBox>
+                    <div class="content_ele"><DatePicker class="default_born">123</DatePicker></div>
                     <dialogAvatarBox
                         is_left="true"
                         :content="dailog.sex.default"
@@ -44,7 +50,7 @@
                         is_left="true"
                         :content="dailog.occu.default"
                     ></dialogAvatarBox>
-                <!-- </el-scrollbar> -->
+                    <!-- </el-scrollbar> -->
                 </div>
                 <div class="content_bottom">
                     <transition name="opacity400">
@@ -57,12 +63,18 @@
                 </div>
             </div>
             <div class="container_son bottom">
-                <div class="exit_text" data-text="退出" @click="leaveSetting">退出</div>
+                <div class="exit_text" data-text="退出" @click="leaveSetting">
+                    退出
+                </div>
                 <div class="save_text" data-text="保存">保存</div>
             </div>
         </div>
         <transition name="opacity400">
-            <avatarUpload v-if="edit_avatar" class="avatar_upload" :exit="leaveEdit"></avatarUpload>
+            <avatarUpload
+                v-if="edit_avatar"
+                class="avatar_upload"
+                :exit="leaveEdit"
+            ></avatarUpload>
         </transition>
     </div>
 </template>
@@ -79,6 +91,7 @@ import Code from "@/assets/js/code/code.js";
 import Storage from "@/assets/js/storage/storage.js";
 import util from "@/assets/js/utils.js";
 import avatarUpload from "./components/avatarUpload.vue";
+import DatePicker from "./components/datePicker.vue";
 export default {
     data() {
         return {
@@ -104,7 +117,7 @@ export default {
             line_prompt: {
                 msg: "",
             },
-            edit_avatar:false,
+            edit_avatar: false,
         };
     },
     created() {
@@ -129,7 +142,8 @@ export default {
         linePrompt,
         batteryElement,
         defaultAvatar,
-        avatarUpload
+        avatarUpload,
+        DatePicker,
     },
     methods: {
         leaveSetting() {
@@ -140,18 +154,18 @@ export default {
             if (!store.state.can_click_button) return;
             this.$emit("leaveSetting");
         },
-        editClick(){
+        editClick() {
             this.edit_avatar = true;
         },
-        leaveEdit(){
+        leaveEdit() {
             this.edit_avatar = false;
-        }
+        },
     },
     watch: {},
 };
 </script>
 <style scoped>
-.avatar_upload{
+.avatar_upload {
     width: 100%;
     height: 100%;
     position: absolute !important;
@@ -262,7 +276,7 @@ export default {
 .content_body::-webkit-scrollbar {
     width: 12px;
     margin-right: 5px;
-    background-color: rgba(255, 255, 255, 0.485);
+    background-color: var(--scrollbar-background-color);
     opacity: 0;
 }
 /* 滚动槽 */
@@ -278,7 +292,7 @@ export default {
     opacity: 0;
     margin-right: 5px;
     border-radius: 10px;
-    background: rgba(165, 94, 177, 0.3);
+    background: var(--scrollbar-thumb-background);
     -webkit-box-shadow: inset 6px rgba(0, 0, 0, 0.5);
     /* transition: all 0.5 ease; */
 }
@@ -300,9 +314,19 @@ export default {
     position: absolute;
     right: 3%;
 }
-.default_avatar{
+.default_avatar {
     width: 150px !important;
     height: 150px !important;
     position: relative;
+}
+.default_born {
+    width: 150px !important;
+    height: 150px !important;
+    position: relative;
+}
+.dialog_DatePicker {
+    width: 100px;
+    height: 200px;
+    border: solid 1px red;
 }
 </style>
