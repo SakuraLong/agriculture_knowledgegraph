@@ -11,6 +11,9 @@ import "element-plus/dist/index.css";
 import i18n from "./assets/i18n/index.js";
 import zhCn from "element-plus/dist/locale/zh-cn.mjs";
 
+// 导入自定义组件并且全局挂载
+import mainWord from "@/components/mainWord/mainWord.vue";
+
 import * as ELIcons from "@element-plus/icons-vue";
 
 const app = createApp(App)
@@ -21,6 +24,7 @@ const app = createApp(App)
 for (let iconName in ELIcons) {
     app.component(iconName, ELIcons[iconName]);
 }
+
 app.mount("#app");
 
 (function () {

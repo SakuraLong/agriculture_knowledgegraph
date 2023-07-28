@@ -102,7 +102,7 @@ export default {
                 },
             },
             line_prompt: {
-                msg: "",
+                msg: "askask擦拭",
             },
             edit_avatar:false,
         };
@@ -163,6 +163,7 @@ export default {
     width: 100%;
     height: 100%;
     position: absolute;
+    z-index: 50000;
     left: 0px;
     top: 0px;
     display: flex;

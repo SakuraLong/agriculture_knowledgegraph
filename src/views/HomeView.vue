@@ -3,7 +3,6 @@
         class="container"
         id="container"
         :class="{ blur: page.is_login || page.is_personal_setting }"
-        onselectstart="return false"
     >
         <transition name="opacity400">
             <div
@@ -82,10 +81,17 @@
             v-if="page.is_personal_setting"
             @leaveSetting="leaveSetting"
         />
-        <loginAndRegister v-else-if="page.is_login" @leaveLogin="leaveLogin" @goToForgetPassword="goToForgetPassword" />
+        <loginAndRegister
+            v-else-if="page.is_login"
+            @leaveLogin="leaveLogin"
+            @goToForgetPassword="goToForgetPassword"
+        />
     </transition>
     <transition name="app_subpage" mode="out-in">
-        <forgetPassword v-if="page.is_forget_password" @leaveForgetPassword="leaveForgetPassword"></forgetPassword>
+        <forgetPassword
+            v-if="page.is_forget_password"
+            @leaveForgetPassword="leaveForgetPassword"
+        ></forgetPassword>
     </transition>
     <mouseSelector
         ref="mouse_selector"
@@ -223,11 +229,11 @@ export default {
             this.page.is_main_page = true;
             this.page.is_func_page = false;
         },
-        goToForgetPassword(){
+        goToForgetPassword() {
             console.log("忘记密码");
             this.page.is_forget_password = true;
         },
-        leaveForgetPassword(){
+        leaveForgetPassword() {
             this.page.is_forget_password = false;
         },
         goToShower() {
@@ -560,18 +566,6 @@ export default {
     display: flex;
     flex-direction: row;
 }
-.body_bar_container {
-    position: relative;
-    height: 100%;
-    width: 20%;
-    /* border: 1px solid red; */
-}
-.body_shower_container {
-    position: relative;
-    height: 100%;
-    width: 80%;
-    /* border: 1px solid red; */
-}
 .home_view_bar {
     /* border: 1px solid red; */
     width: 100%;
@@ -600,6 +594,7 @@ export default {
     width: 100%;
     height: 100%;
     background-color: var(--homeview-bg-color, rgb(255, 255, 255));
+    user-select: none;
     /* border: 1px solid red; */
 }
 .blur {
@@ -651,5 +646,35 @@ nav a.router-link-exact-active {
 
 .slide-leave-active {
     position: absolute;
+}
+</style>
+<style>
+.body_bar_container {
+    position: relative;
+    height: 100%;
+    width: 20%;
+    /* border: 1px solid red; */
+}
+.body_shower_container {
+    position: relative;
+    height: 100%;
+    width: 80%;
+    /* border: 1px solid red; */
+}
+@media screen and (min-width: 2000px) {
+    .body_bar_container {
+        width: 400px;
+    }
+    .body_shower_container {
+        width: calc(100% - 400px);
+    }
+}
+@media screen and (max-width: 1250px) {
+    .body_bar_container {
+        width: 250px;
+    }
+    .body_shower_container {
+        width: calc(100% - 250px);
+    }
 }
 </style>

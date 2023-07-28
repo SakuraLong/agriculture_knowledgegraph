@@ -1,3 +1,31 @@
+html, body, div, ol, ul, li, img{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    /* font: inherit; */
+    vertical-align: baseline;
+}
+ol, ul, li{
+    list-style: none;
+    margin-left: 0.7rem;
+    word-wrap: normal;
+}
+ol > div, ul > div, li > div{
+    word-wrap: normal;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+p {
+    /* box-sizing: inherit; */
+    word-wrap: break-word;
+    text-align: left;
+}
+div {
+    word-wrap: break-word;
+}
+
+
+
 :root{
     --login-width:800px;
     --login-height:494px;
@@ -15,9 +43,6 @@
     --snow-probe-default-src: url("./img/mascots/snow/probe_default.png"); /* snow 探头默认图片 */
     --snow-probe-password-src:"./img/mascots/snow/probe_base.png"; /* snow 探头输入密码时图片 */
 }
-
-
-
 @font-face {
     font-family: "FZZJ-WHJZTJW";
     src: url("../fonts/FZZJ-WHJZTJW.TTF");
@@ -143,4 +168,38 @@
 .bar_change_1-leave-to {
     transform-origin: 50% 50% -120px;
     transform: rotateY(-90deg);
+}
+
+/* ----- 渲染器 ------ */
+.curtain{
+    position: relative;
+    z-index: 0;
+    color: black !important;
+    transition: all 0.5s;
+    background-color: black;
+}
+.curtain:hover{
+    color: white !important;
+    transition: all 0.5s;
+}
+.blur{
+    filter: blur(4px);
+    transition: all 0.5s;
+}
+.blur:hover{
+    filter: blur(0px);
+    transition: all 0.5s;
+}
+.li_div{
+    position: relative;
+    display: block;
+}
+.li_span_index{
+    position: absolute;
+    font-size: 14px;
+    margin-right: 5px;
+    opacity: .5;
+    transform: translate(-100%,-50%);
+    top: 50%;
+    margin-left: -0.5rem;
 }
