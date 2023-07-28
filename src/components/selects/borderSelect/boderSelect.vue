@@ -8,7 +8,7 @@
                 :placeholder="placeholder"
                 disabled
             />
-            <span class="arrow" :class="{ rotate: show }"></span>
+            <span ref="arrow" class="arrow" :class="{ rotate: show }"></span>
         </label>
         <transition name="slide-down">
             <div class="list" v-show="show">
@@ -43,8 +43,8 @@ export default {
     methods: {
         openValue() {
             this.show = !this.show;
-            const arrow = document.querySelector(".arrow");
-            arrow.classList.toggle("rotate");
+            // const arrow = document.querySelector(".arrow");
+            this.$refs.arrow.classList.toggle("rotate");
         },
         getvalue(item) {
             this.input_value = item;
@@ -65,6 +65,8 @@ export default {
 <style scoped>
 .divSelect {
     position: relative; /* 添加这行样式 */
+    width: 260px;
+    display: block;
 }
 .select {
     font-family: Heiti;

@@ -5,10 +5,16 @@
 /* :defaultDialogBox */
 :root{
     --dialog-container-border-color:rgb(230, 146, 255);
+    --dialog-container-font-color:black;
 }
 /* confirmButton */
 :root{
     --confirm-button-color:white;
+}
+/* personalMsgSettingSubpage */
+:root{
+    --scrollbar-thumb-background:rgba(165, 94, 177, 0.3);
+    --scrollbar-background-color:rgba(255, 255, 255, 0.485);
 }
 /* baseBox */
 :root{

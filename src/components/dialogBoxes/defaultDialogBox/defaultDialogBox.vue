@@ -33,6 +33,7 @@ export default {
     font-family: ZKKLT;
     position: relative;
     border: 3px solid var(--dialog-container-border-color);
+    color: var(--dialog-container-font-color);
     z-index: 1;
     min-width: 100px;
     max-width: 330px;
