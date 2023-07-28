@@ -41,15 +41,23 @@
                         :content="dailog.born.default"
                     >
                     </dialogAvatarBox>
-                    <div class="content_ele"><DatePicker class="default_born">123</DatePicker></div>
+                    <div class="content_ele">
+                        <DatePicker class="default_born"></DatePicker>
+                    </div>
                     <dialogAvatarBox
                         is_left="true"
                         :content="dailog.sex.default"
                     ></dialogAvatarBox>
+                    <div class="content_ele">
+                        <boderSelect class="default_sex" :items="sex_list" title="性别" placeholder="选择你的性别" ></boderSelect>
+                    </div>
                     <dialogAvatarBox
                         is_left="true"
                         :content="dailog.occu.default"
                     ></dialogAvatarBox>
+                    <div class="content_ele">
+                        <boderSelect class="default_occu" :items="occu_list" title="职业" placeholder="选择你的职业" ></boderSelect>
+                    </div>
                     <!-- </el-scrollbar> -->
                 </div>
                 <div class="content_bottom">
@@ -91,10 +99,13 @@ import Code from "@/assets/js/code/code.js";
 import Storage from "@/assets/js/storage/storage.js";
 import util from "@/assets/js/utils.js";
 import avatarUpload from "./components/avatarUpload.vue";
-import DatePicker from "./components/datePicker.vue";
+import DatePicker from "@/components/datePicker/datePicker.vue";
+import boderSelect from "@/components/selects/borderSelect/boderSelect.vue";
 export default {
     data() {
         return {
+            sex_list:["男","女"],
+            occu_list:["ikun","小黑子"],
             dailog: {
                 name: {
                     name: "",
@@ -144,6 +155,7 @@ export default {
         defaultAvatar,
         avatarUpload,
         DatePicker,
+        boderSelect
     },
     methods: {
         leaveSetting() {
@@ -320,8 +332,12 @@ export default {
     position: relative;
 }
 .default_born {
-    width: 150px !important;
-    height: 150px !important;
+    position: relative;
+}
+.default_sex {
+    position: relative;
+}
+.default_occu {
     position: relative;
 }
 .dialog_DatePicker {
