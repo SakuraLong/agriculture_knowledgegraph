@@ -12,7 +12,7 @@
 <style>
 .custom-date-picker {
     position: relative;
-    z-index: 500000;
+    /* z-index: 500000; */
     /* border-radius: var(--borderRadius-medium, 6px); */
     /* color:aqua; */
 }

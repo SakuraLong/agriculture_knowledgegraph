@@ -61,7 +61,7 @@ const localStorageIsLogin = () => {
         password: Code.MD5.encrypt("123456"),
         email: "2112794@mail.nankai.edu.cn",
         real: true,
-        real_name: "鸡你太美",
+        real_name: "只因你太美",
         tel: "86547752195", // 电话号码 int
         card_type: "C01", // 证件类型 string
         id_card: "846264422056515489", // 证件号码 string
