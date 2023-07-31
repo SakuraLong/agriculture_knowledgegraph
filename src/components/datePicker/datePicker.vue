@@ -31,10 +31,12 @@
 </style>
 
 <script>
+import utils from "@/assets/js/utils.js";
 export default {
     data() {
+        const userBorn = utils.getUserMsg().born;
         return {
-            date: Date.now(), // 初始日期为2022年11月15日
+            date: userBorn ? new Date(userBorn) : Date.now(),
         };
     },
     methods: {
