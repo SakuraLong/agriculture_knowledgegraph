@@ -21,6 +21,7 @@
                     ></dialogAvatarBox>
                     <div class="content_ele">
                         <borderInput
+                            ref="nameRef"
                             title="昵称"
                             :msg="dailog.name.name_show"
                         ></borderInput>
@@ -42,21 +43,21 @@
                     >
                     </dialogAvatarBox>
                     <div class="content_ele">
-                        <DatePicker class="default_born"></DatePicker>
+                        <DatePicker class="default_born" ref="dateRef"></DatePicker>
                     </div>
                     <dialogAvatarBox
                         is_left="true"
                         :content="dailog.sex.default"
                     ></dialogAvatarBox>
                     <div class="content_ele">
-                        <boderSelect class="default_sex" :items="sex_list" title="性别" placeholder="选择你的性别" ></boderSelect>
+                        <boderSelect class="default_sex" :items="sex_list" title="性别" placeholder="选择你的性别"  ref="sexRef"></boderSelect>
                     </div>
                     <dialogAvatarBox
                         is_left="true"
                         :content="dailog.occu.default"
                     ></dialogAvatarBox>
                     <div class="content_ele">
-                        <boderSelect class="default_occu" :items="occu_list" title="职业" placeholder="选择你的职业" ></boderSelect>
+                        <boderSelect class="default_occu" :items="occu_list" title="职业" placeholder="选择你的职业" ref="occuRef" ></boderSelect>
                     </div>
                     <!-- </el-scrollbar> -->
                 </div>
@@ -74,7 +75,7 @@
                 <div class="exit_text" data-text="退出" @click="leaveSetting">
                     退出
                 </div>
-                <div class="save_text" data-text="保存">保存</div>
+                <div class="save_text" data-text="保存" @click="saveSetting">保存</div>
             </div>
         </div>
         <transition name="opacity400">
@@ -98,9 +99,11 @@ import batteryElement from "./components/batteryElement.vue";
 import Code from "@/assets/js/code/code.js";
 import Storage from "@/assets/js/storage/storage.js";
 import util from "@/assets/js/utils.js";
+import utils from "@/assets/js/utils.js";
 import avatarUpload from "./components/avatarUpload.vue";
 import DatePicker from "@/components/datePicker/datePicker.vue";
 import boderSelect from "@/components/selects/borderSelect/boderSelect.vue";
+import connector from "@/assets/js/connector/connector";
 export default {
     data() {
         return {
@@ -128,7 +131,14 @@ export default {
             line_prompt: {
                 msg: "askask擦拭",
             },
-            edit_avatar: false,
+            can_save: false,
+            error: "",
+            prompt_type: "default",
+            edit_avatar:false,
+            login_name:"",
+            sex:"",
+            born_time:"",
+            occu:""
         };
     },
     created() {
@@ -163,15 +173,83 @@ export default {
             this.$emit("leaveSetting");
         },
         saveSetting() {
-            if (!store.state.can_click_button) return;
-            this.$emit("leaveSetting");
+            // if (!store.state.can_click_button) return;
+            // if (!this.can_save) return;
+            let user_msg = utils.getUserMsg();
+            let id = user_msg.id;
+            let token = utils.getToken();
+            id = id.toString();
+            if(token === undefined) token = "tokenIsNone";
+            let login_name = this.$refs.nameRef.input_msg;
+            // let sex = this.$refs.sexRef.input_value;
+            let sex = 1;
+            let occu = this.$refs.occuRef.input_value;
+            let born_time = this.$refs.dateRef.date;
+            this.login_name =login_name;
+            this.sex = 1;
+            this.occu =occu;
+            this.born_time =born_time;
+            console.log("现在的职业是：",this.$refs.occuRef.input_value);
+            console.log("现在的名字是:",this.$refs.nameRef.input_msg);
+            console.log("现在的性别是:",this.$refs.sexRef.input_value);
+            console.log("日期是：",this.$refs.dateRef.date);
+            connector.send(
+                [id,login_name,token,sex,occu,born_time],
+                "updateUserMsg",
+                this.saveInfoCallback,
+                this.saveInfoWaiting,
+                this.saveInfoTimeout
+            );
+            // connector.test(
+            //     this.loginCallback,
+            //     this.loginWaiting,
+            //     this.loginTimeout,
+            //     200,
+            //     true,
+            //     1000,
+            //     {
+            //         "success":true
+            //     }
+            // );
+        },
+        saveInfoCallback(msg) {
+            if (msg.success) {
+                this.prompt_type = "success";
+                this.error = "上传成功";
+                let user_msg = utils.getUserMsg();
+                user_msg.login_name =  this.login_name;
+                user_msg.sex= this.sex;
+                user_msg.occu =this.occu;
+                user_msg.born_time =this.born_time;
+                utils.saveUserMsg(user_msg);
+            } else {
+                this.prompt_type = "error";
+                this.error = "上传失败";
+            }
+        },
+        saveInfoWaiting(is_waiting) {
+            if (is_waiting) {
+                store.state.can_click_button = false;
+                this.prompt_type = "waiting";
+                this.error = "上传中";
+            }else{
+                store.state.can_click_button = true;
+                this.prompt_type = "default";
+                this.error = "";
+            }
+        },
+        saveInfoTimeout() {
+            this.prompt_type = "error";
+            this.error = "上传失败";
         },
         editClick() {
             this.edit_avatar = true;
+            console.log(this.edit_avatar);
         },
         leaveEdit() {
             this.edit_avatar = false;
         },
+
     },
     watch: {},
 };

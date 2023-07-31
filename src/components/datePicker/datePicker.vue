@@ -39,7 +39,7 @@ export default {
     },
     methods: {
         handleChange(value) {
-            // console.log(value); // 选择的日期
+            console.log(value); // 选择的日期
         },
         disabledDate(date) {
             const today = new Date();
