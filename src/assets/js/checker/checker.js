@@ -22,7 +22,7 @@ class Checker {
         "is-num":"isNum()"
     };
     checker_data = {
-        base_symbols: ["<", ">", "{", "}", "[", "]", "~", "`", "^", "(", ")"],
+        base_symbols: ["<", ">", "{", "}", "[", "]", "~", "`", "^", "(", ")","+"],
     };
     constructor(str, check_methods) {
         this.str = str;
