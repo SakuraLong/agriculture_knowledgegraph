@@ -134,6 +134,11 @@ export default {
             can_save: false,
             error: "",
             prompt_type: "default",
+            edit_avatar:false,
+            login_name:"",
+            sex:"",
+            born_time:"",
+            occu:""
         };
     },
     created() {
@@ -175,20 +180,26 @@ export default {
             let token = utils.getToken();
             id = id.toString();
             if(token === undefined) token = "tokenIsNone";
-            let name = this.$refs.nameRef.input_msg;
-            let sex = this.$refs.sexRef.input_value;
+            let login_name = this.$refs.nameRef.input_msg;
+            // let sex = this.$refs.sexRef.input_value;
+            let sex = 1;
             let occu = this.$refs.occuRef.input_value;
+            let born_time = this.$refs.dateRef.date;
+            this.login_name =login_name;
+            this.sex = 1;
+            this.occu =occu;
+            this.born_time =born_time;
             console.log("现在的职业是：",this.$refs.occuRef.input_value);
             console.log("现在的名字是:",this.$refs.nameRef.input_msg);
             console.log("现在的性别是:",this.$refs.sexRef.input_value);
             console.log("日期是：",this.$refs.dateRef.date);
-            // connector.send(
-            //     [id, token,],
-            //     "updateAvatar",
-            //     this.saveImageCallback,
-            //     this.saveImageWaiting,
-            //     this.saveImageTimeout
-            // );
+            connector.send(
+                [id,login_name,token,sex,occu,born_time],
+                "updateUserMsg",
+                this.saveInfoCallback,
+                this.saveInfoWaiting,
+                this.saveInfoTimeout
+            );
             // connector.test(
             //     this.loginCallback,
             //     this.loginWaiting,
@@ -201,9 +212,39 @@ export default {
             //     }
             // );
         },
+        saveInfoCallback(msg) {
+            if (msg.success) {
+                this.prompt_type = "success";
+                this.error = "上传成功";
+                let user_msg = utils.getUserMsg();
+                user_msg.login_name =  this.login_name;
+                user_msg.sex= this.sex;
+                user_msg.occu =this.occu;
+                user_msg.born_time =this.born_time;
+                utils.saveUserMsg(user_msg);
+            } else {
+                this.prompt_type = "error";
+                this.error = "上传失败";
+            }
+        },
+        saveInfoWaiting(is_waiting) {
+            if (is_waiting) {
+                store.state.can_click_button = false;
+                this.prompt_type = "waiting";
+                this.error = "上传中";
+            }else{
+                store.state.can_click_button = true;
+                this.prompt_type = "default";
+                this.error = "";
+            }
+        },
+        saveInfoTimeout() {
+            this.prompt_type = "error";
+            this.error = "上传失败";
+        },
         editClick() {
             this.edit_avatar = true;
-            console.log("?",this.edit_avatar);
+            console.log(this.edit_avatar);
         },
         leaveEdit() {
             this.edit_avatar = false;

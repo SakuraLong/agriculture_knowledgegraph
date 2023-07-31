@@ -147,7 +147,7 @@ export default {
 }
 
 .list {
-    position: relative;
+    position:absolute;
     width: 261px;
     border: 1px solid var(--input-focus-color);
     background-color: var(--login-background-color);
@@ -158,19 +158,18 @@ export default {
 
 .list ul {
     padding: 0;
+    margin: 0;
 }
 
 .list ul li {
     list-style: none;
-    width: 264px;
-    height: 0;
+    width: 100%;
+    margin: 0;
     cursor: pointer;
     line-height: 30px;
     animation: slideDown 0.07s forwards;
     /* border: solid 1px red; */
-    position: relative;
-    right: 25px;
-
+    /* right: 25px; */
 }
 
 .list ul li:hover {

@@ -9,7 +9,7 @@ const API = {
         "changePassword": "updateUserPassword/",
         "changeEmail":"sendEmailVerification/",
         "updateAvatar": "avatarSubmission/",
-        "updateUserMsg": "updateAcountInformation/",
+        "updateUserMsg": "updateAccountInformation/",
         "getUserMsg": "getUserMessage/",
         "verify":"verifyEmailCode/"
     },
@@ -41,7 +41,7 @@ const API_PARA = {
     ],
     "updateUserMsg":[
         ["id",""],
-        ["name",""],
+        ["login_name",""],
         ["token",""],
         ["sex",""],
         ["occupation",""],
@@ -72,6 +72,14 @@ const API_CHECKER = {
         ["num-only", "@length-min=9", "@length-max=9"],
         ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"],
         ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"]
+    ],
+    "updateUserMsg":[
+        ["ignore"],
+        ["ignore"],
+        ["ignore"],
+        ["ignore"],
+        ["ignore"],
+        ["ignore"],
     ]
 };
 export default{
