@@ -38,6 +38,14 @@ const API_PARA = {
         ["id", ""],
         ["token", ""],
         ["avatar", ""]
+    ],
+    "updateUserMsg":[
+        ["id",""],
+        ["name",""],
+        ["token",""],
+        ["sex",""],
+        ["occupation",""],
+        ["born_time",""]
     ]
 };
 const API_CHECKER = {

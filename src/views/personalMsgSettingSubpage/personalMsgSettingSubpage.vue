@@ -21,6 +21,7 @@
                     ></dialogAvatarBox>
                     <div class="content_ele">
                         <borderInput
+                            ref="nameRef"
                             title="昵称"
                             :msg="dailog.name.name_show"
                         ></borderInput>
@@ -42,21 +43,21 @@
                     >
                     </dialogAvatarBox>
                     <div class="content_ele">
-                        <DatePicker class="default_born"></DatePicker>
+                        <DatePicker class="default_born" ref="dateRef"></DatePicker>
                     </div>
                     <dialogAvatarBox
                         is_left="true"
                         :content="dailog.sex.default"
                     ></dialogAvatarBox>
                     <div class="content_ele">
-                        <boderSelect class="default_sex" :items="sex_list" title="性别" placeholder="选择你的性别" ></boderSelect>
+                        <boderSelect class="default_sex" :items="sex_list" title="性别" placeholder="选择你的性别"  ref="sexRef"></boderSelect>
                     </div>
                     <dialogAvatarBox
                         is_left="true"
                         :content="dailog.occu.default"
                     ></dialogAvatarBox>
                     <div class="content_ele">
-                        <boderSelect class="default_occu" :items="occu_list" title="职业" placeholder="选择你的职业" ></boderSelect>
+                        <boderSelect class="default_occu" :items="occu_list" title="职业" placeholder="选择你的职业" ref="occuRef" ></boderSelect>
                     </div>
                     <!-- </el-scrollbar> -->
                 </div>
@@ -74,7 +75,7 @@
                 <div class="exit_text" data-text="退出" @click="leaveSetting">
                     退出
                 </div>
-                <div class="save_text" data-text="保存">保存</div>
+                <div class="save_text" data-text="保存" @click="saveSetting">保存</div>
             </div>
         </div>
         <transition name="opacity400">
@@ -98,9 +99,11 @@ import batteryElement from "./components/batteryElement.vue";
 import Code from "@/assets/js/code/code.js";
 import Storage from "@/assets/js/storage/storage.js";
 import util from "@/assets/js/utils.js";
+import utils from "@/assets/js/utils.js";
 import avatarUpload from "./components/avatarUpload.vue";
 import DatePicker from "@/components/datePicker/datePicker.vue";
 import boderSelect from "@/components/selects/borderSelect/boderSelect.vue";
+import connector from "@/assets/js/connector/connector";
 export default {
     data() {
         return {
@@ -128,7 +131,9 @@ export default {
             line_prompt: {
                 msg: "askask擦拭",
             },
-            edit_avatar: false,
+            can_save: false,
+            error: "",
+            prompt_type: "default",
         };
     },
     created() {
@@ -163,8 +168,38 @@ export default {
             this.$emit("leaveSetting");
         },
         saveSetting() {
-            if (!store.state.can_click_button) return;
-            this.$emit("leaveSetting");
+            // if (!store.state.can_click_button) return;
+            // if (!this.can_save) return;
+            let user_msg = utils.getUserMsg();
+            let id = user_msg.id;
+            let token = utils.getToken();
+            id = id.toString();
+            if(token === undefined) token = "tokenIsNone";
+            let name = this.$refs.nameRef.input_msg;
+            let sex = this.$refs.sexRef.input_value;
+            let occu = this.$refs.occuRef.input_value;
+            console.log("现在的职业是：",this.$refs.occuRef.input_value);
+            console.log("现在的名字是:",this.$refs.nameRef.input_msg);
+            console.log("现在的性别是:",this.$refs.sexRef.input_value);
+            console.log("日期是：",this.$refs.dateRef.date);
+            // connector.send(
+            //     [id, token,],
+            //     "updateAvatar",
+            //     this.saveImageCallback,
+            //     this.saveImageWaiting,
+            //     this.saveImageTimeout
+            // );
+            // connector.test(
+            //     this.loginCallback,
+            //     this.loginWaiting,
+            //     this.loginTimeout,
+            //     200,
+            //     true,
+            //     1000,
+            //     {
+            //         "success":true
+            //     }
+            // );
         },
         editClick() {
             this.edit_avatar = true;
@@ -172,6 +207,7 @@ export default {
         leaveEdit() {
             this.edit_avatar = false;
         },
+
     },
     watch: {},
 };
