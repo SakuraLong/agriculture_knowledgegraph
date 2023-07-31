@@ -13,7 +13,7 @@ const API = {
         "getUserMsg": "getUserMessage/",
         "verify":"verifyEmailCode/"
     },
-};
+}; 
 const API_PARA = {
     "register": [
         ["email", ""],
