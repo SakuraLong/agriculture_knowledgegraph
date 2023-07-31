@@ -43,6 +43,9 @@ const textFunc = (text) => {
                     span.title = para[1] !== undefined ? para[1] : default_title;
                     span.style.color = default_curtain_color;
                     break;
+                case "title":
+                    span.title = para[1] !== undefined ? para[1] : "";
+                    break;
                 case "blur":
                     span.classList.add("blur");
                     span.title = para[1] !== undefined ? para[1] : "";
