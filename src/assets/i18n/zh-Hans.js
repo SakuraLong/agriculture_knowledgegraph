@@ -50,11 +50,11 @@ export default {
                     title: "返回",
                 },
                 entity_recognition: {
-                    title:"实体识别",
+                    title:"番剧识别",
                     detail:"通过检索实体查询相关资料"
                 },
                 entity_query: {
-                    title:"实体查询",
+                    title:"番剧查询",
                     detail:"通过检索实体进行查询"
                 },
                 relationship_query: {

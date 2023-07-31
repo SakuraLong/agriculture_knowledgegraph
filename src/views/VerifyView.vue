@@ -1,7 +1,7 @@
 <template>
     <div class="verify">
         <transition name="opacity400">
-            <div class="container" v-if="show" onselectstart="return false">
+            <div class="container" v-if="show">
                 <bg></bg>
                 <div
                     :class="{
@@ -142,6 +142,7 @@ export default {
 .container {
     width: 100%;
     height: 100%;
+    user-select: none;
     /* background-color: rgba(0, 128, 255, 0.5); */
 }
 .container {

@@ -85,7 +85,8 @@ export default {
                 }
             }
             if(this.container_index!==0&&this.container_index!==this.ele_list.length-1){
-                storage.set(0, "METHODS", this.container_index);
+                storage.set(0, "METHODS", this.container_index); // 改变
+                this.$emit("goToSubpage", this.container_index);
             }
         },
         eleInit() {
@@ -116,7 +117,8 @@ export default {
                 // 点击其他
                 this.$emit("goToOther");
             }else{
-                storage.set(0, "METHODS", index);
+                storage.set(0, "METHODS", index); // 改变
+                this.$emit("goToSubpage", index);
                 let delta = index - this.container_index;
                 if(no_animation){
                     this.container_top -= delta * 70;

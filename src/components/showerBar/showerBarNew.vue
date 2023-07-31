@@ -5,6 +5,7 @@
             @setSelected="setSelected"
             @backToHome="backToHome"
             @goToOther="goToOther"
+            @goToSubpage="goToSubpage"
         ></showerBarTrack>
         <showerBarSelected
             :title="selected.title"
@@ -49,6 +50,9 @@ export default {
         },
         goToOther() {
             this.$emit("goToShowerOther");
+        },
+        goToSubpage(index){
+            this.$emit("goToSubpage", index);
         },
         wheelEvent(event) {
             if (this.can_wheel) {

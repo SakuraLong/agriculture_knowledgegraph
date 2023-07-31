@@ -51,4 +51,8 @@
 export default {};
 </script>
 
-<style></style>
+<style scoped>
+p{
+    text-align: center;
+}
+</style>

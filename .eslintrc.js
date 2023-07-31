@@ -38,7 +38,7 @@ module.exports = {
             "capIsNew": false
         }], // 要求构造函数首字母大写
         "vue/multi-word-component-names": ["error",{
-            "ignores": ["index","main"]//需要忽略的组件名
+            "ignores": ["index","main", "test"]//需要忽略的组件名
         }],
     }
 };

@@ -16,6 +16,7 @@ export default {
 
 <style scoped>
 .background_word {
+    user-select: none !important;
     width: 700px; /* 调整导航栏的宽度 */
     position: fixed; /* 设置为固定定位 */
     top: 45%; /* 距离顶部的距离 */
