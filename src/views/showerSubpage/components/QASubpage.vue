@@ -1,6 +1,6 @@
-<!-- 关系查询子页面 -->
+<!-- 农业知识问答子页面 -->
 <template>
-    <div class="rq_subpage_container" ref="container">ersersers</div>
+    <div class="qa_subpage_container" ref="container">ersersers</div>
 </template>
 <script>
 export default {
@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style scoped>
-.rq_subpage_container {
+.qa_subpage_container {
     position: relative;
     border: 1px solid red;
     float: right;

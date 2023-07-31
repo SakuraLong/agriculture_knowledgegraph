@@ -24,8 +24,4 @@ class ParagraphDecoder {
     }
 }
 
-const paragraphDecoder = (text, index) => {
-    return new ParagraphDecoder(text).decode(index);
-};
-
-export default paragraphDecoder;
+export default ParagraphDecoder;

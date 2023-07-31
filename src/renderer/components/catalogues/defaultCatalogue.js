@@ -1,6 +1,10 @@
 import Element from "../element.js";
 
 class DefaultCatalogue extends Element{
+    select_title = 0;
+    select_top = 0;
+    select_height = 0;
+    title_ids = [];
     constructor(refs, catalogues_arr, body_refs){
         super(refs, "div", true);
         this.element.style.position = "relative";
@@ -8,12 +12,39 @@ class DefaultCatalogue extends Element{
         this.body_refs = body_refs; // 正文
         this.catalogueInit();
     }
-    catalogueEleClick(scroll_top, client_height, index, data_index) {
+    catalogueEleClick(scroll_top, client_height, id, data_index) {
         // 点击目录
         let real_top = scroll_top - 8;
         let real_height = client_height + 16;
         let h = document.getElementById(data_index);
         this.body_refs.scrollTo({top:h.offsetTop, behavior:"smooth"});
+        let index = this.title_ids.indexOf(id);
+        this.is_click_cata = index;
+    }
+    setBodyScroll(scroll_top){
+        // body的滚动距离回传
+        let select_title = 0; // 默认选择0
+        let pass = false;
+        this.title_ids.forEach((element, index)=>{
+            if(pass) return;
+            if(document.getElementById(element).offsetTop - 50 <= scroll_top){
+                if(index === this.title_ids.length - 1){
+                    select_title = index;
+                    pass = true;
+                }else if(document.getElementById(this.title_ids[index + 1]).offsetTop - 50 > scroll_top){
+                    select_title = index;
+                    pass = true;
+                }
+            }
+        });
+        if(this.select_title === select_title){
+            document.getElementById("cata" + this.title_ids[this.select_title]).classList.remove("cata_selected");
+            document.getElementById("cata" + this.title_ids[select_title]).classList.add("cata_selected");
+        }else{
+            document.getElementById("cata" + this.title_ids[this.select_title]).classList.remove("cata_selected");
+            document.getElementById("cata" + this.title_ids[select_title]).classList.add("cata_selected");
+            this.select_title = select_title;
+        }
     }
     catalogueInit() {
         let menu = createMenu(this.catalogues_arr);
@@ -78,17 +109,20 @@ class DefaultCatalogue extends Element{
             });
             let li = document.createElement("li");
             let div = document.createElement("div");
+            let id = "cata" + node.index.toString() + node.title;
             div.setAttribute("class", "li_div");
+            div.setAttribute("id", id);
             div.title = node.title;
             div.addEventListener(
                 "click",
                 (function (that) {
                     return function () {
-                        that.catalogueEleClick(div.offsetTop, div.clientHeight, pos, div.getAttribute("data-index"));
+                        that.catalogueEleClick(div.offsetTop, div.clientHeight, node.index.toString() + node.title, div.getAttribute("data-index"));
                     };
                 })(that)
             );
             div.setAttribute("data-index", node.index.toString() + node.title);
+            that.title_ids.push(node.index.toString() + node.title);
             li.appendChild(div);
             let span_index = document.createElement("span");
             span_index.setAttribute("class", "li_span_index");

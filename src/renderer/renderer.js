@@ -7,13 +7,16 @@ import Decoder from "./decoders/decoder.js";
 
 const t = `
 - 界面配置
-配置啥呢
+ENTITY 必须要有ENTITY或者是RELATION
+= 
 - 实体对外展示内容
 NAME=这玩意真难做
 IMG=null
 CONTENT=好难啊啊好难，怎么这么难，vue加原生也好难。
-TITLE={vue加原生js，难上加难！！|——一位不愿意透露姓名的编程人员}
+TITLE=vue加原生js，难上加难！！|——一位不愿意透露姓名的编程人员
 - 实体界面信息
+
+{{引用|这是一个引用{{文本|这是一个测试文本|curtain=看啥呢？|color=red}}，我觉得他不错{{文本|原生js真香|blur=划重点}}|开发测试人员{{文本|这是一个测试文本|curtain=看啥呢？|color=red}}|c_weight=900|c_size=30|f_size=18|f_color=rgb(0, 0, 255, 0.5)|}}
 
 = 太难了 =
 
@@ -22,195 +25,23 @@ TITLE={vue加原生js，难上加难！！|——一位不愿意透露姓名的�
 第一段ashiashaishsasasaxsaxsaxasasxsaxsaxasasxsaxsaxasasxsaxsaxasasxsaxsaxasasxsaxsaxasasx
 saxsaxasasxsaxsaxasasxsaxsaxasasxsaxsaxasasxsaxsaxasasxsaxsaxasasx
 asxasxasx
-asxasxasx{{还行还挺有意思的|文本|color=gold|weight=900|und=red}}
+asxasxasx{{文本|还行还挺{{文本|还行还挺有意思的|color=gold|weight=900|und=red}}有意思的|color=gold|weight=900|und=red}}
 
 === 三级标题 ===
 
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|color=red}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-=== 三级标题 ===
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-=== 三级标题 ===
-
-第二段saxasxasx
-asxasxasasxas<br>
-saxasxsa
-
-这里是默认的{{这是一个测试文本|文本|curtain=是不是啥都看不见，那就没错了！|color=black}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-== 二级标题 ==
-
-第一段ashiashaishsasasaxsaxsaxasasxsaxsaxasasxsaxsaxasasxsaxsaxasasxsaxsaxasasxsaxsaxasasx
+&nbsp&nbsp&nbsp&nbsp这里是默认的{{文本|这是一个测试文本|curtain=看啥呢？|color=red}}这里是默认的{{文本|vue好难啊啊|del}}，
+{{文本|虽然说vue也不错|und}}{{文本|原生js真香|blur=划重点}}第一段ashiashaishsasa水水水水
+asasxsaxsaxasasxsaxsaxasasxsaxsaxasasxsaxsaxasasxsaxsaxasasx
 saxsaxasasxsaxsaxasasxsaxsaxasasxsaxsaxasasxsaxsaxasasxsaxsaxasasx
 asxasxasx
-asxasxasx{{还行还挺有意思的|文本|color=gold|weight=900|und=red}}
+asxasxasx{{文本|还行还挺有意思的|color=gold|weight=900|und=red}}
 
 === 三级标题 ===
 
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-==== 三级标题 ====
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-==== 三级标题 ====
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-===== 三级标题 =====
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？|}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
-
-=== 三级标题三级标题三级标题三级标题三级标题 ===
-
-第二段saxasxasx
-asxasxasasxas<br>
-saxasxsa
-
-这里是默认的{{这是一个测试文本|文本|curtain=看啥呢？}}{{这是一个测试文本|文本|curtain=看啥呢？|}}
-{{这是一个测试文本|文本|curtain=看啥呢？}}{{这是一个测试文本|文本|curtain=看啥呢？}}这里是默认的{{vue好难啊啊|文本|del}}，
-{{虽然说vue也不错|文本|und}}{{原生js真香|文本|blur=划重点}}
 `; // 标准写法
 
 class Renderer {
+    default_catalogue = null;
     refs_catalogue = {};
     elements = [];
     constructor(refs_ele, text) {
@@ -237,8 +68,11 @@ class Renderer {
     }
     catalogueInit(refs_catalogue) {
         this.refs_catalogue = refs_catalogue;
-        let default_catalogue = new DefaultCatalogue(this.refs_catalogue, this.decode_res, this.refs_ele);
+        this.default_catalogue = new DefaultCatalogue(this.refs_catalogue, this.decode_res, this.refs_ele);
         
+    }
+    setBodyScroll(scroll_top){
+        this.default_catalogue.setBodyScroll(scroll_top);
     }
 }
 

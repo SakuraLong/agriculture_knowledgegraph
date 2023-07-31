@@ -30,6 +30,7 @@
                                 class="home_view_bar home_view_bar_shower"
                                 @backToHome="backToHome"
                                 @goToShowerOther="goToShowerOther"
+                                @goToSubpage="goToSubpage"
                                 v-else-if="page.is_func_page"
                             />
                         </transition>
@@ -43,6 +44,7 @@
                             />
                             <showerSubpage
                                 v-else-if="page.is_func_page"
+                                ref="shower_subpage"
                             ></showerSubpage>
                         </transition>
                     </div>
@@ -235,6 +237,9 @@ export default {
         },
         leaveForgetPassword() {
             this.page.is_forget_password = false;
+        },
+        goToSubpage(index){
+            this.$refs.shower_subpage.scrollTo(index);
         },
         goToShower() {
             this.bar_change = "bar_change_0";
@@ -659,6 +664,7 @@ nav a.router-link-exact-active {
     position: relative;
     height: 100%;
     width: 80%;
+    user-select: text !important;
     /* border: 1px solid red; */
 }
 @media screen and (min-width: 2000px) {

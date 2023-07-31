@@ -7,8 +7,8 @@ const textFunc = (text) => {
     const default_title = "你知道的太多了";
     const default_color = "black";
     const default_curtain_color = "white";
-    let arr = text.split("|");
-    let content = arr[0]; // 文本内容
+    let arr = text.split(/(?<!{{[^}]*?)\|/g);
+    let content = arr[1]; // 文本内容
     let span = document.createElement("span");
     let und = document.createElement("u");
     let del = document.createElement("del");
@@ -16,7 +16,7 @@ const textFunc = (text) => {
     let has_del = false;
     span.innerHTML = content;
     span.style.color = default_color;
-    if(arr[1] !== "文本") return text;
+    if(arr[0] !== "文本") return text;
     arr.forEach((element, index)=>{
         if(index === 0 || index === 1){
             return;

@@ -41,10 +41,4 @@ class TitleDecoder {
     }
 }
 
-const titleDecoder = (text, index) => {
-    let title_decoder = new TitleDecoder(text);
-    let res = title_decoder.decode(index);
-    return res;
-};
-
-export default titleDecoder;
+export default TitleDecoder;
