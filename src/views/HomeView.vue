@@ -512,7 +512,7 @@ export default {
         // store.state.avatar = utils.getUserMsg().avatar;
         // testMsg.localStorageIsLogin();
         // console.log(store.state.avatar);
-        // utils.userLoginInit(); // 自动登录
+        utils.userLoginInit(); // 自动登录
     },
     mounted() {
         setTimeout(() => {

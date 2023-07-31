@@ -203,6 +203,7 @@ export default {
         },
         editClick() {
             this.edit_avatar = true;
+            console.log("?",this.edit_avatar);
         },
         leaveEdit() {
             this.edit_avatar = false;

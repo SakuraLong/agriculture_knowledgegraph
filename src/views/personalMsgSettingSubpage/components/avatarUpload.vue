@@ -5,7 +5,6 @@
                 <div class="header-content">
                     <h3 class="box-title">裁剪新的个人头像</h3>
                     <button class="close-button" @click="leaveAvatarCropping">
-                        ×
                     </button>
                 </div>
             </div>
