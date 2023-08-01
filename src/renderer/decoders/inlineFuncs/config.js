@@ -7,7 +7,7 @@ const config = [
         attentions:[
             "type里面填写的内容是name里面的内容",
             "支持嵌套写法",
-            "参数没有先后顺序之分，也没有个数限制，后面设置的会覆盖前面的",
+            "除了每个不可改变顺序的提示以外，参数没有先后顺序之分，也没有个数限制，后面设置的会覆盖前面的",
         ]
     },
     {
@@ -24,6 +24,7 @@ const config = [
             "设置模糊，第一个参数代表鼠标提示词，默认值是空（不显示）",
         ],
         attentions:[
+            "type, content不可改变顺序",
             "当设置遮罩时，不建议给文本加入颜色",
             "不建议将模糊和遮罩一起使用（虽然不会出错",
         ],
@@ -47,9 +48,20 @@ const config = [
             "引用不为斜体"
         ],
         attentions:[
-
+            "type, content, from不可改变顺序"
         ],
         example:"{{引用|这是一个引用，我觉得他不错|开发测试人员|c_color=red|c_weight=900|p_color=rgb(0, 0, 255, 0.5)|s_color=black|no_italics}}"
+    },
+    {
+        name:"连接关系",
+        parae:["type", "from", "to", "content"],
+        annotations: [
+            "类型",
+            "实体1",
+            "实体2",
+            "连接线的显示词"
+        ],
+        attentions:["连接关系现在是"]
     }
 ];
 

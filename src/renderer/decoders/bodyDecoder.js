@@ -2,17 +2,16 @@ import TitleDecoder from "./decoders/titleDecoder";
 import ParagraphDecoder from "./decoders/paragraphDecoder";
 /**
  * 主体解码器
- * 根据\n\n分割
+ * 主体解码器的作用是根据\n\n分割段落
  */
 class BodyDecoder{
     decode_res = [];
     constructor(text){
         this.text = text;
-        this.text = this.text.replace(/^\n+|\n+$/g, "");
-        this.text = this.text.replace(/^\s+|\s+$/g, "");
-        this.text_arr = this.text.split("\n\n");
+        this.text = this.text.trim(); // 去掉首尾空格和换行符
+        this.text_arr = this.text.split("\n\n"); // 根据\n\n分割段落
         this.text_arr.forEach((element, index) => {
-            this.text_arr[index] = element.replace(/^\s+|\s+$/g, "");
+            this.text_arr[index] = element.trim(); // 去掉首尾空格和换行符
         });
     }
     pushToRes(temp){
