@@ -48,6 +48,7 @@
                             class="default_born"
                             ref="dateRef"
                             date="date_now"
+                            @change="nitian"
                         ></DatePicker>
                     </div>
                     <dialogAvatarBox
@@ -89,6 +90,7 @@
                         class="line_prompt"
                         :data_left="line_prompt.msg"
                         :opacity="line_prompt.msg"
+                        :type="prompt_type"
                     ></linePrompt>
                 </div>
             </div>
@@ -156,11 +158,11 @@ export default {
                 },
             },
             line_prompt: {
-                msg: "askask擦拭",
+                msg: "",
             },
             can_save: false,
             error: "",
-            prompt_type: "default",
+            prompt_type: "error",
             edit_avatar: false,
             login_name: "",
             sex: "",
@@ -181,8 +183,11 @@ export default {
         if (user_msg.sex === 1) this.dailog.sex.sex_show = "女";
         else this.dailog.sex.sex_show = "男";
         this.dailog.occu.occu_show = user_msg.occu;
-        this.dailog.name.name_show = user_msg.login_name;
+        this.dailog.name.name_show = user_msg.name;
         this.can_save = false;
+        console.log(user_msg.occu);
+        console.log(user_msg.name);
+        console.log(this.dailog.sex.sex_show);
         console.log("目前不可保持");
     },
     mounted() {
@@ -209,7 +214,8 @@ export default {
         },
         saveSetting() {
             if (!store.state.can_click_button) return;
-            if (!this.can_save) {console.log("无更改不需保存");return;}
+            if (!this.can_save) {this.line_prompt.msg = "无更改无需保存";return;}
+            if (!this.newNameChecker()){return;}
             let user_msg = utils.getUserMsg();
             let id = user_msg.id;
             let token = utils.getToken();
@@ -230,13 +236,13 @@ export default {
             console.log("日期是：", a);
             console.log(a);
             this.can_save = false;
-            // connector.send(
-            //     [id, login_name, token, sex, occu, a],
-            //     "updateUserMsg",
-            //     this.saveInfoCallback,
-            //     this.saveInfoWaiting,
-            //     this.saveInfoTimeout
-            // );
+            connector.send(
+                [id, login_name, token, sex, occu, a],
+                "updateUserMsg",
+                this.saveInfoCallback,
+                this.saveInfoWaiting,
+                this.saveInfoTimeout
+            );
             // connector.test(
             //     this.loginCallback,
             //     this.loginWaiting,
@@ -298,14 +304,6 @@ export default {
             // console.log(this.$refs.nameRef.input_msg);
             // console.log(this.$refs.sexRef.input_value);
         },
-        onOccuSelected(e) {
-            this.can_save = true;
-            console.log("职业改变");
-        },
-        onSexSelected(e) {
-            this.can_save = true;
-            console.log("性别改变");
-        },
         date_format(date) {
             let str = date.toString();
             let arr = str.split(" ");
@@ -361,8 +359,35 @@ export default {
         },
         infoChanged(){
             this.can_save = true;
-            console.log("有改变");
-            console.log(this.can_save);
+            // console.log("有改变");
+            // console.log(this.can_save);
+        },
+        newNameChecker(){
+            let str = this.$refs.nameRef.input_msg;
+            if (new Checker(str, ["no-null"]).check()){
+                if(!new Checker(str, ["@length-max=100","@length-min=1"]).check()){
+                    this.line_prompt.msg = "昵称长度应在1-100位之间";
+                    return false;
+                }
+                else{
+                    if(!new Checker(str, ["no-base-symbols","no-spacing"]).check()){
+                        this.line_prompt.msg = "昵称不能包含基础符号或空格";
+                        return false;
+                    }
+                    else{
+                        this.line_prompt.msg = "合理";
+                        return true;
+                    }
+                }
+            }
+            else{
+                this.line_prompt.msg = "昵称不能为空";
+                return false;
+            }
+        },
+        nitian(e){
+            console.log("逆天");
+            this.can_save = true;
         }
     },
 };
