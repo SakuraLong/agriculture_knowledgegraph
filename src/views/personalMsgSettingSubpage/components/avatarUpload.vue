@@ -235,7 +235,7 @@ export default {
             let link = document.createElement("a");
             link.download = "image.png";
             link.href = avatar;
-            link.click();
+            // link.click();
             avatar = code.Base64.encode(avatar);
             console.log("发送", avatar);
             connector.send(

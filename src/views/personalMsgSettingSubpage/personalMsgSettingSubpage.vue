@@ -18,10 +18,10 @@
                     <dialogAvatarBox
                         is_left="true"
                         :content="dailog.name.default"
-                        @change="onNameSelected"
                     ></dialogAvatarBox>
                     <div class="content_ele">
                         <borderInput
+                            @change="onNameSelected"
                             ref="nameRef"
                             title="昵称"
                             :msg="dailog.name.name_show"
@@ -47,6 +47,8 @@
                         <DatePicker
                             class="default_born"
                             ref="dateRef"
+                            date="date_now"
+                            @change="nitian"
                         ></DatePicker>
                     </div>
                     <dialogAvatarBox
@@ -55,11 +57,14 @@
                     ></dialogAvatarBox>
                     <div class="content_ele">
                         <boderSelect
+                            @sexChanged="infoChanged"
                             class="default_sex"
                             :items="sex_list"
                             title="性别"
                             placeholder="选择你的性别"
                             ref="sexRef"
+                            select_type="sex"
+                            :value="dailog.sex.sex_show"
                         ></boderSelect>
                     </div>
                     <dialogAvatarBox
@@ -68,11 +73,14 @@
                     ></dialogAvatarBox>
                     <div class="content_ele">
                         <boderSelect
+                            @occuChanged="infoChanged"
                             class="default_occu"
                             :items="occu_list"
                             title="职业"
                             placeholder="选择你的职业"
                             ref="occuRef"
+                            select_type="occu"
+                            :value="dailog.occu.occu_show"
                         ></boderSelect>
                     </div>
                     <!-- </el-scrollbar> -->
@@ -82,6 +90,7 @@
                         class="line_prompt"
                         :data_left="line_prompt.msg"
                         :opacity="line_prompt.msg"
+                        :type="prompt_type"
                     ></linePrompt>
                 </div>
             </div>
@@ -136,26 +145,30 @@ export default {
                     default: "设置一个头像叭？",
                 },
                 born: {
+                    born_show: Date.now(),
                     default: "希望在什么时候为你送上生日祝福？",
                 },
                 sex: {
+                    sex_show: "",
                     default: "方便告诉我们你的性别吗？",
                 },
                 occu: {
+                    occu_show: "",
                     default: "方便告诉我们你的职业吗？",
                 },
             },
             line_prompt: {
-                msg: "askask擦拭",
+                msg: "",
             },
             can_save: false,
             error: "",
-            prompt_type: "default",
+            prompt_type: "error",
             edit_avatar: false,
             login_name: "",
             sex: "",
             born_time: "",
             occu: "",
+            date_now: Date.now(),
         };
     },
     created() {
@@ -166,6 +179,16 @@ export default {
         //     Storage.set(0, "IS_LOGIN", Code.CryptoJS.encrypt("false"));
         //     // this.eleaveSettingxit();
         // }
+        let user_msg = utils.getUserMsg();
+        if (user_msg.sex === 1) this.dailog.sex.sex_show = "女";
+        else this.dailog.sex.sex_show = "男";
+        this.dailog.occu.occu_show = user_msg.occu;
+        this.dailog.name.name_show = user_msg.name;
+        this.can_save = false;
+        console.log(user_msg.occu);
+        console.log(user_msg.name);
+        console.log(this.dailog.sex.sex_show);
+        console.log("目前不可保持");
     },
     mounted() {
         store.state.is_login = true;
@@ -190,30 +213,31 @@ export default {
             this.$emit("leaveSetting");
         },
         saveSetting() {
-            // if (!store.state.can_click_button) return;
-            // if (!this.can_save) return;
+            if (!store.state.can_click_button) return;
+            if (!this.can_save) {this.line_prompt.msg = "无更改无需保存";return;}
+            if (!this.newNameChecker()){return;}
             let user_msg = utils.getUserMsg();
             let id = user_msg.id;
             let token = utils.getToken();
             id = id.toString();
             if (token === undefined) token = "tokenIsNone";
             let login_name = this.$refs.nameRef.input_msg;
-            // let sex = this.$refs.sexRef.input_value;
-            let sex = 1;
+            let sex = this.sex_format(this.$refs.sexRef.input_value);
             let occu = this.$refs.occuRef.input_value;
             let born_time = this.$refs.dateRef.date;
             this.login_name = login_name;
-            this.sex = 1;
+            this.sex = sex;
             this.occu = occu;
             this.born_time = born_time;
             console.log("现在的职业是：", this.$refs.occuRef.input_value);
             console.log("现在的名字是:", this.$refs.nameRef.input_msg);
             console.log("现在的性别是:", this.$refs.sexRef.input_value);
-            console.log("日期是：", this.$refs.dateRef.date);
-            let a= this.date_format(born_time);
+            let a = this.date_format(born_time);
+            console.log("日期是：", a);
             console.log(a);
+            this.can_save = false;
             connector.send(
-                [id,login_name,token,sex,occu,a],
+                [id, login_name, token, sex, occu, a],
                 "updateUserMsg",
                 this.saveInfoCallback,
                 this.saveInfoWaiting,
@@ -240,7 +264,12 @@ export default {
                 user_msg.sex = this.sex;
                 user_msg.occu = this.occu;
                 user_msg.born_time = this.born_time;
+                if (user_msg.sex === 1) this.dailog.sex.sex_show = "女";
+                else this.dailog.sex.sex_show = "男";
+                this.dailog.occu.occu_show = user_msg.occu;
+                this.dailog.name.name_show = user_msg.login_name;
                 utils.saveUserMsg(user_msg);
+                location.reload(true);
             } else {
                 this.prompt_type = "error";
                 this.error = "上传失败";
@@ -263,14 +292,17 @@ export default {
         },
         editClick() {
             this.edit_avatar = true;
-            console.log(this.edit_avatar);
+            // console.log(this.edit_avatar);
         },
         leaveEdit() {
             this.edit_avatar = false;
         },
-        onNameSelected(e){
+        onNameSelected(e) {
             this.can_save = true;
-            console.log("改变");
+            console.log("名字改变");
+            // console.log(this.dailog.name.name_show);
+            // console.log(this.$refs.nameRef.input_msg);
+            // console.log(this.$refs.sexRef.input_value);
         },
         date_format(date) {
             let str = date.toString();
@@ -319,10 +351,45 @@ export default {
                     real_month = "12";
                     break;
             }
-            return year + "-" +real_month+"-" +day;
+            return year + "-" + real_month + "-" + day;
         },
+        sex_format(sex) {
+            if (sex === "男") return 0;
+            else if (sex === "女") return 1;
+        },
+        infoChanged(){
+            this.can_save = true;
+            // console.log("有改变");
+            // console.log(this.can_save);
+        },
+        newNameChecker(){
+            let str = this.$refs.nameRef.input_msg;
+            if (new Checker(str, ["no-null"]).check()){
+                if(!new Checker(str, ["@length-max=100","@length-min=1"]).check()){
+                    this.line_prompt.msg = "昵称长度应在1-100位之间";
+                    return false;
+                }
+                else{
+                    if(!new Checker(str, ["no-base-symbols","no-spacing"]).check()){
+                        this.line_prompt.msg = "昵称不能包含基础符号或空格";
+                        return false;
+                    }
+                    else{
+                        this.line_prompt.msg = "合理";
+                        return true;
+                    }
+                }
+            }
+            else{
+                this.line_prompt.msg = "昵称不能为空";
+                return false;
+            }
+        },
+        nitian(e){
+            console.log("逆天");
+            this.can_save = true;
+        }
     },
-    watch: {},
 };
 </script>
 <style scoped>

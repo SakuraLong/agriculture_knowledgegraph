@@ -41,6 +41,7 @@ export default {
     methods: {
         handleChange(value) {
             console.log(value); // 选择的日期
+            console.log(utils.getUserMsg()); 
         },
         disabledDate(date) {
             const today = new Date();

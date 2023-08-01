@@ -74,9 +74,9 @@ const API_CHECKER = {
         ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"]
     ],
     "updateUserMsg":[
-        ["ignore"],
-        ["ignore"],
-        ["ignore"],
+        ["num-only", "@length-min=9", "@length-max=9"],
+        ["no-base-symbols","sql-check","no-spacing","no-null","@length-max=100","@length-min=1"],
+        ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"],
         ["ignore"],
         ["ignore"],
         ["ignore"],
