@@ -48,7 +48,4 @@ class ElementSelector{
         }
     }
 }
-const elementSelector = (ele_obj, refs_ele) => {
-    return new ElementSelector(ele_obj, refs_ele).select();
-};
-export default elementSelector;
+export default ElementSelector;
