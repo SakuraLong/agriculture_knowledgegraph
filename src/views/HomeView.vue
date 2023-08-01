@@ -82,6 +82,7 @@
         <personalMsgSettingSubpage
             v-if="page.is_personal_setting"
             @leaveSetting="leaveSetting"
+            ref="personalMsgSettingRef"
         />
         <loginAndRegister
             v-else-if="page.is_login"
@@ -281,6 +282,9 @@ export default {
         },
         toEditPersonal() {
             this.page.is_personal_setting = true;
+            // console.log("啊啊啊啊啊啊");
+            // this.$refs.personalMsgSettingRef.$refs.nameRef.input_msg="雀食蟀";
+            // console.log("哦哦哦");
         },
         toPersonal() {
             this.page.is_personal = true;
