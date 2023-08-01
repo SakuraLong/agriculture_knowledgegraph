@@ -9,11 +9,11 @@ const API = {
         "changePassword": "updateUserPassword/",
         "changeEmail":"sendEmailVerification/",
         "updateAvatar": "avatarSubmission/",
-        "updateUserMsg": "updateAcountInformation/",
+        "updateUserMsg": "updateAccountInformation/",
         "getUserMsg": "getUserMessage/",
         "verify":"verifyEmailCode/"
     },
-};
+}; 
 const API_PARA = {
     "register": [
         ["email", ""],
@@ -38,6 +38,14 @@ const API_PARA = {
         ["id", ""],
         ["token", ""],
         ["avatar", ""]
+    ],
+    "updateUserMsg":[
+        ["id",""],
+        ["login_name",""],
+        ["token",""],
+        ["sex",""],
+        ["occupation",""],
+        ["born_time",""]
     ]
 };
 const API_CHECKER = {
@@ -64,6 +72,14 @@ const API_CHECKER = {
         ["num-only", "@length-min=9", "@length-max=9"],
         ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"],
         ["no-base-symbol", "sql-check", "no-zh-Hans", "no-spacing"]
+    ],
+    "updateUserMsg":[
+        ["ignore"],
+        ["ignore"],
+        ["ignore"],
+        ["ignore"],
+        ["ignore"],
+        ["ignore"],
     ]
 };
 export default{

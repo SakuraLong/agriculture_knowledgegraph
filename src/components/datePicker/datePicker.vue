@@ -40,11 +40,7 @@ export default {
     },
     methods: {
         handleChange(value) {
-        // Convert the selected date (string) to a Date object
-            const selectedDate = new Date(value);
-
-            // Now, selectedDate contains the selected date as a Date object
-            console.log(selectedDate); // This will print the selected date in Date format
+            console.log(value); // 选择的日期
         },
         disabledDate(date) {
             const today = new Date();
