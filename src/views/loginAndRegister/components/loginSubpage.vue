@@ -82,7 +82,7 @@ export default {
             console.log(password);
             console.log("pass: ", Code.MD5.encrypt(password));
             let is_id = id_email.type === "id";
-            let send_id_email = id_email.msg;
+            let send_id_email = id_email.msg; 
             let send_password = Code.MD5.encrypt(password);
             let user_msg = utils.getUserMsg();
             // 此时会把密码存入本地数据库
@@ -164,6 +164,7 @@ export default {
                     );
                 }
             }
+            // console.log("aaaaaaa");
         },
         loginWaiting(is_waiting) {
             this.$refs.loginPasswordInput.setWaiting(is_waiting);

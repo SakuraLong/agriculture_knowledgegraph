@@ -50,6 +50,7 @@ export default {
     methods: {
         editClick() {
             this.edit_func();
+            // console.log("点击");
         },
         async loadAvatar(){
             if(this.is_robot) return;
