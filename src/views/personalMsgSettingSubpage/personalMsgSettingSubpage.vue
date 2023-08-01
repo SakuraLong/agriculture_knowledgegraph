@@ -85,14 +85,11 @@
                     <!-- </el-scrollbar> -->
                 </div>
                 <div class="content_bottom">
-                    <transition name="opacity400">
-                        <linePrompt
-                            class="line_prompt"
-                            :data_left="line_prompt.msg"
-                            v-if=true
-                            opacity="1"
-                        ></linePrompt>
-                    </transition>
+                    <linePrompt
+                        class="line_prompt"
+                        :data_left="line_prompt.msg"
+                        :opacity="line_prompt.msg"
+                    ></linePrompt>
                 </div>
             </div>
             <div class="container_son bottom">
@@ -459,6 +456,7 @@ export default {
 }
 .content_top,
 .content_bottom {
+    position: relative;
     width: 100%;
     height: 5%;
     border: 1px solid red;
@@ -513,13 +511,9 @@ export default {
     align-items: center;
 }
 .line_prompt {
-    position: relative;
-    /* top: 5px; */
-    /* width: 300px; */
-    /* height: 100%; */
-    /* color: white; */
-    /* height: 10px; */
-    /* background-color: none; */
+    position: absolute;
+    top: -5px;
+    width: 300px;
 }
 .battery_element {
     position: absolute;
