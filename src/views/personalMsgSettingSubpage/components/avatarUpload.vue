@@ -294,7 +294,7 @@ export default {
     max-width: 500px;
 }
 .box--overlay {
-    background: white;
+    background: var(--box--overlay--background-color);
     padding: 20px;
     border-radius: var(--borderRadius-medium, 6px);
     box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.3);
@@ -304,11 +304,11 @@ export default {
     justify-content: space-between;
     align-items: center;
     padding-bottom: 10px;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid var(--box-header-bottom-border-color);
     margin-bottom: 10px;
     font-family: "FZZJ-WHJZTJW", sans-serif;
     font-weight: 10;
-    color: #822269;
+    color: var(--box-header-color);
     font-size: 20px;
     letter-spacing: 10px;
 }
@@ -360,16 +360,16 @@ canvas {
     border: 1px dashed #fff;
     cursor: move;
     border-radius: 50%;
-    box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.3);/* 正方形减圆 */
     pointer-events: none;
 }
 
 .save-button {
     margin: 20px;
-    background-color: #822269; /* Green */
+    background-color: var(--upload-button-background-color); /* Green */
     align-items: center;
     border: none;
-    color: white;
+    color: var(--upload-button-font-color);
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
@@ -384,15 +384,16 @@ canvas {
 }
 
 .save-button:hover {
-    background-color: #621b6b; /* Dark green */
+    background-color: var(--upload-button-hover-background-color); /* Dark green */
+    color: var(--upload-button-hover-font-color);
 }
 
 .upload-button {
     margin: 20px;
-    background-color: #822269; /* Green */
+    background-color: var(--upload-button-background-color); /* Green */
     align-items: center;
     border: none;
-    color: white;
+    color: var(--upload-button-font-color);
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
@@ -407,7 +408,8 @@ canvas {
 }
 
 .upload-button:hover {
-    background-color: #621b6b; /* Dark green */
+    background-color: var(--upload-button-hover-background-color); /* Dark green */
+    color: var(--upload-button-hover-font-color);
 }
 .close-button {
     background: none;
