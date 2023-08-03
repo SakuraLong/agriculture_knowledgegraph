@@ -40,7 +40,9 @@
                             @buttonClick="leaveLogin"
                             content="返回"
                         />
+                        <probeForLARHarvest class="probe_for_LAR_harvest" :type="mascots_type"></probeForLARHarvest>
                     </div>
+                    <probeForLARSnow class="probe_for_LAR_snow" :type="mascots_type"></probeForLARSnow>
                 </div>
             </transition>
             <transition name="login_register" mode="out-in">
@@ -69,6 +71,8 @@
     </div>
 </template>
 <script>
+import probeForLARHarvest from "@/components/mascots/harvest/probe/probeForLAR.vue";
+import probeForLARSnow from "@/components/mascots/snow/probe/probeForLAR.vue";
 import backButton from "@/components/buttons/loginAndRegisterButton/backButton/backButton.vue";
 import loginSubpage from "./components/loginSubpage.vue";
 import registerSubpage from "./components/registerSubpage.vue";
@@ -83,6 +87,7 @@ export default {
             is_password: false,
             is_login: true,
             is_register: false,
+            mascots_type:""
         };
     },
     components: {
@@ -91,6 +96,8 @@ export default {
         backButton,
         loginMsg,
         registerMsg,
+        probeForLARHarvest,
+        probeForLARSnow
     },
     methods: {
         goToForgetPassword(){
@@ -115,16 +122,10 @@ export default {
             this.is_register = false;
         },
         passwordOnFocus() {
-            this.is_password = true;
-            document.getElementById(
-                "login_container_girl_1"
-            ).style.animationName = "login_container_girl_hide";
+            this.mascots_type = "password";
         },
         passwordOnBlur() {
-            this.is_password = false;
-            document.getElementById(
-                "login_container_girl_1"
-            ).style.animationName = "login_container_girl_show";
+            this.mascots_type = "";
         },
     },
 };
@@ -183,6 +184,7 @@ export default {
     width: 100%;
     height: 100%;
     position: absolute;
+    z-index: 1;
     left: 0px;
     top: 0px;
     display: flex;
@@ -256,6 +258,16 @@ export default {
     height: 100%;
     -webkit-text-stroke: 2px white;
     content: attr(data-text);
+}
+.probe_for_LAR_harvest{
+    position: absolute !important;
+    z-index: 100;
+    bottom: 100%;
+}
+.probe_for_LAR_snow{
+    position: absolute !important;
+    z-index: -1;
+    left: 100%;
 }
 </style>
 <style>

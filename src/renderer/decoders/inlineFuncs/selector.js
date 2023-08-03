@@ -9,7 +9,7 @@ const selector = (text) => {
         if (p === "") return false;
         switch (p.split(/(?<!{{[^}]*?)\|/g)[0]) {
             case "文本":
-                p = textFunc(p);
+                // p = textFunc(p);
                 break;
             case "引用":
                 p = quoteFunc(p);

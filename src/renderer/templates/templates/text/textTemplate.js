@@ -9,7 +9,6 @@ class TextTemplate extends Template {
     }
     decode() {
         // 重写
-        console.log(this.paras);
         if (this.paras[0] !== this.type) {
             return false;
         }
@@ -25,6 +24,7 @@ class TextTemplate extends Template {
                 return;
             } else {
                 let para = element.split("=");
+                // console.log(para);
                 switch (para[0]) {
                     case "color":
                         span.style.color =
@@ -57,6 +57,10 @@ class TextTemplate extends Template {
                     case "blur":
                         span.classList.add("blur");
                         span.title = para[1] !== undefined ? para[1] : "";
+                        break;
+                    case "size":
+                        // console.log("size");
+                        span.style.fontSize = para[1] !== undefined ? para[1].toString() + "px" : "16px";
                         break;
                 }
             }

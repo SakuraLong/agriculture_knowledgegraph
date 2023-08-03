@@ -3,26 +3,13 @@
     <div class="eq_subpage_container" ref="container">
         <div class="select_type">
             <div
-                :style="{ color: is_map ? 'black' : '#8222969f' }"
-                style="padding-right: 20px; border-right: 1.5px solid #8222966f"
-                @click="
-                    this.$refs.son_1.style.transform = 'translateX(0%)';
-                    this.$refs.son_0.style.transform = 'translateX(0%)';
-                    is_map = false;
-                "
+                v-for="(item, index) in son_pages_name"
+                :key="index"
+                class="page_nav"
+                :class="{page_nav_selected: son_pages[index]}"
+                @click="clickNav(index)"
             >
-                百科界面
-            </div>
-            <div
-                :style="{ color: !is_map ? 'black' : '#8222969f' }"
-                style="padding-left: 20px; border-left: 1.5px solid #8222966f"
-                @click="
-                    this.$refs.son_0.style.transform = 'translateX(-100%)';
-                    this.$refs.son_1.style.transform = 'translateX(-100%)';
-                    is_map = true;
-                "
-            >
-                图页面
+                {{ item }}
             </div>
         </div>
         <div
@@ -37,13 +24,15 @@
         >
             <div
                 ref="son_0"
+                class="son_subpage"
+            >
+                <searchSubpage></searchSubpage>
+            </div>
+            <div
+                ref="son_1"
+                class="son_subpage"
                 style="
-                    position: absolute;
-                    left: 0;
-                    display: block;
-                    width: 100%;
-                    height: 100%;
-                    transition: all 0.5s ease-out;
+                    left: 100%;
                 "
             >
                 <div v-if="show_catalogue" class="catalogue" ref="catalogue">
@@ -59,17 +48,31 @@
                 ></div>
             </div>
             <div
-                ref="son_1"
+                ref="son_2"
+                class="son_subpage"
                 style="
-                    position: absolute;
-                    left: 100%;
-                    display: block;
-                    width: 100%;
-                    height: 100%;
-                    transition: all 0.5s ease-out;
+                    left: 200%;
                 "
             >
                 <div class="map_container" ref="map_container"></div>
+            </div>
+            <div
+                ref="son_3"
+                class="son_subpage"
+                style="
+                    left: 300%;
+                "
+            >
+                百科文档编辑页面
+            </div>
+            <div
+                ref="son_4"
+                class="son_subpage"
+                style="
+                    left: 400%;
+                "
+            >
+                图文档编辑页面
             </div>
         </div>
     </div>
@@ -78,6 +81,7 @@
 import Renderer from "@/renderer/renderer.js";
 import data from "@/assets/data.json";
 import * as echarts from "echarts";
+import searchSubpage from "./subpages/searchSubpage.vue";
 export default {
     data() {
         return {
@@ -85,7 +89,18 @@ export default {
             renderer: null,
             sct: 0,
             is_map: false,
+            son_pages: [true, false, false, false, false],
+            son_pages_name: [
+                "检索",
+                "百科页面",
+                "图页面",
+                "百科文档编辑页面",
+                "图文档编辑页面",
+            ],
         };
+    },
+    components:{
+        searchSubpage
     },
     mounted() {
         this.renderer = new Renderer(
@@ -101,14 +116,17 @@ export default {
         );
         // this.mapInit();
 
-        let r = new Renderer(
-            this.$refs.map_container,
-            "12345678",
-            "map"
-        );
+        let r = new Renderer(this.$refs.map_container, "12345678", "map");
         r.render();
     },
     methods: {
+        clickNav(index) {
+            this.son_pages = [false, false, false, false, false];
+            this.son_pages[index] = true;
+            this.son_pages.forEach((element, i)=>{
+                this.$refs["son_" + i.toString()].style.left = (i * 100 - index * 100).toString() + "%";
+            });
+        },
         bodyScorll() {
             this.renderer.setBodyScroll(
                 this.$refs.shower_subpage_container_body.scrollTop
@@ -218,7 +236,7 @@ export default {
     float: right;
     width: 98%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.95);
     box-sizing: content-box;
     display: block;
     overflow: hidden;
@@ -237,13 +255,33 @@ export default {
 }
 .shower_subpage_container_body {
     height: calc(100%);
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
-
+.page_nav{
+    padding: 0px 10px 0px 10px;
+    border-left: 1px solid #822296;
+    border-right: 1px solid #822296;
+    color: rgba(0, 0, 0, 0.679);
+    font-size: 17px;
+    transition: all 0.1s linear;
+}
+.page_nav_selected{
+    transition: all 0.1s linear;
+    color: #822296;
+}
+.son_subpage{
+    position: absolute;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s ease-out;
+}
 .catalogue {
     position: relative;
     width: calc(250px - 20px);
-    height: 50%;
+    height: 100%;
     float: right;
     /* border: 1px solid red; */
     text-align: left;

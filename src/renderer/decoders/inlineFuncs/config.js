@@ -12,11 +12,12 @@ const config = [
     },
     {
         name: "文本",
-        paras: ["type", "content", "color", "weight", "und", "del", "curtain", "blur", "title"],
+        paras: ["type", "content", "color", "size", "weight", "und", "del", "curtain", "blur", "title"],
         annotations: [
             "类型",
             "内容",
             "文本颜色",
+            "文本大小",
             "文本粗细",
             "文本下划线，后面加=代表下划线颜色，默认是黑色",
             "文本删除线，设置同下划线",
@@ -29,11 +30,11 @@ const config = [
             "不建议将模糊和遮罩一起使用（虽然不会出错",
         ],
         example:
-            "这里是默认的{{文本|这是一个测试文本|color=red|weight=800|und=rgb(0, 255, 0)|del|curtain=看啥看|blur|title=你只会看见这个}}这里是默认的",
+            "这里是默认的{{文本|这是一个测试文本|color=red|siez=20|weight=800|und=rgb(0, 255, 0)|del|curtain=看啥看|blur|title=你只会看见这个}}这里是默认的",
     },
     {
         name: "引用",
-        paras: ["type", "content", "from", "c_color", "c_weight", "c_size", "f_color", "f_weight", "f_size", "s_color", "no_italics"],
+        paras: ["type", "content", "from", "c_color", "c_weight", "c_size", "f_color", "f_size", "f_weight", "s_color", "no_italics"],
         annotations: [
             "类型",
             "内容",
@@ -50,7 +51,7 @@ const config = [
         attentions:[
             "type, content, from不可改变顺序"
         ],
-        example:"{{引用|这是一个引用，我觉得他不错|开发测试人员|c_color=red|c_weight=900|p_color=rgb(0, 0, 255, 0.5)|s_color=black|no_italics}}"
+        example:"{{引用|这是一个引用，我觉得他不错|开发测试人员|c_color=red|c_weight=900|s_color=black|no_italics}}"
     },
     {
         name:"连接关系",

@@ -35,7 +35,7 @@ class TemplateSelector{
     }
     replaceText(match, p){
         // 选择
-        console.log("p=", p);
+        // console.log("p=", p);
         for(let i = 0;i<templates.templates.length;i++){
             let temp = new templates.templates[i](p).decode();
             if(temp){
