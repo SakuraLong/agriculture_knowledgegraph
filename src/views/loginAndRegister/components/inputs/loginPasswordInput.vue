@@ -4,8 +4,8 @@
             title="密码"
             @msgChange="change"
             ref="borderInput"
-            :focus="onFoucs"
-            :blur="onBlur"
+            :focus="passwordFocus"
+            :blur="passwordBlur"
             password="true"
         ></borderInput>
         <linePrompt
@@ -34,11 +34,11 @@ export default {
         linePrompt,
     },
     methods: {
-        onFoucs() {
-            // console.log("foucs");
+        passwordFocus(){
+            this.$emit("passwordOnFocus");
         },
-        onBlur() {
-            // console.log("blur");
+        passwordBlur(){
+            this.$emit("passwordOnBlur");
         },
         change(msg) {
             // console.log(msg);

@@ -19,9 +19,10 @@
 </template>
 <script>
 import navLogin from "./components/avatar/index.vue";
+import defaultSearch from "./components/search/defaultSearch.vue";
 export default{
     components:{
-        navLogin
+        navLogin,
     },
     methods:{
         avatarClick(){

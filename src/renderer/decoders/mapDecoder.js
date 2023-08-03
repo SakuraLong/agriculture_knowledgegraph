@@ -5,7 +5,7 @@
  */
 class MapDecoder {
     default_size = 50;
-    x = 700;
+    x = 600;
     y = 450;
     constructor(text) {
         this.text = text.trim(); // 去掉行首行尾的空格和换行符
@@ -63,7 +63,7 @@ class MapDecoder {
                 this.createLink(node_from, node_to, data);
             }
         });
-        console.log(this.relations_data);
+        console.log(this.nodes_data);
         let res = {
             "nodes":this.nodes_data,
             "links":this.relations_data,
@@ -75,7 +75,7 @@ class MapDecoder {
         };
     }
     createNode(name, cata){
-        console.log(name);
+        // console.log(name);
         let t_node = {
             "id": "0",
             "name": "",

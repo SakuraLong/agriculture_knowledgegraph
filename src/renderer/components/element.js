@@ -11,7 +11,11 @@ class Element{
         this.parent_node.appendChild(this.element);
     }
     remove(){
-        this.parent_node.removeChild(this.element);
+        try{
+            this.parent_node.removeChild(this.element);
+        }catch{
+            // console.log("remove错误");
+        }
     }
 }
 

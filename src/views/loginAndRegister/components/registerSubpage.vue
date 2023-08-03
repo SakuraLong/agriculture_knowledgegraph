@@ -8,6 +8,8 @@
         <registerPasswordsInput
             ref="registerPasswordsInput"
             :disabled="disabled"
+            @passwordOnFocus="passwordOnFocus"
+            @passwordOnBlur="passwordOnBlur"
         ></registerPasswordsInput>
         <confirmButton
             @confirmClick="registerClick"
@@ -44,6 +46,12 @@ export default {
     },
     watch: {},
     methods: {
+        passwordOnFocus(){
+            this.$emit("passwordOnFocus");
+        },
+        passwordOnBlur(){
+            this.$emit("passwordOnBlur");
+        },
         registerClick() {
             if (!store.state.can_click_button) return;
             // 发送注册请求
