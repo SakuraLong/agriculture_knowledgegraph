@@ -27,6 +27,7 @@ export default {
 <style scoped>
 .dialog_container {
     /* display: flex; */
+    display: block;
     margin: 10px 30px 10px 30px;
     padding: 10px 10px 10px 15px;
     font-size: 25px;
