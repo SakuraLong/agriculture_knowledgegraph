@@ -375,7 +375,7 @@ export default {
                         return false;
                     }
                     else{
-                        this.line_prompt.msg = "合理";
+                        this.line_prompt.msg = "正在保存修改";
                         return true;
                     }
                 }
@@ -386,7 +386,7 @@ export default {
             }
         },
         nitian(e){
-            console.log("逆天");
+            // console.log("逆天");
             this.can_save = true;
         }
     },
@@ -561,6 +561,6 @@ export default {
 .dialog_DatePicker {
     width: 100px;
     height: 200px;
-    border: solid 1px red;
+    /* border: solid 1px red; */
 }
 </style>
