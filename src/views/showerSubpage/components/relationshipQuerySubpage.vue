@@ -196,7 +196,7 @@ export default {
     position: relative;
     width: 100%;
     height: 92%;
-    overflow: auto;
+    overflow: hidden;
     /* background-color: red; */
 }
 .line_prompt {
