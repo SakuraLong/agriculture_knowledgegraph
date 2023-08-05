@@ -5,14 +5,27 @@
             <button class="add_session_button" @click="add_session">
                 新会话
             </button>
-            <div class="session_containers" :key="re" ref="session_containers_ref">
+            <div
+                class="session_containers"
+                :key="re"
+                ref="session_containers_ref"
+            >
                 <div
-                    :class="dialog_arr[item.num] ? 'session_buttons_selected' : 'session_buttons'"
-                    v-for="item in qa_dialog_menus"
+                    :class="
+                        item.is_selected
+                            ? 'session_buttons_selected'
+                            : 'session_buttons'
+                    "
+                    v-for="(item, index) in qa_dialog_menus"
                     :key="item.lable"
-                    @click="sessionChange(item.num)"
+                    @click="sessionChange(index)"
                 >
-                <div class="session_delete" @click.stop="sessionDelete">×</div>
+                    <div
+                        class="session_delete"
+                        @click.stop="sessionDelete(index)"
+                    >
+                        ×
+                    </div>
                     {{ item.lable }}
                 </div>
             </div>
@@ -64,8 +77,7 @@ export default {
             input_font_size: "20px",
             input_place_holder: "请在这里输入你的问题",
             qa_dialog_menus: [
-                {
-                    num: 0,
+                {   is_selected:true,
                     lable: "对话0",
                     sessions: [
                         {
@@ -80,7 +92,6 @@ export default {
                     ],
                 },
             ],
-            dialog_arr: [true],
             dialog_selected: 0,
             counter: 0,
         };
@@ -113,12 +124,12 @@ export default {
         add_session() {
             this.counter++;
             let i = 0;
-            for (i; i < this.dialog_arr.length; i++) {
-                this.dialog_arr[i] = false;
+            for (i; i < this.qa_dialog_menus.length; i++) {
+                this.qa_dialog_menus[i].is_selected = false;
             }
-            this.dialog_arr.push(true);
-            this.dialog_selected = this.dialog_arr.length - 1;
-            console.log("对话数组", this.dialog_arr);
+            this.dialog_selected = this.qa_dialog_menus.length - 1;
+            // this.dialog_selected = this.dialog_arr.length - 1;
+            // console.log("对话数组", this.dialog_arr);
             let time = new Date(new Date().getTime()).toLocaleString();
             let text = "你好，欢迎来到问答界面！\n 请输入你的问题o";
             let item = {
@@ -129,6 +140,7 @@ export default {
             };
             let title = "对话" + this.counter;
             let dia = {
+                is_selected:true,
                 num: this.counter,
                 lable: title,
                 sessions: [item],
@@ -139,51 +151,47 @@ export default {
                 this.$refs.session_containers_ref.scrollTop =
                     this.$refs.session_containers_ref.scrollHeight;
             });
-            Storage.set(0, "DIALOG_ARR", this.dialog_arr, "JSON"); // 保存
             Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
         },
         increment() {
             return this.counter;
         },
-        sessionChange(item) {
+        sessionChange(num) {
+            console.log(num);
             let i = 0;
-            for (i; i < this.dialog_arr.length; i++) {
-                this.dialog_arr[i] = false;
+            for (i; i < this.qa_dialog_menus.length; i++) {
+                this.qa_dialog_menus[i].is_selected = false;
             }
-            this.dialog_arr[item] = true;
-            this.dialog_selected = item;
+            this.qa_dialog_menus[num].is_selected = true;
+            this.dialog_selected = num;
             // console.log("现在共有",this.counter,"个对话");
-            console.log("现在被选中的对话序号是：", item);
-            Storage.set(0, "DIALOG_ARR", this.dialog_arr, "JSON"); // 保存
+            console.log("现在被选中的对话序号是：", num);
+            Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
         },
-        sessionDelete(){
-            console.log("被点击");
-        }
+        sessionDelete(num) {
+            console.log("要被删除的对话序号是", num);
+            // if (this.dialog_selected === num) {
+            //     this.dialog_selected = 0;
+            //     this.dialog_arr[0] = true;
+            // }
+            let i = 0;
+            for (i; i < this.qa_dialog_menus.length; i++) {
+                this.qa_dialog_menus[i].is_selected = false;
+            }
+            if (this.qa_dialog_menus.length === 1) {
+                this.qa_dialog_menus.splice(num, 1);
+                this.add_session();
+            } else {
+                this.qa_dialog_menus[num].is_selected = false;
+                this.qa_dialog_menus.splice(num, 1);
+                this.qa_dialog_menus[0].is_selected = true;
+                this.dialog_selected = 0;
+            }
+            this.counter--;
+            Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
+            console.log("现在被选择的是", this.dialog_selected);
+        },
     },
-    // watch: {
-    //     deep:true,
-    //     qa_dialog_menus(newValue, oldValue) {
-    //         console.log("变化");
-    //         let qa_dialog_menus = Storage.get(0, "DIALOG_MENUS", [
-    //             {
-    //                 lable: "Dialog_1",
-    //                 sessions: [
-    //                     {
-    //                         content:
-    //                             "你好，欢迎来到问答界面！\n 请输入你的问题",
-    //                         is_left: true,
-    //                         is_right: false,
-    //                         time: new Date(
-    //                             new Date().getTime()
-    //                         ).toLocaleString(),
-    //                     },
-    //                 ],
-    //             },
-    //         ]);
-    //         console.log("读取到的本地值", qa_dialog_menus);
-    //         console.log("读取到的值", this.qa_dialog_menus);
-    //     },
-    // },
     components: {
         textInput,
         dialogAvatarBox,
@@ -193,7 +201,7 @@ export default {
             0,
             "DIALOG_MENUS",
             [
-                {
+                {   is_selected:true,
                     num: 0,
                     lable: "对话0",
                     sessions: [
@@ -211,29 +219,20 @@ export default {
             ],
             "JSON"
         );
-        let dialog_arr =Storage.get(
-            0,
-            "DIALOG_ARR",
-            [true],
-            "JSON"
-        );
-        if (qa_dialog_menus.length === 0) return;
+        // if (qa_dialog_menus.length === 0) return;
         this.qa_dialog_menus = qa_dialog_menus;
         this.$nextTick(() => {
             this.$refs.qa_show_container_ref.scrollTop =
                 this.$refs.qa_show_container_ref.scrollHeight;
-            // console.log(this.$refs.qa_show_container_ref.scrollTop);
-            // console.log(this.$refs.qa_show_container_ref.scrollHeight);
         });
-        this.dialog_arr = dialog_arr;
         let i = 0;
-        for(i=0;i<this.dialog_arr.length;i++){
-            if(this.dialog_arr[i]===true){
-                this.dialog_selected=i;
+        for (i = 0; i < this.qa_dialog_menus.length; i++) {
+            if (this.qa_dialog_menus[i].is_selected === true) {
+                this.dialog_selected = i;
                 break;
             }
         }
-        this.counter = this.dialog_arr.length-1;
+        this.counter = this.qa_dialog_menus.length - 1;
     },
 };
 </script>
@@ -456,7 +455,7 @@ export default {
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3), -2px -2px 2px rgba(0, 0, 0, 0.3);
     color: rgb(254, 196, 255);
 }
-.session_buttons_selected{
+.session_buttons_selected {
     position: relative;
     width: 80%;
     height: 40px;
@@ -475,11 +474,11 @@ export default {
     flex-direction: row;
     justify-content: center;
 }
-.session_delete{
+.session_delete {
     position: absolute;
-    top:30%;
-    left:85%;
-    width:15%;
+    top: 30%;
+    left: 85%;
+    width: 15%;
     height: 50%;
     /* border: 1px solid red; */
     line-height: 60%;
