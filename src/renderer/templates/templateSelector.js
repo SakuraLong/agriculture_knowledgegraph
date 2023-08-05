@@ -1,14 +1,4 @@
 import templates from "./templates";
-const start_class = [
-    {
-        start:"文本",
-        class:"TextTemplate"
-    },
-    {
-        strat:"引用",
-        class:""
-    }
-];
 /**
  * 模板选择器
  * 每一个段落都会过一遍模板选择器
@@ -31,6 +21,7 @@ class TemplateSelector{
             temp = this.pro_text;
             this.pro_text = temp.replace(this.regex_replace, this.replaceText);
         }
+        this.pro_text = this.pro_text.replace(/\n/g, "");
         return this.pro_text;
     }
     replaceText(match, p){

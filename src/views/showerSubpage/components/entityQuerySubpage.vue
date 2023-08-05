@@ -6,7 +6,7 @@
                 v-for="(item, index) in son_pages_name"
                 :key="index"
                 class="page_nav"
-                :class="{page_nav_selected: son_pages[index]}"
+                :class="{ page_nav_selected: son_pages[index] }"
                 @click="clickNav(index)"
             >
                 {{ item }}
@@ -22,19 +22,10 @@
                 overflow: hidden;
             "
         >
-            <div
-                ref="son_0"
-                class="son_subpage"
-            >
+            <div ref="son_0" class="son_subpage">
                 <searchSubpage></searchSubpage>
             </div>
-            <div
-                ref="son_1"
-                class="son_subpage"
-                style="
-                    left: 100%;
-                "
-            >
+            <div ref="son_1" class="son_subpage" style="left: 100%">
                 <div v-if="show_catalogue" class="catalogue" ref="catalogue">
                     <div class="catalogue_title">
                         <h3 style="margin: 0; padding: 0">目录</h3>
@@ -47,39 +38,21 @@
                     @scroll="bodyScorll"
                 ></div>
             </div>
-            <div
-                ref="son_2"
-                class="son_subpage"
-                style="
-                    left: 200%;
-                "
-            >
+            <div ref="son_2" class="son_subpage" style="left: 200%">
                 <div class="map_container" ref="map_container"></div>
             </div>
-            <div
-                ref="son_3"
-                class="son_subpage"
-                style="
-                    left: 300%;
-                "
-            >
+            <div ref="son_3" class="son_subpage" style="left: 300%">
                 百科文档编辑页面
             </div>
-            <div
-                ref="son_4"
-                class="son_subpage"
-                style="
-                    left: 400%;
-                "
-            >
+            <div ref="son_4" class="son_subpage" style="left: 400%">
                 图文档编辑页面
             </div>
         </div>
     </div>
 </template>
 <script>
+import data from "@/assets/js/data";
 import Renderer from "@/renderer/renderer.js";
-import data from "@/assets/data.json";
 import * as echarts from "echarts";
 import searchSubpage from "./subpages/searchSubpage.vue";
 export default {
@@ -99,13 +72,13 @@ export default {
             ],
         };
     },
-    components:{
-        searchSubpage
+    components: {
+        searchSubpage,
     },
     mounted() {
         this.renderer = new Renderer(
             this.$refs.shower_subpage_container_body,
-            "12345678",
+            data.default_ency,
             "ency"
         );
         this.renderer.render(); // 渲染
@@ -116,15 +89,16 @@ export default {
         );
         // this.mapInit();
 
-        let r = new Renderer(this.$refs.map_container, "12345678", "map");
+        let r = new Renderer(this.$refs.map_container, data.default_map, "map");
         r.render();
     },
     methods: {
         clickNav(index) {
             this.son_pages = [false, false, false, false, false];
             this.son_pages[index] = true;
-            this.son_pages.forEach((element, i)=>{
-                this.$refs["son_" + i.toString()].style.left = (i * 100 - index * 100).toString() + "%";
+            this.son_pages.forEach((element, i) => {
+                this.$refs["son_" + i.toString()].style.left =
+                    (i * 100 - index * 100).toString() + "%";
             });
         },
         bodyScorll() {
@@ -135,94 +109,9 @@ export default {
         getOffsetTop() {
             return this.$refs.container.offsetTop;
         },
-        mapInit() {
-            console.log("渲染图");
-            var dom = this.$refs.map_container;
-            var myChart = echarts.init(dom, null, {
-                renderer: "canvas",
-                useDirtyRect: false,
-            });
-            var app = {};
-            var ROOT_PATH = "https://echarts.apache.org/examples";
-            var option;
-
-            myChart.showLoading();
-
-            function map(graph) {
-                myChart.hideLoading();
-                graph.nodes.forEach(function (node) {
-                    node.label = {
-                        show: node.symbolSize > 30,
-                    };
-                });
-                option = {
-                    title: {
-                        text: "Les Miserables",
-                        subtext: "Default layout",
-                        top: "top",
-                        left: "left",
-                    },
-                    tooltip: {
-                        formatter: function (params) {
-                            if (params.data.source) {
-                                //注意判断，else是将节点的文字也初始化成想要的格式
-                                return (
-                                    "aa<br>" +
-                                    params.data.source +
-                                    "是【" +
-                                    params.data.target +
-                                    "】的居间人"
-                                );
-                            } else {
-                                return params.name;
-                            }
-                        },
-                    },
-                    legend: [
-                        {
-                            // selectedMode: 'single',
-                            data: graph.categories.map(function (a) {
-                                return a.name;
-                            }),
-                        },
-                    ],
-                    animationDuration: 1500,
-                    animationEasingUpdate: "quinticInOut",
-                    series: [
-                        {
-                            name: "Les Miserables",
-                            type: "graph",
-                            layout: "none",
-                            data: graph.nodes,
-                            links: graph.links,
-                            categories: graph.categories,
-                            roam: true,
-                            label: {
-                                position: "right",
-                                formatter: "{b}",
-                            },
-                            lineStyle: {
-                                color: "source",
-                                curveness: 0.3,
-                            },
-                            emphasis: {
-                                focus: "adjacency",
-                                lineStyle: {
-                                    width: 10,
-                                },
-                            },
-                        },
-                    ],
-                };
-                myChart.setOption(option);
-            }
-            map(data);
-            if (option && typeof option === "object") {
-                myChart.setOption(option);
-            }
-
-            window.addEventListener("resize", myChart.resize);
-        },
+        renderEncyByText(ency_content){
+            
+        }
     },
 };
 </script>
@@ -258,7 +147,7 @@ export default {
     overflow-x: hidden;
     overflow-y: auto;
 }
-.page_nav{
+.page_nav {
     padding: 0px 10px 0px 10px;
     border-left: 1px solid #822296;
     border-right: 1px solid #822296;
@@ -266,11 +155,11 @@ export default {
     font-size: 17px;
     transition: all 0.1s linear;
 }
-.page_nav_selected{
+.page_nav_selected {
     transition: all 0.1s linear;
     color: #822296;
 }
-.son_subpage{
+.son_subpage {
     position: absolute;
     left: 0;
     display: block;

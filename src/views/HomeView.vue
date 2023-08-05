@@ -534,6 +534,10 @@ export default {
                 "./img/shutter/top_light.png",
                 "./img/bg/bg_dark.png",
                 "./img/bg/bg_light.png",
+                "./img/mascots/harvest/probe_default.png",
+                "./img/mascots/harvest/probe_default_password.png",
+                "./img/mascots/harvest/probe_default_hand.png",
+                "./img/mascots/snow/probe_default.png",
             ];
             img_list.forEach((element) => {
                 let img = new Image();

@@ -27,6 +27,11 @@ class EntityLink extends HTMLElement {
                 that.mouseOut(that);
             };
         })(that));
+        this.addEventListener("click", (function(that){
+            return function(){
+                that.click(that);
+            };
+        })(that));
         this.style.color = "#822296";
         this.default_prompt.setText(this.textContent);
         // this.button.textContent = this.textContent;
@@ -60,6 +65,10 @@ class EntityLink extends HTMLElement {
     }
     getIsOver(){
         return this.is_over;
+    }
+    click(that){
+        let entity = that.textContent;
+        console.log(entity);
     }
 }
 export default EntityLink;

@@ -83,7 +83,8 @@ class MapDecoder {
             "x": 0,
             "y": 0,
             "value": 0,
-            "category": 0
+            "category": 0,
+            "draggable":true
         };
         let t_cata = {
             "name": ""
