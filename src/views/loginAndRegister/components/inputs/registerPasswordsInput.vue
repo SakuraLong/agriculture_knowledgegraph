@@ -8,6 +8,8 @@
             placeholder="请输入6~20位密码"
             :disabled="disabled"
             password="true"
+            :focus="passwordFocus"
+            :blur="passwordBlur"
         ></borderInput>
         <borderInput
             title="确认密码"
@@ -18,6 +20,8 @@
             class="border_input_2"
             :disabled="disabled"
             password="true"
+            :focus="passwordFocus"
+            :blur="passwordBlur"
         ></borderInput>
         <linePrompt
             :opacity="error"
@@ -55,6 +59,12 @@ export default {
     },
     props:["disabled"],
     methods: {
+        passwordFocus(){
+            this.$emit("passwordOnFocus");
+        },
+        passwordBlur(){
+            this.$emit("passwordOnBlur");
+        },
         passwordChange(msg) {
             this.password.password = msg;
         },

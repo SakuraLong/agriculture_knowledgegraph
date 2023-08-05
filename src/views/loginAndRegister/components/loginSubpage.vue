@@ -3,13 +3,19 @@
         <div class="login_text">L O G I N</div>
         <div class="input_container">
             <loginEmailInput ref="loginEmailInput"></loginEmailInput>
-            <loginPasswordInput ref="loginPasswordInput"></loginPasswordInput>
+            <loginPasswordInput
+                ref="loginPasswordInput"
+                @passwordOnFocus="passwordOnFocus"
+                @passwordOnBlur="passwordOnBlur"
+            ></loginPasswordInput>
         </div>
         <confirmButton
             @confirmClick="loginClick"
             content="登录"
         ></confirmButton>
-        <div class="login_forget_password" @click="forgetPassword">忘记密码?</div>
+        <div class="login_forget_password" @click="forgetPassword">
+            忘记密码?
+        </div>
     </div>
 </template>
 <script>
@@ -54,14 +60,14 @@ export default {
         // store.state.is_login = !store.state.is_login;
     },
     methods: {
-        forgetPassword(){
+        forgetPassword() {
             console.log("点击忘记密码");
             this.$emit("goToForgetPassword");
         },
-        passwordOnFocus() {
+        passwordOnFocus(){
             this.$emit("passwordOnFocus");
         },
-        passwordOnBlur() {
+        passwordOnBlur(){
             this.$emit("passwordOnBlur");
         },
         /**
@@ -82,7 +88,7 @@ export default {
             console.log(password);
             console.log("pass: ", Code.MD5.encrypt(password));
             let is_id = id_email.type === "id";
-            let send_id_email = id_email.msg; 
+            let send_id_email = id_email.msg;
             let send_password = Code.MD5.encrypt(password);
             let user_msg = utils.getUserMsg();
             // 此时会把密码存入本地数据库
