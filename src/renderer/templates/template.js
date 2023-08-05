@@ -6,7 +6,7 @@ class Template{
     regex_split = /\|(?![^<]*<\/code>)/g; // 根据|分割字符串，但不匹配<code></code>中的|
     constructor(text, type){
         this.type = type;
-        this.text = text; // 文本，两边不包含{{}}，里面也不包含可用的
+        this.text = text; // 文本，两边不包含{{}}
         this.paras = this.text.split(this.regex_split); // 分割参数
     }
     decode(){

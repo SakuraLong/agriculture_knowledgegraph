@@ -19,7 +19,8 @@ class Checker {
         "no-number":"noNumber()",
         "no-null":"noNull()",
         "is-email":"isEmail()",
-        "is-num":"isNum()"
+        "is-num":"isNum()",
+        "no-only-spacing":"noOnlySpacing()"
     };
     checker_data = {
         base_symbols: ["<", ">", "{", "}", "[", "]", "~", "`", "^", "(", ")","+"],
@@ -111,7 +112,6 @@ class Checker {
      */
     noNumber() {
         return !/\d/.test(this.str);
-    
     }
     /**
      * 检查字符串是不是空字符串
@@ -145,6 +145,13 @@ class Checker {
      */
     isNum(){
         return /^[\d]+$/.test(this.str);
+    }
+    /**
+     * 检查字符串是不是全部都是空格
+     * @returns false:全是空格
+     */
+    noOnlySpacing(){
+        return !(this.str.trim().length <= 0);
     }
     /**
      * 特殊方法检查
@@ -192,6 +199,7 @@ export default Checker;
     no-null 不能是空 如果是空返回false
     is-email 是合法的邮箱地址 不是合法的邮箱地址返回false
     is-num 是数字(0~9) 含有非数字返回false
+    no-only-spacing 不能全是空格，当全是空格返回false
     @length-max=num 字符串长度最大是num num是int数字 例如：@length-max=20
     @length-min=num 字符串长度最小是num num是int数字 例如：@length-min=20
  */

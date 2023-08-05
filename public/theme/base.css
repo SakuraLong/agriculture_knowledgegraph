@@ -11,7 +11,7 @@ img {
     /* font: inherit; */
     vertical-align: baseline;
 }
-span{
+span {
     line-height: 1.5;
 }
 ol,
@@ -36,7 +36,7 @@ p {
 div {
     word-wrap: break-word;
 }
-input{
+input {
     border: 0; /*清除自带的2px的边框*/
     padding: 0; /*清除自带的padding间距*/
     outline: none; /*清除input点击之后的黑色边框*/
@@ -57,6 +57,10 @@ input{
 
     --snow-probe-default-src: url("./img/mascots/snow/probe_default.png"); /* snow 探头默认图片 */
     --snow-probe-password-src: "./img/mascots/snow/probe_base.png"; /* snow 探头输入密码时图片 */
+}
+:root{
+    /* element plus */
+    --el-color-primary: #822269;
 }
 @font-face {
     font-family: "FZZJ-WHJZTJW";
@@ -98,6 +102,7 @@ input{
 .opacity400-enter-active,
 .opacity400-leave-active {
     transition: opacity 0.4s ease;
+    pointer-events: none !important;
 }
 .opacity400-enter-from,
 .opacity400-leave-to {
@@ -107,6 +112,7 @@ input{
 .opacity300-enter-active,
 .opacity300-leave-active {
     transition: opacity 0.3s ease;
+    pointer-events: none !important;
 }
 .opacity300-enter-from,
 .opacity300-leave-to {
@@ -116,6 +122,7 @@ input{
 .opacity1000-enter-active,
 .opacity1000-leave-active {
     transition: opacity 1s ease;
+    pointer-events: none !important;
 }
 .opacity1000-enter-from,
 .opacity1000-leave-to {
@@ -251,11 +258,12 @@ input{
     text-align: right;
     padding-right: 4%;
 }
-.entity_link{
+.entity_link {
+    cursor: pointer;
     position: relative;
     /* border: 1px solid red; */
 }
-.prompt{
+.prompt {
     position: absolute;
     z-index: 1000;
     border: 0.1px solid rgba(128, 128, 128, 0.056);
@@ -266,4 +274,21 @@ input{
     color: #000;
     background-color: white;
     border-radius: 5px;
+}
+.infobox_table{
+    border-collapse: collapse;
+}
+.infobox_tr,
+.infobox_td {
+    border: 1px solid black;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.95);
+}
+.infobox_td{
+    padding: 5px;
+}
+.infobox_title {
+    font-size: 1.2em !important;
+    font-weight: 600;
+    color: black;
 }
