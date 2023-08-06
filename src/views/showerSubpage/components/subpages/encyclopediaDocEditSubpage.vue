@@ -3,7 +3,7 @@
     <div class="doc_edit_subpage_container">
         <div style="position: relative; width: 100%; height: auto">
             <div class="main_title">查看"{{ title }}"的源代码</div>
-            <div class="edit_power_reminder_1" v-if="!is_login">
+            <div class="edit_power_reminder_1" v-if="!islogin">
                 在进行编辑操作前，您必须<button class="login_button">
                     登录账号
                 </button>
@@ -20,7 +20,7 @@
                 "
             >
                 <textInput_vertical
-                    :disabled="!is_login"
+                    :disabled="!islogin"
                     :msg="text"
                     :input_font_size="input_font_size"
                     class="show_mainer"
@@ -48,14 +48,15 @@
 <script>
 import data from "@/assets/js/data";
 import textInput_vertical from "@/components/inputs/textInput_vertical/textInput_vertical.vue";
+import store from "@/store/index.js";
 export default {
-    props: ["title"],
+    props: ["title","text"],
     data() {
         return {
             is_login: false,
-            text: data.default_ency,
             input_place_holder: "",
             input_font_size: "16px",
+            islogin:store.state.is_login
         };
     },
     components: { textInput_vertical },
