@@ -50,7 +50,7 @@
                 <mapSubpage ref="map_subpage"></mapSubpage>
             </div>
             <div ref="son_3" class="son_subpage" style="left: 300%">
-                百科文档编辑页面
+                <encyclopediaDocEditSubpage title="某科学的超电磁炮"></encyclopediaDocEditSubpage>
             </div>
             <div ref="son_4" class="son_subpage" style="left: 400%">
                 图文档编辑页面
@@ -67,6 +67,7 @@ import Connector from "@/assets/js/connector/connector";
 import Code from "@/assets/js/code/code";
 import linePrompt from "@/components/prompts/line/linePrompt.vue";
 import store from "@/store/index";
+import encyclopediaDocEditSubpage from "@/views/showerSubpage/components/subpages/encyclopediaDocEditSubpage.vue";
 export default {
     data() {
         return {
@@ -94,6 +95,7 @@ export default {
         searchSubpage,
         mapSubpage,
         linePrompt,
+        encyclopediaDocEditSubpage,
     },
     mounted() {
         this.ency_content = data.default_ency;
