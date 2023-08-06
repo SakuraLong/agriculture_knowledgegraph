@@ -15,17 +15,16 @@ const map = (graph, title) => {
     let option = {
         title: {
             text: title,
-            // subtext: "Default layout",
+            subtext: "Default layout",
             top: "bottom",
-            left: "left",
+            left: "right",
         },
         tooltip: {
-            formatter: function (params) {
-                if (params.data.source) {
-                    //注意判断，else是将节点的文字也初始化成想要的格式
-                    return params.data.data;
+            formatter: function (x) {
+                if (x.dataType === "node") {
+                    return x.name;
                 } else {
-                    return params.name;
+                    return x.data.data;
                 }
             },
         },
@@ -43,23 +42,25 @@ const map = (graph, title) => {
             {
                 name: "Les Miserables",
                 type: "graph",
-                layout: "none",
+                layout: "force",
+                draggable: true,
                 data: graph.nodes,
                 links: graph.links,
                 categories: graph.categories,
                 roam: true,
                 label: {
                     position: "right",
-                    formatter: "{b}",
                 },
                 lineStyle: {
                     color: "source",
-                    curveness: 0.3,
+                },
+                force: {
+                    repulsion: 4000,
                 },
                 emphasis: {
                     focus: "adjacency",
                     lineStyle: {
-                        width: 10,
+                        width: 12,
                     },
                 },
             },
@@ -81,6 +82,7 @@ class Renderer {
     refs_catalogue = {};
     elements = [];
     map = null;
+    down_ele_title = null;
     constructor(refs_ele, text, type) {
         this.type = type.toLowerCase();
         this.refs_ele = refs_ele;
@@ -96,6 +98,7 @@ class Renderer {
                 this.elements.push(ele);
             });
         } else if (this.type === "map") {
+            let that = this;
             this.map = echarts.init(this.refs_ele, null, {
                 renderer: "canvas",
                 useDirtyRect: false,
@@ -112,8 +115,11 @@ class Renderer {
                 this.decode_res.res,
                 this.decode_res.name + "的关系图"
             );
+            console.log(this.decode_res.res);
+            if (option && typeof option === "object") {
+                this.map.setOption(option);
+            }
             this.map.hideLoading();
-            this.map.setOption(option);
             window.addEventListener("resize", this.map.resize);
         }
     }

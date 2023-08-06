@@ -823,7 +823,15 @@ const test_search_res_data = {
     }
 };
 
+const test_search_res_data_null = {
+    success:true,
+    content:{
+        result:[]
+    }
+};
+
 export default {
     localStorageIsLogin,
-    test_search_res_data
+    test_search_res_data,
+    test_search_res_data_null
 };

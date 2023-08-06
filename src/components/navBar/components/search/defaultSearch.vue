@@ -210,6 +210,7 @@ export default {
                 if (this.his_list.length >= 20) this.his_list.pop(); // 删除尾元素
                 this.his_list.unshift(temp); // 插入首位
             }
+            this.is_over = false;
             this.subpage = [false, true, false];
             Storage.set(0, "HISTORY_SEARCH", this.all_his_list, "JSON");
 
