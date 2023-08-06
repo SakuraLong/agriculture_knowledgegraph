@@ -1,21 +1,19 @@
 <template>
-    <label class="text_input">
-        <textarea
-            class="input_ele"
-            :type="input_type"
-            v-model="input_msg"
-            :onfocus="focus"
-            :onblur="blur"
-            :placeholder="placeholder"
-            :readonly="disabled"
-            :class="{
-                'custom-class': input_font_size === '10px',
-                'custom-class-large': input_font_size === '20px',
-                'custom-class-16px': input_font_size === '16px',
-            }"
-        >
-        </textarea>
-    </label>
+    <textarea
+        class="input_ele"
+        :type="input_type"
+        v-model="input_msg"
+        :onfocus="focus"
+        :onblur="blur"
+        :placeholder="placeholder"
+        :readonly="disabled"
+        :class="{
+            'custom-class': input_font_size === '10px',
+            'custom-class-large': input_font_size === '20px',
+            'custom-class-16px': input_font_size === '16px',
+        }"
+    >
+    </textarea>
 </template>
 
 <script>
@@ -103,16 +101,13 @@ export default {
     box-shadow: 0px 0px 2px var(--input-focus-color);
 }
 .input_ele {
-    /* resize: vertical; */
-    resize: none;
+    resize: vertical;
     font-family: Heiti;
     position: relative;
-    overflow: auto;
     width: 100%;
-    /* min-height: 400px; */
-    height: 100%;
+    min-height: 400px;
+    height: auto;
     /* height: 100%; */
-    border: 0; /*清除自带的2px的边框*/
     padding: 0; /*清除自带的padding间距*/
     outline: none; /*清除input点击之后的黑色边框*/
     /* border: 1px solid red; */

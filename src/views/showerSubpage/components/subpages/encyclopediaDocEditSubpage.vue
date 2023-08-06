@@ -19,7 +19,7 @@
                     position: relative;
                 "
             >
-                <textInput
+                <textInput_vertical
                     :disabled="!is_login"
                     :msg="text"
                     :input_font_size="input_font_size"
@@ -30,7 +30,7 @@
                             ? 'show_mainer_height_not_login'
                             : 'show_mainer_height_login'
                     "
-                ></textInput>
+                ></textInput_vertical>
             </div>
             <div
                 style="
@@ -47,7 +47,7 @@
 </template>
 <script>
 import data from "@/assets/js/data";
-import textInput from "@/components/inputs/textInput/textInput.vue";
+import textInput_vertical from "@/components/inputs/textInput_vertical/textInput_vertical.vue";
 export default {
     props: ["title"],
     data() {
@@ -58,7 +58,7 @@ export default {
             input_font_size: "16px",
         };
     },
-    components: { textInput },
+    components: { textInput_vertical },
     mounted() {},
     methods: {},
 };
