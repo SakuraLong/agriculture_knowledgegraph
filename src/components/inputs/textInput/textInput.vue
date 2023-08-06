@@ -1,19 +1,19 @@
 <template>
-    <label class="text_input" :data-text="title">
-        <textarea
-            class="input_ele"
-            :type="input_type"
-            v-model="input_msg"
-            :onfocus="focus"
-            :onblur="blur"
-            :placeholder="placeholder"
-            :readonly="disabled"
-            :class="{'custom-class': input_font_size === '10px', 'custom-class-large': input_font_size === '20px','custom-class-16px': input_font_size === '16px'}"
-        >
-        </textarea>
-        <View :color="eye_color" v-if="view&&is_password" @click="viewClick" style="width: 20px;height: 20px;position: absolute;right: 10px;" />
-        <Hide :color="eye_color" v-if="!view&&is_password" @click="viewClick" style="width: 20px;height: 20px;position: absolute;right: 10px;" />
-    </label>
+    <textarea
+        class="input_ele"
+        :type="input_type"
+        v-model="input_msg"
+        :onfocus="focus"
+        :onblur="blur"
+        :placeholder="placeholder"
+        :readonly="disabled"
+        :class="{
+            'custom-class': input_font_size === '10px',
+            'custom-class-large': input_font_size === '20px',
+            'custom-class-16px': input_font_size === '16px',
+        }"
+    >
+    </textarea>
 </template>
 
 <script>
@@ -31,15 +31,23 @@ export default {
         return {
             input_msg: "",
             input_type: "text",
-            is_password:false,
-            view:false,
-            eye_color:"black"
+            is_password: false,
+            view: false,
+            eye_color: "black",
         };
     },
-    props: ["title", "focus", "blur", "msg", "placeholder", "disabled","input_font_size"],
+    props: [
+        "title",
+        "focus",
+        "blur",
+        "msg",
+        "placeholder",
+        "disabled",
+        "input_font_size",
+    ],
     mounted() {
         if (this.msg !== "") this.input_msg = this.msg;
-        if(this.password){
+        if (this.password) {
             this.is_password = true;
             this.input_type = "password";
         }
@@ -53,10 +61,10 @@ export default {
         get() {
             return this.input_msg;
         },
-        viewClick(){
+        viewClick() {
             this.view = !this.view;
             this.input_type = this.input_type === "text" ? "password" : "text";
-        }
+        },
     },
     watch: {
         input_msg() {
@@ -69,9 +77,11 @@ export default {
 .text_input {
     font-family: Heiti;
     position: relative;
-    width: 260px;
-    height: 50px;
-    display: flex;
+    width: 100%;
+    height: auto;
+    /* width: 260px;
+    height: 50px; */
+    /* display: flex; */
     /* justify-content: center; */
     /* align-items: center; */
     border: 2px solid rgba(144, 119, 149, 0.5);
@@ -85,17 +95,19 @@ export default {
     color: var(--input-focus-color);
 }
 .text_input:has(.input_ele:focus) {
-    border: 2px solid var(--input-focus-color)
+    border: 2px solid var(--input-focus-color);
 }
 .text_input:has(.input_ele:hover) {
-    box-shadow: 0px 0px 2px var(--input-focus-color)
+    box-shadow: 0px 0px 2px var(--input-focus-color);
 }
 .input_ele {
-    resize:none;
+    resize: vertical;
     font-family: Heiti;
     position: relative;
     width: 100%;
-    height: 100%;
+    min-height: 400px;
+    height: auto;
+    /* height: 100%; */
     border: 0; /*清除自带的2px的边框*/
     padding: 0; /*清除自带的padding间距*/
     outline: none; /*清除input点击之后的黑色边框*/
@@ -107,23 +119,22 @@ export default {
     color: var(--input_ele-font-color);
     background-color: var(--input-ele-background-color);
     /* background-color:rgba(0,0,0,0); */
-    
 }
 .input_ele:focus {
-    caret-color: var(--input-focus-color)
+    caret-color: var(--input-focus-color);
 }
 input::placeholder {
     font-size: 16px;
     color: rgba(144, 119, 149, 0.5);
 }
-.custom-class{
-    font-size:10px;
+.custom-class {
+    font-size: 10px;
 }
-.custom-class-large{
-    font-size:20px;
+.custom-class-large {
+    font-size: 20px;
 }
-.custom-class-16px{
-    font-size:16px;
+.custom-class-16px {
+    font-size: 16px;
 }
 .input_ele::-webkit-scrollbar {
     width: 12px;
