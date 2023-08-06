@@ -23,7 +23,7 @@ See [后端项目仓库](https://github.com/nkuAlexLee/agriculture_knowledgegrap
 
 于是就变成在二次元界面下去看看上市公司的关系<del>真香</del>
 
-**<del><font size="200">在二次元少女的陪伴下尽情了解上市公司吧</font></del>**
+**<del><font size="5">在二次元少女的陪伴下尽情去了解上市公司吧</font></del>**
 
 ## Project setup
 
