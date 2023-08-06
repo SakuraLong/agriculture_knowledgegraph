@@ -1,53 +1,32 @@
 <!-- 实体查询子页面 -->
 <template>
     <div class="doc_edit_subpage_container">
-        <div style="position: relative; width: 100%; height: auto">
-            <div class="main_title">查看"{{ title }}"的源代码</div>
-            <div class="edit_power_reminder_1" v-if="!is_login">
-                在进行编辑操作前，您必须<button class="login_button">
-                    登录账号
-                </button>
-            </div>
-            <p class="edit_power_reminder_2">
-                您可以查看与复制此页面的源代码。
-            </p>
-            <div
-                style="
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                    position: relative;
-                "
-            >
-                <textInput
-                    :disabled="!is_login"
-                    :msg="text"
-                    :input_font_size="input_font_size"
-                    class="show_mainer"
-                    :placeholder="input_place_holder"
-                    :class="
-                        !is_login
-                            ? 'show_mainer_height_not_login'
-                            : 'show_mainer_height_login'
-                    "
-                ></textInput>
-            </div>
-            <div
-                style="
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                    position: relative;
-                "
-            >
-                <button class="submit_button">提交</button>
-            </div>
+        <div class="main_title">查看"{{ title }}"的源代码</div>
+
+        <div class="edit_power_reminder_1" v-if="!is_login">
+            在进行编辑操作前，您必须<button class="login_button">
+                登录账号
+            </button>
         </div>
+        <p class="edit_power_reminder_2">您可以查看与复制此页面的源代码。</p>
+        <textInput_vertical
+            :disabled="!is_login"
+            :msg="text"
+            :input_font_size="input_font_size"
+            class="show_mainer"
+            :placeholder="input_place_holder"
+            :class="
+                !is_login
+                    ? 'show_mainer_height_not_login'
+                    : 'show_mainer_height_login'
+            "
+        ></textInput_vertical>
+        <button class="submit_button">提交</button>
     </div>
 </template>
 <script>
 import data from "@/assets/js/data";
-import textInput from "@/components/inputs/textInput/textInput.vue";
+import textInput_vertical from "@/components/inputs/textInput_vertical/textInput_vertical.vue";
 export default {
     props: ["title"],
     data() {
@@ -58,7 +37,7 @@ export default {
             input_font_size: "16px",
         };
     },
-    components: { textInput },
+    components: { textInput_vertical },
     mounted() {},
     methods: {},
 };
@@ -72,37 +51,30 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-x: hidden;
-    overflow-y: auto;
 }
 .main_title {
     position: relative;
     width: 100%;
-    height: 60px;
+    height: 8%;
     color: black;
     font-size: 27px;
     font-weight: 800;
-    /* border: 1px solid red; */
-    line-height: 60px;
     /* background-color:red; */
 }
 .edit_power_reminder_1 {
     position: relative;
     width: 100%;
-    height: 40px;
+    height: 6%;
     font-size: 15px;
     font-weight: 500;
-    /* border: solid 1px red; */
+    /* border:solid 1px red; */
     border-bottom: 1px solid black;
-    line-height: 40px;
 }
 .edit_power_reminder_2 {
     position: relative;
     font-size: 16px;
     width: 100%;
     text-align: left;
-    height: 25px;
-    line-height: 25px;
 }
 .login_button {
     width: 85px;
@@ -119,12 +91,10 @@ export default {
     background-color: rgb(141, 53, 159);
 }
 .show_mainer {
-    /* height: 70%; */
+    height: 70%;
     width: 95%;
-    position: relative !important;
-    /* height: 74%; */
-    /* min-height: 400px; */
-    /* overflow: auto; */
+    position: relative;
+    overflow: auto;
     border: solid 2px rgb(225, 225, 225);
     font-size: 16px;
 }
@@ -155,23 +125,22 @@ export default {
     /* transition: all 0.5 ease; */
 }
 .show_mainer_height_not_login {
-    /* height: 66%; */
+    height: 66%;
 }
 .show_mainer_height_login {
-    /* height: 72%; */
+    height: 72%;
 }
 .submit_button {
     width: 100px;
-    height: 30px;
+    height: 5%;
     position: relative;
+    top: 2%;
     background-color: rgb(216, 187, 222);
     font-weight: 600;
     font-size: 16px;
     cursor: pointer;
     color: white;
     border: 1px solid pink;
-    margin: 20px;
-    margin-bottom: 50%;
 }
 .submit_button:hover {
     background-color: rgb(141, 53, 159);

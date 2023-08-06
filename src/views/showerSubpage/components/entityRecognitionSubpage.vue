@@ -96,8 +96,8 @@ export default {
     /* right: 10px; */
 }
 .anime_input_mainer {
-    width: 90%;
-    height: 60%;
+    width: 92%;
+    height: 70%;
     position: absolute;
     top: 12%;
 }
