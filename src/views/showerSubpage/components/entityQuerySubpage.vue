@@ -42,7 +42,7 @@
                 <div class="map_container" ref="map_container"></div>
             </div>
             <div ref="son_3" class="son_subpage" style="left: 300%">
-                百科文档编辑页面
+                <encyclopediaDocEditSubpage title="某科学的超电磁炮"></encyclopediaDocEditSubpage>
             </div>
             <div ref="son_4" class="son_subpage" style="left: 400%">
                 图文档编辑页面
@@ -55,6 +55,7 @@ import data from "@/assets/js/data";
 import Renderer from "@/renderer/renderer.js";
 import * as echarts from "echarts";
 import searchSubpage from "./subpages/searchSubpage.vue";
+import encyclopediaDocEditSubpage from "@/views/showerSubpage/components/subpages/encyclopediaDocEditSubpage.vue";
 export default {
     data() {
         return {
@@ -74,6 +75,7 @@ export default {
     },
     components: {
         searchSubpage,
+        encyclopediaDocEditSubpage,
     },
     mounted() {
         this.renderer = new Renderer(

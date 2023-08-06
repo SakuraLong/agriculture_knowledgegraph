@@ -179,8 +179,8 @@ export default {
                 this.qa_dialog_menus[i].is_selected = false;
             }
             if (this.qa_dialog_menus.length === 1) {
-                this.qa_dialog_menus.splice(num, 1);
                 this.add_session();
+                this.qa_dialog_menus.splice(num, 1);
             } else {
                 this.qa_dialog_menus[num].is_selected = false;
                 this.qa_dialog_menus.splice(num, 1);
