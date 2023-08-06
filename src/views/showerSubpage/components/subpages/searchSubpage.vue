@@ -45,6 +45,7 @@
             <defaultSearch
                 style="z-index: 1000"
                 @search="search"
+                ref="default_search"
             ></defaultSearch>
             <div class="search_amount_res">
                 <span
@@ -146,7 +147,7 @@
                     :type="prompt_type"
                 ></linePrompt>
             </div>
-            <div class="search_res_list">
+            <div class="search_res_list" ref="search_res_list">
                 <searchRes
                     v-for="(element, index) in search_res"
                     :key="index"
@@ -176,6 +177,7 @@ import Connector from "@/assets/js/connector/connector";
 import Code from "@/assets/js/code/code";
 
 import testMsg from "@/assets/js/testMsg";
+import store from "@/store/index.js";
 export default {
     components: {
         defaultSearch,
@@ -184,7 +186,7 @@ export default {
     },
     data() {
         return {
-            error: "搜索中",
+            error: "",
             prompt_type: "waiting",
             all_search_res: [],
             search_res: [],
@@ -201,7 +203,7 @@ export default {
         };
     },
     watch:{
-        "page_section"(){
+        page_section(){
             this.pageListInit();
         }
     },
@@ -221,7 +223,15 @@ export default {
         searchCallback(msg) {
             if (msg.success) {
                 console.log("success");
-                let res_list = msg.content.result;
+                if(msg.content.result.length === 0){
+                    this.now_page = 1;
+                    this.all_page = 0;
+                    this.begin = 0;
+                    this.to = 0;
+                    this.no_search_prompt_text = "未查到相关结果";
+                    return;
+                }
+                let res_list = msg.content.result; // 之后需要解码
                 this.all_search_res = res_list;
                 // 默认进入第一页
                 this.now_page = 1;
@@ -236,7 +246,9 @@ export default {
                 let c = parseInt(l / 10 / 10);
                 let p = this.all_page % 10;
                 this.page_sections = [];
+                this.page_section = "";
                 this.pages = [];
+                this.page = "";
                 for (let i = 0; i < c; i++) {
                     let ele = {
                         label: "",
@@ -267,11 +279,19 @@ export default {
                 }
                 this.page_sections.push(ele);
                 this.page_section = this.page_sections[0].value;
+                this.pageListInit();
             } else {
                 // 查询失败
             }
         },
-        searchWaiting(is_waiting) {},
+        searchWaiting(is_waiting) {
+            if(is_waiting){
+                this.error = "搜索中";
+            }else{
+                this.error = "";
+                this.$refs.default_search.getMsg();
+            }
+        },
         searchTimeout() {},
         goToPageByIndex() {
             this.search_res = [];
@@ -289,6 +309,7 @@ export default {
             to = i;
             this.begin = begin;
             this.to = to;
+            this.$refs.search_res_list.scrollTop = 0;
         },
         goToNextPage() {
             if(this.all_page === 0) return;
@@ -305,6 +326,7 @@ export default {
             this.goToPageByIndex();
         },
         pageListInit() {
+            if(this.page_section === "") return;
             this.pages = [];
             let value = this.page_section;
             let i = this.page_sections.findIndex((element) => {
@@ -329,8 +351,12 @@ export default {
         },
         clickSearchRes(title){
             // 搜索结果被点击
+            // 访问数据库拿到实体的详细信息
+            // 根据title找信息（name）
+            // 会直接跳转
             console.log(title);
-        }
+            this.$emit("fromSearch", 1, title);
+        },
     },
 };
 </script>
