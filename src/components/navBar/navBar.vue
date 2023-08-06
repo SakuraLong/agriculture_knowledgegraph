@@ -4,7 +4,7 @@
         <div class="nav_bar_img">
             <div class="nav_bar_container">
                 <!-- 网站名字   头像+昵称 -->
-                <div class="nav_bar_title">农业知识图谱</div>
+                <div class="nav_bar_title">上市公司知识图谱</div>
                 <div class="nav_bar_content">
                     <navLogin style="pointer-events: all;" @click="avatarClick"></navLogin>
                 </div>
