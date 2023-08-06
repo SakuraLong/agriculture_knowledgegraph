@@ -8,7 +8,7 @@
             :onblur="blur"
             :placeholder="placeholder"
             :readonly="disabled"
-            :class="{'custom-class': input_font_size === '10px', 'custom-class-large': input_font_size === '20px'}"
+            :class="{'custom-class': input_font_size === '10px', 'custom-class-large': input_font_size === '20px','custom-class-16px': input_font_size === '16px'}"
         >
         </textarea>
         <View :color="eye_color" v-if="view&&is_password" @click="viewClick" style="width: 20px;height: 20px;position: absolute;right: 10px;" />
@@ -121,6 +121,9 @@ input::placeholder {
 }
 .custom-class-large{
     font-size:20px;
+}
+.custom-class-16px{
+    font-size:16px;
 }
 .input_ele::-webkit-scrollbar {
     width: 12px;
