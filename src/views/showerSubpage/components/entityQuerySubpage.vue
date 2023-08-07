@@ -104,9 +104,9 @@ export default {
         this.renderMapByText(this.map_content);
     },
     methods: {
-        fromSearch(index, name) {
+        fromSearch(index, id) {
             this.clickNav(index);
-            this.getEntityByName(name);
+            this.getEntityById(id);
         },
         clickNav(index) {
             if(!store.state.can_click_button) return;
@@ -143,7 +143,7 @@ export default {
         renderMapByText(text){
             this.$refs.map_subpage.renderMapByText(text);
         },
-        getEntityByName(name) {
+        getEntityById(id) {
             // 清空信息
             this.$refs.shower_subpage_container_body.innerHTML = "";
             this.ency_renderer = null;

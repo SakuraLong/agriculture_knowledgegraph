@@ -11,7 +11,8 @@ const API = {
         "updateAvatar": "avatarSubmission/",
         "updateUserMsg": "updateAccountInformation/",
         "getUserMsg": "getUserMessage/",
-        "verify":"verifyEmailCode/"
+        "verify":"verifyEmailCode/",
+        "searchNode":"searchNode/"
     },
 }; 
 const API_PARA = {
@@ -46,6 +47,9 @@ const API_PARA = {
         ["sex",""],
         ["occupation",""],
         ["born_time",""]
+    ],
+    "searchNode":[
+        ["search_name", ""]
     ]
 };
 const API_CHECKER = {
@@ -80,6 +84,9 @@ const API_CHECKER = {
         ["ignore"],
         ["ignore"],
         ["ignore"],
+    ],
+    "searchNode":[
+        ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=100","@length-min=1"]
     ]
 };
 export default{
