@@ -74,6 +74,7 @@
                     :data_left="error"
                     type="error"
                     class="line_reminder"
+                    :prompt_type="error"
                 ></linePrompt>
             </div>
             <div
@@ -105,11 +106,14 @@ import textInput from "@/components/inputs/textInput/textInput.vue";
 import dialogAvatarBox from "@/components/dialogBoxes/dialogAvatarBox/dialogAvatarBox.vue";
 import Storage from "@/assets/js/storage/storage.js";
 import linePrompt from "@/components/prompts/line/linePrompt.vue";
+import connector from "@/assets/js/connector/connector";
+import Checker from "@/assets/js/checker/checker.js";
+import store from "@/store/index.js";
 // import { Select } from "@element-plus/icons-vue/dist/types";
 export default {
     data() {
         return {
-            error:"",
+            error: "",
             isRunning: false,
             input_type_arr: ["button"],
             re: true,
@@ -192,16 +196,20 @@ export default {
             return this.$refs.container.offsetTop;
         },
         question_submit() {
+            if (!store.state.can_click_button) return;
             // this.re = !this.re;
-            if(this.$refs.question_input_ref.input_msg===""){this.error="不能为空";return;}
-            this.error="";
+            if (this.$refs.question_input_ref.input_msg === "") {
+                this.error = "不能为空";
+                return;
+            }
+            this.error = "";
             let time = new Date(new Date().getTime()).toLocaleString();
             let text = this.$refs.question_input_ref.input_msg;
             let item = {
                 time: time,
                 content: text,
-                is_left: this.re,
-                is_right: !this.re,
+                is_left: false,
+                is_right: true,
             };
             this.qa_dialog_menus[this.dialog_selected].sessions.push(item);
             // this.re = !this.re;
@@ -218,6 +226,66 @@ export default {
             // console.log(this.qa_dialog_menus);
             this.$refs.question_input_ref.input_msg = "";
             Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
+            let history = [];
+            let i = 0;
+            for (
+                i;
+                i < this.qa_dialog_menus[this.dialog_selected].sessions.length;
+                i++
+            ) {
+                let content =
+                    this.qa_dialog_menus[this.dialog_selected].sessions[i]
+                        .content;
+                let role =
+                    this.qa_dialog_menus[this.dialog_selected].sessions[i]
+                        .is_left === true
+                        ? "assistant"
+                        : "user";
+                history.push({
+                    content: content,
+                    role: role,
+                });
+            }
+            connector.send(
+                [history],
+                "getGptAnswer",
+                this.saveInfoCallback,
+                this.saveInfoWaiting,
+                this.saveInfoTimeout
+            );
+        },
+        saveInfoCallback(msg) {
+            if (msg.success) {
+                this.prompt_type = "success";
+                this.error = "上传成功";
+                let content = msg.content;
+                let new_ele = {
+                    content: content,
+                    is_left: true,
+                    is_right: false,
+                    time: new Date(new Date().getTime()).toLocaleString(),
+                };
+                this.qa_dialog_menus[this.dialog_selected].sessions.push(new_ele);
+                Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
+            } else {
+                this.prompt_type = "error";
+                this.error = "上传失败";
+            }
+        },
+        saveInfoWaiting(is_waiting) {
+            if (is_waiting) {
+                store.state.can_click_button = false;
+                this.prompt_type = "waiting";
+                this.error = "等待中";
+            } else {
+                store.state.can_click_button = true;
+                this.prompt_type = "default";
+                this.error = "";
+            }
+        },
+        saveInfoTimeout() {
+            this.prompt_type = "error";
+            this.error = "发送失败";
         },
         add_session() {
             this.counter++;
@@ -409,7 +477,7 @@ export default {
 }
 .qa_input_button {
     position: absolute;
-    top:20%;
+    top: 20%;
     width: 100px;
     height: 40px;
     cursor: pointer;
@@ -661,7 +729,7 @@ export default {
     position: absolute;
     /* border: solid 2px red; */
     width: 200px;
-    left:40%;
-    top:73%;
+    left: 40%;
+    top: 73%;
 }
 </style>

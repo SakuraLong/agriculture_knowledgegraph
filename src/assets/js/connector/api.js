@@ -11,7 +11,9 @@ const API = {
         "updateAvatar": "avatarSubmission/",
         "updateUserMsg": "updateAccountInformation/",
         "getUserMsg": "getUserMessage/",
-        "verify":"verifyEmailCode/"
+        "verify":"verifyEmailCode/",
+        "getGptAnswer":"getGptAnswer/"
+
     },
 }; 
 const API_PARA = {
@@ -46,6 +48,9 @@ const API_PARA = {
         ["sex",""],
         ["occupation",""],
         ["born_time",""]
+    ],
+    "getGptAnswer":[
+        ["history",""]
     ]
 };
 const API_CHECKER = {
@@ -80,6 +85,9 @@ const API_CHECKER = {
         ["ignore"],
         ["ignore"],
         ["ignore"],
+    ],
+    "getGptAnswer":[
+        ["ignore"]
     ]
 };
 export default{
