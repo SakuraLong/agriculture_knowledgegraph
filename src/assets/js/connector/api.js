@@ -58,7 +58,7 @@ const API_PARA = {
     ],
     "searchRelationship":[
         ["start_node_name", ""],
-        ["end node name", ""],
+        ["end_node_name", ""],
         ["method", ""]
     ]
 };
