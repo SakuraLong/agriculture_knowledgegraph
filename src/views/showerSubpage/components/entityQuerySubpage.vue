@@ -53,7 +53,7 @@
                 <encyclopediaDocEditSubpage :title="title" :text="ency_content"></encyclopediaDocEditSubpage>
             </div>
             <div ref="son_4" class="son_subpage" style="left: 400%">
-                图文档编辑页面
+                <graphDocEditSubpage title="青春猴头少年不会遇见霰弹枪学长" text="123"></graphDocEditSubpage>
             </div>
         </div>
     </div>
@@ -68,6 +68,7 @@ import Code from "@/assets/js/code/code";
 import linePrompt from "@/components/prompts/line/linePrompt.vue";
 import store from "@/store/index";
 import encyclopediaDocEditSubpage from "@/views/showerSubpage/components/subpages/encyclopediaDocEditSubpage.vue";
+import graphDocEditSubpage from "@/views/showerSubpage/components/subpages/graphDocEditSubpage.vue";
 export default {
     data() {
         return {
@@ -97,6 +98,7 @@ export default {
         mapSubpage,
         linePrompt,
         encyclopediaDocEditSubpage,
+        graphDocEditSubpage
     },
     mounted() {
         this.ency_content = data.default_ency;
