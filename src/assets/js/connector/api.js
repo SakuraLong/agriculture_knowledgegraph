@@ -12,7 +12,8 @@ const API = {
         "updateUserMsg": "updateAccountInformation/",
         "getUserMsg": "getUserMessage/",
         "verify":"verifyEmailCode/",
-        "searchNode":"searchNode/"
+        "searchNode":"searchNode/",
+        "recognizeNode":"recognizeNode/"
     },
 }; 
 const API_PARA = {
@@ -50,6 +51,9 @@ const API_PARA = {
     ],
     "searchNode":[
         ["search_name", ""]
+    ],
+    "recognizeNode":[
+        ["content", ""]
     ]
 };
 const API_CHECKER = {
@@ -86,6 +90,9 @@ const API_CHECKER = {
         ["ignore"],
     ],
     "searchNode":[
+        ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=100","@length-min=1"]
+    ],
+    "recognizeNode":[
         ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=100","@length-min=1"]
     ]
 };

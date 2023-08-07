@@ -70,8 +70,9 @@ export default {
     },
     watch: {
         input_msg() {
+            // this.input_msg = this.msg;
             this.msgChange();
-        },
+        }
     },
 };
 </script>

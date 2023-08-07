@@ -2,7 +2,7 @@
 <template>
     <div class="doc_edit_subpage_container">
         <div style="position: relative; width: 100%; height: auto">
-            <div class="main_title">查看"{{ title }}"的源代码</div>
+            <div class="main_title">查看"{{ title }}"的百科文档源代码</div>
             <div class="edit_power_reminder_1" v-if="!islogin">
                 在进行编辑操作前，您必须<button class="login_button">
                     登录账号
@@ -81,7 +81,7 @@ export default {
 .main_title {
     position: relative;
     width: 100%;
-    height: 60px;
+    /* height: 60px; */
     color: black;
     font-size: 27px;
     font-weight: 800;
@@ -92,7 +92,7 @@ export default {
 .edit_power_reminder_1 {
     position: relative;
     width: 100%;
-    height: 40px;
+    /* height: 40px; */
     font-size: 15px;
     font-weight: 500;
     /* border: solid 1px red; */

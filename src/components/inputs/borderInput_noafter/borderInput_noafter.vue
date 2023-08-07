@@ -67,7 +67,7 @@ export default {
 .border_input {
     font-family: Heiti;
     position: relative;
-    width: 220px;
+    width: 260px;
     height: 50px;
     display: flex;
     justify-content: center;
@@ -89,7 +89,7 @@ export default {
 }
 .input_ele {
     position: relative;
-    width: 200px;
+    width: 220px !important;
     height: 40px;
     border: 0; /*清除自带的2px的边框*/
     padding: 0; /*清除自带的padding间距*/

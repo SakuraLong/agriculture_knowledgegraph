@@ -53,7 +53,7 @@
                 <encyclopediaDocEditSubpage :title="title" :text="ency_content"></encyclopediaDocEditSubpage>
             </div>
             <div ref="son_4" class="son_subpage" style="left: 400%">
-                <graphDocEditSubpage title="青春猴头少年不会遇见霰弹枪学长" text="123"></graphDocEditSubpage>
+                <graphDocEditSubpage :title="title" :text="map_content"></graphDocEditSubpage>
             </div>
         </div>
     </div>
@@ -90,7 +90,7 @@ export default {
             is_waiting: false,
             error: "查询中",
             prompt_type: "waiting",
-            title:"默认界面",
+            title:"默认界面默认界面默认界面默认界面默认界面默认界面默认界面默认界面默认界面默认界面",
         };
     },
     components: {
