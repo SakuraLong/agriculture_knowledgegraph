@@ -74,6 +74,7 @@
                     :data_left="error"
                     type="error"
                     class="line_reminder"
+                    :prompt_type="error"
                 ></linePrompt>
             </div>
             <div
@@ -105,11 +106,14 @@ import textInput from "@/components/inputs/textInput/textInput.vue";
 import dialogAvatarBox from "@/components/dialogBoxes/dialogAvatarBox/dialogAvatarBox.vue";
 import Storage from "@/assets/js/storage/storage.js";
 import linePrompt from "@/components/prompts/line/linePrompt.vue";
+import connector from "@/assets/js/connector/connector";
+import Checker from "@/assets/js/checker/checker.js";
+import store from "@/store/index.js";
 // import { Select } from "@element-plus/icons-vue/dist/types";
 export default {
     data() {
         return {
-            error:"",
+            error: "",
             isRunning: false,
             input_type_arr: ["button"],
             re: true,
@@ -136,19 +140,13 @@ export default {
                 },
             ],
             dialog_selected: 0,
-            counter: 0,
+            // counter: 0,
         };
     },
     methods: {
         selectJudge(text) {
             if (text === "true") return true;
             else return false;
-        },
-        delayFunction(index) {
-            setTimeout(() => {
-                // 在这里执行你想要延迟执行的函数逻辑
-                this.sessionChange(index);
-            }, 1000); // 设置延迟时间为1000ms，即1秒钟后执行
         },
         testClick(index) {
             // this.test = !this.test;
@@ -192,16 +190,20 @@ export default {
             return this.$refs.container.offsetTop;
         },
         question_submit() {
+            if (!store.state.can_click_button) return;
             // this.re = !this.re;
-            if(this.$refs.question_input_ref.input_msg===""){this.error="不能为空";return;}
-            this.error="";
+            if (this.$refs.question_input_ref.input_msg === "") {
+                this.error = "不能为空";
+                return;
+            }
+            this.error = "";
             let time = new Date(new Date().getTime()).toLocaleString();
             let text = this.$refs.question_input_ref.input_msg;
             let item = {
                 time: time,
                 content: text,
-                is_left: this.re,
-                is_right: !this.re,
+                is_left: false,
+                is_right: true,
             };
             this.qa_dialog_menus[this.dialog_selected].sessions.push(item);
             // this.re = !this.re;
@@ -218,9 +220,82 @@ export default {
             // console.log(this.qa_dialog_menus);
             this.$refs.question_input_ref.input_msg = "";
             Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
+            let history = [];
+            let i = 1;
+            for (
+                i;
+                i < this.qa_dialog_menus[this.dialog_selected].sessions.length;
+                i++
+            ) {
+                let content =
+                    this.qa_dialog_menus[this.dialog_selected].sessions[i]
+                        .content;
+                let role =
+                    this.qa_dialog_menus[this.dialog_selected].sessions[i]
+                        .is_left === true
+                        ? "assistant"
+                        : "user";
+                history.push({
+                    content: content,
+                    role: role,
+                });
+            }
+            // let history =  JSON.stringify([{"role":"user","content":"告诉我深圳市雄韬电源科技股份有限公司的上市时间"},{"role":"user","content":"这家公司的高管有哪些"}]);
+            // console.log(history);
+            history = JSON.stringify(history);
+            connector.send(
+                [history],
+                "getGptAnswer",
+                this.saveInfoCallback,
+                this.saveInfoWaiting,
+                this.saveInfoTimeout,
+                60000
+            );
+        },
+        saveInfoCallback(msg) {
+            if (msg.success) {
+                this.prompt_type = "success";
+                this.error = "上传成功";
+                let content = msg.content;
+                let new_ele = {
+                    content: content,
+                    is_left: true,
+                    is_right: false,
+                    time: new Date(new Date().getTime()).toLocaleString(),
+                };
+                this.qa_dialog_menus[this.dialog_selected].sessions.push(
+                    new_ele
+                );
+                this.$nextTick(() => {
+                    this.$refs[
+                        "qa_show_container_ref" + this.dialog_selected
+                    ][0].scrollTop =
+                        this.$refs[
+                            "qa_show_container_ref" + this.dialog_selected
+                        ][0].scrollHeight;
+                });
+                Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
+            } else {
+                this.prompt_type = "error";
+                this.error = "上传失败";
+            }
+        },
+        saveInfoWaiting(is_waiting) {
+            if (is_waiting) {
+                store.state.can_click_button = false;
+                this.prompt_type = "waiting";
+                this.error = "等待中";
+            } else {
+                store.state.can_click_button = true;
+                this.prompt_type = "default";
+                this.error = "";
+            }
+        },
+        saveInfoTimeout() {
+            this.prompt_type = "error";
+            this.error = "发送失败";
         },
         add_session() {
-            this.counter++;
             let i = 0;
             for (i; i < this.qa_dialog_menus.length; i++) {
                 this.qa_dialog_menus[i].is_selected = false;
@@ -233,11 +308,11 @@ export default {
                 is_left: true,
                 is_right: false,
             };
-            let title = "默认对话" + this.counter;
+            let title = "默认对话" + this.qa_dialog_menus.length;
             let dia = {
                 time: new Date(new Date().getTime()).toLocaleString(),
                 is_selected: true,
-                num: this.counter,
+                num: this.qa_dialog_menus.length,
                 lable: title,
                 sessions: [item],
             };
@@ -250,10 +325,8 @@ export default {
                     this.$refs.session_containers_ref.scrollHeight;
             });
             // console.log(this.input_type_arr);
+            // this.counter++;
             Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
-        },
-        increment() {
-            return this.counter;
         },
         sessionChange(num) {
             if (this.session_can_change === 0) {
@@ -292,17 +365,18 @@ export default {
                 this.qa_dialog_menus[i].is_selected = false;
             }
             if (this.qa_dialog_menus.length === 1) {
-                this.add_session();
+                // this.counter--;
                 this.qa_dialog_menus.splice(num, 1);
                 this.input_type_arr.splice(num, 1);
+                this.add_session();
             } else {
                 this.qa_dialog_menus[num].is_selected = false;
                 this.qa_dialog_menus.splice(num, 1);
                 this.input_type_arr.splice(num, 1);
                 this.qa_dialog_menus[0].is_selected = true;
                 this.dialog_selected = 0;
+                // this.counter;
             }
-            this.counter--;
             Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
             // console.log("现在被选择的是", this.dialog_selected);
         },
@@ -355,7 +429,7 @@ export default {
                 break;
             }
         }
-        this.counter = this.qa_dialog_menus.length - 1;
+        // this.counter = this.qa_dialog_menus.length - 1;
         let j = 0;
         for (j = 0; j < this.qa_dialog_menus.length; j++) {
             this.input_type_arr[j] = "button";
@@ -409,7 +483,7 @@ export default {
 }
 .qa_input_button {
     position: absolute;
-    top:20%;
+    top: 20%;
     width: 100px;
     height: 40px;
     cursor: pointer;
@@ -661,7 +735,7 @@ export default {
     position: absolute;
     /* border: solid 2px red; */
     width: 200px;
-    left:40%;
-    top:73%;
+    left: 40%;
+    top: 73%;
 }
 </style>
