@@ -117,9 +117,6 @@ export default {
     outline: none; /*清除input点击之后的黑色边框*/
     /* border: 1px solid red; */
     z-index: 0;
-    /* font-size: input_font_size; */
-    /* font-size:30px; */
-    /* background-color: var(--login-background-color); */
     color: var(--input_ele-font-color);
     background-color: var(--input-ele-background-color);
     /* background-color:rgba(0,0,0,0); */
