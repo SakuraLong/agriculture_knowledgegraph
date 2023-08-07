@@ -61,7 +61,6 @@ export default {
     },
     components: { textInput_vertical },
     mounted() {
-        console.log(this.text);
     },
     methods: {},
 };

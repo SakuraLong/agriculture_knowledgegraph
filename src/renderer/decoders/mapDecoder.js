@@ -21,8 +21,9 @@ class MapDecoder {
         let every_data = [];
         this.relations.forEach((element, index) => {
             element = element.replace(/\[|\]/g, ""); // 删除[]
-            if (index === 0) {
+            if (index === 0 && element.indexOf("=") === -1) {
                 // 匹配主实体
+                // index === 0时可能不是主实体，也有可能是关系
                 // 先简单写了，之后这里要改
                 this.main_node_name =
                     element.split("|").length === 2

@@ -1,7 +1,7 @@
 <!-- 关系查询子页面 -->
 <template>
     <div class="rq_subpage_container" ref="container">
-        <div class="cna_scroll">
+        <div class="can_scroll">
             <div class="relationship_input_container">
                 <div class="relationship_input_reminder">
                     &nbsp;&nbsp;&nbsp;查询条件:
@@ -14,7 +14,6 @@
                         占位用
                     </button>
                     <borderInput_noafter
-                        :msg="msg"
                         :placeholder="input_place_holder1"
                         class="relationship_input_mainer"
                         ref="relationship_input_ref1"
@@ -30,38 +29,6 @@
                     >
                     </boderSelect>
                     <borderInput_noafter
-                        :msg="msg"
-                        :placeholder="input_place_holder2"
-                        class="relationship_input_mainer"
-                        ref="relationship_input_ref2"
-                    >
-                    </borderInput_noafter>
-                    <button
-                        class="relationship_input_button"
-                        @click="relation_search_submit"
-                    >
-                        搜索
-                    </button>
-                </div>
-                <div class="media_input_container">
-                    <borderInput_noafter
-                        :msg="msg"
-                        :placeholder="input_place_holder1"
-                        class="relationship_input_mainer"
-                        ref="relationship_input_ref1"
-                    >
-                    </borderInput_noafter>
-                    <boderSelect
-                        :items="select_items"
-                        :title="title"
-                        :placeholder="select_placeholder"
-                        class="relationship_selecter_"
-                        ref="relationship_select_ref"
-                        :value="select_value"
-                    >
-                    </boderSelect>
-                    <borderInput_noafter
-                        :msg="msg"
                         :placeholder="input_place_holder2"
                         class="relationship_input_mainer"
                         ref="relationship_input_ref2"
@@ -86,8 +53,7 @@
                     &nbsp;「关系图」
                 </div>
                 <div class="relationship_result_show_1">
-                    你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。
-                    你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。
+                    <mapSubpage ref="map_subpage"></mapSubpage>
                 </div>
             </div>
         </div>
@@ -97,6 +63,12 @@
 import borderInput_noafter from "@/components/inputs/borderInput_noafter/borderInput_noafter.vue";
 import boderSelect from "@/components/selects/borderSelect/boderSelect.vue";
 import linePrompt from "@/components/prompts/line/linePrompt.vue";
+import mapSubpage from "./subpages/mapSubpage.vue";
+
+import Checker from "@/assets/js/checker/checker";
+import Code from "@/assets/js/code/code";
+import Connector from "@/assets/js/connector/connector";
+import store from "@/store/index";
 export default {
     data() {
         return {
@@ -104,40 +76,90 @@ export default {
             input_font_size: "20px",
             input_place_holder1: "实体1",
             input_place_holder2: "实体2",
-            select_items: ["关系1", "关系2", "关系3"],
+            select_items: ["查询最短关系", "查询最长关系"],
             title: "关系选择",
-            select_value: "",
+            select_value: "查询最短关系",
             select_placeholder: "选择一个关系",
             line_prompt: {
-                msg: "sss",
+                msg: "",
                 type: "error",
             },
+            map_renderer: null,
+            id: "relation_map_container",
         };
+    },
+    mounted() {
+        this.$refs.map_subpage.setId(this.id);
     },
     methods: {
         getOffsetTop() {
             return this.$refs.container.offsetTop;
         },
         relation_search_submit() {
-            let obj1 = this.$refs.relationship_input_ref1.input_msg;
-            let obj2 = this.$refs.relationship_input_ref2.input_msg;
-            let relation = this.$refs.relationship_select_ref.input_value;
-            console.log(obj1);
-            if (obj1 === "" || obj2 === "") {
-                this.line_prompt.msg = "输入的实体不能为空";
-                return;
-            } else if (relation === "") {
-                this.line_prompt.msg = "所选择的关系不能为空";
+            if(!store.state.can_click_button) return;
+            let obj1 = this.$refs.relationship_input_ref1.get();
+            let obj2 = this.$refs.relationship_input_ref2.get();
+            let relation = this.$refs.relationship_select_ref.get();
+            if (
+                !new Checker(obj1, [
+                    "no-null",
+                    "no-only-spacing",
+                    "no-base-symbols",
+                    "sql-check",
+                ]).check() ||
+                !new Checker(obj2, [
+                    "no-null",
+                    "no-only-spacing",
+                    "no-base-symbols",
+                    "sql-check",
+                ]).check()
+            ) {
+                this.line_prompt.type = "error";
+                this.line_prompt.msg = "输入不符合规范";
                 return;
             } else {
                 this.line_prompt.msg = "";
+                // 发送查询请求
+                let index = this.select_items.findIndex((element)=>{
+                    return element === relation;
+                });
+                Connector.send(
+                    [obj1, obj2, index],
+                    "searchRelationship",
+                    this.relationCallback,
+                    this.relationWaiting,
+                    this.relationTimeout,
+                    5000
+                );
             }
+        },
+        relationCallback(msg) {
+            if (msg.success) {
+                if (msg.content.has_link) {
+                    let temp = Code.Base64.decode(msg.content.links_content);
+                    this.$refs.map_subpage.renderMapByText(temp);
+                }
+            }
+        },
+        relationWaiting(is_waiting) {
+            store.state.can_click_button = !is_waiting;
+            if(is_waiting){
+                this.line_prompt.msg = "查询中";
+                this.line_prompt.type = "waiting";
+            }else{
+                this.line_prompt.msg = "";
+            }
+        },
+        relationTimeout() {
+            this.line_prompt.msg = "查询超时";
+            this.line_prompt.type = "error";
         },
     },
     components: {
         borderInput_noafter,
         boderSelect,
         linePrompt,
+        mapSubpage,
     },
 };
 </script>
@@ -152,16 +174,19 @@ export default {
     background-color: rgba(255, 255, 255, 0.8);
     box-sizing: content-box;
     display: flex;
-    /* justify-content: center; */
+    justify-content: center;
     flex-direction: column;
     align-items: center;
 }
-.cna_scroll{
+.can_scroll {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
     position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 .relationship_input_mainer {
     position: relative;
@@ -219,7 +244,7 @@ export default {
     width: 100%;
     height: 92%;
     overflow: hidden;
-    /* background-color: red; */
+    background-color: white;
 }
 .line_prompt {
     position: relative;
@@ -252,20 +277,12 @@ export default {
 <style>
 .input_container {
     width: 100%;
-    height: 80px;
-    border: 1px solid red;
+    /* height: 80px; */
+    /* border: 1px solid red; */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
-}
-.media_input_container {
-    width: 100%;
-    border: 1px solid red;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
 }
 .relationship_input_container {
     position: relative;
@@ -293,12 +310,9 @@ export default {
     overflow: hidden;
     min-height: 500px;
 }
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1400px) {
     .input_container {
-        display: none;
-    }
-    .media_input_container {
-        display: flex;
+        flex-direction: column;
     }
     .relationship_input_container {
         height: 360px;

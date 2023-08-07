@@ -13,7 +13,8 @@ const API = {
         "getUserMsg": "getUserMessage/",
         "verify":"verifyEmailCode/",
         "searchNode":"searchNode/",
-        "recognizeNode":"recognizeNode/"
+        "recognizeNode":"recognizeNode/",
+        "searchRelationship":"searchRelationshipBetween/"
     },
 }; 
 const API_PARA = {
@@ -54,6 +55,11 @@ const API_PARA = {
     ],
     "recognizeNode":[
         ["content", ""]
+    ],
+    "searchRelationship":[
+        ["start_node_name", ""],
+        ["end node name", ""],
+        ["method", ""]
     ]
 };
 const API_CHECKER = {
@@ -94,6 +100,11 @@ const API_CHECKER = {
     ],
     "recognizeNode":[
         ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=200","@length-min=1"]
+    ],
+    "searchRelationship":[
+        ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=100","@length-min=1"],
+        ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=100","@length-min=1"],
+        ["num-only"]
     ]
 };
 export default{

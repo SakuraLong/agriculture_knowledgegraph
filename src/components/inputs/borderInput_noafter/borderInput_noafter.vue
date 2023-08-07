@@ -54,6 +54,10 @@ export default {
         viewClick(){
             this.view = !this.view;
             this.input_type = this.input_type === "text" ? "password" : "text";
+        },
+        setMsg(msg){
+            console.log(msg);
+            this.input_msg = this.input_msg === msg ? this.input_msg : msg;
         }
     },
     watch: {
@@ -67,7 +71,7 @@ export default {
 .border_input {
     font-family: Heiti;
     position: relative;
-    width: 260px;
+    width: 260px !important;
     height: 50px;
     display: flex;
     justify-content: center;
@@ -89,7 +93,7 @@ export default {
 }
 .input_ele {
     position: relative;
-    width: 220px !important;
+    width: 240px !important;
     height: 40px;
     border: 0; /*清除自带的2px的边框*/
     padding: 0; /*清除自带的padding间距*/

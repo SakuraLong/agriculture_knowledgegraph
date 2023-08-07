@@ -157,8 +157,154 @@ const default_map = `
 [[Shmily]]--[[抹茶]]=朋友=Shmily和抹茶是朋友
 `;
 
+const mapForceLight = (graph, title) => {
+    graph.nodes.forEach(function (node) {
+        node.label = {
+            show: true,
+        };
+    });
+    let option = {
+        title: {
+            text: title,
+            subtext: "Default layout",
+            top: "bottom",
+            left: "right",
+        },
+        tooltip: {
+            formatter: function (x) {
+                if (x.dataType === "node") {
+                    return x.name;
+                } else {
+                    return x.data.data;
+                }
+            },
+        },
+        legend: [
+            {
+                // selectedMode: 'single',
+                data: graph.categories.map(function (a) {
+                    return a.name;
+                }),
+            },
+        ],
+        animationDuration: 1500,
+        animationEasingUpdate: "quinticInOut",
+        series: [
+            {
+                name: "Les Miserables",
+                type: "graph",
+                layout: "force",
+                draggable: true,
+                data: graph.nodes,
+                links: graph.links,
+                categories: graph.categories,
+                roam: true,
+                label: {
+                    position: "right",
+                },
+                lineStyle: {
+                    color: "source",
+                },
+                force: {
+                    repulsion: 4000,
+                },
+                emphasis: {
+                    focus: "adjacency",
+                    lineStyle: {
+                        width: 12,
+                    },
+                },
+                backgroundColor: "rgba(255,255,255,1)",
+            },
+        ],
+    };
+    return option;
+};
+const mapForceDark = (graph, title) => {
+    graph.nodes.forEach(function (node) {
+        node.label = {
+            show: true,
+        };
+    });
+    let option = {
+        darkMode:true,
+        title: {
+            text: title,
+            subtext: "Default layout",
+            top: "bottom",
+            left: "right",
+            textStyle:{
+                color:"white"
+            },
+            subtextStyle:{
+                color:"white"
+            }
+        },
+        tooltip: {
+            formatter: function (x) {
+                if (x.dataType === "node") {
+                    return x.name;
+                } else {
+                    return x.data.data;
+                }
+            },
+        },
+        legend: [
+            {
+                // selectedMode: 'single',
+                data: graph.categories.map(function (a) {
+                    return a.name;
+                }),
+            },
+        ],
+        animationDuration: 1500,
+        animationEasingUpdate: "quinticInOut",
+        series: [
+            {
+                name: "Les Miserables",
+                type: "graph",
+                layout: "force",
+                draggable: true,
+                data: graph.nodes,
+                links: graph.links,
+                categories: graph.categories,
+                roam: true,
+                label: {
+                    position: "right",
+                },
+                lineStyle: {
+                    color: "source",
+                },
+                force: {
+                    repulsion: 4000,
+                },
+                emphasis: {
+                    focus: "adjacency",
+                    lineStyle: {
+                        width: 12,
+                    },
+                },
+            },
+        ],
+        backgroundColor: "rgba(41,52,65,1)",
+        color: [
+            "#5470c6",
+            "#91cc75",
+            "#fac858",
+            "#ee6666",
+            "#73c0de",
+            "#3ba272",
+            "#fc8452",
+            "#9a60b4",
+            "#ea7ccc",
+        ],
+    };
+    return option;
+};
 export default {
     robot_avatar,
     default_ency,
-    default_map
+    default_map,
+    mapForceLight,
+    mapForceDark
 };
