@@ -29,6 +29,11 @@
                         style="-webkit-user-select: none"
                         :ref="'dialog_name_input_ref' + index"
                         :key="index"
+                        :class="
+                            item.is_selected
+                                ? 'dialog_title_selected'
+                                : 'dialog_title_unselected'
+                        "
                     />
                     <!-- <div
                         class="session_delete"
@@ -39,11 +44,13 @@
                     <Close
                         class="session_delete"
                         @click.stop="sessionDelete(index)"
+                        @dblclick.stop="qaq"
                     />
                     <Check
                         v-if="!getCanchange(index)"
                         class="session_rename"
                         @click.stop="sessionRename(index)"
+                        @dblclick.stop="qaq"
                     ></Check>
                 </div>
             </div>
@@ -62,21 +69,31 @@
                 <button class="qa_input_button" @click="question_submit">
                     发送
                 </button>
+                <linePrompt
+                    :opacity="error"
+                    :data_left="error"
+                    type="error"
+                    class="line_reminder"
+                ></linePrompt>
             </div>
             <div
+                v-for="(item, ind) in qa_dialog_menus"
                 class="qa_show_container"
-                ref="qa_show_container_ref"
-                :key="re"
+                :ref="'qa_show_container_ref' + ind"
+                :key="item.time"
+                :class="{
+                    test1: !item.is_selected,
+                }"
             >
                 <dialogAvatarBox
-                    v-for="item in qa_dialog_menus[dialog_selected].sessions"
-                    :key="item.time"
-                    :content="item.content"
-                    :is_left="item.is_left"
-                    :is_right="item.is_right"
+                    v-for="i in item.sessions"
+                    :key="i.time"
+                    :content="i.content"
+                    :is_left="i.is_left"
+                    :is_right="i.is_right"
                     :class="{
-                        dialog_left: item.is_left,
-                        dialog_right: item.is_right,
+                        dialog_left: i.is_left,
+                        dialog_right: i.is_right,
                     }"
                 />
             </div>
@@ -87,18 +104,22 @@
 import textInput from "@/components/inputs/textInput/textInput.vue";
 import dialogAvatarBox from "@/components/dialogBoxes/dialogAvatarBox/dialogAvatarBox.vue";
 import Storage from "@/assets/js/storage/storage.js";
-import { timePanelSharedProps } from "element-plus/es/components/time-picker/src/props/shared";
+import linePrompt from "@/components/prompts/line/linePrompt.vue";
 // import { Select } from "@element-plus/icons-vue/dist/types";
 export default {
     data() {
         return {
+            error:"",
+            isRunning: false,
             input_type_arr: ["button"],
             re: true,
             msg: "",
             input_font_size: "20px",
             input_place_holder: "请在这里输入你的问题",
+            session_can_change: 0,
             qa_dialog_menus: [
                 {
+                    time: new Date(new Date().getTime()).toLocaleString(),
                     is_selected: true,
                     lable: "对话0",
                     sessions: [
@@ -119,6 +140,16 @@ export default {
         };
     },
     methods: {
+        selectJudge(text) {
+            if (text === "true") return true;
+            else return false;
+        },
+        delayFunction(index) {
+            setTimeout(() => {
+                // 在这里执行你想要延迟执行的函数逻辑
+                this.sessionChange(index);
+            }, 1000); // 设置延迟时间为1000ms，即1秒钟后执行
+        },
         testClick(index) {
             // this.test = !this.test;
             let i = 0;
@@ -129,9 +160,9 @@ export default {
             this.input_type_arr[index] = "text";
             this.$nextTick(() => {
                 this.$refs["dialog_name_input_ref" + index][0].selectionStart =
-                this.$refs["dialog_name_input_ref" + index][0].value.length;
+                    this.$refs["dialog_name_input_ref" + index][0].value.length;
                 this.$refs["dialog_name_input_ref" + index][0].selectionEnd =
-                this.$refs["dialog_name_input_ref" + index][0].value.length;
+                    this.$refs["dialog_name_input_ref" + index][0].value.length;
                 this.$refs["dialog_name_input_ref" + index][0].focus();
                 console.log(this.$refs["dialog_name_input_ref" + index]);
                 console.log(this.$refs["dialog_name_input_ref" + index][0]);
@@ -142,14 +173,17 @@ export default {
             if (this.input_type_arr[index] === "button") return true;
             else return false;
         },
+        qaq() {
+            console.log("qaq");
+        },
         sessionRename(index) {
             // console.log("sessionRename", index);
             // console.log(this.$refs.dialog_name_input_ref[index].value);
             // console.log("长度是:", this.$refs.dialog_name_input_ref);
             this.input_type_arr[index] = "button";
-            if(this.$refs["dialog_name_input_ref" + index][0].value===""){
-                this.qa_dialog_menus[index].lable="默认对话";
-                this.re=!this.re;
+            if (this.$refs["dialog_name_input_ref" + index][0].value === "") {
+                this.qa_dialog_menus[index].lable = "默认对话";
+                this.re = !this.re;
             }
             console.log(this.$refs["dialog_name_input_ref" + index][0].value);
             Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
@@ -158,7 +192,9 @@ export default {
             return this.$refs.container.offsetTop;
         },
         question_submit() {
-            this.re = !this.re;
+            // this.re = !this.re;
+            if(this.$refs.question_input_ref.input_msg===""){this.error="不能为空";return;}
+            this.error="";
             let time = new Date(new Date().getTime()).toLocaleString();
             let text = this.$refs.question_input_ref.input_msg;
             let item = {
@@ -170,8 +206,12 @@ export default {
             this.qa_dialog_menus[this.dialog_selected].sessions.push(item);
             // this.re = !this.re;
             this.$nextTick(() => {
-                this.$refs.qa_show_container_ref.scrollTop =
-                    this.$refs.qa_show_container_ref.scrollHeight;
+                this.$refs[
+                    "qa_show_container_ref" + this.dialog_selected
+                ][0].scrollTop =
+                    this.$refs[
+                        "qa_show_container_ref" + this.dialog_selected
+                    ][0].scrollHeight;
                 // console.log(this.$refs.qa_show_container_ref.scrollTop);
                 // console.log(this.$refs.qa_show_container_ref.scrollHeight);
             });
@@ -185,7 +225,6 @@ export default {
             for (i; i < this.qa_dialog_menus.length; i++) {
                 this.qa_dialog_menus[i].is_selected = false;
             }
-            this.dialog_selected = this.qa_dialog_menus.length - 1;
             let time = new Date(new Date().getTime()).toLocaleString();
             let text = "你好，欢迎来到问答界面！\n 请输入你的问题";
             let item = {
@@ -196,14 +235,16 @@ export default {
             };
             let title = "默认对话" + this.counter;
             let dia = {
+                time: new Date(new Date().getTime()).toLocaleString(),
                 is_selected: true,
                 num: this.counter,
                 lable: title,
                 sessions: [item],
             };
             this.qa_dialog_menus.push(dia);
+            this.dialog_selected = this.qa_dialog_menus.length - 1;
             this.input_type_arr.push("button");
-            // this.re = !this.re;
+            this.re = !this.re;
             this.$nextTick(() => {
                 this.$refs.session_containers_ref.scrollTop =
                     this.$refs.session_containers_ref.scrollHeight;
@@ -215,19 +256,33 @@ export default {
             return this.counter;
         },
         sessionChange(num) {
-            console.log(num);
-            let i = 0;
-            for (i; i < this.qa_dialog_menus.length; i++) {
-                this.qa_dialog_menus[i].is_selected = false;
+            if (this.session_can_change === 0) {
+                console.log("点击");
+                this.session_can_change++;
+                // console.log(num);
+                let i = 0;
+                for (i; i < this.qa_dialog_menus.length; i++) {
+                    this.qa_dialog_menus[i].is_selected = false;
+                }
+                this.qa_dialog_menus[num].is_selected = true;
+                this.dialog_selected = num;
+                // this.re = !this.re;
+                this.$nextTick(() => {
+                    console.log("更新完成");
+                    this.session_can_change = 0;
+                });
+                setTimeout(() => {
+                    this.session_can_change = 0;
+                }, 2000);
+                // console.log("现在共有",this.counter,"个对话");
+                // console.log("现在被选中的对话序号是：", num);
+                Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
+            } else {
+                console.log("不可点击");
             }
-            this.qa_dialog_menus[num].is_selected = true;
-            this.dialog_selected = num;
-            // console.log("现在共有",this.counter,"个对话");
-            // console.log("现在被选中的对话序号是：", num);
-            Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
         },
         sessionDelete(num) {
-            console.log("要被删除的对话序号是", num);
+            // console.log("要被删除的对话序号是", num);
             // if (this.dialog_selected === num) {
             //     this.dialog_selected = 0;
             //     this.dialog_arr[0] = true;
@@ -249,12 +304,13 @@ export default {
             }
             this.counter--;
             Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
-            console.log("现在被选择的是", this.dialog_selected);
+            // console.log("现在被选择的是", this.dialog_selected);
         },
     },
     components: {
         textInput,
         dialogAvatarBox,
+        linePrompt,
         // Select
     },
     created() {
@@ -263,6 +319,7 @@ export default {
             "DIALOG_MENUS",
             [
                 {
+                    time: new Date(new Date().getTime()).toLocaleString(),
                     is_selected: true,
                     num: 0,
                     lable: "对话0",
@@ -284,8 +341,12 @@ export default {
         // if (qa_dialog_menus.length === 0) return;
         this.qa_dialog_menus = qa_dialog_menus;
         this.$nextTick(() => {
-            this.$refs.qa_show_container_ref.scrollTop =
-                this.$refs.qa_show_container_ref.scrollHeight;
+            this.$refs[
+                "qa_show_container_ref" + this.dialog_selected
+            ][0].scrollTop =
+                this.$refs[
+                    "qa_show_container_ref" + this.dialog_selected
+                ][0].scrollHeight;
         });
         let i = 0;
         for (i = 0; i < this.qa_dialog_menus.length; i++) {
@@ -317,14 +378,15 @@ export default {
 .qa_input_container {
     position: relative;
     width: 94%;
-    height: 10%;
+    height: 17%;
     background-color: white;
     display: flex;
     /* justify-content: center; */
-    align-items: center;
+    /* align-items: center; */
     flex-direction: row;
+    /* border: solid 1px red; */
     /* border: solid 1px rgb(154, 154, 154); */
-    top: 87%;
+    top: 82%;
     left: 0;
     /* right: 10px; */
 }
@@ -340,14 +402,14 @@ export default {
 }
 .qa_input_mainer {
     width: 87%;
-    height: 100%;
+    height: 75%;
     position: absolute;
     /* top:18%; */
     left: 0%;
 }
 .qa_input_button {
-    position: relative;
-    bottom: 2%;
+    position: absolute;
+    top:20%;
     width: 100px;
     height: 40px;
     cursor: pointer;
@@ -375,7 +437,7 @@ export default {
 .qa_show_container {
     position: absolute;
     width: calc(100% - 50px);
-    height: 85%;
+    height: 82%;
     top: 0;
     background-color: transparent;
     display: flex;
@@ -385,7 +447,7 @@ export default {
     overflow-y: scroll;
     overflow-x: hidden;
     padding-left: 50px;
-    /* border: 1px solid red; */
+    /* border: 1px solid yellow; */
 }
 .qa_show_container::-webkit-scrollbar {
     width: 12px;
@@ -429,12 +491,12 @@ export default {
 }
 .sessions_selecter {
     position: absolute;
+    /* min-width: 100px; */
     left: 0;
     top: 0;
     width: 20%;
     height: 100%;
     /* border: solid 1px red; */
-    background-color: palegreen;
     background-color: transparent;
     display: flex;
     flex-direction: column;
@@ -467,7 +529,7 @@ export default {
 }
 .add_session_button {
     position: relative;
-    height: 6%;
+    height: 40px;
     width: 60%;
     top: 3%;
     right: 1px;
@@ -484,9 +546,9 @@ export default {
     background-color: rgba(220, 179, 233, 0.8);
 }
 .session_containers {
-    position: relative;
+    position: absolute;
     /* background-color: red; */
-    top: 8%;
+    bottom: 0%;
     height: 86%;
     width: 100%;
     /* background-color: aqua; */
@@ -494,12 +556,13 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: auto;
+    overflow-y: auto;
 }
 .session_buttons {
     position: relative;
+    /* min-width: 80px; */
     width: 80%;
-    height: 40px;
+    height: 40px !important;
     margin-top: 10px;
     margin-bottom: 10px;
     background-color: transparent;
@@ -509,13 +572,13 @@ export default {
     color: rgb(230, 146, 255);
     line-height: 40px;
     text-align: center;
-    padding: 0;
-    cursor: pointer;
-    display: flex;
+    /* padding: 0; */
+    /* cursor: pointer; */
+    /* display: flex; */
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    /* z-index: 2; */
+    z-index: 2;
 }
 .session_buttons:hover {
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3), -2px -2px 2px rgba(0, 0, 0, 0.3);
@@ -523,6 +586,7 @@ export default {
 }
 .session_buttons_selected {
     position: relative;
+    /* min-width: 80px; */
     width: 80%;
     height: 40px;
     margin-top: 10px;
@@ -534,42 +598,70 @@ export default {
     color: rgb(230, 146, 255);
     line-height: 40px;
     text-align: center;
-    padding: 0;
-    cursor: pointer;
-    display: flex;
+    /* padding: 0; */
+    /* cursor: pointer; */
+    /* display: flex; */
     flex-direction: row;
     justify-content: center;
+    z-index: 2;
 }
 .dialog_title {
-    position: absolute;
+    position: relative;
     width: calc(75% - 10px) !important;
-    left: 10px;
-    height: 100%;
-    border: 0; /*清除自带的2px的边框*/
+    right: 10px;
+    height: 40px;
     padding: 0; /*清除自带的padding间距*/
     outline: none; /*清除input点击之后的黑色边框*/
     /* background-color: red; */
     font-family: Heiti;
     font-size: 15px;
+    font-weight: 500;
     text-align: left;
     user-select: none;
+    color: black;
     /* padding-left: 20px; */
     background-color: white;
     /* border: 1px solid red; */
 }
+.dialog_title_unselected:hover {
+    color: rgb(230, 146, 255);
+}
+.dialog_title_unselected {
+    border-bottom: 2px solid rgb(165, 165, 165);
+}
+.dialog_title_selected {
+    border-bottom: 2px solid rgb(230, 146, 255);
+}
 .session_delete {
     position: absolute;
+    /* min-width: 4px; */
     top: 25%;
     left: 85%;
     width: auto;
     height: 50%;
+    cursor: pointer;
+    /* border: solid 1px blue; */
 }
 .session_rename {
     /* border: solid 1px red; */
     position: absolute;
+    /* min-width: 4px; */
     top: 25%;
-    left: 75%;
+    left: 70%;
     width: auto;
     height: 50%;
+    cursor: pointer;
+    /* border: solid 1px red; */
+}
+.test1 {
+    /* display: none; */
+    visibility: hidden;
+}
+.line_reminder {
+    position: absolute;
+    /* border: solid 2px red; */
+    width: 200px;
+    left:40%;
+    top:73%;
 }
 </style>
