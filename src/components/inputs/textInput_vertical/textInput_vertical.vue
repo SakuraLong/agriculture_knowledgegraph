@@ -70,6 +70,9 @@ export default {
         input_msg() {
             this.msgChange();
         },
+        msg(){
+            this.input_msg = this.msg;
+        }
     },
 };
 </script>

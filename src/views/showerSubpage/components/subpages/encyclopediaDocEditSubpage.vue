@@ -50,17 +50,19 @@ import data from "@/assets/js/data";
 import textInput_vertical from "@/components/inputs/textInput_vertical/textInput_vertical.vue";
 import store from "@/store/index.js";
 export default {
-    props: ["title","text"],
+    props: ["title", "text"],
     data() {
         return {
             is_login: false,
             input_place_holder: "",
             input_font_size: "16px",
-            islogin:store.state.is_login
+            islogin:store.state.is_login,
         };
     },
     components: { textInput_vertical },
-    mounted() {},
+    mounted() {
+        console.log(this.text);
+    },
     methods: {},
 };
 </script>

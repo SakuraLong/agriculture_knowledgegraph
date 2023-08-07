@@ -50,7 +50,7 @@
                 <mapSubpage ref="map_subpage"></mapSubpage>
             </div>
             <div ref="son_3" class="son_subpage" style="left: 300%">
-                <encyclopediaDocEditSubpage title="某科学的超电磁炮" text="123"></encyclopediaDocEditSubpage>
+                <encyclopediaDocEditSubpage :title="title" :text="ency_content"></encyclopediaDocEditSubpage>
             </div>
             <div ref="son_4" class="son_subpage" style="left: 400%">
                 图文档编辑页面
@@ -89,6 +89,7 @@ export default {
             is_waiting: false,
             error: "查询中",
             prompt_type: "waiting",
+            title:"默认界面",
         };
     },
     components: {
