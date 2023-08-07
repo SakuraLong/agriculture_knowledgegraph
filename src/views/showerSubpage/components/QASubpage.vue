@@ -75,6 +75,7 @@ export default {
             re: true,
             msg: "",
             input_font_size: "20px",
+            dialog_lables:["默认对话"],
             input_place_holder: "请在这里输入你的问题",
             qa_dialog_menus: [
                 {   is_selected:true,
@@ -131,26 +132,28 @@ export default {
             // this.dialog_selected = this.dialog_arr.length - 1;
             // console.log("对话数组", this.dialog_arr);
             let time = new Date(new Date().getTime()).toLocaleString();
-            let text = "你好，欢迎来到问答界面！\n 请输入你的问题o";
+            let text = "你好，欢迎来到问答界面！\n 请输入你的问题";
             let item = {
                 time: time,
                 content: text,
                 is_left: true,
                 is_right: false,
             };
-            let title = "对话" + this.counter;
+            let title = "默认对话";
             let dia = {
                 is_selected:true,
                 num: this.counter,
                 lable: title,
                 sessions: [item],
             };
+            this.dialog_lables.push(title);
             this.qa_dialog_menus.push(dia);
             // this.re = !this.re;
             this.$nextTick(() => {
                 this.$refs.session_containers_ref.scrollTop =
                     this.$refs.session_containers_ref.scrollHeight;
             });
+            console.log(this.dialog_lables);
             Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
         },
         increment() {
@@ -180,9 +183,11 @@ export default {
             }
             if (this.qa_dialog_menus.length === 1) {
                 this.add_session();
+                this.dialog_lables.splice(num, 1);
                 this.qa_dialog_menus.splice(num, 1);
             } else {
                 this.qa_dialog_menus[num].is_selected = false;
+                this.dialog_lables.splice(num, 1);
                 this.qa_dialog_menus.splice(num, 1);
                 this.qa_dialog_menus[0].is_selected = true;
                 this.dialog_selected = 0;
@@ -233,6 +238,11 @@ export default {
             }
         }
         this.counter = this.qa_dialog_menus.length - 1;
+        let j = 0;
+        for (j = 0; j < this.qa_dialog_menus.length; j++) {
+            this.dialog_lables = [];
+            this.dialog_lables.push(this.qa_dialog_menus[i].lable);
+        }
     },
 };
 </script>
