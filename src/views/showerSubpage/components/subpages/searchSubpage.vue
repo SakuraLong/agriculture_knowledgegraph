@@ -236,6 +236,12 @@ export default {
                     this.all_page = 0;
                     this.begin = 0;
                     this.to = 0;
+                    this.all_search_res = [];
+                    this.search_res = [];
+                    this.page_sections = [];
+                    this.page_section = "";
+                    this.page = "";
+                    this.pages = [];
                     this.no_search_prompt_text = "未查到相关结果";
                     return;
                 }
