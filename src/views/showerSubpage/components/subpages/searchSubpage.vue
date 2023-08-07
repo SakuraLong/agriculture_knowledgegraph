@@ -155,6 +155,7 @@
                     :abstract="element.abstract"
                     :index="element.index"
                     :image="element.image"
+                    :id="element.id"
                     @clickSearchRes="clickSearchRes"
                 ></searchRes>
                 <div class="no_search_prompt" v-if="search_res.length === 0">
@@ -202,36 +203,55 @@ export default {
             no_search_prompt_text: "当前还没有进行查询",
         };
     },
-    watch:{
-        page_section(){
+    watch: {
+        page_section() {
             this.pageListInit();
-        }
+        },
     },
     methods: {
         search(text) {
             console.log(text);
-            Connector.test(
+            // Connector.test(
+            //     this.searchCallback,
+            //     this.searchWaiting,
+            //     this.searchCallback,
+            //     2000,
+            //     true,
+            //     1000,
+            //     testMsg.test_search_res_data
+            // );
+            Connector.send(
+                [text],
+                "searchNode",
                 this.searchCallback,
                 this.searchWaiting,
-                this.searchCallback,
-                2000,
-                true,
-                1000,
-                testMsg.test_search_res_data
+                this.searchTimeout
             );
         },
         searchCallback(msg) {
             if (msg.success) {
                 console.log("success");
-                if(msg.content.result.length === 0){
+                if (msg.content.result.length === 0) {
                     this.now_page = 1;
                     this.all_page = 0;
                     this.begin = 0;
                     this.to = 0;
+                    this.all_search_res = [];
+                    this.search_res = [];
+                    this.page_sections = [];
+                    this.page_section = "";
+                    this.page = "";
+                    this.pages = [];
                     this.no_search_prompt_text = "未查到相关结果";
                     return;
                 }
-                let res_list = msg.content.result; // 之后需要解码
+                let res_list = []; // 之后需要解码
+                msg.content.result.forEach((element)=>{
+                    let temp = element;
+                    temp.name = Code.Base64.decode(temp.name);
+                    temp.abstract = Code.Base64.decode(temp.abstract);
+                    res_list.push(temp);
+                });
                 this.all_search_res = res_list;
                 // 默认进入第一页
                 this.now_page = 1;
@@ -285,9 +305,9 @@ export default {
             }
         },
         searchWaiting(is_waiting) {
-            if(is_waiting){
+            if (is_waiting) {
                 this.error = "搜索中";
-            }else{
+            } else {
                 this.error = "";
                 this.$refs.default_search.getMsg();
             }
@@ -312,7 +332,7 @@ export default {
             this.$refs.search_res_list.scrollTop = 0;
         },
         goToNextPage() {
-            if(this.all_page === 0) return;
+            if (this.all_page === 0) return;
             this.now_page =
                 this.now_page + 1 > this.all_page
                     ? this.now_page
@@ -320,13 +340,13 @@ export default {
             this.goToPageByIndex();
         },
         goToLastPage() {
-            if(this.all_page === 0) return;
+            if (this.all_page === 0) return;
             this.now_page =
                 this.now_page - 1 <= 0 ? this.now_page : this.now_page - 1;
             this.goToPageByIndex();
         },
         pageListInit() {
-            if(this.page_section === "") return;
+            if (this.page_section === "") return;
             this.pages = [];
             let value = this.page_section;
             let i = this.page_sections.findIndex((element) => {
@@ -344,18 +364,18 @@ export default {
             console.log(this.pages[0].value);
             this.page = this.pages[0].value;
         },
-        goToPageBySetIndex(){
-            if(this.all_page === 0) return;
+        goToPageBySetIndex() {
+            if (this.all_page === 0) return;
             this.now_page = parseInt(this.page);
             this.goToPageByIndex();
         },
-        clickSearchRes(title){
+        clickSearchRes(id) {
             // 搜索结果被点击
             // 访问数据库拿到实体的详细信息
             // 根据title找信息（name）
             // 会直接跳转
-            console.log(title);
-            this.$emit("fromSearch", 1, title);
+            console.log(id);
+            this.$emit("fromSearch", 1, id);
         },
     },
 };

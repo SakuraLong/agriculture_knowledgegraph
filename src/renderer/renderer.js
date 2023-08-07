@@ -115,7 +115,7 @@ class Renderer {
                 this.decode_res.res,
                 this.decode_res.name + "的关系图"
             );
-            console.log(this.decode_res.res);
+            // console.log(this.decode_res.res);
             if (option && typeof option === "object") {
                 this.map.setOption(option);
             }
@@ -177,40 +177,19 @@ const formatting = (text) => {
         res += element + "\n";
     });
     res.trim();
-    function renderMarkdownTable(mdTable) {
-        var rows = mdTable.trim().split("\n");
-        var table = document.createElement("table");
 
-        for (var i = 0; i < rows.length; i++) {
-            var rowText = rows[i].trim();
-            var row = document.createElement(i === 0 ? "thead" : "tbody");
-            var cells = rowText.split("|").map(function (cell) {
-                return cell.trim();
-            });
-
-            var rowContent = "";
-            for (var j = 1; j < cells.length - 1; j++) {
-                var tag = i === 0 ? "th" : "td";
-                rowContent += "<" + tag + ">" + cells[j] + "</" + tag + ">";
-            }
-
-            row.innerHTML = rowContent;
-            table.appendChild(row);
-        }
-
-        return table.outerHTML;
-    }
-
-    var markdownTable = `
-    | Header 1 | Header 2 |
-    | --- | --- |
-    | Cell 1 | Cell 2 |
-    | Cell 3 | Cell 4 |
-    `;
-
-    var htmlTable = renderMarkdownTable(markdownTable);
-    // console.log(htmlTable);
-
+    // let a = [];
+    // for(let i=0;i<157;i++){
+    //     let t = {
+    //         index: i + 1,
+    //         name: "测试输出" + (i + 1).toString(),
+    //         abstract: "这是测试" + (i + 1).toString() + "的简介",
+    //         image:"",
+    //         id:i
+    //     };
+    //     a.push(t);
+    // }
+    // console.log(a);
     return res;
 };
 export default Renderer;

@@ -2,9 +2,9 @@
     <div class="search_element">
         <div class="res_body" @click="clickSearchRes">
             <div class="image" v-if="image"></div>
-            <div class="title" :class="{ has_image: image }">{{ title }}</div>
+            <div class="title" :class="{ has_image: image }" v-html="title"></div>
             <div class="abstrack" :class="{ has_image: image }">
-                <span>{{ abstract }}</span>
+                <span v-html="abstract"></span>
             </div>
             <div class="show_index">
                 <span>第{{ index }}条数据</span>
@@ -15,10 +15,10 @@
 
 <script>
 export default {
-    props: ["title", "abstract", "index", "image"],
+    props: ["title", "abstract", "index", "image", "id"],
     methods:{
         clickSearchRes(){
-            this.$emit("clickSearchRes", this.title);
+            this.$emit("clickSearchRes", this.id);
         }
     }
 };
@@ -71,7 +71,7 @@ export default {
     height: 50px;
     font-size: 28px;
     line-height: 50px;
-    font-weight: 600;
+    font-weight: 600 !important;
     padding-left: 10px;
 }
 .abstrack {

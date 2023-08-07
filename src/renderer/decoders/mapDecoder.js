@@ -63,7 +63,7 @@ class MapDecoder {
                 this.createLink(node_from, node_to, data);
             }
         });
-        console.log(this.nodes_data);
+        // console.log(this.nodes_data);
         let res = {
             "nodes":this.nodes_data,
             "links":this.relations_data,

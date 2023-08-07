@@ -43,7 +43,7 @@ export default {
         radio1() {
             Storage.set(0, "LANGUAGE", this.radio1);
             // console.log(t('views.othersSubpage.language'));
-            console.log(this.index_arr);
+            // console.log(this.index_arr);
         },
     },
     mounted() {
