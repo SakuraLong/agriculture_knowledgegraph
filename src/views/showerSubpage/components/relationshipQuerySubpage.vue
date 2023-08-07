@@ -122,9 +122,9 @@ export default {
                 // 发送查询请求
                 let index = this.select_items.findIndex((element)=>{
                     return element === relation;
-                });
+                }) + 1;
                 Connector.send(
-                    [obj1, obj2, index],
+                    [obj1, obj2, index.toString()],
                     "searchRelationship",
                     this.relationCallback,
                     this.relationWaiting,
