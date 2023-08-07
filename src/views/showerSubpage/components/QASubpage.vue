@@ -17,16 +17,34 @@
                             : 'session_buttons'
                     "
                     v-for="(item, index) in qa_dialog_menus"
-                    :key="item.lable"
+                    :key="item.num"
                     @click="sessionChange(index)"
+                    @dblclick="testClick(index)"
                 >
-                    <div
+                    <input
+                        :type="input_type_arr[index]"
+                        v-model="item.lable"
+                        :readonly="getCanchange(index)"
+                        class="dialog_title"
+                        style="-webkit-user-select: none"
+                        :ref="'dialog_name_input_ref' + index"
+                        :key="index"
+                    />
+                    <!-- <div
                         class="session_delete"
                         @click.stop="sessionDelete(index)"
                     >
                         ×
-                    </div>
-                    {{ item.lable }}
+                    </div> -->
+                    <Close
+                        class="session_delete"
+                        @click.stop="sessionDelete(index)"
+                    />
+                    <Check
+                        v-if="!getCanchange(index)"
+                        class="session_rename"
+                        @click.stop="sessionRename(index)"
+                    ></Check>
                 </div>
             </div>
         </div>
@@ -69,16 +87,19 @@
 import textInput from "@/components/inputs/textInput/textInput.vue";
 import dialogAvatarBox from "@/components/dialogBoxes/dialogAvatarBox/dialogAvatarBox.vue";
 import Storage from "@/assets/js/storage/storage.js";
+import { timePanelSharedProps } from "element-plus/es/components/time-picker/src/props/shared";
+// import { Select } from "@element-plus/icons-vue/dist/types";
 export default {
     data() {
         return {
+            input_type_arr: ["button"],
             re: true,
             msg: "",
             input_font_size: "20px",
-            dialog_lables:["默认对话"],
             input_place_holder: "请在这里输入你的问题",
             qa_dialog_menus: [
-                {   is_selected:true,
+                {
+                    is_selected: true,
                     lable: "对话0",
                     sessions: [
                         {
@@ -98,10 +119,46 @@ export default {
         };
     },
     methods: {
+        testClick(index) {
+            // this.test = !this.test;
+            let i = 0;
+            for (i; i < this.input_type_arr.length; i++) {
+                this.input_type_arr[i] = "button";
+                // return;
+            }
+            this.input_type_arr[index] = "text";
+            this.$nextTick(() => {
+                this.$refs["dialog_name_input_ref" + index][0].selectionStart =
+                this.$refs["dialog_name_input_ref" + index][0].value.length;
+                this.$refs["dialog_name_input_ref" + index][0].selectionEnd =
+                this.$refs["dialog_name_input_ref" + index][0].value.length;
+                this.$refs["dialog_name_input_ref" + index][0].focus();
+                console.log(this.$refs["dialog_name_input_ref" + index]);
+                console.log(this.$refs["dialog_name_input_ref" + index][0]);
+            });
+            // console.log(this.$refs["dialog_name_input_ref"+index]);
+        },
+        getCanchange(index) {
+            if (this.input_type_arr[index] === "button") return true;
+            else return false;
+        },
+        sessionRename(index) {
+            // console.log("sessionRename", index);
+            // console.log(this.$refs.dialog_name_input_ref[index].value);
+            // console.log("长度是:", this.$refs.dialog_name_input_ref);
+            this.input_type_arr[index] = "button";
+            if(this.$refs["dialog_name_input_ref" + index][0].value===""){
+                this.qa_dialog_menus[index].lable="默认对话";
+                this.re=!this.re;
+            }
+            console.log(this.$refs["dialog_name_input_ref" + index][0].value);
+            Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
+        },
         getOffsetTop() {
             return this.$refs.container.offsetTop;
         },
         question_submit() {
+            this.re = !this.re;
             let time = new Date(new Date().getTime()).toLocaleString();
             let text = this.$refs.question_input_ref.input_msg;
             let item = {
@@ -118,7 +175,7 @@ export default {
                 // console.log(this.$refs.qa_show_container_ref.scrollTop);
                 // console.log(this.$refs.qa_show_container_ref.scrollHeight);
             });
-            console.log(this.qa_dialog_menus);
+            // console.log(this.qa_dialog_menus);
             this.$refs.question_input_ref.input_msg = "";
             Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
         },
@@ -129,8 +186,6 @@ export default {
                 this.qa_dialog_menus[i].is_selected = false;
             }
             this.dialog_selected = this.qa_dialog_menus.length - 1;
-            // this.dialog_selected = this.dialog_arr.length - 1;
-            // console.log("对话数组", this.dialog_arr);
             let time = new Date(new Date().getTime()).toLocaleString();
             let text = "你好，欢迎来到问答界面！\n 请输入你的问题";
             let item = {
@@ -139,21 +194,21 @@ export default {
                 is_left: true,
                 is_right: false,
             };
-            let title = "默认对话";
+            let title = "默认对话" + this.counter;
             let dia = {
-                is_selected:true,
+                is_selected: true,
                 num: this.counter,
                 lable: title,
                 sessions: [item],
             };
-            this.dialog_lables.push(title);
             this.qa_dialog_menus.push(dia);
+            this.input_type_arr.push("button");
             // this.re = !this.re;
             this.$nextTick(() => {
                 this.$refs.session_containers_ref.scrollTop =
                     this.$refs.session_containers_ref.scrollHeight;
             });
-            console.log(this.dialog_lables);
+            // console.log(this.input_type_arr);
             Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
         },
         increment() {
@@ -168,7 +223,7 @@ export default {
             this.qa_dialog_menus[num].is_selected = true;
             this.dialog_selected = num;
             // console.log("现在共有",this.counter,"个对话");
-            console.log("现在被选中的对话序号是：", num);
+            // console.log("现在被选中的对话序号是：", num);
             Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
         },
         sessionDelete(num) {
@@ -183,12 +238,12 @@ export default {
             }
             if (this.qa_dialog_menus.length === 1) {
                 this.add_session();
-                this.dialog_lables.splice(num, 1);
                 this.qa_dialog_menus.splice(num, 1);
+                this.input_type_arr.splice(num, 1);
             } else {
                 this.qa_dialog_menus[num].is_selected = false;
-                this.dialog_lables.splice(num, 1);
                 this.qa_dialog_menus.splice(num, 1);
+                this.input_type_arr.splice(num, 1);
                 this.qa_dialog_menus[0].is_selected = true;
                 this.dialog_selected = 0;
             }
@@ -200,13 +255,15 @@ export default {
     components: {
         textInput,
         dialogAvatarBox,
+        // Select
     },
     created() {
         let qa_dialog_menus = Storage.get(
             0,
             "DIALOG_MENUS",
             [
-                {   is_selected:true,
+                {
+                    is_selected: true,
                     num: 0,
                     lable: "对话0",
                     sessions: [
@@ -240,8 +297,7 @@ export default {
         this.counter = this.qa_dialog_menus.length - 1;
         let j = 0;
         for (j = 0; j < this.qa_dialog_menus.length; j++) {
-            this.dialog_lables = [];
-            this.dialog_lables.push(this.qa_dialog_menus[i].lable);
+            this.input_type_arr[j] = "button";
         }
     },
 };
@@ -484,14 +540,36 @@ export default {
     flex-direction: row;
     justify-content: center;
 }
+.dialog_title {
+    position: absolute;
+    width: calc(75% - 10px) !important;
+    left: 10px;
+    height: 100%;
+    border: 0; /*清除自带的2px的边框*/
+    padding: 0; /*清除自带的padding间距*/
+    outline: none; /*清除input点击之后的黑色边框*/
+    /* background-color: red; */
+    font-family: Heiti;
+    font-size: 15px;
+    text-align: left;
+    user-select: none;
+    /* padding-left: 20px; */
+    background-color: white;
+    /* border: 1px solid red; */
+}
 .session_delete {
     position: absolute;
-    top: 30%;
+    top: 25%;
     left: 85%;
-    width: 15%;
+    width: auto;
     height: 50%;
-    /* border: 1px solid red; */
-    line-height: 60%;
-    /* z-index: 3; */
+}
+.session_rename {
+    /* border: solid 1px red; */
+    position: absolute;
+    top: 25%;
+    left: 75%;
+    width: auto;
+    height: 50%;
 }
 </style>
