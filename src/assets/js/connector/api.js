@@ -93,7 +93,7 @@ const API_CHECKER = {
         ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=100","@length-min=1"]
     ],
     "recognizeNode":[
-        ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=100","@length-min=1"]
+        ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=200","@length-min=1"]
     ]
 };
 export default{

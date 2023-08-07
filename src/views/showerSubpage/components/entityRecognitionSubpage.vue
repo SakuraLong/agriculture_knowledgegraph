@@ -73,7 +73,7 @@ export default {
                 this.line_prompt.msg = "";
                 // 进入接口发送
                 Connector.send(
-                    text,
+                    [text],
                     "recognizeNode",
                     this.recognizeCallback,
                     this.recognizeWaiting,
