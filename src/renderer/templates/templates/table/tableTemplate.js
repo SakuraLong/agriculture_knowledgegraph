@@ -8,7 +8,7 @@ class TableTemplate extends Template {
         super(text, "表格");
         // 特殊的
         this.paras = this.text.split("\n"); // 分割参数
-        console.log(this.paras);
+        // console.log(this.paras);
     }
     decode() {
         // 重写
@@ -28,7 +28,7 @@ class TableTemplate extends Template {
             }else{
                 let temp = element.replace(/^\||\|$/g, "");
                 temp = temp.trim();
-                console.log(temp);
+                // console.log(temp);
                 if(index === 1 && temp[0] === "+" && temp[1] === " "){
                     // 设置了thead
                     let tr = document.createElement("tr");

@@ -50,11 +50,11 @@ export default {
                     title: "返回",
                 },
                 entity_recognition: {
-                    title:"番剧识别",
+                    title:"实体识别",
                     detail:"通过检索实体查询相关资料"
                 },
                 entity_query: {
-                    title:"番剧查询",
+                    title:"实体查询",
                     detail:"通过检索实体进行查询"
                 },
                 relationship_query: {
@@ -66,7 +66,7 @@ export default {
                     detail:"查看数据库全部知识"
                 },
                 agricultural_knowledge_QA: {
-                    title:"农知问答",
+                    title:"AI对话",
                     detail:"向AI提问咨询相关问题"
                 },
                 other:{

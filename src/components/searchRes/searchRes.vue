@@ -15,10 +15,10 @@
 
 <script>
 export default {
-    props: ["title", "abstract", "index", "image"],
+    props: ["title", "abstract", "index", "image", "id"],
     methods:{
         clickSearchRes(){
-            this.$emit("clickSearchRes", this.title);
+            this.$emit("clickSearchRes", this.id);
         }
     }
 };
