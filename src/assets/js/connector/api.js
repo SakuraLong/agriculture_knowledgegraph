@@ -2,20 +2,21 @@ const API = {
     host: "http://127.0.0.1",
     port: ":8000/",
     api: {
-        "register": "sendEmailVerification/",
-        "login": "login/",
-        "deleteAccount": "sendEmailVerification/",
-        "forgetPassword": "sendEmailVerification/",
-        "changePassword": "updateUserPassword/",
-        "changeEmail":"sendEmailVerification/",
-        "updateAvatar": "avatarSubmission/",
-        "updateUserMsg": "updateAccountInformation/",
-        "getUserMsg": "getUserMessage/",
-        "verify":"verifyEmailCode/",
-        "searchNode":"searchNode/",
-        "recognizeNode":"recognizeNode/",
-        "searchRelationship":"searchRelationshipBetween/",
-        "getGptAnswer": "getGptAnswer/",
+        register: "sendEmailVerification/",
+        login: "login/",
+        deleteAccount: "sendEmailVerification/",
+        forgetPassword: "sendEmailVerification/",
+        changePassword: "updateUserPassword/",
+        changeEmail: "sendEmailVerification/",
+        updateAvatar: "avatarSubmission/",
+        updateUserMsg: "updateAccountInformation/",
+        getUserMsg: "getUserMessage/",
+        verify: "verifyEmailCode/",
+        searchNode: "searchNode/",
+        recognizeNode: "recognizeNode/",
+        searchRelationship: "searchRelationshipBetween/",
+        getGptAnswer: "getGptAnswer/",
+        getStockAnswer: "getStockAnswer/",
     },
 };
 const API_PARA = {
@@ -51,18 +52,18 @@ const API_PARA = {
         ["occupation", ""],
         ["born_time", ""],
     ],
-    "searchNode":[
-        ["search_name", ""]
-    ],
-    "recognizeNode":[
-        ["content", ""]
-    ],
-    "searchRelationship":[
+    searchNode: [["search_name", ""]],
+    recognizeNode: [["content", ""]],
+    searchRelationship: [
         ["start_node_name", ""],
         ["end_node_name", ""],
-        ["method", ""]
+        ["method", ""],
     ],
-    "getGptAnswer": [["history", ""]],
+    getGptAnswer: [["history", ""]],
+    getStockAnswer: [
+        ["stock", ""],
+        ["days", ""],
+    ],
 };
 const API_CHECKER = {
     register: [
@@ -101,18 +102,50 @@ const API_CHECKER = {
         ["ignore"],
         ["ignore"],
     ],
-    "searchNode":[
-        ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=100","@length-min=1"]
+    searchNode: [
+        [
+            "no-base-symbols",
+            "sql-check",
+            "no-only-spacing",
+            "no-null",
+            "@length-max=100",
+            "@length-min=1",
+        ],
     ],
-    "recognizeNode":[
-        ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=200","@length-min=1"]
+    recognizeNode: [
+        [
+            "no-base-symbols",
+            "sql-check",
+            "no-only-spacing",
+            "no-null",
+            "@length-max=200",
+            "@length-min=1",
+        ],
     ],
-    "searchRelationship":[
-        ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=100","@length-min=1"],
-        ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=100","@length-min=1"],
-        ["num-only"]
+    searchRelationship: [
+        [
+            "no-base-symbols",
+            "sql-check",
+            "no-only-spacing",
+            "no-null",
+            "@length-max=100",
+            "@length-min=1",
+        ],
+        [
+            "no-base-symbols",
+            "sql-check",
+            "no-only-spacing",
+            "no-null",
+            "@length-max=100",
+            "@length-min=1",
+        ],
+        ["is-num"],
     ],
-    "getGptAnswer": [["ignore"]],
+    getGptAnswer: [["ignore"]],
+    getStockAnswer: [
+        ["no-base-symbols", "sql-check", "no-null", "no-only-spacing"],
+        ["is-num"],
+    ],
 };
 export default {
     API,

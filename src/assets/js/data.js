@@ -301,6 +301,7 @@ const mapForceDark = (graph, title) => {
     };
     return option;
 };
+
 export default {
     robot_avatar,
     default_ency,

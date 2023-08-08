@@ -12,7 +12,7 @@
 import entityQuerySubpage from "./components/entityQuerySubpage.vue";
 import entityRecognitionSubpage from "./components/entityRecognitionSubpage.vue";
 import relationshipQuerySubpage from "./components/relationshipQuerySubpage.vue";
-import overviewSubpage from "./components/overviewSubpage.vue";
+import overviewSubpage from "./components/functionSubpage.vue";
 import QASubpage from "./components/QASubpage.vue";
 
 export default {
