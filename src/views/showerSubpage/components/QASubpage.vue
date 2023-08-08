@@ -128,9 +128,8 @@ export default {
             model: "对话模式:默认",
             model_list: [
                 "对话模式:默认",
-                "对话模式:可爱",
-                "对话模式:emoji",
                 "对话模式:猫娘",
+                "对话模式:傲娇",
             ],
             prompt_type: "",
             error: "",
@@ -167,9 +166,8 @@ export default {
             // console.log(this.$refs.modelRef.input_value);
             switch(this.$refs.modelRef.input_value){
                 case "对话模式:默认":return 0;
-                case "对话模式:可爱":return 1;
-                case "对话模式:emoji":return 2;
-                case "对话模式:猫娘":return 3;
+                case "对话模式:猫娘":return 1;
+                case "对话模式:傲娇":return 2;
             }
         },
         selectJudge(text) {
@@ -553,7 +551,7 @@ export default {
     overflow-y: scroll;
     overflow-x: hidden;
     padding-left: 50px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .qa_show_container::-webkit-scrollbar {
     width: 12px;
@@ -637,7 +635,7 @@ export default {
     position: relative;
     height: 40px;
     width: 60%;
-    top: 2%;
+    top: 8%;
     right: 1px;
     cursor: pointer;
     color: rgb(230, 146, 255);
@@ -656,7 +654,7 @@ export default {
     position: absolute;
     /* background-color: red; */
     bottom: 0%;
-    height: 86%;
+    height: 84%;
     width: 100%;
     /* background-color: aqua; */
     border: solid 1px black;
@@ -674,9 +672,7 @@ export default {
     margin-bottom: 10px;
     background-color: white;
     border-radius: 6px;
-    box-shadow: 2px 2px 4px rgba(205, 118, 220, 0.3),
-        -2px -2px 4px rgba(205, 118, 220, 0.3);
-    border: 2px solid rgb(165, 165, 165);
+    border: 2px solid rgb(198, 170, 207);
     color: rgb(230, 146, 255);
     line-height: 40px;
     text-align: center;
@@ -689,8 +685,8 @@ export default {
     z-index: 2;
 }
 .session_buttons:hover {
-    box-shadow: 2px 2px 2px rgba(213, 84, 236, 0.6),
-        -2px -2px 2px rgba(213, 84, 236, 0.6);
+    box-shadow: 2px 2px 4px rgb(230, 146, 255,0.5),
+        -2px -2px 4px rgb(230, 146, 255,0.5);
     color: rgb(254, 196, 255);
 }
 .session_buttons_selected {
@@ -730,7 +726,7 @@ export default {
     text-align: left;
     user-select: none;
     color: black;
-    top: 2px;
+    /* top: 2px; */
     background-color: white;
     /* padding-left: 20px; */
     /* background-color: red; */
@@ -783,7 +779,7 @@ export default {
     width: 100%;
     /* background-color: red; */
     position: relative;
-    height: 14%;
+    height: 16%;
     display: flex;
     flex-direction: column;
     /* justify-content: center; */

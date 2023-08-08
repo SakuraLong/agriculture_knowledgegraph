@@ -3,7 +3,7 @@
     <div class="doc_edit_subpage_container">
         <div style="position: relative; width: 100%; height: auto">
             <div class="main_title">查看"{{ title }}"的百科文档源代码</div>
-            <div class="edit_power_reminder_1" v-if="!islogin">
+            <div class="edit_power_reminder_1" v-if="!isLogin">
                 在进行编辑操作前，您必须<button class="login_button">
                     登录账号
                 </button>
@@ -26,7 +26,7 @@
                     class="show_mainer"
                     :placeholder="input_place_holder"
                     :class="
-                        !is_login
+                        !isLogin
                             ? 'show_mainer_height_not_login'
                             : 'show_mainer_height_login'
                     "
@@ -40,7 +40,7 @@
                     position: relative;
                 "
             >
-                <button class="submit_button">提交</button>
+                <button class="submit_button" v-if="isLogin">提交</button>
             </div>
         </div>
     </div>
@@ -56,13 +56,16 @@ export default {
             is_login: false,
             input_place_holder: "",
             input_font_size: "16px",
-            islogin:store.state.is_login,
         };
     },
     components: { textInput_vertical },
-    mounted() {
-    },
+    mounted() {},
     methods: {},
+    computed: {
+        isLogin() {
+            return store.state.is_login;
+        },
+    },
 };
 </script>
 
