@@ -4,7 +4,7 @@
  * 返回data
  */
 class MapDecoder {
-    default_size = 50;
+    default_size = 30;
     x = 600;
     y = 450;
     constructor(text) {

@@ -44,11 +44,11 @@ export default {
                 this.map_content,
                 "map"
             );
-            if (this.is_light) {
-                map_renderer.setOption({ theme: "light" });
-            } else {
-                map_renderer.setOption({ theme: "dark" });
-            }
+            let option = {
+                theme:this.is_light ? "light" : "dark",
+                layout:this.is_force ? "force" : "graph"
+            };
+            map_renderer.setOption(option);
             map_renderer.render();
 
             this.map_renderer = map_renderer;
@@ -61,11 +61,11 @@ export default {
                 this.map_content,
                 "map"
             );
-            if (this.is_force) {
-                map_renderer.setOption({ layout: "force" });
-            } else {
-                map_renderer.setOption({ layout: "graph" });
-            }
+            let option = {
+                theme:this.is_light ? "light" : "dark",
+                layout:this.is_force ? "force" : "graph"
+            };
+            map_renderer.setOption(option);
             map_renderer.render();
 
             this.map_renderer = map_renderer;
@@ -103,6 +103,11 @@ export default {
                 map_content,
                 "map"
             );
+            let option = {
+                theme:this.is_light ? "light" : "dark",
+                layout:this.is_force ? "force" : "graph"
+            };
+            map_renderer.setOption(option);
             try {
                 map_renderer.render();
             } catch {
