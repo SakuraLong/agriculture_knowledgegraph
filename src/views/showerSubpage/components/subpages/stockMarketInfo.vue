@@ -26,12 +26,22 @@
                 <div class="collect_msg">收藏信息</div>
             </div>
             <div class="name">
-                <div class="name_ele name_ele_l">
-                    <span>{{ title }}</span>
+                <transition name="opacity300"></transition>
+                <div v-if="show_name" style="width: 100%;height: 100%;position: absolute;">
+                    <div class="name_ele name_ele_l">
+                        <span>{{ title }}</span>
+                    </div>
+                    <div class="name_ele name_ele_r">
+                        <span>{{ code }}</span>
+                    </div>
                 </div>
-                <div class="name_ele name_ele_r">
-                    <span>{{ code }}</span>
-                </div>
+                <linePrompt
+                    v-else
+                    :opacity="error"
+                    style="width: 260px"
+                    :data_left="error"
+                    :type="prompt_type"
+                ></linePrompt>
             </div>
             <div class="search">
                 <defaultSearch
@@ -43,6 +53,7 @@
             </div>
         </div>
         <div class="data_shower" id="data_shower"></div>
+        <div class="error_msg" v-if="is_null">您所查询的信息不存在</div>
     </div>
 </template>
 
@@ -51,7 +62,13 @@ import * as echarts from "echarts";
 import testMsg from "@/assets/js/testMsg";
 import defaultSearch from "@/components/navBar/components/search/defaultSearch.vue";
 import Connector from "@/assets/js/connector/connector";
+import store from "@/store/index";
+import linePrompt from "@/components/prompts/line/linePrompt.vue";
 export default {
+    components: {
+        defaultSearch,
+        linePrompt
+    },
     data() {
         return {
             data_shower: null,
@@ -71,13 +88,14 @@ export default {
                 },
             ],
             is_collect: "取消收藏",
+            error:"",
+            prompt_type:"waiting",
+            show_name:true,
+            is_null:false,
         };
     },
-    components: {
-        defaultSearch,
-    },
     mounted() {
-        this.showSMInfoByData(testMsg.SM_data, "平安银行");
+        // this.showSMInfoByData(testMsg.SM_data, "平安银行");
     },
     methods: {
         showSMInfoByData(data, title) {
@@ -90,6 +108,12 @@ export default {
                     console.log("销毁错误");
                 }
                 this.data_shower = null;
+            }
+            if(this.data === []){
+                // 数据不存在
+                this.is_null = true;
+            }else{
+                this.is_null = false;
             }
             this.data_use = this.splitData(this.data);
             let dom = document.getElementById("data_shower");
@@ -331,15 +355,33 @@ export default {
         },
         collectClick() {},
         searchCallback(msg) {
-            if(msg.success){
+            if (msg.success) {
+                this.show_name = true;
                 let temp = msg.content.list;
-                let id = msg.content.stockId;
-                let name = msg.content.stockName;
+                let id = msg.content.stockid;
+                let name = msg.content.stockname;
+                this.code = id;
+                this.title = name;
                 this.showSMInfoByData(temp, name);
+            }else{
+                this.showSMInfoByData([], "");
             }
         },
-        searchWaiting(is_waiting) {},
-        searchTimeout() {},
+        searchWaiting(is_waiting) {
+            if (is_waiting) {
+                this.show_name = false;
+                this.error = "查询中";
+                this.prompt_type = "waiting";
+            } else {
+                this.error = "";
+                this.$refs.default_search.getMsg();
+            }
+        },
+        searchTimeout() {
+            console.log("查询超时");
+            this.error = "查询超时";
+            this.prompt_type = "error";
+        },
     },
 };
 </script>
@@ -361,6 +403,17 @@ export default {
     width: 100%;
     height: calc(100% - 50px);
 }
+.error_msg{
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 50px);
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 600;
+}
 .collect,
 .name,
 .search {
@@ -368,7 +421,7 @@ export default {
     position: relative;
     float: left;
     /* border: 1px solid red; */
-    box-shadow: inset 0px 0px 5px black;
+    box-shadow: inset 0px 0px 5px #8222968F;
 }
 .collect,
 .search {
@@ -376,6 +429,9 @@ export default {
 }
 .name {
     width: calc(100% - 600px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .collect {
     display: flex;
