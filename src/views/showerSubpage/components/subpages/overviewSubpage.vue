@@ -13,7 +13,6 @@
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
-                    :disabled="item.disabled"
                 />
             </el-select>
             <div
@@ -37,7 +36,6 @@
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
-                    :disabled="item.disabled"
                 />
             </el-select>
             <span>&nbsp;页码：</span>
@@ -52,7 +50,6 @@
                     :key="item.value"
                     :label="item.label"
                     :value="item.value"
-                    :disabled="item.disabled"
                 />
             </el-select>
             <div
@@ -68,7 +65,7 @@
                 <span>第{{ now_page }}页</span>
                 &nbsp;&nbsp;
                 <span>共有{{ all_page }}页</span>
-                <br>
+                <br />
                 <span>共有{{ all_amount }}条记录</span>
             </div>
         </div>
@@ -85,6 +82,8 @@
 <script>
 import overviewList from "@/components/overview/overviewList.vue";
 import testMsg from "@/assets/js/testMsg";
+
+import Connector from "@/assets/js/connector/connector";
 export default {
     components: {
         overviewList,
@@ -116,14 +115,16 @@ export default {
                     value: "产品",
                 },
             ],
-            page_section:"",
-            page_sections:[],
+            page_section: "",
+            page_sections: [],
             page: "",
             pages: [],
-            now_page: 0,
+            now_page: 1,
             all_page: 0,
             now_type: "",
-            all_amount: 0
+            all_amount: 0,
+            need_init: false,
+            is_waiting: false,
         };
     },
     methods: {
@@ -152,32 +153,149 @@ export default {
             }
             console.log(this.data_for_overview);
         },
-        goToPageBySetIndex(){
-
+        setAmount(amount) {
+            this.all_amount = amount;
         },
-        changeSearchType(){
-            if(this.type_selected === this.now_type){
+        pageSection() {
+            let l = this.all_amount; // 总数
+            console.log("l", parseInt(l / 320));
+            this.all_page = parseInt(l / 320); // 总页数
+            this.all_page =
+                this.all_page % 10 === 0 ? this.all_page : this.all_page + 1; // 总数不是10的倍数要加一
+            let c = parseInt(this.all_page / 10); // 一个区间10页，区间个数
+            let p = this.all_page % 10; // 余数
+            console.log("all_page", this.all_page);
+            for (let i = 0; i < c; i++) {
+                let ele = {
+                    label: "",
+                    value: "",
+                    i: 0,
+                };
+                let s = "";
+                s = (i * 10 + 1).toString() + "~" + ((i + 1) * 10).toString();
+                ele.label = s;
+                ele.value = s;
+                ele.i = i;
+                this.page_sections.push(ele);
+            }
+            let ele = {
+                label: "",
+                value: "",
+                i: 0,
+            };
+            let s = "";
+            s = (c * 10 + 1).toString() + "~" + (c * 10 + p).toString();
+            if (p !== 0) {
+                ele.label = s;
+                ele.value = s;
+                ele.i = c;
+            }
+            this.page_sections.push(ele);
+            this.page_section = this.page_sections[0].value;
+            this.pageListInit();
+        },
+        pageListInit() {
+            if (this.page_section === "") return;
+            this.pages = [];
+            let value = this.page_section;
+            let i = this.page_sections.findIndex((element) => {
+                return value === element.value;
+            });
+            for (let j = i * 10 + 1; j <= i * 10 + 10; j++) {
+                if (j > this.all_page) break;
+                let ele = {
+                    label: j.toString(),
+                    value: j.toString(),
+                    i: j,
+                };
+                this.pages.push(ele);
+            }
+            console.log(this.pages[0].value);
+            this.page = this.pages[0].value;
+        },
+        goToPageBySetIndex() {
+            if (this.type_selected === "") {
                 return;
             }
+            let index = this.pages.find((element) => {
+                return element.value === this.page;
+            }).i;
+            this.now_page = index;
+            let type_index = this.types.findIndex((element) => {
+                return this.type_selected === element.value;
+            });
+            Connector.send(
+                [type_index.toString(), index.toString()],
+                "getOverview",
+                this.overviewCallback,
+                this.overviewWaiting,
+                this.overviewTimeout,
+                5000
+            );
+        },
+        changeSearchType() {
+            if (
+                this.type_selected === this.now_type ||
+                this.type_selected === ""
+            ) {
+                return;
+            }
+            this.now_type = this.type_selected;
+            this.need_init = true;
+            let index = this.types.findIndex((element) => {
+                return this.type_selected === element.value;
+            });
+            Connector.send(
+                [index.toString(), "1"],
+                "getOverview",
+                this.overviewCallback,
+                this.overviewWaiting,
+                this.overviewTimeout,
+                5000
+            );
             // 检索
-            // 目录初始化
-            this.all_page = 0;
-            this.now_page = 0;
-            this.page = "";
-            this.pages = [];
-            this.page_section = "";
-            this.page_sections = [];
         },
-        overviewCallback(msg){
-
+        overviewCallback(msg) {
+            if (msg.success) {
+                // 目录初始化
+                if (this.need_init) {
+                    this.need_init = false;
+                    this.all_page = 0;
+                    this.now_page = 1;
+                    this.page = "";
+                    this.pages = [];
+                    this.page_section = "";
+                    this.page_sections = [];
+                    this.data_list = [];
+                    this.data_for_overview = [];
+                    let data_use = msg.content.result;
+                    let all_amount = msg.content.amount;
+                    this.dataToUse(data_use);
+                    this.setAmount(all_amount);
+                    this.pageSection();
+                }
+            } else {
+                console.log("查询失败");
+            }
         },
-        overviewWaiting(is_waiting){
-
+        overviewWaiting(is_waiting) {
+            if (is_waiting) {
+                //
+            }
         },
-        
+        overviewTimeout() {
+            console.log("超时");
+        },
     },
     mounted() {
-        this.dataToUse(testMsg.test_overview_list);
+        // this.dataToUse(testMsg.test_overview_list);
+        // this.setAmount(26000);
+        // this.pageSection();
+    },
+    watch: {
+        page_section() {
+            this.pageListInit();
+        },
     },
 };
 </script>

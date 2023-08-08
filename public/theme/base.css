@@ -274,6 +274,9 @@ input {
     color: #000;
     background-color: white;
     border-radius: 5px;
+    min-width: 100px;
+    min-height: 50px;
+    padding: 5px;
 }
 .infobox_table{
     border-collapse: collapse;

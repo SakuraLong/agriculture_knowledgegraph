@@ -277,7 +277,7 @@ const mapForceDark = (graph, title) => {
                     color: "source",
                 },
                 force: {
-                    repulsion: 300,
+                    repulsion: 1000,
                 },
                 emphasis: {
                     focus: "adjacency",
