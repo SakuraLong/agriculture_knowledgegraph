@@ -109,9 +109,11 @@ export default {
                 }
                 this.data_shower = null;
             }
-            if(this.data === []){
+            if(title === ""){
                 // 数据不存在
+                console.log("空数组");
                 this.is_null = true;
+                return;
             }else{
                 this.is_null = false;
             }
@@ -350,7 +352,7 @@ export default {
                 this.searchCallback,
                 this.searchWaiting,
                 this.searchTimeout,
-                5000
+                30000
             );
         },
         collectClick() {},
@@ -364,6 +366,7 @@ export default {
                 this.title = name;
                 this.showSMInfoByData(temp, name);
             }else{
+                console.log("失败");
                 this.showSMInfoByData([], "");
             }
         },
