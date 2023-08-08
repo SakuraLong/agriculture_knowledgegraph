@@ -13,13 +13,19 @@
             </div>
         </div>
         <div class="fs_subpage_body">
-            <stockMarketInfo></stockMarketInfo>
+            <div ref="fs_son_0" class="son_subpage">
+                <overviewSubpage></overviewSubpage>
+            </div>
+            <div ref="fs_son_1" class="son_subpage" style="left: 100%">
+                <stockMarketInfo></stockMarketInfo>
+            </div>
         </div>
     </div>
 </template>
 <script>
 import store from "@/store/index";
 import stockMarketInfo from "./subpages/stockMarketInfo.vue";
+import overviewSubpage from "./subpages/overviewSubpage.vue";
 export default {
     data() {
         return {
@@ -27,8 +33,9 @@ export default {
             son_pages_name: ["知识概览", "股市信息"],
         };
     },
-    components:{
-        stockMarketInfo
+    components: {
+        stockMarketInfo,
+        overviewSubpage,
     },
     methods: {
         getOffsetTop() {
@@ -38,6 +45,10 @@ export default {
             if (!store.state.can_click_button) return;
             this.son_pages = [false, false];
             this.son_pages[index] = true;
+            this.son_pages.forEach((element, i) => {
+                this.$refs["fs_son_" + i.toString()].style.left =
+                    (i * 100 - index * 100).toString() + "%";
+            });
         },
     },
 };
@@ -83,6 +94,15 @@ export default {
     position: relative;
     width: 100%;
     height: calc(100% - 30px);
+    /* border: 1px solid red; */
+}
+.son_subpage {
+    position: absolute;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s ease-out;
     /* border: 1px solid red; */
 }
 </style>

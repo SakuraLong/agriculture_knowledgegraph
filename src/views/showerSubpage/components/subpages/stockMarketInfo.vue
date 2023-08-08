@@ -59,7 +59,7 @@
 
 <script>
 import * as echarts from "echarts";
-// import testMsg from "@/assets/js/testMsg";
+import testMsg from "@/assets/js/testMsg";
 import defaultSearch from "@/components/navBar/components/search/defaultSearch.vue";
 import Connector from "@/assets/js/connector/connector";
 // import store from "@/store/index";
@@ -96,7 +96,7 @@ export default {
         };
     },
     mounted() {
-        // this.showSMInfoByData(testMsg.SM_data, "平安银行");
+        this.showSMInfoByData(testMsg.SM_data, "平安银行");
     },
     methods: {
         showSMInfoByData(data, title) {
