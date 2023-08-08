@@ -72,9 +72,8 @@
                 <linePrompt
                     :opacity="error"
                     :data_left="error"
-                    type="error"
+                    :type="prompt_type"
                     class="line_reminder"
-                    :prompt_type="error"
                 ></linePrompt>
             </div>
             <div
@@ -113,6 +112,7 @@ import store from "@/store/index.js";
 export default {
     data() {
         return {
+            prompt_type:"",
             error: "",
             isRunning: false,
             input_type_arr: ["button"],
@@ -614,6 +614,7 @@ export default {
     background-color: white;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), -2px -2px 4px rgba(0, 0, 0, 0.3);
     font-size: 18px;
+    user-select: none;
 }
 .add_session_button:hover {
     color: white;
@@ -639,9 +640,9 @@ export default {
     height: 40px !important;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: transparent;
+    background-color: white;
     border-radius: 6px;
-    /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), -2px -2px 4px rgba(0, 0, 0, 0.3); */
+    box-shadow: 2px 2px 4px rgba(205, 118, 220, 0.3), -2px -2px 4px rgba(205, 118, 220, 0.3);
     border: 2px solid rgb(165, 165, 165);
     color: rgb(230, 146, 255);
     line-height: 40px;
@@ -655,19 +656,19 @@ export default {
     z-index: 2;
 }
 .session_buttons:hover {
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3), -2px -2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 2px 2px rgba(213, 84, 236, 0.6), -2px -2px 2px rgba(213, 84, 236, 0.6);
     color: rgb(254, 196, 255);
 }
 .session_buttons_selected {
     position: relative;
     /* min-width: 80px; */
     width: 80%;
-    height: 40px;
+    height: 40px !important;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: transparent;
+    background-color: white;
     border-radius: 6px;
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3), -2px -2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 2px 2px rgba(205, 118, 220, 0.3), -2px -2px 2px rgba(205, 118, 220, 0.3);
     border: 2px solid rgb(230, 146, 255);
     color: rgb(230, 146, 255);
     line-height: 40px;
@@ -683,7 +684,8 @@ export default {
     position: relative;
     width: calc(75% - 10px) !important;
     right: 10px;
-    height: 40px;
+    height: auto;
+    /* bottom: 2px; */
     padding: 0; /*清除自带的padding间距*/
     outline: none; /*清除input点击之后的黑色边框*/
     /* background-color: red; */
@@ -693,18 +695,22 @@ export default {
     text-align: left;
     user-select: none;
     color: black;
-    /* padding-left: 20px; */
+    top:0;
     background-color: white;
+    /* padding-left: 20px; */
+    /* background-color: red; */
     /* border: 1px solid red; */
 }
 .dialog_title_unselected:hover {
     color: rgb(230, 146, 255);
 }
 .dialog_title_unselected {
-    border-bottom: 2px solid rgb(165, 165, 165);
+    /* border-bottom: 1px solid rgba(165, 165, 165, 0); */
+    /* border-top: 1px solid rgba(165, 165, 165, 0); */
 }
 .dialog_title_selected {
-    border-bottom: 2px solid rgb(230, 146, 255);
+    /* border-bottom: 1px solid rgb(230, 146, 255); */
+    /* border-top: 1px solid rgb(230, 146, 255); */
 }
 .session_delete {
     position: absolute;
