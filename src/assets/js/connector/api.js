@@ -17,6 +17,7 @@ const API = {
         searchRelationship: "searchRelationshipBetween/",
         getGptAnswer: "getGptAnswer/",
         getStockAnswer: "getStockAnswer/",
+        getNodeDetail:"getNodeDetail/"
     },
 };
 const API_PARA = {
@@ -64,6 +65,9 @@ const API_PARA = {
         ["stock", ""],
         ["days", ""],
     ],
+    getNodeDetail:[
+        ["id", ""]
+    ]
 };
 const API_CHECKER = {
     register: [
@@ -146,6 +150,9 @@ const API_CHECKER = {
         ["no-base-symbols", "sql-check", "no-null", "no-only-spacing"],
         ["is-num"],
     ],
+    getNodeDetail:[
+        ["is-num"]
+    ]
 };
 export default {
     API,

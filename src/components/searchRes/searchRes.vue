@@ -1,8 +1,18 @@
 <template>
     <div class="search_element">
-        <div class="res_body" @click="clickSearchRes">
+        <div
+            class="res_body"
+            @click="clickSearchRes"
+            @mousemove="can_click=false"
+            @mousedown="is_down = true;can_click=true"
+            @mouseup="is_down = false"
+        >
             <div class="image" v-if="image"></div>
-            <div class="title" :class="{ has_image: image }" v-html="title"></div>
+            <div
+                class="title"
+                :class="{ has_image: image }"
+                v-html="title"
+            ></div>
             <div class="abstrack" :class="{ has_image: image }">
                 <span v-html="abstract"></span>
             </div>
@@ -16,11 +26,18 @@
 <script>
 export default {
     props: ["title", "abstract", "index", "image", "id"],
-    methods:{
-        clickSearchRes(){
+    data() {
+        return {
+            is_down: false,
+            can_click:false,
+        };
+    },
+    methods: {
+        clickSearchRes() {
+            if(!this.can_click) return;
             this.$emit("clickSearchRes", this.id);
-        }
-    }
+        },
+    },
 };
 </script>
 

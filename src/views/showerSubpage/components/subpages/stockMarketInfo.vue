@@ -4,7 +4,7 @@
             <div class="collect">
                 <div
                     class="collect_button"
-                    :class="{ is_collect: is_collect === '取消收藏' }"
+                    :class="{ is_collect: is_collect === '取消收藏', button_disable: !can_collect}"
                     @click="collectClick"
                 >
                     {{ is_collect }}
@@ -59,10 +59,10 @@
 
 <script>
 import * as echarts from "echarts";
-import testMsg from "@/assets/js/testMsg";
+// import testMsg from "@/assets/js/testMsg";
 import defaultSearch from "@/components/navBar/components/search/defaultSearch.vue";
 import Connector from "@/assets/js/connector/connector";
-import store from "@/store/index";
+// import store from "@/store/index";
 import linePrompt from "@/components/prompts/line/linePrompt.vue";
 export default {
     components: {
@@ -92,6 +92,7 @@ export default {
             prompt_type:"waiting",
             show_name:true,
             is_null:false,
+            can_collect:false,
         };
     },
     mounted() {
@@ -113,9 +114,11 @@ export default {
                 // 数据不存在
                 console.log("空数组");
                 this.is_null = true;
+                this.can_collect = false;
                 return;
             }else{
                 this.is_null = false;
+                this.can_collect = true;
             }
             this.data_use = this.splitData(this.data);
             let dom = document.getElementById("data_shower");
@@ -398,7 +401,7 @@ export default {
 }
 .head_container {
     position: relative;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 100%;
     height: 50px;
 }
@@ -424,7 +427,7 @@ export default {
     position: relative;
     float: left;
     /* border: 1px solid red; */
-    box-shadow: inset 0px 0px 5px #8222968F;
+    /* box-shadow: inset 0px 0px 5px #8222968F; */
 }
 .collect,
 .search {
@@ -455,6 +458,11 @@ export default {
 }
 .collect_button:hover {
     box-shadow: 0px 0px 5px #8222968f;
+}
+.button_disable{
+    pointer-events: none !important;
+    background-color: grey !important;
+    cursor:not-allowed;
 }
 .is_collect {
     background-color: #864094;

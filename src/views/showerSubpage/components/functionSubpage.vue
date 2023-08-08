@@ -46,7 +46,7 @@ export default {
 <style scoped>
 .fs_subpage_container {
     position: relative;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     float: right;
     width: 98%;
     height: 100%;
@@ -67,6 +67,7 @@ export default {
     font-weight: 600;
 }
 .page_nav {
+    cursor: pointer;
     padding: 0px 10px 0px 10px;
     border-left: 1px solid #822296;
     border-right: 1px solid #822296;
@@ -82,6 +83,6 @@ export default {
     position: relative;
     width: 100%;
     height: calc(100% - 30px);
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 </style>
