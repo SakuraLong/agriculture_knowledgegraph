@@ -268,6 +268,11 @@ export default {
             }
             // let history =  JSON.stringify([{"role":"user","content":"告诉我深圳市雄韬电源科技股份有限公司的上市时间"},{"role":"user","content":"这家公司的高管有哪些"}]);
             // console.log(history);
+            if(history.length===1&&this.qa_dialog_menus[this.dialog_selected].lable==="默认对话"){
+                let title = history[0].content.substring(0,6);
+                if(title.length>=6) title = title + "...";
+                this.qa_dialog_menus[this.dialog_selected].lable = title;
+            }
             history = JSON.stringify(history);
             let model =this.getModel();
             // console.log(model);
