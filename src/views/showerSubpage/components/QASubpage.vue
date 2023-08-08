@@ -272,7 +272,7 @@ export default {
                 let title = history[0].content.substring(0,6);
                 if(title.length>=6) title = title + "...";
                 this.qa_dialog_menus[this.dialog_selected].lable = title;
-            }
+            } 
             history = JSON.stringify(history);
             let model =this.getModel();
             // console.log(model);
