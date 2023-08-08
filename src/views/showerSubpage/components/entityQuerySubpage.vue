@@ -50,10 +50,16 @@
                 <mapSubpage ref="map_subpage"></mapSubpage>
             </div>
             <div ref="son_3" class="son_subpage" style="left: 300%">
-                <encyclopediaDocEditSubpage :title="title" :text="ency_content"></encyclopediaDocEditSubpage>
+                <encyclopediaDocEditSubpage
+                    :title="title"
+                    :text="ency_content"
+                ></encyclopediaDocEditSubpage>
             </div>
             <div ref="son_4" class="son_subpage" style="left: 400%">
-                <graphDocEditSubpage :title="title" :text="map_content"></graphDocEditSubpage>
+                <graphDocEditSubpage
+                    :title="title"
+                    :text="map_content"
+                ></graphDocEditSubpage>
             </div>
         </div>
     </div>
@@ -90,7 +96,7 @@ export default {
             is_waiting: false,
             error: "查询中",
             prompt_type: "waiting",
-            title:"默认界面默认界面默认界面默认界面默认界面默认界面默认界面默认界面默认界面默认界面",
+            title: "默认界面",
         };
     },
     components: {
@@ -98,7 +104,7 @@ export default {
         mapSubpage,
         linePrompt,
         encyclopediaDocEditSubpage,
-        graphDocEditSubpage
+        graphDocEditSubpage,
     },
     mounted() {
         this.ency_content = data.default_ency;
@@ -112,7 +118,7 @@ export default {
             this.getEntityById(id);
         },
         clickNav(index) {
-            if(!store.state.can_click_button) return;
+            if (!store.state.can_click_button) return;
             this.son_pages = [false, false, false, false, false];
             this.son_pages[index] = true;
             this.son_pages.forEach((element, i) => {
@@ -143,7 +149,7 @@ export default {
             //     this.$refs.shower_subpage_container_body.scrollTop
             // );
         },
-        renderMapByText(text){
+        renderMapByText(text) {
             this.$refs.map_subpage.renderMapByText(text);
         },
         getEntityById(id) {
@@ -157,29 +163,40 @@ export default {
             }
             this.show_catalogue = false; // 隐藏目录
             // 查询实体详细信息
-            Connector.test(
+            // Connector.test(
+            //     this.entityDetailCallback,
+            //     this.entityDetailWaiting,
+            //     this.entityDetailTimeout,
+            //     200,
+            //     true,
+            //     1000,
+            //     {
+            //         success:true,
+            //         content:{
+            //             ency_content:data.default_ency,
+            //             map_content:data.default_map
+            //         }
+            //     }
+            // );
+            Connector.send(
+                [id.toString()],
+                "getNodeDetail",
                 this.entityDetailCallback,
                 this.entityDetailWaiting,
                 this.entityDetailTimeout,
-                200,
-                true,
-                1000,
-                {
-                    success:true,
-                    content:{
-                        ency_content:data.default_ency,
-                        map_content:data.default_map
-                    }
-                }
+                5000
             );
         },
         entityDetailCallback(msg) {
             // 拿到信息进入实体详细信息展示界面
             if (msg.success) {
                 this.show_catalogue = true; // 显示目录
-
-                this.ency_content = msg.content.ency_content; // 之后需要解码
-                this.map_content = msg.content.map_content; // 之后需要解码
+                let ency_content = Code.Base64.decode(msg.content.encycontent);
+                let map_content = Code.Base64.decode(msg.content.mapcontent);
+                let title = Code.Base64.decode(msg.content.name);
+                this.title = title;
+                this.ency_content = ency_content; // 之后需要解码
+                this.map_content = map_content; // 之后需要解码
 
                 this.renderEncyByText(this.ency_content);
                 this.renderMapByText(this.map_content);
@@ -187,9 +204,9 @@ export default {
         },
         entityDetailWaiting(is_waiting) {
             this.is_waiting = is_waiting;
-            if(is_waiting){
+            if (is_waiting) {
                 store.state.can_click_button = false;
-            }else{
+            } else {
                 store.state.can_click_button = true;
             }
         },
@@ -233,6 +250,7 @@ export default {
     overflow-y: auto;
 }
 .page_nav {
+    cursor: pointer;
     padding: 0px 10px 0px 10px;
     border-left: 1px solid #822296;
     border-right: 1px solid #822296;

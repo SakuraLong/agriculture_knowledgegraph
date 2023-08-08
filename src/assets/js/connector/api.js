@@ -16,6 +16,8 @@ const API = {
         recognizeNode: "recognizeNode/",
         searchRelationship: "searchRelationshipBetween/",
         getGptAnswer: "getGptAnswer/",
+        getStockAnswer: "getStockAnswer/",
+        getNodeDetail:"getNodeDetail/"
     },
 };
 const API_PARA = {
@@ -58,10 +60,14 @@ const API_PARA = {
         ["end_node_name", ""],
         ["method", ""],
     ],
-    getGptAnswer: [
-        ["history", ""],
-        ["model", ""],
+    getGptAnswer: [["history", ""]],
+    getStockAnswer: [
+        ["stock", ""],
+        ["days", ""],
     ],
+    getNodeDetail:[
+        ["id", ""]
+    ]
 };
 const API_CHECKER = {
     register: [
@@ -137,9 +143,16 @@ const API_CHECKER = {
             "@length-max=100",
             "@length-min=1",
         ],
-        ["num-only"],
+        ["is-num"],
     ],
-    getGptAnswer: [["ignore"],["ignore"]],
+    getGptAnswer: [["ignore"]],
+    getStockAnswer: [
+        ["no-base-symbols", "sql-check", "no-null", "no-only-spacing"],
+        ["is-num"],
+    ],
+    getNodeDetail:[
+        ["is-num"]
+    ]
 };
 export default {
     API,

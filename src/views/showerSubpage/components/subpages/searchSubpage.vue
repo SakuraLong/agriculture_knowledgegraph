@@ -177,7 +177,7 @@ import Checker from "@/assets/js/checker/checker";
 import Connector from "@/assets/js/connector/connector";
 import Code from "@/assets/js/code/code";
 
-import testMsg from "@/assets/js/testMsg";
+// import testMsg from "@/assets/js/testMsg";
 import store from "@/store/index.js";
 export default {
     components: {
@@ -220,6 +220,7 @@ export default {
             //     1000,
             //     testMsg.test_search_res_data
             // );
+            
             Connector.send(
                 [text],
                 "searchNode",

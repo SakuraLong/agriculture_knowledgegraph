@@ -32,9 +32,7 @@
                     @mouseover="mouseOver"
                     @mouseout="mouseOut"
                 >
-                    <div class="res_subpage" v-if="subpage[2]">
-                        
-                    </div>
+                    <div class="res_subpage" v-if="subpage[2]"></div>
                     <div class="waiting_subpage" v-if="subpage[1]">
                         <div class="mascot_container_waiting">
                             <harvest
@@ -43,7 +41,11 @@
                             ></harvest>
                             <linePrompt
                                 :opacity="error"
-                                style="width: 260px;position: absolute; bottom: 0px"
+                                style="
+                                    width: 260px;
+                                    position: absolute;
+                                    bottom: 0px;
+                                "
                                 :data_left="error"
                                 :type="prompt_type"
                             ></linePrompt>
@@ -70,7 +72,13 @@
                                     position: absolute;
                                     bottom: 0;
                                 "
-                                :style="{color:prompt_text==='输入非法或超过100个字符' ? 'red' : 'rgba(0, 0, 0, 0.6)'}"
+                                :style="{
+                                    color:
+                                        prompt_text ===
+                                        '输入非法或超过100个字符'
+                                            ? 'red'
+                                            : 'rgba(0, 0, 0, 0.6)',
+                                }"
                             >
                                 {{ prompt_text }}
                             </div>
@@ -110,30 +118,40 @@ export default {
             all_his_list: [],
             his_list: [],
             default_show: 20,
-            error:"搜索中",
-            prompt_type:"waiting",
-            res_list:[],
-            prompt_text:"请输入关键词来搜索"
+            error: "搜索中",
+            prompt_type: "waiting",
+            res_list: [],
+            prompt_text: "请输入关键词来搜索",
         };
     },
+    props: ["is_stock"],
     components: {
         harvest,
         historyElement,
         linePrompt,
     },
-    watch:{
-        "input_msg"(){
+    watch: {
+        input_msg() {
             this.prompt_text = "请输入关键词来搜索";
-        }
+        },
     },
     mounted() {
         let index = 0;
-        this.all_his_list = Storage.get(
-            0,
-            "HISTORY_SEARCH",
-            this.all_his_list,
-            "JSON"
-        );
+        if (this.is_stock) {
+            this.all_his_list = Storage.get(
+                0,
+                "STOCK_SEARCH",
+                this.all_his_list,
+                "JSON"
+            );
+        } else {
+            this.all_his_list = Storage.get(
+                0,
+                "HISTORY_SEARCH",
+                this.all_his_list,
+                "JSON"
+            );
+        }
         for (let i = this.all_his_list.length - 1; i >= 0; i--) {
             if (index >= this.default_show) break;
             this.his_list.push(this.all_his_list[i]);
@@ -162,20 +180,28 @@ export default {
     },
     methods: {
         onKeyDown(e) {
-            console.log(e.key);
+            // console.log(e.key);
         },
         onKeyUp(e) {
-            console.log(e.key);
+            // console.log(e.key);
             if (e.key === "Enter") {
                 this.search();
             }
         },
         search() {
-            if(!store.state.can_click_button) return;
+            if (!store.state.can_click_button) return;
             this.$refs.default_search_input.focus();
             if (this.input_msg === "") return;
             // 检查字符串
-            if(!new Checker(this.input_msg, ["no-base-symbols", "sql-check", "no-null", "@length-max=100", "no-only-spacing"]).check()){
+            if (
+                !new Checker(this.input_msg, [
+                    "no-base-symbols",
+                    "sql-check",
+                    "no-null",
+                    "@length-max=100",
+                    "no-only-spacing",
+                ]).check()
+            ) {
                 this.prompt_text = "输入非法或超过100个字符";
                 return;
             }
@@ -212,7 +238,11 @@ export default {
             }
             this.is_over = false;
             this.subpage = [false, true, false];
-            Storage.set(0, "HISTORY_SEARCH", this.all_his_list, "JSON");
+            if(this.is_stock){
+                Storage.set(0, "STOCK_SEARCH", this.all_his_list, "JSON");
+            }else{
+                Storage.set(0, "HISTORY_SEARCH", this.all_his_list, "JSON");
+            }
 
             this.$emit("search", this.input_msg);
         },
@@ -254,20 +284,20 @@ export default {
             }
             Storage.set(0, "HISTORY_SEARCH", this.all_his_list, "JSON");
         },
-        searchByContent(content){
+        searchByContent(content) {
             this.input_msg = content;
             this.search();
         },
-        setWaiting(){
+        setWaiting() {
             this.subpage = [false, true, false];
             this.judge = true;
         },
-        getMsg(){
+        getMsg() {
             this.judge = false;
             this.is_focus = false;
             this.$refs.default_search_input.blur();
             this.subpage = [true, false, false];
-        }
+        },
     },
 };
 </script>
@@ -290,7 +320,7 @@ export default {
     align-items: center;
     justify-content: center;
     position: relative;
-    width: 350px;
+    width: 70%;
     height: 30px;
     border: 1px solid rgba(128, 128, 128, 0.544);
     border-radius: 30px;
@@ -302,6 +332,7 @@ export default {
     position: absolute;
     top: 150%;
     width: 90%;
+    min-width: 315px;
     background-color: white;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     overflow: hidden;
@@ -312,7 +343,7 @@ export default {
     display: block;
     height: auto;
 }
-.mascot_container_waiting{
+.mascot_container_waiting {
     width: 100%;
     height: 200px;
     overflow: hidden;
@@ -335,8 +366,8 @@ export default {
 .search_icon,
 .close_icon {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 6%;
+    height: auto;
 }
 .search_icon {
     left: 1%;
@@ -365,7 +396,7 @@ export default {
     cursor: pointer;
     position: absolute;
     right: 0;
-    width: 60px;
+    width: 12%;
     height: 35px;
     font-size: 16px;
     font-weight: 600;

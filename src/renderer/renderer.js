@@ -7,79 +7,6 @@ import DefaultCatalogue from "./components/catalogues/defaultCatalogue.js";
 import Decoder from "./decoders/decoder.js";
 import data from "@/assets/js/data.js";
 
-const map = (graph, title) => {
-    graph.nodes.forEach(function (node) {
-        node.label = {
-            show: true,
-        };
-    });
-    let option = {
-        title: {
-            text: title,
-            subtext: "Default layout",
-            top: "bottom",
-            left: "right",
-        },
-        tooltip: {
-            formatter: function (x) {
-                if (x.dataType === "node") {
-                    return x.name;
-                } else {
-                    return x.data.data;
-                }
-            },
-        },
-        legend: [
-            {
-                // selectedMode: 'single',
-                data: graph.categories.map(function (a) {
-                    return a.name;
-                }),
-            },
-        ],
-        animationDuration: 1500,
-        animationEasingUpdate: "quinticInOut",
-        series: [
-            {
-                name: "Les Miserables",
-                type: "graph",
-                layout: "force",
-                draggable: true,
-                data: graph.nodes,
-                links: graph.links,
-                categories: graph.categories,
-                roam: true,
-                label: {
-                    position: "right",
-                },
-                lineStyle: {
-                    color: "source",
-                },
-                force: {
-                    repulsion: 4000,
-                },
-                emphasis: {
-                    focus: "adjacency",
-                    lineStyle: {
-                        width: 12,
-                    },
-                },
-                color: [
-                    "#5470c6",
-                    "#91cc75",
-                    "#fac858",
-                    "#ee6666",
-                    "#73c0de",
-                    "#3ba272",
-                    "#fc8452",
-                    "#9a60b4",
-                    "#ea7ccc",
-                ],
-            },
-        ],
-    };
-    return option;
-};
 /**
  * render的渲染逻辑顺序！！
  * 1. 字符串格式
@@ -108,8 +35,15 @@ class Renderer {
         this.decode_res = this.decoder.decode(); // 渲染配置
     }
     setOption(option) {
-        this.map_config.light = option.theme === "dark" ? false : true;
-        this.map_config.force = option.layout === "graph" ? false : true;
+        console.log(option);
+        if(option.theme !== undefined){
+            console.log("修改颜色");
+            this.map_config.light = option.theme === "dark" ? false : true;
+        }
+        if(option.layout !== undefined){
+            console.log("修改类型");
+            this.map_config.force = option.layout === "graph" ? false : true;
+        }
     }
     dispose(){
         if (this.map != null && this.map !== "" && this.map !== undefined) {
@@ -140,6 +74,8 @@ class Renderer {
             });
             this.map.showLoading();
             let option = {};
+            console.log(this.map_config.force);
+            console.log(this.map_config.light);
             if (this.map_config.force && this.map_config.light) {
                 option = data.mapForceLight(
                     this.decode_res.res,
@@ -147,6 +83,17 @@ class Renderer {
                 );
             } else if (this.map_config.force && !this.map_config.light) {
                 option = data.mapForceDark(
+                    this.decode_res.res,
+                    this.decode_res.name + "的关系图"
+                );
+            }else if (!this.map_config.force && this.map_config.light) {
+                console.log("graph light");
+                option = data.mapGraphLight(
+                    this.decode_res.res,
+                    this.decode_res.name + "的关系图"
+                );
+            }else if (!this.map_config.force && !this.map_config.light) {
+                option = data.mapGraphDark(
                     this.decode_res.res,
                     this.decode_res.name + "的关系图"
                 );
