@@ -109,7 +109,7 @@ export default {
     font-family: Heiti;
     position: relative;
     overflow: auto;
-    width: 100%;
+    width: calc(100% - 10px);
     /* min-height: 400px; */
     height: 100%;
     /* height: 100%; */
@@ -120,6 +120,8 @@ export default {
     z-index: 0;
     color: var(--input_ele-font-color);
     background-color: var(--input-ele-background-color);
+    padding-left: 5px;
+    padding-right: 5px;
     /* background-color:rgba(0,0,0,0); */
 }
 .input_ele:focus {

@@ -52,7 +52,7 @@ export default {
     width: 100%;
     height: 100%;
     position: absolute;
-    border: 1px solid pink;
+    /* border: 1px solid pink; */
     /* background-color: red; */
     font-family: Songti;
     font-size: 20px;

@@ -2,9 +2,20 @@
 <template>
     <div class="qa_subpage_container" ref="container">
         <div class="sessions_selecter">
-            <button class="add_session_button" @click="add_session">
-                新会话
-            </button>
+            <div class="sessions_top_container">
+                <modelSelect
+                    class="model_selecter"
+                    :items="model_list"
+                    title="模式"
+                    placeholder="选择你想要的回答模式"
+                    ref="modelRef"
+                    select_type="model"
+                    :value="model"
+                ></modelSelect>
+                <button class="add_session_button" @click="add_session">
+                    新会话
+                </button>
+            </div>
             <div
                 class="session_containers"
                 :key="re"
@@ -108,12 +119,19 @@ import Storage from "@/assets/js/storage/storage.js";
 import linePrompt from "@/components/prompts/line/linePrompt.vue";
 import connector from "@/assets/js/connector/connector";
 import Checker from "@/assets/js/checker/checker.js";
+import modelSelect from "@/components/selects/borderSelect/modelSelect.vue";
 import store from "@/store/index.js";
 // import { Select } from "@element-plus/icons-vue/dist/types";
 export default {
     data() {
         return {
-            prompt_type:"",
+            model: "对话模式:默认",
+            model_list: [
+                "对话模式:默认",
+                "对话模式:猫娘",
+                "对话模式:傲娇",
+            ],
+            prompt_type: "",
             error: "",
             isRunning: false,
             input_type_arr: ["button"],
@@ -129,8 +147,7 @@ export default {
                     lable: "对话0",
                     sessions: [
                         {
-                            content:
-                                "你好，欢迎来到问答界面！请输入你的问题。",
+                            content: "你好，欢迎来到问答界面！请输入你的问题。",
                             is_left: true,
                             is_right: false,
                             time: new Date(
@@ -145,6 +162,14 @@ export default {
         };
     },
     methods: {
+        getModel(){
+            // console.log(this.$refs.modelRef.input_value);
+            switch(this.$refs.modelRef.input_value){
+                case "对话模式:默认":return 0;
+                case "对话模式:猫娘":return 1;
+                case "对话模式:傲娇":return 2;
+            }
+        },
         selectJudge(text) {
             if (text === "true") return true;
             else return false;
@@ -244,8 +269,11 @@ export default {
             // let history =  JSON.stringify([{"role":"user","content":"告诉我深圳市雄韬电源科技股份有限公司的上市时间"},{"role":"user","content":"这家公司的高管有哪些"}]);
             // console.log(history);
             history = JSON.stringify(history);
+            let model =this.getModel();
+            // console.log(model);
+            // console.log(history);
             connector.send(
-                [history],
+                [history,model],
                 "getGptAnswer",
                 this.saveInfoCallback,
                 this.saveInfoWaiting,
@@ -309,7 +337,7 @@ export default {
                 is_left: true,
                 is_right: false,
             };
-            let title = "默认对话" + this.qa_dialog_menus.length;
+            let title = "默认对话";
             let dia = {
                 time: new Date(new Date().getTime()).toLocaleString(),
                 is_selected: true,
@@ -386,6 +414,7 @@ export default {
         textInput,
         dialogAvatarBox,
         linePrompt,
+        modelSelect,
         // Select
     },
     created() {
@@ -400,8 +429,7 @@ export default {
                     lable: "对话0",
                     sessions: [
                         {
-                            content:
-                                "你好，欢迎来到问答界面！请输入你的问题。",
+                            content: "你好，欢迎来到问答界面！请输入你的问题。",
                             is_left: true,
                             is_right: false,
                             time: new Date(
@@ -479,6 +507,7 @@ export default {
     width: 87%;
     height: 75%;
     position: absolute;
+    top: 2%;
     /* top:18%; */
     left: 0%;
 }
@@ -522,7 +551,7 @@ export default {
     overflow-y: scroll;
     overflow-x: hidden;
     padding-left: 50px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .qa_show_container::-webkit-scrollbar {
     width: 12px;
@@ -606,7 +635,7 @@ export default {
     position: relative;
     height: 40px;
     width: 60%;
-    top: 3%;
+    top: 8%;
     right: 1px;
     cursor: pointer;
     color: rgb(230, 146, 255);
@@ -625,7 +654,7 @@ export default {
     position: absolute;
     /* background-color: red; */
     bottom: 0%;
-    height: 86%;
+    height: 84%;
     width: 100%;
     /* background-color: aqua; */
     border: solid 1px black;
@@ -643,8 +672,7 @@ export default {
     margin-bottom: 10px;
     background-color: white;
     border-radius: 6px;
-    box-shadow: 2px 2px 4px rgba(205, 118, 220, 0.3), -2px -2px 4px rgba(205, 118, 220, 0.3);
-    border: 2px solid rgb(165, 165, 165);
+    border: 2px solid rgb(198, 170, 207);
     color: rgb(230, 146, 255);
     line-height: 40px;
     text-align: center;
@@ -657,7 +685,8 @@ export default {
     z-index: 2;
 }
 .session_buttons:hover {
-    box-shadow: 2px 2px 2px rgba(213, 84, 236, 0.6), -2px -2px 2px rgba(213, 84, 236, 0.6);
+    box-shadow: 2px 2px 4px rgb(230, 146, 255,0.5),
+        -2px -2px 4px rgb(230, 146, 255,0.5);
     color: rgb(254, 196, 255);
 }
 .session_buttons_selected {
@@ -669,7 +698,8 @@ export default {
     margin-bottom: 10px;
     background-color: white;
     border-radius: 6px;
-    box-shadow: 2px 2px 2px rgba(205, 118, 220, 0.3), -2px -2px 2px rgba(205, 118, 220, 0.3);
+    box-shadow: 2px 2px 2px rgba(205, 118, 220, 0.3),
+        -2px -2px 2px rgba(205, 118, 220, 0.3);
     border: 2px solid rgb(230, 146, 255);
     color: rgb(230, 146, 255);
     line-height: 40px;
@@ -691,12 +721,12 @@ export default {
     outline: none; /*清除input点击之后的黑色边框*/
     /* background-color: red; */
     font-family: Heiti;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 500;
     text-align: left;
     user-select: none;
     color: black;
-    top:0;
+    /* top: 2px; */
     background-color: white;
     /* padding-left: 20px; */
     /* background-color: red; */
@@ -744,5 +774,19 @@ export default {
     width: 200px;
     left: 40%;
     top: 73%;
+}
+.sessions_top_container {
+    width: 100%;
+    /* background-color: red; */
+    position: relative;
+    height: 16%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+.model_selecter {
+    position: relative;
+    top: -5%;
 }
 </style>
