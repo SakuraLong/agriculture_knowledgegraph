@@ -130,6 +130,7 @@ export default {
     methods: {
         dataToUse(data_list) {
             const amount = 80;
+            this.data_list = [];
             this.data_list = data_list;
             let l = this.data_list.length;
             let i = parseInt(l / 80);
@@ -259,7 +260,6 @@ export default {
             if (msg.success) {
                 // 目录初始化
                 if (this.need_init) {
-                    this.need_init = false;
                     this.all_page = 0;
                     this.now_page = 1;
                     this.page = "";
@@ -268,10 +268,13 @@ export default {
                     this.page_sections = [];
                     this.data_list = [];
                     this.data_for_overview = [];
-                    let data_use = msg.content.result;
-                    let all_amount = msg.content.amount;
-                    this.dataToUse(data_use);
-                    this.setAmount(all_amount);
+                }
+                let data_use = msg.content.result;
+                let all_amount = msg.content.amount;
+                this.dataToUse(data_use);
+                this.setAmount(all_amount);
+                if (this.need_init) {
+                    this.need_init = false;
                     this.pageSection();
                 }
             } else {
