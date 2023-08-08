@@ -363,8 +363,8 @@ export default {
             if (msg.success) {
                 this.show_name = true;
                 let temp = msg.content.list;
-                let id = msg.content.stockid;
-                let name = msg.content.stockname;
+                let id = msg.content.message.stockid;
+                let name = msg.content.message.stockname;
                 this.code = id;
                 this.title = name;
                 this.showSMInfoByData(temp, name);
