@@ -21,15 +21,15 @@ class TableTemplate extends Template {
         let tbody = document.createElement("tbody");
         let has_thead = false;
         // 开始遍历数组
-        this.paras.forEach((element, index)=>{
-            if(element==="") return;
-            if(index === 0){
+        this.paras.forEach((element, index) => {
+            if (element === "") return;
+            if (index === 0) {
                 table.style = element.split("|")[1];
-            }else{
+            } else {
                 let temp = element.replace(/^\||\|$/g, "");
                 temp = temp.trim();
                 // console.log(temp);
-                if(index === 1 && temp[0] === "+" && temp[1] === " "){
+                if (index === 1 && temp[0] === "+" && temp[1] === " ") {
                     // 设置了thead
                     let tr = document.createElement("tr");
                     tr.classList.add("infobox_tr");
@@ -37,16 +37,16 @@ class TableTemplate extends Template {
                     let paras = temp.split("|"); // 拿到每一个单元格
                     has_thead = true;
                     thead.appendChild(tr);
-                    paras.forEach((element_, index_)=>{
+                    paras.forEach((element_, index_) => {
                         // 对每一个单元格做处理
                         let t_text = element_.trim();
                         let temp_ = this.getConfig(t_text);
                         // console.log(temp_);
                         let td = document.createElement("td");
                         td.classList.add("infobox_td");
-                        if(temp_.config){
+                        if (temp_.config) {
                             // 有配置
-                            if(temp_.t){
+                            if (temp_.t) {
                                 // 标题
                                 td.classList.add("infobox_title");
                             }
@@ -56,22 +56,22 @@ class TableTemplate extends Template {
                         td.innerHTML = temp_.text;
                         tr.appendChild(td);
                     });
-                }else{
+                } else {
                     // tbody
                     let tr = document.createElement("tr");
                     tr.classList.add("infobox_tr");
                     let paras = temp.split("|"); // 拿到每一个单元格
                     tbody.appendChild(tr);
-                    paras.forEach((element_, index_)=>{
+                    paras.forEach((element_, index_) => {
                         // 对每一个单元格做处理
                         let t_text = element_.trim();
                         let temp_ = this.getConfig(t_text);
                         // console.log(temp);
                         let td = document.createElement("td");
                         td.classList.add("infobox_td");
-                        if(temp_.config){
+                        if (temp_.config) {
                             // 有配置
-                            if(temp_.t){
+                            if (temp_.t) {
                                 // 标题
                                 td.classList.add("infobox_title");
                             }
@@ -84,48 +84,48 @@ class TableTemplate extends Template {
                 }
             }
         });
-        if(has_thead){
+        if (has_thead) {
             table.appendChild(thead);
         }
         table.appendChild(tbody);
 
         return table.outerHTML;
     }
-    getConfig(text){
+    getConfig(text) {
         let paras = text.split(" ");
         // 拆分参数 获取最后一个空格分割的参数
         let config_paras = paras.pop();
         config_paras = config_paras.split("/"); // 拿到具体的参数
         // c=1 r=1 t
         let res = {
-            config:false,
-            c:"1",
-            r:"1",
-            t:false,
-            text:""
+            config: false,
+            c: "1",
+            r: "1",
+            t: false,
+            text: "",
         };
-        config_paras.forEach((element, index)=>{
-            if(element === "t"){
+        config_paras.forEach((element, index) => {
+            if (element === "t") {
                 // 标题
                 res.config = true;
                 res.t = true;
-            }else{
+            } else {
                 let elements = element.split("=");
-                if(elements[0]==="c" && elements[1] !== undefined){
+                if (elements[0] === "c" && elements[1] !== undefined) {
                     res.config = true;
                     res.c = elements[1].toString();
-                }else if(elements[0]==="r" && elements[1] !== undefined){
+                } else if (elements[0] === "r" && elements[1] !== undefined) {
                     res.config = true;
                     res.r = elements[1].toString();
                 }
             }
         });
         let res_text = "";
-        if(res.config){
-            paras.forEach((element, index)=>{
+        if (res.config) {
+            paras.forEach((element, index) => {
                 res_text += index === 0 ? element : " " + element;
             });
-        }else{
+        } else {
             res_text = text;
         }
         res.text = res_text;
