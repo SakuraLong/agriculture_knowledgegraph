@@ -2,6 +2,16 @@
 :root{
     --error-color:red;
 }
+/* avatarUpload */
+:root{
+    --box--overlay--background-color:white;
+    --box-header-color:#822269;
+    --upload-button-background-color:#822269;
+    --upload-button-hover-background-color:#621b6b;
+    --upload-button-font-color:white;
+    --upload-button-hover-font-color:white;
+    --box-header-bottom-border-color:black;
+}
 /* :defaultDialogBox */
 :root{
     --dialog-container-border-color:rgb(230, 146, 255);

@@ -33,6 +33,8 @@ export default {
         title: String,
         placeholder: String,
         index: Number, // 开始默认选择的元素序号（不赋值则默认选择为空）
+        value:String,//默认的值
+        select_type:String,//
     },
     data() {
         return {
@@ -56,9 +58,25 @@ export default {
         },
     },
     mounted() {
+        if (this.value !== "") this.input_value = this.value;
+        // this.input_value = "你在干什";
+        // console.log("现在被选中的是：",this.input_value);
         if (this.items[this.index] !== undefined)
             this.input_value = this.items[this.index];
     },
+    watch:{
+        input_value(newValue,oldValue) {
+            // console.log("旧：",oldValue);
+            // console.log("新：",newValue);
+            // console.log("钙片就是好吃");
+            if(oldValue!==""&&this.select_type==="sex"){
+                this.$emit("sexChanged");
+            }
+            else if(oldValue!==""&&this.select_type==="occu"){
+                this.$emit("occuChanged");
+            }
+        }
+    }
 };
 </script>
 

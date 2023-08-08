@@ -1,7 +1,7 @@
 <template>
     <div class="shower_subpage" ref="shower_subpage">
-        <entityQuerySubpage ref="son_0"></entityQuerySubpage>
-        <entityRecognitionSubpage ref="son_1"></entityRecognitionSubpage>
+        <entityRecognitionSubpage ref="son_0"></entityRecognitionSubpage>
+        <entityQuerySubpage ref="son_1"></entityQuerySubpage>
         <relationshipQuerySubpage ref="son_2"></relationshipQuerySubpage>
         <overviewSubpage ref="son_3"></overviewSubpage>
         <QASubpage ref="son_4"></QASubpage>
@@ -52,7 +52,8 @@ export default {
     width: 100%;
     height: 100%;
     position: absolute;
-    border: 1px solid red;
+    /* border: 1px solid pink; */
+    /* background-color: red; */
     font-family: Songti;
     font-size: 20px;
     overflow: hidden;

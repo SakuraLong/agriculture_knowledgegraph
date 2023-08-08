@@ -56,7 +56,9 @@ class XMLConnector {
                         this_.func_callback != null &&
                         this_.func_callback !== undefined
                     ) {
-                        this_.func_callback(JSON.parse(this_.xml_http.responseText.replace("'", "\"")));
+                        console.log(this_.xml_http.responseText);
+                        let temp = this_.xml_http.responseText;
+                        this_.func_callback(JSON.parse(temp));
                     }
                 }
             };

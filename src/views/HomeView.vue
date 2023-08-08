@@ -82,6 +82,7 @@
         <personalMsgSettingSubpage
             v-if="page.is_personal_setting"
             @leaveSetting="leaveSetting"
+            ref="personalMsgSettingRef"
         />
         <loginAndRegister
             v-else-if="page.is_login"
@@ -281,6 +282,9 @@ export default {
         },
         toEditPersonal() {
             this.page.is_personal_setting = true;
+            // console.log("啊啊啊啊啊啊");
+            // this.$refs.personalMsgSettingRef.$refs.nameRef.input_msg="雀食蟀";
+            // console.log("哦哦哦");
         },
         toPersonal() {
             this.page.is_personal = true;
@@ -509,10 +513,10 @@ export default {
         },
     },
     created() {
-        // store.state.avatar = utils.getUserMsg().avatar;
-        // testMsg.localStorageIsLogin();
+        store.state.avatar = utils.getUserMsg().avatar;
+        testMsg.localStorageIsLogin();
         // console.log(store.state.avatar);
-        utils.userLoginInit(); // 自动登录
+        // utils.userLoginInit(); // 自动登录
     },
     mounted() {
         setTimeout(() => {
@@ -530,6 +534,10 @@ export default {
                 "./img/shutter/top_light.png",
                 "./img/bg/bg_dark.png",
                 "./img/bg/bg_light.png",
+                "./img/mascots/harvest/probe_default.png",
+                "./img/mascots/harvest/probe_default_password.png",
+                "./img/mascots/harvest/probe_default_hand.png",
+                "./img/mascots/snow/probe_default.png",
             ];
             img_list.forEach((element) => {
                 let img = new Image();

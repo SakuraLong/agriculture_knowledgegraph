@@ -13,6 +13,7 @@ import XML from "./xmlConnector.js";
  * @returns false:字符串不符合规则
  */
 const send = (msg, api, func_callback, func_wating, func_timeout, time_out) => {
+    console.log(msg);
     let c = MsgProcessing.processing(msg, api);
     if (!c) return c;
     XML.send(c.api_name,c.api_para, func_callback, func_wating, func_timeout, time_out);

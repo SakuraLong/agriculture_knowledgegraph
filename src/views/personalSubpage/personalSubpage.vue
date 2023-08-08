@@ -10,10 +10,6 @@
                     @logOut="logOut"
                     style="height: 100%"
                 ></personalProfile>
-                <!-- <personalEdit
-                    @toEditPersonal="toEditPersonal"
-                    style="height: 23%"
-                ></personalEdit> -->
             </div>
         </template>
     </defaultShutter>

@@ -1,7 +1,7 @@
 <template>
     <div class="background_word">
-        <div class="background_word2 word_border" data-text="农业知识图谱">农业知识图谱</div>
-        <div class="background_word3 word_border" data-text="Agriculture Knowledgegraph">Agriculture Knowledgegraph</div>
+        <div class="background_word2 word_border" data-text="农业知识图谱">上市公司知识图谱</div>
+        <div class="background_word3 word_border" data-text="Agriculture Knowledgegraph">Listed Companies Knowledgegraph</div>
         <div class="background_word1 word_border" :data-text="$t('views.main_page.main_word.from')">{{ $t("views.main_page.main_word.from") }}</div>
         <img src="./img/arrow.png" class="arrow" />
     </div>
@@ -17,7 +17,7 @@ export default {
 <style scoped>
 .background_word {
     user-select: none !important;
-    width: 700px; /* 调整导航栏的宽度 */
+    width: 800px; /* 调整导航栏的宽度 */
     position: fixed; /* 设置为固定定位 */
     top: 45%; /* 距离顶部的距离 */
     left: 45%; /* 距离左侧的距离 */
@@ -28,7 +28,7 @@ export default {
 }
 .arrow {
     position: absolute;
-    right: 10%;
+    right: 5%;
     top: 35%;
     width: 80px;
     height: 80px;
