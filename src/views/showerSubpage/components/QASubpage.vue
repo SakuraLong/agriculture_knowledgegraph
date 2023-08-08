@@ -87,6 +87,7 @@
                 }"
             >
                 <dialogAvatarBox
+                    :is_ai="true"
                     v-for="i in item.sessions"
                     :key="i.time"
                     :content="i.content"
@@ -129,7 +130,7 @@ export default {
                     sessions: [
                         {
                             content:
-                                "你好，欢迎来到问答界面！\n 请输入你的问题",
+                                "你好，欢迎来到问答界面！请输入你的问题。",
                             is_left: true,
                             is_right: false,
                             time: new Date(
@@ -301,7 +302,7 @@ export default {
                 this.qa_dialog_menus[i].is_selected = false;
             }
             let time = new Date(new Date().getTime()).toLocaleString();
-            let text = "你好，欢迎来到问答界面！\n 请输入你的问题";
+            let text = "你好，欢迎来到问答界面！请输入你的问题。";
             let item = {
                 time: time,
                 content: text,
@@ -400,7 +401,7 @@ export default {
                     sessions: [
                         {
                             content:
-                                "你好，欢迎来到问答界面！\n 请输入你的问题",
+                                "你好，欢迎来到问答界面！请输入你的问题。",
                             is_left: true,
                             is_right: false,
                             time: new Date(
@@ -521,7 +522,7 @@ export default {
     overflow-y: scroll;
     overflow-x: hidden;
     padding-left: 50px;
-    /* border: 1px solid yellow; */
+    border: 1px solid red;
 }
 .qa_show_container::-webkit-scrollbar {
     width: 12px;

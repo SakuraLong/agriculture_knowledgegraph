@@ -31,6 +31,7 @@ export default {
     margin: 10px 30px 10px 30px;
     padding: 10px 10px 10px 15px;
     font-size: 25px;
+    line-height: 25px;
     font-family: ZKKLT;
     position: relative;
     border: 3px solid var(--dialog-container-border-color);

@@ -1,6 +1,7 @@
 <template>
     <div class="dialog_avatar_box">
         <defaultAvatar
+            :class="{is_ai:is_ai}"
             v-if="is_left"
             :is_robot="true"
             style="float: left"
@@ -11,6 +12,7 @@
             style="float: right"
         ></defaultAvatar>
         <defaultDialogBox
+            :class="{is_ai:is_ai}"
             :is_left="is_left"
             :is_right="is_right"
             :style="{float: is_left ? 'left' : 'right'}"
@@ -28,7 +30,7 @@ export default {
         defaultAvatar,
         defaultDialogBox,
     },
-    props: ["content", "is_left", "is_right"],
+    props: ["content", "is_left", "is_right", "is_ai"],
 };
 </script>
 
@@ -39,5 +41,12 @@ export default {
     display: inline-block;
     width: auto;
     flex-direction: row;
+}
+.is_ai{
+    max-width: 80% !important;
+    font-size: 22px !important;
+    line-height: 30px !important;
+    text-align: left !important;
+    background-color: white;
 }
 </style>
