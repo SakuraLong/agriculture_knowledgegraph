@@ -126,13 +126,21 @@ no_italics代表引用不为斜体<br>
 } }<br>
 （使用时去掉两个{和}之间的空格，因为我暂时还写不出来复杂的正则表达式匹配😭😭{{文本|正则表达式太难了|curtain=求大佬教教}}）
 
-{{表格|font-size:20;min-width:200px
+{{表格|font-size:20;min-width:200px;width:100%
 |+ Sakura的作息时间{{文本|开玩笑的|curtain}} c=8/t |
 | 这会占用四个格子 c=2/r=2/t | 早上 c=2/t | 下午 c=2/t | 晚上 c=2/t |
 | 起床 | 学习 | 睡觉 | {{文本|打游戏！！|curtain}} | 看番 | 睡觉 |
 }}
 
 [[中国银行]]
+
+{{表格|font-size:20;min-width:200px;width:100%
+|+ 测试 c=8/t |
+| 属性名字 t| 属性名字 t| 属性名字 t| 属性名字 t| 属性名字 t| 属性名字 t| 属性名字 t| 属性名字 t|
+| 属性内容 | 属性内容 | 属性内容 | 属性内容 | 属性内容 | 属性内容 | 属性内容 | 属性内容 |
+| 属性名字 t|  t|  t|  t|  t|  t|  t|  t|
+| 属性内容 |  |  |  |  |  |  |  |
+}}
 `;
 
 const default_map = `
@@ -149,8 +157,154 @@ const default_map = `
 [[Shmily]]--[[抹茶]]=朋友=Shmily和抹茶是朋友
 `;
 
+const mapForceLight = (graph, title) => {
+    graph.nodes.forEach(function (node) {
+        node.label = {
+            show: true,
+        };
+    });
+    let option = {
+        title: {
+            text: title,
+            subtext: "Default layout",
+            top: "bottom",
+            left: "right",
+        },
+        tooltip: {
+            formatter: function (x) {
+                if (x.dataType === "node") {
+                    return x.name;
+                } else {
+                    return x.data.data;
+                }
+            },
+        },
+        legend: [
+            {
+                // selectedMode: 'single',
+                data: graph.categories.map(function (a) {
+                    return a.name;
+                }),
+            },
+        ],
+        animationDuration: 1500,
+        animationEasingUpdate: "quinticInOut",
+        series: [
+            {
+                name: "Les Miserables",
+                type: "graph",
+                layout: "force",
+                draggable: true,
+                data: graph.nodes,
+                links: graph.links,
+                categories: graph.categories,
+                roam: true,
+                label: {
+                    position: "right",
+                },
+                lineStyle: {
+                    color: "source",
+                },
+                force: {
+                    repulsion: 4000,
+                },
+                emphasis: {
+                    focus: "adjacency",
+                    lineStyle: {
+                        width: 12,
+                    },
+                },
+                backgroundColor: "rgba(255,255,255,1)",
+            },
+        ],
+    };
+    return option;
+};
+const mapForceDark = (graph, title) => {
+    graph.nodes.forEach(function (node) {
+        node.label = {
+            show: true,
+        };
+    });
+    let option = {
+        darkMode:true,
+        title: {
+            text: title,
+            subtext: "Default layout",
+            top: "bottom",
+            left: "right",
+            textStyle:{
+                color:"white"
+            },
+            subtextStyle:{
+                color:"white"
+            }
+        },
+        tooltip: {
+            formatter: function (x) {
+                if (x.dataType === "node") {
+                    return x.name;
+                } else {
+                    return x.data.data;
+                }
+            },
+        },
+        legend: [
+            {
+                // selectedMode: 'single',
+                data: graph.categories.map(function (a) {
+                    return a.name;
+                }),
+            },
+        ],
+        animationDuration: 1500,
+        animationEasingUpdate: "quinticInOut",
+        series: [
+            {
+                name: "Les Miserables",
+                type: "graph",
+                layout: "force",
+                draggable: true,
+                data: graph.nodes,
+                links: graph.links,
+                categories: graph.categories,
+                roam: true,
+                label: {
+                    position: "right",
+                },
+                lineStyle: {
+                    color: "source",
+                },
+                force: {
+                    repulsion: 4000,
+                },
+                emphasis: {
+                    focus: "adjacency",
+                    lineStyle: {
+                        width: 12,
+                    },
+                },
+            },
+        ],
+        backgroundColor: "rgba(41,52,65,1)",
+        color: [
+            "#5470c6",
+            "#91cc75",
+            "#fac858",
+            "#ee6666",
+            "#73c0de",
+            "#3ba272",
+            "#fc8452",
+            "#9a60b4",
+            "#ea7ccc",
+        ],
+    };
+    return option;
+};
 export default {
     robot_avatar,
     default_ency,
-    default_map
+    default_map,
+    mapForceLight,
+    mapForceDark
 };

@@ -6,7 +6,6 @@
                 &nbsp;&nbsp;&nbsp;输入查询文本:
             </div>
             <textInput
-                :msg="msg"
                 :input_font_size="input_font_size"
                 :placeholder="input_place_holder"
                 class="anime_input_mainer"
@@ -19,48 +18,90 @@
                 :opacity="line_prompt.msg"
                 :type="line_prompt.type"
             ></linePrompt>
-            <button class="anime_input_button" @click="anime_text_submit">点击提交</button>
+            <button class="anime_input_button" @click="anime_text_submit">
+                点击提交
+            </button>
         </div>
         <div class="anime_result_container">
             <div class="anime_result_reminder_1">&nbsp;「查看识别结果」</div>
-            <div class="anime_result_show_1">
-                你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。
-                你说的对，但是《原神》是由说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。你说的对，但是《原神》是由米哈游自主研发的一款全新开放世界冒险游戏。游戏发生在一个被称作「提瓦特」的幻想世界，在这里，被神选中的人将被授予「神之眼」，导引元素之力。你将扮演一位名为「旅行者」的神秘角色，在自由的旅行中邂逅性格各异、能力独特的同伴们，和他们一起击败强敌，找回失散的亲人——同时，逐步发掘「原神」的真相。
-            </div>
+            <div class="anime_result_show_1" v-html="entity_text"></div>
         </div>
     </div>
 </template>
 <script>
 import textInput from "@/components/inputs/textInput/textInput.vue";
 import linePrompt from "@/components/prompts/line/linePrompt.vue";
+
+import Checker from "@/assets/js/checker/checker";
+import Connector from "@/assets/js/connector/connector";
+import store from "@/store/index";
+import Code from "@/assets/js/code/code";
+import Entity from "@/renderer/entity/entity";
 export default {
     data() {
         return {
-            msg: "",
             input_font_size: "20px",
             input_place_holder: "请在这里输入你想要查询的文本",
             line_prompt: {
                 msg: "",
-                type:"error"
+                type: "error",
             },
+            entity_text: "",
         };
     },
     methods: {
         getOffsetTop() {
             return this.$refs.container.offsetTop;
         },
-        anime_text_submit(){
-            console.log(this.$refs.anime_text_ref.input_msg);
-            if(this.$refs.anime_text_ref.input_msg===""){
-                this.line_prompt.msg="输入文本不能为空";
-                console.log("不彳亍");
+        anime_text_submit() {
+            if (!store.state.can_click_button) return;
+            let text = this.$refs.anime_text_ref.get();
+            console.log(text);
+            if (
+                !new Checker(text, [
+                    "no-null",
+                    "@length-max=200",
+                    "no-base-symbols",
+                    "sql-check",
+                    "no-only-spacing",
+                ]).check()
+            ) {
+                this.line_prompt.type = "error";
+                this.line_prompt.msg = "输入内容误或者过长或者为空";
                 return;
+            } else {
+                this.line_prompt.msg = "";
+                // 进入接口发送
+                Connector.send(
+                    [text],
+                    "recognizeNode",
+                    this.recognizeCallback,
+                    this.recognizeWaiting,
+                    this.recognizeTimeout,
+                    6000
+                );
             }
-            else{
-                this.line_prompt.msg="";
-                console.log("彳亍");
+        },
+        recognizeCallback(msg) {
+            if (msg.success) {
+                let text = Code.Base64.decode(msg.content.result);
+                this.entity_text = new Entity("as").decodeText(text);
             }
-        }
+        },
+        recognizeWaiting(is_waiting) {
+            store.state.can_click_button = !is_waiting;
+            if (is_waiting) {
+                this.line_prompt.msg = "识别中";
+                this.line_prompt.type = "waiting";
+            } else {
+                this.line_prompt.msg = "";
+                this.line_prompt.type = "default";
+            }
+        },
+        recognizeTimeout() {
+            this.line_prompt.msg = "查询超时";
+            this.line_prompt.type = "error";
+        },
     },
     components: {
         textInput,
@@ -123,6 +164,7 @@ export default {
     color: white;
     border-radius: 10px;
     border: none;
+    user-select: none;
 }
 .anime_input_button:hover {
     background-color: rgb(204, 121, 221);
@@ -162,10 +204,10 @@ export default {
 .anime_result_show_1:hover {
     border: solid 2px rgb(192, 155, 201);
 }
-.line_prompt{
+.line_prompt {
     position: relative;
     width: 300px;
-    top:73%;
+    top: 73%;
 }
 .anime_result_show_1::-webkit-scrollbar {
     width: 12px;

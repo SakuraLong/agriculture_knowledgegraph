@@ -73,7 +73,6 @@ export default {
         msg(){
             this.input_msg = this.msg;
         }
-
     },
 };
 </script>

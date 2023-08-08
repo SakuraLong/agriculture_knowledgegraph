@@ -2,18 +2,20 @@ const API = {
     host: "http://127.0.0.1",
     port: ":8000/",
     api: {
-        register: "sendEmailVerification/",
-        login: "login/",
-        deleteAccount: "sendEmailVerification/",
-        forgetPassword: "sendEmailVerification/",
-        changePassword: "updateUserPassword/",
-        changeEmail: "sendEmailVerification/",
-        updateAvatar: "avatarSubmission/",
-        updateUserMsg: "updateAccountInformation/",
-        getUserMsg: "getUserMessage/",
-        verify: "verifyEmailCode/",
-        getGptAnswer: "getGptAnswer/",
-        searchNode: "searchNode/",
+        "register": "sendEmailVerification/",
+        "login": "login/",
+        "deleteAccount": "sendEmailVerification/",
+        "forgetPassword": "sendEmailVerification/",
+        "changePassword": "updateUserPassword/",
+        "changeEmail":"sendEmailVerification/",
+        "updateAvatar": "avatarSubmission/",
+        "updateUserMsg": "updateAccountInformation/",
+        "getUserMsg": "getUserMessage/",
+        "verify":"verifyEmailCode/",
+        "searchNode":"searchNode/",
+        "recognizeNode":"recognizeNode/",
+        "searchRelationship":"searchRelationshipBetween/",
+        "getGptAnswer": "getGptAnswer/",
     },
 };
 const API_PARA = {
@@ -49,8 +51,18 @@ const API_PARA = {
         ["occupation", ""],
         ["born_time", ""],
     ],
-    getGptAnswer: [["history", ""]],
-    searchNode: [["search_name", ""]],
+    "searchNode":[
+        ["search_name", ""]
+    ],
+    "recognizeNode":[
+        ["content", ""]
+    ],
+    "searchRelationship":[
+        ["start_node_name", ""],
+        ["end_node_name", ""],
+        ["method", ""]
+    ],
+    "getGptAnswer": [["history", ""]],
 };
 const API_CHECKER = {
     register: [
@@ -89,17 +101,18 @@ const API_CHECKER = {
         ["ignore"],
         ["ignore"],
     ],
-    getGptAnswer: [["ignore"]],
-    searchNode: [
-        [
-            "no-base-symbols",
-            "sql-check",
-            "no-only-spacing",
-            "no-null",
-            "@length-max=100",
-            "@length-min=1",
-        ],
+    "searchNode":[
+        ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=100","@length-min=1"]
     ],
+    "recognizeNode":[
+        ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=200","@length-min=1"]
+    ],
+    "searchRelationship":[
+        ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=100","@length-min=1"],
+        ["no-base-symbols","sql-check","no-only-spacing","no-null","@length-max=100","@length-min=1"],
+        ["num-only"]
+    ],
+    "getGptAnswer": [["ignore"]],
 };
 export default {
     API,

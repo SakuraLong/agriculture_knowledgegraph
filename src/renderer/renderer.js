@@ -5,6 +5,7 @@ import * as echarts from "echarts";
 import ElementSelector from "./componentsInit.js";
 import DefaultCatalogue from "./components/catalogues/defaultCatalogue.js";
 import Decoder from "./decoders/decoder.js";
+import data from "@/assets/js/data.js";
 
 const map = (graph, title) => {
     graph.nodes.forEach(function (node) {
@@ -63,6 +64,17 @@ const map = (graph, title) => {
                         width: 12,
                     },
                 },
+                color: [
+                    "#5470c6",
+                    "#91cc75",
+                    "#fac858",
+                    "#ee6666",
+                    "#73c0de",
+                    "#3ba272",
+                    "#fc8452",
+                    "#9a60b4",
+                    "#ea7ccc",
+                ],
             },
         ],
     };
@@ -83,6 +95,10 @@ class Renderer {
     elements = [];
     map = null;
     down_ele_title = null;
+    map_config = {
+        light: true,
+        force: true,
+    };
     constructor(refs_ele, text, type) {
         this.type = type.toLowerCase();
         this.refs_ele = refs_ele;
@@ -91,6 +107,15 @@ class Renderer {
         this.decoder = new Decoder(this.text, this.type);
         this.decode_res = this.decoder.decode(); // 渲染配置
     }
+    setOption(option) {
+        this.map_config.light = option.theme === "dark" ? false : true;
+        this.map_config.force = option.layout === "graph" ? false : true;
+    }
+    dispose(){
+        if (this.map != null && this.map !== "" && this.map !== undefined) {
+            this.map.dispose(); //销毁
+        }
+    }
     render() {
         if (this.type === "ency") {
             this.decode_res.forEach((element, index) => {
@@ -98,7 +123,10 @@ class Renderer {
                 this.elements.push(ele);
             });
         } else if (this.type === "map") {
-            let that = this;
+            console.log(this.map);
+            if (this.map != null && this.map !== "" && this.map !== undefined) {
+                this.map.dispose(); //销毁
+            }
             this.map = echarts.init(this.refs_ele, null, {
                 renderer: "canvas",
                 useDirtyRect: false,
@@ -111,10 +139,18 @@ class Renderer {
                 }
             });
             this.map.showLoading();
-            let option = map(
-                this.decode_res.res,
-                this.decode_res.name + "的关系图"
-            );
+            let option = {};
+            if (this.map_config.force && this.map_config.light) {
+                option = data.mapForceLight(
+                    this.decode_res.res,
+                    this.decode_res.name + "的关系图"
+                );
+            } else if (this.map_config.force && !this.map_config.light) {
+                option = data.mapForceDark(
+                    this.decode_res.res,
+                    this.decode_res.name + "的关系图"
+                );
+            }
             // console.log(this.decode_res.res);
             if (option && typeof option === "object") {
                 this.map.setOption(option);

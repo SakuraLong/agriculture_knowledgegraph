@@ -2,7 +2,7 @@
 <template>
     <div class="doc_edit_subpage_container">
         <div style="position: relative; width: 100%; height: auto">
-            <div class="main_title">查看"{{ title }}"的源代码</div>
+            <div class="main_title">查看"{{ title }}"的百科文档源代码</div>
             <div class="edit_power_reminder_1" v-if="!islogin">
                 在进行编辑操作前，您必须<button class="login_button">
                     登录账号
@@ -47,20 +47,21 @@
 </template>
 <script>
 import data from "@/assets/js/data";
-import textInput_vertical from "@/components/inputs/textInput_vertical/textInput_vertical.vue";
+import textInput_vertical from "@/components/inputs/textInputVertical/textInputVertical.vue";
 import store from "@/store/index.js";
 export default {
-    props: ["title","text"],
+    props: ["title", "text"],
     data() {
         return {
             is_login: false,
             input_place_holder: "",
             input_font_size: "16px",
-            islogin:store.state.is_login
+            islogin:store.state.is_login,
         };
     },
     components: { textInput_vertical },
-    mounted() {},
+    mounted() {
+    },
     methods: {},
 };
 </script>
@@ -79,7 +80,7 @@ export default {
 .main_title {
     position: relative;
     width: 100%;
-    height: 60px;
+    /* height: 60px; */
     color: black;
     font-size: 27px;
     font-weight: 800;
@@ -90,7 +91,7 @@ export default {
 .edit_power_reminder_1 {
     position: relative;
     width: 100%;
-    height: 40px;
+    /* height: 40px; */
     font-size: 15px;
     font-weight: 500;
     /* border: solid 1px red; */
