@@ -75,7 +75,7 @@ export default {
     methods: {
         submitClick() {
             if (!store.state.can_click_button) return;
-            let mapcontent = Code.Base64.decode(this.$refs.input_ref.get());
+            let mapcontent = this.$refs.input_ref.get();
             connector.send(
                 [this.id, mapcontent],
                 "setMapContent",
