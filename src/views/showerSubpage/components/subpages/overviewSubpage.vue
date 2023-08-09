@@ -313,7 +313,7 @@ export default {
     position: relative;
     width: 100%;
     height: 50px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -324,7 +324,7 @@ export default {
     position: relative;
     width: 100%;
     height: calc(100% - 50px);
-    border: 1px solid red;
+    /* border: 1px solid red; */
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;

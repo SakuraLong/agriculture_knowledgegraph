@@ -29,7 +29,8 @@ class MapDecoder {
                     element.split("|").length === 2
                         ? element.split("|")[1]
                         : element;
-                this.createNode(this.main_node_name, "主实体");
+                let id = element.split("|").length === 2 ? element.split("|")[0] : "";
+                this.createNode(this.main_node_name, "主实体", id);
             } else {
                 every_data = element.split("=");
                 let cata = every_data[1]; // 分类
@@ -39,6 +40,8 @@ class MapDecoder {
                 let nodes = every_data[0].split("--");
                 let node_from = nodes[0];
                 let node_to = nodes[1];
+                let from_id = node_from.split("|").length === 2 ? node_from.split("|")[0] : "";
+                let to_id = node_to.split("|").length === 2 ? node_to.split("|")[0] : "";
                 node_from =
                     node_from.split("|").length === 2
                         ? node_from.split("|")[1]
@@ -61,10 +64,10 @@ class MapDecoder {
                 }
                 // 不存在就插入
                 if (!has_node_from) {
-                    this.createNode(node_from, cata);
+                    this.createNode(node_from, cata, from_id);
                 }
                 if (!has_node_to) {
-                    this.createNode(node_to, cata);
+                    this.createNode(node_to, cata, to_id);
                 }
                 // 创建联系
                 this.createLink(node_from, node_to, data);
@@ -81,7 +84,7 @@ class MapDecoder {
             name: this.main_node_name,
         };
     }
-    createNode(name, cata) {
+    createNode(name, cata, node_id) {
         // console.log(name);
         let t_node = {
             id: "0",
@@ -91,6 +94,7 @@ class MapDecoder {
             y: 0,
             value: 10,
             category: 0,
+            node_id:""
         };
         let t_cata = {
             name: "",
@@ -99,6 +103,7 @@ class MapDecoder {
         this.next_id++;
         t_node.id = id;
         t_node.name = name;
+        t_node.node_id = node_id;
         if (cata !== "主实体") {
             let cata_index = -1;
             this.categories_data.forEach((element, index) => {
