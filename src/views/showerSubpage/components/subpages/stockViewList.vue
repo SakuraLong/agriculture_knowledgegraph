@@ -21,7 +21,7 @@ export default {
     data() {
         return {
             code: "",
-            data:[],
+            data: null,
         };
     },
     props: ["type"],
@@ -30,32 +30,12 @@ export default {
             this.code = code;
             this.$refs.stock_map.setCode(this.code);
         },
-        listCallback(msg) {
-            if(msg.success){
-                if(this.type === "50"){
-                    this.data = msg.content.sz50;
-                }else if(this.type === "300"){
-                    this.data = msg.content.hs300;
-                }else if(this.type === "500"){
-                    this.data = msg.content.zz500;
-                }
-                this.$refs.stock_list.setListData(this.data);
-            }
-        },
-        listWaiting(is_waiting) {},
-        listTimeout() {
-            console.log("超时");
-        },
+        setData(data){
+            this.data = data;
+            this.$refs.stock_list.setListData(this.data);
+        }
     },
-    mounted() {
-        Connector.send(
-            [""],
-            "getstocklistAnswer",
-            this.listCallback,
-            this.listWaiting,
-            this.listTimeout
-        );
-    },
+    mounted() {},
 };
 </script>
 

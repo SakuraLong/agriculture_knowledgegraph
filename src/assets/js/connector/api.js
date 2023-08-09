@@ -22,7 +22,7 @@ const API = {
         getNodeResume:"getNodeResume/",
         setEncyContent:"setEncyContent/",
         setMapContent:"setMapContent/",
-        getstocklistAnswer:"getstocklistAnswer/"
+        getStocklistAnswer:"getStocklistAnswer/"
     },
 };
 const API_PARA = {
@@ -90,7 +90,7 @@ const API_PARA = {
         ["id", ""],
         ["mapcontent", ""]
     ],
-    getstocklistAnswer:[["", ""]]
+    getStocklistAnswer:[["", ""]]
 };
 const API_CHECKER = {
     register: [
@@ -193,7 +193,7 @@ const API_CHECKER = {
         ["is-num"],
         ["no-null"]
     ],
-    getstocklistAnswer:[["ignore"]]
+    getStocklistAnswer:[["ignore"]]
 };
 export default {
     API,

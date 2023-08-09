@@ -13,13 +13,13 @@
         </div>
         <div class="stock_view_body">
             <div ref="son_0" class="son_subpage">
-                <stockViewList type="50"></stockViewList>
+                <stockViewList ref="list_0" type="50"></stockViewList>
             </div>
             <div ref="son_1" class="son_subpage" style="left: 100%">
-                <stockViewList type="300"></stockViewList>
+                <stockViewList ref="list_1" type="300"></stockViewList>
             </div>
             <div ref="son_2" class="son_subpage" style="left: 200%">
-                <stockViewList type="500"></stockViewList>
+                <stockViewList ref="list_2" type="500"></stockViewList>
             </div>
         </div>
     </div>
@@ -27,6 +27,7 @@
 
 <script>
 import stockViewList from "./stockViewList.vue";
+import Connector from "@/assets/js/connector/connector";
 export default {
     data() {
         return {
@@ -34,8 +35,8 @@ export default {
             son_pages_name: ["上证50", "沪深300", "中证500"],
         };
     },
-    components:{
-        stockViewList
+    components: {
+        stockViewList,
     },
     methods: {
         clickNav(index) {
@@ -47,6 +48,31 @@ export default {
                     (i * 100 - index * 100).toString() + "%";
             });
         },
+        listCallback(msg) {
+            if (msg.success) {
+                this.list_0.setData(msg.content.sz50);
+                this.list_1.setData(msg.content.hs300);
+                this.list_2.setData(msg.content.zz500);
+            }
+        },
+        listWaiting(is_waiting) {},
+        listTimeout() {
+            console.log("超时");
+        },
+        show() {
+            if (this.data == null) {
+                Connector.send(
+                    [""],
+                    "getStocklistAnswer",
+                    this.listCallback,
+                    this.listWaiting,
+                    this.listTimeout
+                );
+            }
+        },
+    },
+    mounted() {
+        this.show();
     },
 };
 </script>
