@@ -1,5 +1,6 @@
 import DefaultPrompt from "../components/prompt/defaultPrompt";
 import Connector from "@/assets/js/connector/connector";
+import Code from "@/assets/js/code/code";
 
 class EntityLink extends HTMLElement {
     is_over = false;
@@ -45,16 +46,21 @@ class EntityLink extends HTMLElement {
             this.id = text.split("|")[0];
             this.content = text.split("|")[1];
             this.textContent = this.content;
-            Connector.send([this.id.toString()], "getNodeDetail", abstractCallback, abstractWaiting, abstractTimeput);
+            Connector.send([this.id.toString()], "getNodeResume", abstractCallback, abstractWaiting, abstractTimeput);
         }
         function abstractCallback(msg){
-
+            if(msg.success){
+                let text = Code.Base64.decode(msg.content.result);
+                that.default_prompt.setText(text);
+            }else{
+                that.default_prompt.setText("服务器异常或未查询到相关信息");
+            }
         }
         function abstractWaiting(is_waiting){
 
         }
         function abstractTimeput(){
-            that.default_prompt.setText("服务器异常或未查询到相关信息");
+            that.default_prompt.setText("服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息服务器异常或未查询到相关信息");
         }
         // this.button.textContent = this.textContent;
         // this.innerHTML = "";

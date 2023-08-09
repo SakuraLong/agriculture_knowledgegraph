@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div ref="son_2" class="son_subpage" style="left: 200%">
-                <mapSubpage ref="map_subpage"></mapSubpage>
+                <mapSubpage ref="map_subpage" @fromMap="fromMap"></mapSubpage>
             </div>
             <div ref="son_3" class="son_subpage" style="left: 300%">
                 <encyclopediaDocEditSubpage
@@ -120,8 +120,16 @@ export default {
             this.clickNav(index);
             this.getEntityById(id);
         },
+        fromMap(id){
+            this.clickNav(1);
+            this.getEntityById(id);
+        },
+        fromRelation(id){
+            this.clickNav(1);
+            this.getEntityById(id);
+        },
         clickNav(index) {
-            if (!store.state.can_click_button) return;
+            // if (!store.state.can_click_button) return;
             this.son_pages = [false, false, false, false, false];
             this.son_pages[index] = true;
             this.son_pages.forEach((element, i) => {

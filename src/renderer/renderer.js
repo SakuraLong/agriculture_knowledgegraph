@@ -26,6 +26,7 @@ class Renderer {
         light: true,
         force: true,
     };
+    click_node_func = false;
     constructor(refs_ele, text, type) {
         this.type = type.toLowerCase();
         this.refs_ele = refs_ele;
@@ -65,8 +66,12 @@ class Renderer {
                 renderer: "canvas",
                 useDirtyRect: false,
             });
+            let that = this;
             this.map.on("click", function (param) {
                 if (param.dataType === "node") {
+                    if(that.click_node_func){
+                        that.click_node_func(param);
+                    }
                     console.log("点击了节点", param);
                 } else {
                     console.log("点击了边", param);
@@ -124,6 +129,9 @@ class Renderer {
     }
     setBodyScroll(scroll_top) {
         this.default_catalogue.setBodyScroll(scroll_top);
+    }
+    setClickNode(click_node_func){
+        this.click_node_func = click_node_func;
     }
 }
 /**

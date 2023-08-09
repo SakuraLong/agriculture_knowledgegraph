@@ -59,6 +59,9 @@ export default {
                 this.$refs.shower_bar_track.wheelEvent(event);
             }
         },
+        goToSubpageByIndex(index){
+            this.$refs.shower_bar_track.clickBarEle(index);
+        },
         mouseMove(evevt) {
             if (evevt.clientY <= 50) {
                 this.can_wheel = false;
@@ -76,6 +79,10 @@ export default {
         this.$refs.shower_bar.addEventListener("wheel", this.wheelEvent);
         this.$refs.shower_bar.addEventListener("mousemove", this.mouseMove);
     },
+    beforeUnmount(){
+        this.$refs.shower_bar.removeEventListener("wheel", this.wheelEvent);
+        this.$refs.shower_bar.removeEventListener("mousemove", this.mouseMove);
+    }
 };
 </script>
 

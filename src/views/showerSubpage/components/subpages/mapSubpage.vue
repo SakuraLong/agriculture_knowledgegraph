@@ -44,6 +44,7 @@ export default {
                 this.map_content,
                 "map"
             );
+            map_renderer.setClickNode(this.clickNode);
             let option = {
                 theme:this.is_light ? "light" : "dark",
                 layout:this.is_force ? "force" : "graph"
@@ -61,6 +62,7 @@ export default {
                 this.map_content,
                 "map"
             );
+            map_renderer.setClickNode(this.clickNode);
             let option = {
                 theme:this.is_light ? "light" : "dark",
                 layout:this.is_force ? "force" : "graph"
@@ -103,6 +105,7 @@ export default {
                 map_content,
                 "map"
             );
+            map_renderer.setClickNode(this.clickNode);
             let option = {
                 theme:this.is_light ? "light" : "dark",
                 layout:this.is_force ? "force" : "graph"
@@ -119,6 +122,11 @@ export default {
         setId(id) {
             this.id = id;
         },
+        clickNode(node){
+            if(node.data.node_id !== ""){
+                this.$emit("fromMap", node.data.node_id);
+            }
+        }
     },
 };
 </script>

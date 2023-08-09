@@ -53,7 +53,7 @@
                     &nbsp;「关系图」
                 </div>
                 <div class="relationship_result_show_1">
-                    <mapSubpage ref="map_subpage"></mapSubpage>
+                    <mapSubpage ref="map_subpage" @fromMap="fromMap"></mapSubpage>
                 </div>
             </div>
         </div>
@@ -89,7 +89,7 @@ export default {
         };
     },
     mounted() {
-        this.$refs.map_subpage.setId(this.id);
+        this.$refs.map_subpage.setId(this.id); // 给个id
     },
     methods: {
         getOffsetTop() {
@@ -159,6 +159,11 @@ export default {
             this.line_prompt.msg = "查询超时";
             this.line_prompt.type = "error";
         },
+        fromMap(id){
+            // 跳转到查询
+            console.log("跳转查询");
+            this.$emit("searchId", id);
+        }
     },
     components: {
         borderInput_noafter,

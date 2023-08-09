@@ -230,7 +230,7 @@ input {
     font-size: 16px;
 }
 .cata_selected {
-    background-color: aqua;
+    background-color: #dc63bc;
 }
 .quote_table {
     display: table;
@@ -264,7 +264,8 @@ input {
     /* border: 1px solid red; */
 }
 .prompt {
-    position: absolute;
+    /* display: inline-block; */
+    position:absolute;
     z-index: 1000;
     border: 0.1px solid rgba(128, 128, 128, 0.056);
     box-shadow: 0px 0px 1px gray;
@@ -274,8 +275,10 @@ input {
     color: #000;
     background-color: white;
     border-radius: 5px;
-    min-width: 100px;
+    width: 600px;
     min-height: 50px;
+    max-height: 400px;
+    overflow: auto;
     padding: 5px;
 }
 .infobox_table{
