@@ -197,9 +197,12 @@ export default {
     width: 92%;
     height: 90%;
     overflow: auto;
+    text-align: left;
     /* background-color: red; */
     /* border: solid 1px red; */
     border: solid 2px rgb(199, 187, 202);
+    padding-left: 5px;
+    padding-right: 5px;
 }
 .anime_result_show_1:hover {
     border: solid 2px rgb(192, 155, 201);
