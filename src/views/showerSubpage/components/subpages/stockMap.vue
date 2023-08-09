@@ -109,6 +109,7 @@ export default {
         selectChange() {
             if (this.select_map_type === "分时图") {
                 if (this.map_data[this.select_map_type].data == null) {
+                    console.log("分时图发送");
                     Connector.send(
                         [this.code.toString(), "m", "", "5"],
                         "getStockAnswer",
@@ -118,6 +119,7 @@ export default {
                         30000
                     );
                 } else {
+                    console.log("分时图渲染");
                     this.$refs.stock_map_subpage.render(
                         "F",
                         this.map_data[this.select_map_type].data,

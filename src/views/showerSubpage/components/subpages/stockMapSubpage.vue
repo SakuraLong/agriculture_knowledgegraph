@@ -17,6 +17,7 @@ export default {
     },
     methods: {
         render(type, data, title) {
+            console.log("渲染", type, data, title);
             if (type === "K") {
                 // K线图
                 this.showSMInfoByData(data, title);
