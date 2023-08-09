@@ -89,9 +89,7 @@ export default {
             title: "当前还未搜索",
             code: "未知",
             collect: "",
-            collects: [
-            
-            ],
+            collects: [],
             is_collect: "收藏",
             error: "",
             prompt_type: "waiting",
@@ -403,22 +401,24 @@ export default {
                     Storage.set(0, "STOCK_COLLECTS", this.collects, "JSON");
                 }
                 this.is_collect = "取消收藏";
-                this.can_collect =false;
+                this.can_collect = false;
             } else {
                 let ele = {
-                    label:this.title,
-                    value:this.title
+                    label: this.title,
+                    value: this.title,
                 };
-                console.log("我想要删除的是",ele);
-                let index = this.collects.findIndex(element => element.label === this.title);
+                console.log("我想要删除的是", ele);
+                let index = this.collects.findIndex(
+                    (element) => element.label === this.title
+                );
                 console.log(index);
                 console.log(this.collects);
-                if(index!==-1)this.collects.splice(index, 1);
-                console.log("删除后的收藏夹是",this.collects);
+                if (index !== -1) this.collects.splice(index, 1);
+                console.log("删除后的收藏夹是", this.collects);
                 if (this.collects.length === 0) this.collect = "";
                 Storage.set(0, "STOCK_COLLECTS", this.collects, "JSON");
                 this.is_collect = "收藏";
-                this.can_collect =true;
+                this.can_collect = true;
             }
         },
         searchCallback(msg) {
