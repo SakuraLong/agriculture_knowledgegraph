@@ -54,6 +54,7 @@
                     :title="title"
                     :text="ency_content"
                     :id="entity_id"
+                    @pageReSet="pageReSet"
                 ></encyclopediaDocEditSubpage>
             </div>
             <div ref="son_4" class="son_subpage" style="left: 400%">
@@ -61,6 +62,7 @@
                     :title="title"
                     :text="map_content"
                     :id="entity_id"
+                    @pageReSet="pageReSet"
                 ></graphDocEditSubpage>
             </div>
         </div>
@@ -122,6 +124,9 @@ export default {
         },
         fromMap(id){
             this.clickNav(1);
+            this.getEntityById(id);
+        },
+        pageReSet(id){
             this.getEntityById(id);
         },
         fromRelation(id){

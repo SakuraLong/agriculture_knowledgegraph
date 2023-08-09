@@ -20,7 +20,8 @@
                 "
             >
                 <textInput_vertical
-                    :disabled="!islogin"
+                    ref="input_ref"
+                    :disabled="!isLogin"
                     :msg="text"
                     :input_font_size="input_font_size"
                     class="show_mainer"
@@ -40,7 +41,19 @@
                     position: relative;
                 "
             >
-                <button class="submit_button" v-if="isLogin">提交</button>
+                <linePrompt
+                    :opacity="error"
+                    :data_left="error"
+                    :type="prompt_type"
+                    class="line_reminder"
+                ></linePrompt>
+                <button
+                    class="submit_button"
+                    v-if="isLogin"
+                    @click="submitClick"
+                >
+                    提交
+                </button>
             </div>
         </div>
     </div>
@@ -49,6 +62,9 @@
 import data from "@/assets/js/data";
 import textInput_vertical from "@/components/inputs/textInputVertical/textInputVertical.vue";
 import store from "@/store/index.js";
+import connector from "@/assets/js/connector/connector";
+import linePrompt from "@/components/prompts/line/linePrompt.vue";
+import Code from "@/assets/js/code/code";
 export default {
     props: ["title", "text", "id"],
     data() {
@@ -56,11 +72,52 @@ export default {
             is_login: false,
             input_place_holder: "",
             input_font_size: "16px",
+            prompt_type: "",
+            error: "",
         };
     },
-    components: { textInput_vertical },
+    components: { textInput_vertical, linePrompt },
     mounted() {},
-    methods: {},
+    methods: {
+        submitClick() {
+            if (!store.state.can_click_button) return;
+            let mapcontent = this.$refs.input_ref.get();
+            connector.send(
+                [this.id, mapcontent],
+                "setMapContent",
+                this.saveTextCallback,
+                this.saveTextWaiting,
+                this.saveTextTimeout,
+                10000
+            );
+        },
+        saveTextCallback(msg) {
+            if (msg.success) {
+                console.log("传输成功");
+                this.prompt_type = "success";
+                this.error = "上传成功";
+                this.$emit("pageReSet", this.id);
+            } else {
+                this.prompt_type = "error";
+                this.error = "上传失败";
+            }
+        },
+        saveTextWaiting(is_waiting) {
+            if (is_waiting) {
+                store.state.can_click_button = false;
+                this.prompt_type = "waiting";
+                this.error = "等待中";
+            } else {
+                store.state.can_click_button = true;
+                this.prompt_type = "default";
+                this.error = "";
+            }
+        },
+        saveTextTimeout() {
+            this.prompt_type = "error";
+            this.error = "发送失败";
+        },
+    },
     computed: {
         isLogin() {
             return store.state.is_login;
@@ -180,5 +237,11 @@ export default {
 }
 .submit_button:hover {
     background-color: rgb(141, 53, 159);
+}
+.line_reminder {
+    top: -6px;
+    position: absolute;
+    width: 200px;
+    left: 42%;
 }
 </style>
