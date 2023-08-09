@@ -66,7 +66,8 @@ export default {
                     "getStocklistAnswer",
                     this.listCallback,
                     this.listWaiting,
-                    this.listTimeout
+                    this.listTimeout,
+                    10000
                 );
             }
         },
