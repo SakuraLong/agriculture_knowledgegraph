@@ -282,7 +282,12 @@ export default {
             if (i !== -1) {
                 this.all_his_list.splice(i, 1);
             }
-            Storage.set(0, "HISTORY_SEARCH", this.all_his_list, "JSON");
+            // Storage.set(0, "HISTORY_SEARCH", this.all_his_list, "JSON");
+            if(this.is_stock){
+                Storage.set(0, "STOCK_SEARCH", this.all_his_list, "JSON");
+            }else{
+                Storage.set(0, "HISTORY_SEARCH", this.all_his_list, "JSON");
+            }
         },
         searchByContent(content) {
             this.input_msg = content;
@@ -298,6 +303,9 @@ export default {
             this.$refs.default_search_input.blur();
             this.subpage = [true, false, false];
         },
+        getInput(){
+            return this.input_msg;
+        }
     },
 };
 </script>
