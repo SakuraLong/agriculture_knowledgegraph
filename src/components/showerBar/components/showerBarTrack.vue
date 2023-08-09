@@ -47,6 +47,11 @@ export default {
                     detail: "views.shower_page.bar.agricultural_knowledge_graph.detail",
                 },
                 {
+                    title: "views.shower_page.bar.agricultural_knowledge_graph.title",
+                    type: "default",
+                    detail: "views.shower_page.bar.agricultural_knowledge_graph.detail",
+                },
+                {
                     title: "views.shower_page.bar.agricultural_knowledge_QA.title",
                     type: "default",
                     detail: "views.shower_page.bar.agricultural_knowledge_QA.detail",
