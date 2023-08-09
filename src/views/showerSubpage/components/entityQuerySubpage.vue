@@ -54,6 +54,7 @@
                     :title="title"
                     :text="ency_content"
                     :id="entity_id"
+                    @fromMap="fromMap"
                 ></encyclopediaDocEditSubpage>
             </div>
             <div ref="son_4" class="son_subpage" style="left: 400%">
@@ -61,6 +62,7 @@
                     :title="title"
                     :text="map_content"
                     :id="entity_id"
+                    @fromMap="fromMap"
                 ></graphDocEditSubpage>
             </div>
         </div>

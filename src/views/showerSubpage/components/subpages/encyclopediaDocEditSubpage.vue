@@ -95,6 +95,7 @@ export default {
                 console.log("传输成功");
                 this.prompt_type = "success";
                 this.error = "上传成功";
+                this.$emit("fromMap", this.id);
             } else {
                 this.prompt_type = "error";
                 this.error = "上传失败";
@@ -239,7 +240,6 @@ export default {
 .line_reminder {
     top: -6px;
     position: absolute;
-    border: solid 2px red;
     width: 200px;
     left: 42%;
 }
