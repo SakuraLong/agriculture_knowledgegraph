@@ -21,7 +21,8 @@ const API = {
         getOverview:"getOverview/",
         getNodeResume:"getNodeResume/",
         setEncyContent:"setEncyContent/",
-        setMapContent:"setMapContent/"
+        setMapContent:"setMapContent/",
+        getstocklistAnswer:"getstocklistAnswer/"
     },
 };
 const API_PARA = {
@@ -88,7 +89,8 @@ const API_PARA = {
     setMapContent:[
         ["id", ""],
         ["mapcontent", ""]
-    ]
+    ],
+    getstocklistAnswer:[["", ""]]
 };
 const API_CHECKER = {
     register: [
@@ -190,7 +192,8 @@ const API_CHECKER = {
     setMapContent:[
         ["is-num"],
         ["no-null"]
-    ]
+    ],
+    getstocklistAnswer:[["ignore"]]
 };
 export default {
     API,

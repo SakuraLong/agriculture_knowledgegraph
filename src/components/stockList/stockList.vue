@@ -33,17 +33,13 @@
                 </div>
             </div>
         </div>
-        <div
-            class="stock_lister"
-            ref="stock_lister"
-            :key="refresh"
-        >
+        <div class="stock_lister" ref="stock_lister" :key="refresh">
             <el-scrollbar height="100%">
                 <stockEle
                     v-for="(item, index) in stock_list"
                     :key="index"
                     :data="item"
-                    :class="{ele_selected:selected_ele === item.代码}"
+                    :class="{ ele_selected: selected_ele === item.代码 }"
                     @click="clickStockEle(index)"
                 ></stockEle>
             </el-scrollbar>
@@ -59,40 +55,7 @@ export default {
     },
     data() {
         return {
-            stock_list: [
-                {
-                    名称: "招商银行",
-                    代码: "600036",
-                    现价: ["34.1500", "green"],
-                    涨跌幅: ["-0.06", "green"],
-                    成交金额: "22937085.8400",
-                    成交量: "671500",
-                },
-                {
-                    名称: "包钢股份",
-                    代码: "600010",
-                    现价: ["1.89", "black"],
-                    涨跌幅: ["0.00", "black"],
-                    成交量: "1710931",
-                    成交金额: "32395",
-                },
-                {
-                    名称: "中国石化",
-                    代码: "600028",
-                    现价: ["6.13", "green"],
-                    涨跌幅: ["-0.33", "green"],
-                    成交量: "788751",
-                    成交金额: "48240",
-                },
-                {
-                    名称: "中信证券",
-                    代码: "600030",
-                    现价: ["24.91", "red"],
-                    涨跌幅: ["0.04", "red"],
-                    成交量: "1639236",
-                    成交金额: "407315",
-                },
-            ],
+            stock_list: [],
             radio1: "",
             refresh: "1",
             config: [
@@ -133,14 +96,17 @@ export default {
                     up: false,
                 },
             ],
-            selected_ele:""
+            selected_ele: "",
         };
     },
-    mounted() {
-        this.clickEle(0);
-        this.clickStockEle(0);
-    },
+    mounted() {},
     methods: {
+        setListData(data) {
+            this.stock_list = data;
+            this.refresh = this.refresh === "1" ? "2" : "1";
+            this.clickEle(0);
+            this.clickStockEle(0);
+        },
         clickEle(index) {
             if (this.config[index].selected) {
                 this.config[index].up = !this.config[index].up;
@@ -158,7 +124,7 @@ export default {
                 this.sortData(this.config[index].name, 1);
             }
         },
-        clickStockEle(index){
+        clickStockEle(index) {
             console.log(this.stock_list[index].代码);
             this.selected_ele = this.stock_list[index].代码;
             this.$emit("clickEle", this.stock_list[index].代码);
@@ -262,7 +228,7 @@ export default {
 .disabled {
     color: gray !important;
 }
-.ele_selected{
-    background-color: #8222965F;
+.ele_selected {
+    background-color: #8222965f;
 }
 </style>

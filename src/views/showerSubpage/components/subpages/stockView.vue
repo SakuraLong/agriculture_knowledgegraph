@@ -16,7 +16,7 @@
                 <stockViewList type="50"></stockViewList>
             </div>
             <div ref="son_1" class="son_subpage" style="left: 100%">
-                <stockViewList type="200"></stockViewList>
+                <stockViewList type="300"></stockViewList>
             </div>
             <div ref="son_2" class="son_subpage" style="left: 200%">
                 <stockViewList type="500"></stockViewList>
@@ -31,7 +31,7 @@ export default {
     data() {
         return {
             son_pages: [true, false, false],
-            son_pages_name: ["50", "200", "500"],
+            son_pages_name: ["上证50", "沪深300", "中证500"],
         };
     },
     components:{

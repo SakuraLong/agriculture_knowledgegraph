@@ -1,7 +1,7 @@
 <template>
     <div class="stock_view_list_container">
         <div class="view_list">
-            <stockList @clickEle="clickEle"></stockList>
+            <stockList @clickEle="clickEle" ref="stock_list"></stockList>
         </div>
         <div class="view_map">
             <stockMap ref="stock_map"></stockMap>
@@ -12,22 +12,49 @@
 <script>
 import stockList from "@/components/stockList/stockList.vue";
 import stockMap from "./stockMap.vue";
+import Connector from "@/assets/js/connector/connector";
 export default {
     components: {
         stockList,
-        stockMap
+        stockMap,
     },
-    data(){
-        return{
-            code:""
+    data() {
+        return {
+            code: "",
+            data:[],
         };
     },
-    props:["type"],
-    methods:{
-        clickEle(code){
+    props: ["type"],
+    methods: {
+        clickEle(code) {
             this.code = code;
             this.$refs.stock_map.setCode(this.code);
-        }
+        },
+        listCallback(msg) {
+            if(msg.success){
+                if(this.type === "50"){
+                    this.data = msg.content.sz50;
+                }else if(this.type === "300"){
+                    this.data = msg.content.hs300;
+                }else if(this.type === "500"){
+                    this.data = msg.content.zz500;
+                }
+                this.$refs.stock_list.setListData(this.data);
+            }
+        },
+        listWaiting(is_waiting) {},
+        listTimeout() {
+            console.log("超时");
+        },
+    },
+    mounted() {
+        Connector.send(
+            [""],
+            "getstocklistAnswer",
+            this.listCallback,
+            this.listWaiting,
+            this.listTimeout
+        );
     },
 };
 </script>
@@ -53,7 +80,7 @@ export default {
     border-right: 1px solid #822296;
     border-left: 1px solid #822296;
 }
-.view_map{
+.view_map {
     width: calc(100% - 500px) !important;
 }
 </style>
