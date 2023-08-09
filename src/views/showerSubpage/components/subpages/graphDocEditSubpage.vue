@@ -21,7 +21,7 @@
             >
                 <textInput_vertical
                     ref="input_ref"
-                    :disabled="!islogin"
+                    :disabled="!isLogin"
                     :msg="text"
                     :input_font_size="input_font_size"
                     class="show_mainer"
@@ -47,7 +47,13 @@
                     :type="prompt_type"
                     class="line_reminder"
                 ></linePrompt>
-                <button class="submit_button" v-if="isLogin" @click="submitClick">提交</button>
+                <button
+                    class="submit_button"
+                    v-if="isLogin"
+                    @click="submitClick"
+                >
+                    提交
+                </button>
             </div>
         </div>
     </div>
@@ -231,7 +237,7 @@ export default {
     background-color: rgb(141, 53, 159);
 }
 .line_reminder {
-    top:-6px;
+    top: -6px;
     position: absolute;
     border: solid 2px red;
     width: 200px;

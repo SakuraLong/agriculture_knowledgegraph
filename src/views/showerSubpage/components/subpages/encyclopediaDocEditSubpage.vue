@@ -21,7 +21,7 @@
             >
                 <textInput_vertical
                     ref="input_ref"
-                    :disabled="!islogin"
+                    :disabled="!isLogin"
                     :msg="text"
                     :input_font_size="input_font_size"
                     class="show_mainer"
@@ -75,7 +75,7 @@ export default {
             error: "",
         };
     },
-    components: { textInput_vertical,linePrompt },
+    components: { textInput_vertical, linePrompt },
     mounted() {},
     methods: {
         submitClick() {
@@ -237,7 +237,7 @@ export default {
     background-color: rgb(141, 53, 159);
 }
 .line_reminder {
-    top:-6px;
+    top: -6px;
     position: absolute;
     border: solid 2px red;
     width: 200px;
