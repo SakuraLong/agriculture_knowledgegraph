@@ -36,9 +36,7 @@ export default {
         },
         listCallback(msg) {
             if (msg.success) {
-                this.$refs.list_0.setData(msg.content.sz50);
-                this.$refs.list_1.setData(msg.content.hs300);
-                this.$refs.list_2.setData(msg.content.zz500);
+                this.setData(msg.content.result);
             }
         },
         listWaiting(is_waiting) {},
