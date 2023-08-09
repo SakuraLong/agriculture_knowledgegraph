@@ -23,6 +23,7 @@ export default {
                 this.showSMInfoByData(data, title);
             } else if (type === "F") {
                 // 分时图
+                this.showFByData(data, title);
             }
         },
         showFByData(data, title) {
@@ -45,6 +46,7 @@ export default {
                 this.is_null = false;
             }
             this.data_use = splitData(this.data);
+            console.log(this.data_use);
             let dom = this.$refs.data_shower;
             let data_shower = echarts.init(dom, null, {
                 renderer: "canvas",
@@ -137,7 +139,7 @@ export default {
             });
             let option = {
                 title: {
-                    text: title + " 上证指数",
+                    text: title,
                     left: 0,
                 },
                 tooltip: {
