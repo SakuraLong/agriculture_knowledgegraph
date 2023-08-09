@@ -22,7 +22,7 @@ const API = {
         getNodeResume:"getNodeResume/",
         setEncyContent:"setEncyContent/",
         setMapContent:"setMapContent/",
-        getstocklistAnswer:"getstocklistAnswer/"
+        getstocklistAnswer:"getStocklistAnswer/"
     },
 };
 const API_PARA = {
