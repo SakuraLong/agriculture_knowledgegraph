@@ -95,7 +95,7 @@ export default {
                 console.log("传输成功");
                 this.prompt_type = "success";
                 this.error = "上传成功";
-                this.$emit("fromMap", this.id);
+                this.$emit("pageReSet", this.id);
             } else {
                 this.prompt_type = "error";
                 this.error = "上传失败";

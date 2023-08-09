@@ -74,10 +74,10 @@ export default {
     methods: {
         submitClick() {
             if (!store.state.can_click_button) return;
-            let encycontent = this.$refs.input_ref.get();
+            let mapcontent = this.$refs.input_ref.get();
             connector.send(
-                [this.id, encycontent],
-                "setEncyContent",
+                [this.id, mapcontent],
+                "setMapContent",
                 this.saveTextCallback,
                 this.saveTextWaiting,
                 this.saveTextTimeout,
@@ -89,7 +89,7 @@ export default {
                 console.log("传输成功");
                 this.prompt_type = "success";
                 this.error = "上传成功";
-                this.$emit("fromMap", this.id);
+                this.$emit("pageReSet", this.id);
             } else {
                 this.prompt_type = "error";
                 this.error = "上传失败";
