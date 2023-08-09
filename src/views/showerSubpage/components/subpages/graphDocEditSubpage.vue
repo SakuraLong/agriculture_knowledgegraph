@@ -64,6 +64,7 @@ import textInput_vertical from "@/components/inputs/textInputVertical/textInputV
 import store from "@/store/index.js";
 import connector from "@/assets/js/connector/connector";
 import linePrompt from "@/components/prompts/line/linePrompt.vue";
+import Code from "@/assets/js/code/code";
 export default {
     props: ["title", "text", "id"],
     data() {
@@ -80,7 +81,7 @@ export default {
     methods: {
         submitClick() {
             if (!store.state.can_click_button) return;
-            let mapcontent = this.$refs.input_ref.get();
+            let mapcontent = Code.Base64.decode(this.$refs.input_ref.get());
             connector.send(
                 [this.id, mapcontent],
                 "setMapContent",
