@@ -4,7 +4,10 @@
             <div class="collect">
                 <div
                     class="collect_button"
-                    :class="{ is_collect: is_collect === '取消收藏', button_disable: !can_collect}"
+                    :class="{
+                        is_collect: is_collect === '取消收藏' && curCollect,
+                        button_disable: !has_searched,
+                    }"
                     @click="collectClick"
                 >
                     {{ is_collect }}
@@ -21,13 +24,17 @@
                         :label="item.label"
                         :value="item.value"
                         :disabled="item.disabled"
+                        @click="selectCollect(item.label)"
                     />
                 </el-select>
                 <div class="collect_msg">收藏信息</div>
             </div>
             <div class="name">
                 <transition name="opacity300"></transition>
-                <div v-if="show_name" style="width: 100%;height: 100%;position: absolute;">
+                <div
+                    v-if="show_name"
+                    style="width: 100%; height: 100%; position: absolute"
+                >
                     <div class="name_ele name_ele_l">
                         <span>{{ title }}</span>
                     </div>
@@ -62,12 +69,13 @@ import * as echarts from "echarts";
 import testMsg from "@/assets/js/testMsg";
 import defaultSearch from "@/components/navBar/components/search/defaultSearch.vue";
 import Connector from "@/assets/js/connector/connector";
+import Storage from "@/assets/js/storage/storage";
 // import store from "@/store/index";
 import linePrompt from "@/components/prompts/line/linePrompt.vue";
 export default {
     components: {
         defaultSearch,
-        linePrompt
+        linePrompt,
     },
     data() {
         return {
@@ -81,19 +89,38 @@ export default {
             title: "当前还未搜索",
             code: "未知",
             collect: "",
-            collects: [
-                {
-                    label: "平安银行",
-                    value: "平安银行",
-                },
-            ],
-            is_collect: "取消收藏",
-            error:"",
-            prompt_type:"waiting",
-            show_name:true,
-            is_null:false,
-            can_collect:false,
+            collects: [],
+            is_collect: "收藏",
+            error: "",
+            prompt_type: "waiting",
+            show_name: true,
+            is_null: false,
+            can_collect: false,
+            has_searched: false,
         };
+    },
+    computed: {
+        curCollect() {
+            let i = 0;
+            for (i; i < this.collects.length; i++) {
+                if (this.collects[i].label === this.title) {
+                    return true;
+                }
+            }
+            return false;
+        },
+    },
+    watch: {
+        curCollect: {
+            deep: true,
+            handler: function (newVal) {
+                if (newVal === true) this.is_collect = "取消收藏";
+                else this.is_collect = "收藏";
+            },
+        },
+    },
+    created() {
+        this.collects = Storage.get(0, "STOCK_COLLECTS", this.collects, "JSON"); // 拿取JSON数据
     },
     mounted() {
         // this.showSMInfoByData(testMsg.SM_data, "平安银行");
@@ -110,13 +137,13 @@ export default {
                 }
                 this.data_shower = null;
             }
-            if(title === ""){
+            if (title === "") {
                 // 数据不存在
                 console.log("空数组");
                 this.is_null = true;
                 this.can_collect = false;
                 return;
-            }else{
+            } else {
                 this.is_null = false;
                 this.can_collect = true;
             }
@@ -358,7 +385,42 @@ export default {
                 30000
             );
         },
-        collectClick() {},
+        collectClick() {
+            if (!this.has_searched) return;
+            if (this.can_collect === true) {
+                //可收藏
+                let label = this.title;
+                let value = this.title;
+                let new_ele = {
+                    label: label,
+                    value: value,
+                };
+                let judge = this.collects.includes(new_ele);
+                if (!judge) {
+                    this.collects.push(new_ele);
+                    Storage.set(0, "STOCK_COLLECTS", this.collects, "JSON");
+                }
+                this.is_collect = "取消收藏";
+                this.can_collect = false;
+            } else {
+                let ele = {
+                    label: this.title,
+                    value: this.title,
+                };
+                console.log("我想要删除的是", ele);
+                let index = this.collects.findIndex(
+                    (element) => element.label === this.title
+                );
+                console.log(index);
+                console.log(this.collects);
+                if (index !== -1) this.collects.splice(index, 1);
+                console.log("删除后的收藏夹是", this.collects);
+                if (this.collects.length === 0) this.collect = "";
+                Storage.set(0, "STOCK_COLLECTS", this.collects, "JSON");
+                this.is_collect = "收藏";
+                this.can_collect = true;
+            }
+        },
         searchCallback(msg) {
             if (msg.success) {
                 this.show_name = true;
@@ -368,7 +430,23 @@ export default {
                 this.code = id;
                 this.title = name;
                 this.showSMInfoByData(temp, name);
-            }else{
+                this.has_searched = true; //取消收藏按钮的禁用样式
+                //检查搜索内容是否在收藏内
+                let i = 0;
+                this.is_collect = "收藏";
+                this.can_collect = true;
+                for (i; i < this.collects.length; i++) {
+                    if (
+                        this.$refs.default_search.input_msg ===
+                        this.collects[i].label
+                    ) {
+                        this.is_collect = "取消收藏";
+                        this.can_collect = false;
+                        break;
+                    }
+                }
+                // this.$refs.default_search.input_msg = "你干嘛";
+            } else {
                 console.log("失败");
                 this.showSMInfoByData([], "");
             }
@@ -387,6 +465,9 @@ export default {
             console.log("查询超时");
             this.error = "查询超时";
             this.prompt_type = "error";
+        },
+        selectCollect(label) {
+            this.$refs.default_search.input_msg = label;
         },
     },
 };
@@ -409,7 +490,7 @@ export default {
     width: 100%;
     height: calc(100% - 50px);
 }
-.error_msg{
+.error_msg {
     position: absolute;
     width: 100%;
     height: calc(100% - 50px);
@@ -455,14 +536,15 @@ export default {
     line-height: 28px;
     border: 1px solid #8222968f;
     cursor: pointer;
+    user-select: none;
 }
 .collect_button:hover {
     box-shadow: 0px 0px 5px #8222968f;
 }
-.button_disable{
-    pointer-events: none !important;
-    background-color: grey !important;
-    cursor:not-allowed;
+.button_disable {
+    /* pointer-events: none !important; */
+    /* background-color: grey !important; */
+    cursor: not-allowed !important;
 }
 .is_collect {
     background-color: #864094;
