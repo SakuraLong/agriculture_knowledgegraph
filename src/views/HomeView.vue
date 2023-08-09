@@ -31,6 +31,7 @@
                                 @backToHome="backToHome"
                                 @goToShowerOther="goToShowerOther"
                                 @goToSubpage="goToSubpage"
+                                ref="shower_bar"
                                 v-else-if="page.is_func_page"
                             />
                         </transition>
@@ -44,6 +45,7 @@
                             />
                             <showerSubpage
                                 v-else-if="page.is_func_page"
+                                @goToSubpageByIndex="goToSubpageByIndex"
                                 ref="shower_subpage"
                             ></showerSubpage>
                         </transition>
@@ -217,6 +219,9 @@ export default {
         // threeSubpage,
     },
     methods: {
+        goToSubpageByIndex(index){
+            this.$refs.shower_bar.goToSubpageByIndex(index);
+        },
         logOut() {
             this.page.is_personal = false;
             utils.setLogOut();

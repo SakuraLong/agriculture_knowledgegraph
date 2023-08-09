@@ -2,7 +2,7 @@
     <div class="shower_subpage" ref="shower_subpage">
         <entityRecognitionSubpage ref="son_0"></entityRecognitionSubpage>
         <entityQuerySubpage ref="son_1"></entityQuerySubpage>
-        <relationshipQuerySubpage ref="son_2"></relationshipQuerySubpage>
+        <relationshipQuerySubpage ref="son_2" @searchId="searchId"></relationshipQuerySubpage>
         <overviewSubpage ref="son_3"></overviewSubpage>
         <QASubpage ref="son_4"></QASubpage>
     </div>
@@ -42,6 +42,10 @@ export default {
                 behavior: "smooth",
             });
         },
+        searchId(id){
+            this.$emit("goToSubpageByIndex", 2);
+            this.$refs.son_1.fromRelation(id);
+        }
     },
 };
 </script>

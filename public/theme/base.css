@@ -230,7 +230,7 @@ input {
     font-size: 16px;
 }
 .cata_selected {
-    background-color: aqua;
+    background-color: #dc63bc;
 }
 .quote_table {
     display: table;

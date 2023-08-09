@@ -18,7 +18,10 @@ const API = {
         getGptAnswer: "getGptAnswer/",
         getStockAnswer: "getStockAnswer/",
         getNodeDetail:"getNodeDetail/",
-        getOverview:"getOverview/"
+        getOverview:"getOverview/",
+        getNodeResume:"getNodeResume/",
+        setEncyContent:"setEncyContent/",
+        setMapContent:"setMapContent/"
     },
 };
 const API_PARA = {
@@ -72,6 +75,17 @@ const API_PARA = {
     getOverview:[
         ["type", ""],
         ["page", ""]
+    ],
+    getNodeResume:[
+        ["id", ""]
+    ],
+    setEncyContent:[
+        ["id", ""],
+        ["encycontent", ""]
+    ],
+    setMapContent:[
+        ["id", ""],
+        ["mapcontent", ""]
     ]
 };
 const API_CHECKER = {
@@ -161,6 +175,17 @@ const API_CHECKER = {
     getOverview:[
         ["is-num"],
         ["is-num"]
+    ],
+    getNodeResume:[
+        ["is-num"]
+    ],
+    setEncyContent:[
+        ["is-num"],
+        ["no-null"]
+    ],
+    setMapContent:[
+        ["is-num"],
+        ["no-null"]
     ]
 };
 export default {
