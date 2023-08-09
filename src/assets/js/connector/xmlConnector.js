@@ -145,6 +145,29 @@ const send = (
     xml.send();
 };
 
+const sendByUrl = (
+    url,
+    method,
+    msg,
+    func_callback,
+    func_wating,
+    func_timeout,
+    time_out
+) => {
+    let xml = new XMLConnector(
+        url,
+        method,
+        msg,
+        func_callback,
+        func_wating,
+        func_timeout,
+        time_out
+    );
+    if (time_out != null && time_out !== undefined) xml.setTimeout(time_out);
+    xml.send();
+};
+
 export default {
-    send
+    send,
+    sendByUrl
 };

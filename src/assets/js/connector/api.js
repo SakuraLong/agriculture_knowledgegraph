@@ -67,7 +67,9 @@ const API_PARA = {
     getGptAnswer: [["history", ""]],
     getStockAnswer: [
         ["stock", ""],
+        ["model", ""],
         ["days", ""],
+        ["minute", ""]
     ],
     getNodeDetail:[
         ["id", ""]
@@ -167,7 +169,9 @@ const API_CHECKER = {
     getGptAnswer: [["ignore"]],
     getStockAnswer: [
         ["no-base-symbols", "sql-check", "no-null", "no-only-spacing"],
-        ["is-num"],
+        ["ignore"],
+        ["ignore"],
+        ["ignore"]
     ],
     getNodeDetail:[
         ["is-num"]

@@ -1,131 +1,114 @@
 <template>
-    <div class="stock_market_container">
-        <div class="head_container">
-            <div class="collect">
-                <div
-                    class="collect_button"
-                    :class="{
-                        is_collect: is_collect === '取消收藏' && curCollect,
-                        button_disable: !has_searched,
-                    }"
-                    @click="collectClick"
-                >
-                    {{ is_collect }}
-                </div>
-                <el-select
-                    v-model="collect"
-                    placeholder=""
-                    style="width: 100px; font-size: 15px"
-                    :disabled="is_waiting || all_page === 0"
-                >
-                    <el-option
-                        v-for="item in collects"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                        :disabled="item.disabled"
-                        @click="selectCollect(item.label)"
-                    />
-                </el-select>
-                <div class="collect_msg">收藏信息</div>
-            </div>
-            <div class="name">
-                <transition name="opacity300"></transition>
-                <div
-                    v-if="show_name"
-                    style="width: 100%; height: 100%; position: absolute"
-                >
-                    <div class="name_ele name_ele_l">
-                        <span>{{ title }}</span>
-                    </div>
-                    <div class="name_ele name_ele_r">
-                        <span>{{ code }}</span>
-                    </div>
-                </div>
-                <linePrompt
-                    v-else
-                    :opacity="error"
-                    style="width: 260px"
-                    :data_left="error"
-                    :type="prompt_type"
-                ></linePrompt>
-            </div>
-            <div class="search">
-                <defaultSearch
-                    style="z-index: 1000; width: 300px"
-                    @search="search"
-                    ref="default_search"
-                    :is_stock="true"
-                ></defaultSearch>
-            </div>
-        </div>
-        <div class="data_shower" id="data_shower"></div>
-        <div class="error_msg" v-if="is_null">您所查询的信息不存在</div>
+    <div style="width: 100%; height: 100%; background-color: white">
+        <div class="data_shower" ref="data_shower"></div>
     </div>
 </template>
 
 <script>
 import * as echarts from "echarts";
-import testMsg from "@/assets/js/testMsg";
-import defaultSearch from "@/components/navBar/components/search/defaultSearch.vue";
-import Connector from "@/assets/js/connector/connector";
-import Storage from "@/assets/js/storage/storage";
-// import store from "@/store/index";
-import linePrompt from "@/components/prompts/line/linePrompt.vue";
 export default {
-    components: {
-        defaultSearch,
-        linePrompt,
-    },
     data() {
         return {
             data_shower: null,
             data: null,
-            data_use: "",
-            upColor: "#ec0000",
-            upBorderColor: "#8A0000",
-            downColor: "#00da3c",
-            downBorderColor: "#008F28",
-            title: "当前还未搜索",
-            code: "未知",
-            collect: "",
-            collects: [],
-            is_collect: "收藏",
-            error: "",
-            prompt_type: "waiting",
-            show_name: true,
-            is_null: false,
-            can_collect: false,
-            has_searched: false,
+            data_use: null,
+            is_null: true,
         };
     },
-    computed: {
-        curCollect() {
-            let i = 0;
-            for (i; i < this.collects.length; i++) {
-                if (this.collects[i].label === this.title) {
-                    return true;
-                }
-            }
-            return false;
-        },
-    },
-    watch: {
-        curCollect: {
-            deep: true,
-            handler: function (newVal) {
-                if (newVal === true) this.is_collect = "取消收藏";
-                else this.is_collect = "收藏";
-            },
-        },
-    },
-    created() {
-        this.collects = Storage.get(0, "STOCK_COLLECTS", this.collects, "JSON"); // 拿取JSON数据
-    },
-    mounted() {
-        // this.showSMInfoByData(testMsg.SM_data, "平安银行");
-    },
     methods: {
+        render(type, data, title) {
+            if (type === "K") {
+                // K线图
+                this.showSMInfoByData(data, title);
+            } else if (type === "F") {
+                // 分时图
+            }
+        },
+        showFByData(data, title) {
+            this.data = data;
+            if (this.data_shower != null) {
+                try {
+                    this.data_shower.dispose();
+                } catch {
+                    //
+                    console.log("销毁错误");
+                }
+                this.data_shower = null;
+            }
+            if (title === "") {
+                // 数据不存在
+                console.log("空数组");
+                this.is_null = true;
+                return;
+            } else {
+                this.is_null = false;
+            }
+            this.data_use = splitData(this.data);
+            let dom = this.$refs.data_shower;
+            let data_shower = echarts.init(dom, null, {
+                renderer: "canvas",
+                useDirtyRect: false,
+            });
+            let option = {
+                xAxis: {
+                    type: "category",
+                    boundaryGap: false,
+                    data: this.data_use.time,
+                },
+                yAxis: {
+                    type: "value",
+                },
+                toolbox: {
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: "none",
+                        },
+                        restore: {},
+                        saveAsImage: {},
+                    },
+                },
+                tooltip: {
+                    trigger: "axis",
+                    position: function (pt) {
+                        return [pt[0], "10%"];
+                    },
+                },
+                series: [
+                    {
+                        data: this.data_use.n,
+                        name: "现价",
+                        type: "line",
+                        areaStyle: {},
+                    },
+                    {
+                        data: this.data_use.p,
+                        name: "均价线",
+                        type: "line",
+                    },
+                ],
+            };
+            if (option && typeof option === "object") {
+                data_shower.setOption(option);
+            }
+            function splitData(data){
+                let time = [];
+                let n = [];
+                let p = [];
+                data.forEach((element)=>{
+                    time.push(element[0]);
+                    n.push(element[1]);
+                    p.push(element[2]);
+                });
+                return {
+                    time:time,
+                    n:n,
+                    p:p
+                };
+            }
+
+            window.addEventListener("resize", data_shower.resize);
+            this.data_shower = data_shower;
+        },
         showSMInfoByData(data, title) {
             this.data = data;
             if (this.data_shower != null) {
@@ -141,14 +124,12 @@ export default {
                 // 数据不存在
                 console.log("空数组");
                 this.is_null = true;
-                this.can_collect = false;
                 return;
             } else {
                 this.is_null = false;
-                this.can_collect = true;
             }
             this.data_use = this.splitData(this.data);
-            let dom = document.getElementById("data_shower");
+            let dom = this.$refs.data_shower;
             let data_shower = echarts.init(dom, null, {
                 renderer: "canvas",
                 useDirtyRect: false,
@@ -374,209 +355,15 @@ export default {
             }
             return result;
         },
-        search(text) {
-            console.log(text);
-            Connector.send(
-                [text, "d", "365", ""],
-                "getStockAnswer",
-                this.searchCallback,
-                this.searchWaiting,
-                this.searchTimeout,
-                30000
-            );
-        },
-        collectClick() {
-            if (!this.has_searched) return;
-            if (this.can_collect === true) {
-                //可收藏
-                let label = this.title;
-                let value = this.title;
-                let new_ele = {
-                    label: label,
-                    value: value,
-                };
-                let judge = this.collects.includes(new_ele);
-                if (!judge) {
-                    this.collects.push(new_ele);
-                    Storage.set(0, "STOCK_COLLECTS", this.collects, "JSON");
-                }
-                this.is_collect = "取消收藏";
-                this.can_collect = false;
-            } else {
-                let ele = {
-                    label: this.title,
-                    value: this.title,
-                };
-                console.log("我想要删除的是", ele);
-                let index = this.collects.findIndex(
-                    (element) => element.label === this.title
-                );
-                console.log(index);
-                console.log(this.collects);
-                if (index !== -1) this.collects.splice(index, 1);
-                console.log("删除后的收藏夹是", this.collects);
-                if (this.collects.length === 0) this.collect = "";
-                Storage.set(0, "STOCK_COLLECTS", this.collects, "JSON");
-                this.is_collect = "收藏";
-                this.can_collect = true;
-            }
-        },
-        searchCallback(msg) {
-            if (msg.success) {
-                this.show_name = true;
-                let temp = msg.content.list;
-                let id = msg.content.message.stockid;
-                let name = msg.content.message.stockname;
-                this.code = id;
-                this.title = name;
-                this.showSMInfoByData(temp, name);
-                this.has_searched = true; //取消收藏按钮的禁用样式
-                //检查搜索内容是否在收藏内
-                let i = 0;
-                this.is_collect = "收藏";
-                this.can_collect = true;
-                for (i; i < this.collects.length; i++) {
-                    if (
-                        this.$refs.default_search.input_msg ===
-                        this.collects[i].label
-                    ) {
-                        this.is_collect = "取消收藏";
-                        this.can_collect = false;
-                        break;
-                    }
-                }
-                // this.$refs.default_search.input_msg = "你干嘛";
-            } else {
-                console.log("失败");
-                this.showSMInfoByData([], "");
-            }
-        },
-        searchWaiting(is_waiting) {
-            if (is_waiting) {
-                this.show_name = false;
-                this.error = "查询中";
-                this.prompt_type = "waiting";
-            } else {
-                this.error = "";
-                this.$refs.default_search.getMsg();
-            }
-        },
-        searchTimeout() {
-            console.log("查询超时");
-            this.error = "查询超时";
-            this.prompt_type = "error";
-        },
-        selectCollect(label) {
-            this.$refs.default_search.input_msg = label;
-        },
     },
 };
 </script>
 
 <style scoped>
-.stock_market_container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    background-color: white;
-}
-.head_container {
-    position: relative;
-    /* border: 1px solid red; */
-    width: 100%;
-    height: 50px;
-}
 .data_shower {
-    width: 100%;
-    height: calc(100% - 50px);
-}
-.error_msg {
-    position: absolute;
-    width: 100%;
-    height: calc(100% - 50px);
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
-    font-weight: 600;
-}
-.collect,
-.name,
-.search {
-    height: 100%;
     position: relative;
-    float: left;
-    /* border: 1px solid red; */
-    /* box-shadow: inset 0px 0px 5px #8222968F; */
-}
-.collect,
-.search {
-    width: 300px;
-}
-.name {
-    width: calc(100% - 600px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.collect {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.collect_button {
-    position: absolute;
-    border-radius: 7px;
-    left: 5%;
-    width: 70px;
-    height: 28px;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 28px;
-    border: 1px solid #8222968f;
-    cursor: pointer;
-    user-select: none;
-}
-.collect_button:hover {
-    box-shadow: 0px 0px 5px #8222968f;
-}
-.button_disable {
-    /* pointer-events: none !important; */
-    /* background-color: grey !important; */
-    cursor: not-allowed !important;
-}
-.is_collect {
-    background-color: #864094;
-    color: white;
-}
-.collect_msg {
-    position: absolute;
-    right: 5%;
-    width: 70px;
-    height: 28px;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 28px;
-}
-.name_ele {
-    position: relative;
-    width: calc(50% - 10px);
+    width: 100%;
     height: 100%;
-    float: left;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 50px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.name_ele_l {
-    padding-right: 10px;
-    text-align: right;
-}
-.name_ele_r {
-    padding-left: 10px;
-    text-align: left;
+    border: 1px solid red;
 }
 </style>

@@ -124,6 +124,6 @@ export default {
     width: 100%;
     height: 100%;
     transition: all 0.5s ease-out;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 </style>
