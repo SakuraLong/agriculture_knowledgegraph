@@ -50,9 +50,9 @@ export default {
         },
         listCallback(msg) {
             if (msg.success) {
-                this.list_0.setData(msg.content.sz50);
-                this.list_1.setData(msg.content.hs300);
-                this.list_2.setData(msg.content.zz500);
+                this.$refs.list_0.setData(msg.content.sz50);
+                this.$refs.list_1.setData(msg.content.hs300);
+                this.$refs.list_2.setData(msg.content.zz500);
             }
         },
         listWaiting(is_waiting) {},
@@ -67,7 +67,7 @@ export default {
                     this.listCallback,
                     this.listWaiting,
                     this.listTimeout,
-                    10000
+                    60000
                 );
             }
         },
