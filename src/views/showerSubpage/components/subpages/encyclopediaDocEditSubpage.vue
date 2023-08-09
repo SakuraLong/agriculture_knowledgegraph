@@ -40,7 +40,7 @@
                     position: relative;
                 "
             >
-                <button class="submit_button" v-if="isLogin">提交</button>
+                <button class="submit_button" v-if="isLogin" @click="submitClick">提交</button>
             </div>
         </div>
     </div>
@@ -49,6 +49,7 @@
 import data from "@/assets/js/data";
 import textInput_vertical from "@/components/inputs/textInputVertical/textInputVertical.vue";
 import store from "@/store/index.js";
+import Connector from "@/assets/js/connector/connector";
 export default {
     props: ["title", "text", "id"],
     data() {
@@ -60,7 +61,11 @@ export default {
     },
     components: { textInput_vertical },
     mounted() {},
-    methods: {},
+    methods: {
+        submitClick(){
+            
+        }
+    },
     computed: {
         isLogin() {
             return store.state.is_login;
