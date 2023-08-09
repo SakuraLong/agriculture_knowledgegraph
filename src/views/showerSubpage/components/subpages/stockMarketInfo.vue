@@ -96,7 +96,7 @@ export default {
         };
     },
     mounted() {
-        this.showSMInfoByData(testMsg.SM_data, "平安银行");
+        // this.showSMInfoByData(testMsg.SM_data, "平安银行");
     },
     methods: {
         showSMInfoByData(data, title) {

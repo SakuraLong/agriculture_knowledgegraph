@@ -53,12 +53,14 @@
                 <encyclopediaDocEditSubpage
                     :title="title"
                     :text="ency_content"
+                    :id="entity_id"
                 ></encyclopediaDocEditSubpage>
             </div>
             <div ref="son_4" class="son_subpage" style="left: 400%">
                 <graphDocEditSubpage
                     :title="title"
                     :text="map_content"
+                    :id="entity_id"
                 ></graphDocEditSubpage>
             </div>
         </div>
@@ -97,6 +99,7 @@ export default {
             error: "查询中",
             prompt_type: "waiting",
             title: "默认界面",
+            entity_id:0
         };
     },
     components: {
@@ -154,6 +157,7 @@ export default {
         },
         getEntityById(id) {
             // 清空信息
+            this.entity_id = id;
             this.$refs.shower_subpage_container_body.innerHTML = "";
             this.ency_renderer = null;
             try {

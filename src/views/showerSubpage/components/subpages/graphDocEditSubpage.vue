@@ -50,7 +50,7 @@ import data from "@/assets/js/data";
 import textInput_vertical from "@/components/inputs/textInputVertical/textInputVertical.vue";
 import store from "@/store/index.js";
 export default {
-    props: ["title","text"],
+    props: ["title", "text", "id"],
     data() {
         return {
             is_login: false,

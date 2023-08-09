@@ -7,21 +7,9 @@
 <script>
 import overviewEle from "./overviewEle.vue";
 export default {
-    data() {
-        return {
-            ele_list: [
-                {
-                    value: "aasssssssssssssssssssssssssssssssssssssa",
-                },
-            ]
-        };
-    },
     props:["data"],
     components:{
         overviewEle
-    },
-    methods: {
-        setData(data_list) {},
     },
 };
 </script>

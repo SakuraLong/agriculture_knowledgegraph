@@ -95,6 +95,7 @@ export default {
     width: 100%;
     height: calc(100% - 30px);
     /* border: 1px solid red; */
+    overflow: hidden;
 }
 .son_subpage {
     position: absolute;

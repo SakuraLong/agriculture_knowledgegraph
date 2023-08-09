@@ -76,7 +76,7 @@ export default {
             input_font_size: "20px",
             input_place_holder1: "实体1",
             input_place_holder2: "实体2",
-            select_items: ["查询最短关系", "查询最长关系"],
+            select_items: ["查询最短关系"],
             title: "关系选择",
             select_value: "查询最短关系",
             select_placeholder: "选择一个关系",

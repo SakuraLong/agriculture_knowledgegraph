@@ -96,9 +96,9 @@ no_italics代表引用不为斜体<br>
 
 == 看看实体标记 ==
 
-实体通过两个"["加上两个"]"包围来显示，例如实体苹果可以表示为：[<span>[苹果]</span>]：[[苹果]]
+实体通过两个"["加上两个"]"包围来显示，"|"之前是id,例如实体苹果可以表示为：[<span>[苹果]</span>]：[[苹果]]
 
-=== 标题也可以设置[[苹果]] ===
+=== 标题也可以设置[[100000|苹果]] ===
 
 但是这样目录也会显示，所有一般不建议这样使用
 
@@ -133,7 +133,7 @@ no_italics代表引用不为斜体<br>
 | 起床 | 学习 | 睡觉 | {{文本|打游戏！！|curtain}} | 看番 | 睡觉 |
 }}
 
-[[中国银行]]
+[[100000|中国银行]]
 
 {{表格|font-size:20;min-width:200px;width:100%
 |+ 测试 c=8/t |
@@ -148,7 +148,7 @@ const default_map = `
 - 界面配置
 - 关系
 [[Sakura]]
-[[Sakura]]--[[Shmily]]=朋友=Sakura和Shmily是朋友
+[[Sakura]]--[[100000|Shmily]]=朋友=Sakura和Shmily是朋友
 [[Sakura]]--[[水木]]=朋友=Sakura和水木是朋友
 [[Sakura]]--[[锦满]]=朋友=Sakura和锦满是朋友
 [[Sakura]]--[[myra_xiangyuff]]=朋友=Sakura和myra_xiangyuff是朋友
@@ -277,7 +277,7 @@ const mapForceDark = (graph, title) => {
                     color: "source",
                 },
                 force: {
-                    repulsion: 300,
+                    repulsion: 1000,
                 },
                 emphasis: {
                     focus: "adjacency",

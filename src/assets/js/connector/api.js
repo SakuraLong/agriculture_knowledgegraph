@@ -17,7 +17,8 @@ const API = {
         searchRelationship: "searchRelationshipBetween/",
         getGptAnswer: "getGptAnswer/",
         getStockAnswer: "getStockAnswer/",
-        getNodeDetail:"getNodeDetail/"
+        getNodeDetail:"getNodeDetail/",
+        getOverview:"getOverview/"
     },
 };
 const API_PARA = {
@@ -67,6 +68,10 @@ const API_PARA = {
     ],
     getNodeDetail:[
         ["id", ""]
+    ],
+    getOverview:[
+        ["type", ""],
+        ["page", ""]
     ]
 };
 const API_CHECKER = {
@@ -151,6 +156,10 @@ const API_CHECKER = {
         ["is-num"],
     ],
     getNodeDetail:[
+        ["is-num"]
+    ],
+    getOverview:[
+        ["is-num"],
         ["is-num"]
     ]
 };

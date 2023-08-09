@@ -9,8 +9,8 @@ class DefaultPrompt extends Element{
     constructor(parent_node){
         super(parent_node, "div");
         this.element.setAttribute("class", "prompt");
-        this.element.style.width = this.default_width;
-        this.element.style.height = this.default_height;
+        // this.element.style.width = this.default_width;
+        // this.element.style.height = this.default_height;
         this.text = ""; // 内容
         // 
         this.element.innerHTML = this.text;
