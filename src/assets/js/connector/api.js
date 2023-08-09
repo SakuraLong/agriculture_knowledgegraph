@@ -21,7 +21,8 @@ const API = {
         getOverview:"getOverview/",
         getNodeResume:"getNodeResume/",
         setEncyContent:"setEncyContent/",
-        setMapContent:"setMapContent/"
+        setMapContent:"setMapContent/",
+        getstocklistAnswer:"getstocklistAnswer/"
     },
 };
 const API_PARA = {
@@ -67,7 +68,9 @@ const API_PARA = {
     getGptAnswer: [["history", ""]],
     getStockAnswer: [
         ["stock", ""],
+        ["model", ""],
         ["days", ""],
+        ["minute", ""]
     ],
     getNodeDetail:[
         ["id", ""]
@@ -86,7 +89,8 @@ const API_PARA = {
     setMapContent:[
         ["id", ""],
         ["mapcontent", ""]
-    ]
+    ],
+    getstocklistAnswer:[["", ""]]
 };
 const API_CHECKER = {
     register: [
@@ -167,7 +171,9 @@ const API_CHECKER = {
     getGptAnswer: [["ignore"]],
     getStockAnswer: [
         ["no-base-symbols", "sql-check", "no-null", "no-only-spacing"],
-        ["is-num"],
+        ["ignore"],
+        ["ignore"],
+        ["ignore"]
     ],
     getNodeDetail:[
         ["is-num"]
@@ -186,7 +192,8 @@ const API_CHECKER = {
     setMapContent:[
         ["is-num"],
         ["no-null"]
-    ]
+    ],
+    getstocklistAnswer:[["ignore"]]
 };
 export default {
     API,

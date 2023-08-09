@@ -62,7 +62,7 @@ export default {
                     detail:"通过检索关系进行查询"
                 },
                 agricultural_knowledge_graph: {
-                    title:"其他功能",
+                    title:"知识概览",
                     detail:"查看网站的其他功能"
                 },
                 agricultural_knowledge_QA: {

@@ -1,5 +1,5 @@
 <template>
-    <div class="overview_subpage">
+    <div class="overview_subpage" ref="container">
         <div class="overview_head">
             <span>类型：</span>
             <el-select
@@ -288,6 +288,9 @@ export default {
         },
         overviewTimeout() {
             console.log("超时");
+        },
+        getOffsetTop() {
+            return this.$refs.container.offsetTop;
         },
     },
     mounted() {

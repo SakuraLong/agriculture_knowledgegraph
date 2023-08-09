@@ -198,7 +198,6 @@ export default {
         navBar,
         mainBar,
         showerBar,
-        // showerSubpage,
         othersSubpageShower,
         othersSubpage,
         functionSubpage,
@@ -245,6 +244,7 @@ export default {
             this.page.is_forget_password = false;
         },
         goToSubpage(index){
+            console.log(index);
             this.$refs.shower_subpage.scrollTo(index);
         },
         goToShower() {
