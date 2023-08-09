@@ -13,9 +13,9 @@
                     >
                         {{ name }}
                     </div>
-                    <div class="profile-ele-ele">
+                    <!-- <div class="profile-ele-ele">
                         IP: {{ getProfess(occu) }}
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -25,95 +25,8 @@
         <div class="profile_bottom_container">
             <personalEdit title="个人信息编辑" @clickFunc="toEditPersonal"></personalEdit>
             <personalEdit title="实名信息编辑" @clickFunc="toEditRealName"></personalEdit>
-            <div style="color: gold;font-family: Heiti;" @click="logOut">登出（之后会改）</div>
+            <div class="logout_button" @click="logOut">登出</div>
         </div>
-        <!-- <div @click="leavePersonal" class="exit-btn">
-            <div class="exit-btn-bg"></div>
-            <div class="exit-btn-text">返回</div>
-        </div> -->
-        <!-- <el-row style="border: 1px solid red;">
-            <div class="profile-container">
-                <el-row class="profile-ele" style="margin-top: 20px;border: 1px solid red;">
-                    <avatar class="profile-avatar" style="pointer-events: none !important;" />
-                    <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
-                        <div class="profile-ele-ele" style="text-indent: 13px">
-                            昵称: {{ name }}
-                        </div>
-                        <div class="profile-ele-ele">
-                            职业: {{ getProfess(occu) }}
-                        </div>
-                    </div>
-                </el-row>
-                <el-row class="profile-tags">
-                    这里获取数据库信息判断就行
-                    <el-tag
-                        color="rgb(208,195,213)"
-                        style="color: darkslateblue"
-                        >{{ real ? "已实名认证" : "未实名认证" }}</el-tag
-                    >
-                    <el-tag
-                        color="rgb(208,195,213)"
-                        style="color: darkslateblue"
-                        >主题：{{ getTheme() }}</el-tag
-                    >
-                    <el-tag
-                        color="rgb(208,195,213)"
-                        style="color: darkslateblue"
-                        >色弱模式：开启</el-tag
-                    >
-                    <el-tag
-                        color="rgb(208,195,213)"
-                        style="color: darkslateblue"
-                        >当前语言:中文</el-tag
-                    >
-                </el-row>
-            </div>
-        </el-row>
-        <el-row>
-            <el-col :span="10">
-                <el-row style="margin-top: 20px">
-                    <time id="profess">性别:</time>
-                    <label for="profess">{{ getSex(sex) }}</label>
-                </el-row>
-                <el-row style="margin-top: 20px">
-                    <time id="profess">出生日期:</time>
-                    <label for="profess">{{ born }}</label>
-                </el-row>
-                <el-row style="margin-top: 20px">
-                    <time id="profess">IP:</time>
-                    <label for="profess">xxx.xx.xx.xx</label>
-                </el-row>
-            </el-col>
-            <el-col :span="14">
-                <div class="profile-realname" style="display: flex">
-                    <el-collapse class="realname-collapse">
-                        <el-collapse-item title="实名认证信息" name="1">
-                            <div>
-                                <el-row style="margin-top: 10px">
-                                    <time id="profess">姓名:</time>
-                                    <label for="profess">{{ real_name }}</label>
-                                </el-row>
-                                <el-row style="margin-top: 10px">
-                                    <time id="profess">证件类型:</time>
-                                    <label for="profess">{{
-                                        getCardType(card_type)
-                                    }}</label>
-                                </el-row>
-                                <el-row style="margin-top: 10px">
-                                    <time id="profess">证件号码:</time>
-                                    <label for="profess">{{ id_card }}</label>
-                                </el-row>
-                                <el-row style="margin-top: 10px">
-                                    <time id="profess">电话号码:</time>
-                                    <label for="profess">{{ tel }}</label>
-                                </el-row>
-                            </div>
-                        </el-collapse-item>
-                    </el-collapse>
-                    <realNameEdit @toEditRealName="toEditRealName" />
-                </div>
-            </el-col>
-        </el-row> -->
     </div>
 </template>
 
@@ -352,5 +265,13 @@ export default {
 
 .exit-btn-bg:hover {
     transform: rotate(360deg);
+}
+.logout_button{
+    font-weight: 600;
+    font-size: 25px;
+    font-family: Heiti;
+}
+.logout_button:hover{
+    text-shadow: 0px 0px 8px #d084df;
 }
 </style>
