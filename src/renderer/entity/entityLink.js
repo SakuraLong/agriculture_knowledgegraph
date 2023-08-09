@@ -1,8 +1,11 @@
 import DefaultPrompt from "../components/prompt/defaultPrompt";
+import Connector from "@/assets/js/connector/connector";
 
 class EntityLink extends HTMLElement {
     is_over = false;
     timer = null;
+    id = "";
+    content = "";
     constructor() {
         super();
         this.default_prompt = null;
@@ -33,7 +36,26 @@ class EntityLink extends HTMLElement {
             };
         })(that));
         this.style.color = "#822296";
-        this.default_prompt.setText(this.textContent);
+        let text = this.textContent;
+        if(text.split("|").length === 1){
+            // 没有id
+            this.default_prompt.setText(this.textContent);
+        }else{
+            // 有id
+            this.id = text.split("|")[0];
+            this.content = text.split("|")[1];
+            this.textContent = this.content;
+            Connector.send([this.id.toString()], "getNodeDetail", abstractCallback, abstractWaiting, abstractTimeput);
+        }
+        function abstractCallback(msg){
+
+        }
+        function abstractWaiting(is_waiting){
+
+        }
+        function abstractTimeput(){
+            that.default_prompt.setText("服务器异常或未查询到相关信息");
+        }
         // this.button.textContent = this.textContent;
         // this.innerHTML = "";
         // this.appendChild(this.button);

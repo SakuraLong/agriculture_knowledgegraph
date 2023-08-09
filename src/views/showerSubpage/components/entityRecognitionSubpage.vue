@@ -113,7 +113,7 @@ export default {
 <style scoped>
 .er_subpage_container {
     position: relative;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     float: right;
     width: 100%;
     height: 100%;

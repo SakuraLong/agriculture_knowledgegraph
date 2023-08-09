@@ -62,8 +62,8 @@ export default {
                     detail:"通过检索关系进行查询"
                 },
                 agricultural_knowledge_graph: {
-                    title:"知识概览",
-                    detail:"查看数据库全部知识"
+                    title:"其他功能",
+                    detail:"查看网站的其他功能"
                 },
                 agricultural_knowledge_QA: {
                     title:"AI对话",

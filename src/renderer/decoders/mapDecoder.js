@@ -4,7 +4,7 @@
  * 返回data
  */
 class MapDecoder {
-    default_size = 50;
+    default_size = 30;
     x = 600;
     y = 450;
     constructor(text) {
@@ -29,8 +29,9 @@ class MapDecoder {
                     element.split("|").length === 2
                         ? element.split("|")[1]
                         : element;
-                this.createNode(this.main_node_name, "主实体");
-            }else{
+                let id = element.split("|").length === 2 ? element.split("|")[0] : "";
+                this.createNode(this.main_node_name, "主实体", id);
+            } else {
                 every_data = element.split("=");
                 let cata = every_data[1]; // 分类
                 let data = every_data[2]; // 文字内容
@@ -39,26 +40,34 @@ class MapDecoder {
                 let nodes = every_data[0].split("--");
                 let node_from = nodes[0];
                 let node_to = nodes[1];
-                node_from = node_from.split("|").length === 2 ? node_from.split("|")[1] : node_from;
-                node_to = node_to.split("|").length === 2 ? node_to.split("|")[1] : node_to;
+                let from_id = node_from.split("|").length === 2 ? node_from.split("|")[0] : "";
+                let to_id = node_to.split("|").length === 2 ? node_to.split("|")[0] : "";
+                node_from =
+                    node_from.split("|").length === 2
+                        ? node_from.split("|")[1]
+                        : node_from;
+                node_to =
+                    node_to.split("|").length === 2
+                        ? node_to.split("|")[1]
+                        : node_to;
                 let has_node_from = false;
                 let has_node_to = false;
-                for(let i=0;i<this.nodes_data.length;i++){
+                for (let i = 0; i < this.nodes_data.length; i++) {
                     // 检查实体是否存在
-                    if(has_node_from && has_node_to) break;
-                    if(this.nodes_data[i].name === node_from){
+                    if (has_node_from && has_node_to) break;
+                    if (this.nodes_data[i].name === node_from) {
                         has_node_from = true;
                     }
-                    if(this.nodes_data[i].name === node_to){
+                    if (this.nodes_data[i].name === node_to) {
                         has_node_to = true;
                     }
                 }
                 // 不存在就插入
-                if(!has_node_from){
-                    this.createNode(node_from, cata);
+                if (!has_node_from) {
+                    this.createNode(node_from, cata, from_id);
                 }
-                if(!has_node_to){
-                    this.createNode(node_to, cata);
+                if (!has_node_to) {
+                    this.createNode(node_to, cata, to_id);
                 }
                 // 创建联系
                 this.createLink(node_from, node_to, data);
@@ -66,41 +75,43 @@ class MapDecoder {
         });
         // console.log(this.nodes_data);
         let res = {
-            "nodes":this.nodes_data,
-            "links":this.relations_data,
-            "categories":this.categories_data
+            nodes: this.nodes_data,
+            links: this.relations_data,
+            categories: this.categories_data,
         };
         return {
-            res:res,
-            name:this.main_node_name
+            res: res,
+            name: this.main_node_name,
         };
     }
-    createNode(name, cata){
+    createNode(name, cata, node_id) {
         // console.log(name);
         let t_node = {
-            "id": "0",
-            "name": "",
-            "symbolSize": this.default_size,
-            "x": 0,
-            "y": 0,
-            "value": 10,
-            "category": 0,
+            id: "0",
+            name: "",
+            symbolSize: this.default_size,
+            x: 0,
+            y: 0,
+            value: 10,
+            category: 0,
+            node_id:""
         };
         let t_cata = {
-            "name": ""
+            name: "",
         };
         let id = this.next_id.toString();
         this.next_id++;
         t_node.id = id;
         t_node.name = name;
-        if(cata !== "主实体"){
+        t_node.node_id = node_id;
+        if (cata !== "主实体") {
             let cata_index = -1;
-            this.categories_data.forEach((element, index)=>{
-                if(element.name === cata){
+            this.categories_data.forEach((element, index) => {
+                if (element.name === cata) {
                     cata_index = index;
                 }
             });
-            if(cata_index === -1){
+            if (cata_index === -1) {
                 // 插入新的
                 cata_index = this.categories_data.length;
                 t_cata.name = cata;
@@ -112,31 +123,34 @@ class MapDecoder {
             t_node.y = y;
             t_node.category = cata_index;
             this.nodes_data.push(t_node);
-        }else{
+        } else {
             t_cata.name = cata;
             this.categories_data.push(t_cata);
             this.nodes_data.push(t_node);
         }
     }
-    createLink(from, to, data){
+    createLink(from, to, data) {
         let t_link = {
-            "source": "",
-            "target": "",
-            "data":""
+            source: "",
+            target: "",
+            data: "",
         };
-        let from_id = this.nodes_data.find((element)=>{
+        let from_id = this.nodes_data.find((element) => {
             return element.name === from;
         }).id;
-        let to_id = this.nodes_data.find((element)=>{
+        let to_id = this.nodes_data.find((element) => {
             return element.name === to;
         }).id;
         t_link.source = from_id;
         t_link.target = to_id;
         t_link.data = data;
-        let has_link = this.relations_data.find((element)=>{
-            return (element.source === from_id && element.target === to_id) || (element.source === to_id && element.target === from_id);
+        let has_link = this.relations_data.find((element) => {
+            return (
+                (element.source === from_id && element.target === to_id) ||
+                (element.source === to_id && element.target === from_id)
+            );
         });
-        if(has_link === undefined){
+        if (has_link === undefined) {
             // 不存在此连接
             this.relations_data.push(t_link);
         }
