@@ -31,7 +31,7 @@ import Connector from "@/assets/js/connector/connector";
 export default {
     data() {
         return {
-            son_pages: [true, false, false],
+            son_pages: [false, false, false],
             son_pages_name: ["上证50", "沪深300", "中证500"],
         };
     },
@@ -40,6 +40,7 @@ export default {
     },
     methods: {
         clickNav(index) {
+            this.$refs["list_" + index.toString()].show();
             // if (!store.state.can_click_button) return;
             this.son_pages = [false, false, false];
             this.son_pages[index] = true;
@@ -48,32 +49,9 @@ export default {
                     (i * 100 - index * 100).toString() + "%";
             });
         },
-        listCallback(msg) {
-            if (msg.success) {
-                this.$refs.list_0.setData(msg.content.sz50);
-                this.$refs.list_1.setData(msg.content.hs300);
-                this.$refs.list_2.setData(msg.content.zz500);
-            }
-        },
-        listWaiting(is_waiting) {},
-        listTimeout() {
-            console.log("超时");
-        },
-        show() {
-            if (this.data == null) {
-                Connector.send(
-                    [""],
-                    "getStocklistAnswer",
-                    this.listCallback,
-                    this.listWaiting,
-                    this.listTimeout,
-                    60000
-                );
-            }
-        },
     },
     mounted() {
-        this.show();
+        this.clickNav(0);
     },
 };
 </script>

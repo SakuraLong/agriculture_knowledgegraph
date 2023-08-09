@@ -33,7 +33,38 @@ export default {
         setData(data){
             this.data = data;
             this.$refs.stock_list.setListData(this.data);
-        }
+        },
+        listCallback(msg) {
+            if (msg.success) {
+                this.$refs.list_0.setData(msg.content.sz50);
+                this.$refs.list_1.setData(msg.content.hs300);
+                this.$refs.list_2.setData(msg.content.zz500);
+            }
+        },
+        listWaiting(is_waiting) {},
+        listTimeout() {
+            console.log("超时");
+        },
+        show() {
+            let t = "";
+            if(this.type === "50"){
+                t = "sz50";
+            }else if(this.type === "300"){
+                t = "hs300";
+            }else if(this.type === "500"){
+                t = "zz500";
+            }
+            if (this.data == null) {
+                Connector.send(
+                    [t],
+                    "getStocklistAnswer",
+                    this.listCallback,
+                    this.listWaiting,
+                    this.listTimeout,
+                    60000
+                );
+            }
+        },
     },
     mounted() {},
 };

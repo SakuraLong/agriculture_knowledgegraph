@@ -90,7 +90,7 @@ const API_PARA = {
         ["id", ""],
         ["mapcontent", ""]
     ],
-    getStocklistAnswer:[["", ""]]
+    getStocklistAnswer:[["model", ""]]
 };
 const API_CHECKER = {
     register: [
