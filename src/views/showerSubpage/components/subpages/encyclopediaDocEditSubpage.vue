@@ -81,7 +81,7 @@ export default {
     methods: {
         submitClick() {
             if (!store.state.can_click_button) return;
-            let encycontent = Code.Base64.decode(this.$refs.input_ref.get());
+            let encycontent = this.$refs.input_ref.get();
             connector.send(
                 [this.id, encycontent],
                 "setEncyContent",
