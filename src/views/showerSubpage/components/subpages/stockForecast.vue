@@ -49,7 +49,7 @@ export default {
     },
     methods: {
         search(text) {
-            if (!new Checker(text, ["is-num"]).check()) {
+            if (!new Checker(text, ["ignore"]).check()) {
                 this.error = "股票代码必须是数字";
                 this.prompt_type = "error";
                 this.$refs.default_search.getMsg();
