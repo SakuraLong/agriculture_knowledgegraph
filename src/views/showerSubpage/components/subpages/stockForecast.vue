@@ -2,7 +2,7 @@
     <div class="stock_forecast_container">
         <div class="stock_forecast_head">
             <span style="position: absolute; left: 0"
-                >预测未来500天走势（纯属娱乐，仅供参考）</span
+                >基于ARIMA模型预测未来500天走势（纯属娱乐，仅供参考）</span
             >
             <linePrompt
                 :opacity="error"
