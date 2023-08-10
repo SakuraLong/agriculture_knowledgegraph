@@ -66,7 +66,7 @@ const API_PARA = {
         ["end_node_name", ""],
         ["method", ""],
     ],
-    getGptAnswer: [["history", ""]],
+    getGptAnswer: [["history", ""],["model",""]],
     getStockAnswer: [
         ["stock", ""],
         ["model", ""],
@@ -170,7 +170,7 @@ const API_CHECKER = {
         ],
         ["is-num"],
     ],
-    getGptAnswer: [["ignore"]],
+    getGptAnswer: [["ignore"],["ignore"]],
     getStockAnswer: [
         ["no-base-symbols", "sql-check", "no-null", "no-only-spacing"],
         ["ignore"],
