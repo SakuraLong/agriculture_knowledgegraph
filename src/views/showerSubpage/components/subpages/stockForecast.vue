@@ -2,7 +2,7 @@
     <div class="stock_forecast_container">
         <div class="stock_forecast_head">
             <span style="position: absolute; left: 0"
-                >基于ARIMA模型预测未来30天走势<br />（纯属娱乐，仅供参考）</span
+                >基于ARIMA模型预测未来30天走势<br />（纯属娱乐，请勿当真）</span
             >
             <linePrompt
                 :opacity="error"
