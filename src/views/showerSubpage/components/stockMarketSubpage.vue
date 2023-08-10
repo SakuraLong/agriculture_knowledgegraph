@@ -44,7 +44,7 @@ import Storage from "@/assets/js/storage/storage";
 import linePrompt from "@/components/prompts/line/linePrompt.vue";
 import stockMarketInfo from "./subpages/stockMarketInfo.vue";
 import stockView from "./subpages/stockView.vue";
-import stockChange from "./subpages/stockChange.vue";
+import stockChange from "./subpages/stockForecast.vue";
 export default {
     components: {
         stockMarketInfo,
@@ -54,7 +54,7 @@ export default {
     data() {
         return {
             son_pages: [true, false, false],
-            son_pages_name: ["具体查询", "龙虎榜", "异动信息"],
+            son_pages_name: ["具体查询", "龙虎榜", "股票预测"],
         };
     },
     watch: {},

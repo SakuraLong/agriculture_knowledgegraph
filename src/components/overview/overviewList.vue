@@ -19,6 +19,7 @@ export default {
     display: block !important;
     width: 200px !important;
     height: 2000px !important;
-    margin: 20px 0px 50px 0px;
+    margin: 20px 10px 50px 10px;
+    /* border: 1px solid red; */
 }
 </style>

@@ -421,7 +421,7 @@ export default {
                     case 5:
                         // 农知问答
                         this.page.is_func_page = false;
-                        Storage.set(0, "METHODS", 5);
+                        Storage.set(0, "METHODS", 6);
                         this.page.is_personal = false; // 个人信息界面显示
                         this.page.is_login = false; // 登录注册页面显示
                         this.page.is_personal_setting = false; // 个人信息设置页面显示

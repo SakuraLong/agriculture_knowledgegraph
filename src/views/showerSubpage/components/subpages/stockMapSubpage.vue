@@ -17,11 +17,94 @@ export default {
     },
     methods: {
         render(type, data, title) {
+            console.log("渲染", type, data, title);
             if (type === "K") {
                 // K线图
                 this.showSMInfoByData(data, title);
             } else if (type === "F") {
                 // 分时图
+                this.showFByData(data, title);
+            } else if (type === "Y") {
+                // 预测
+                this.showFCByData(data, title);
+            }
+        },
+        showFCByData(data, title) {
+            this.data = data;
+            if (this.data_shower != null) {
+                try {
+                    this.data_shower.dispose();
+                } catch {
+                    //
+                    console.log("销毁错误");
+                }
+                this.data_shower = null;
+            }
+            if (title === "") {
+                // 数据不存在
+                console.log("空数组");
+                this.is_null = true;
+                return;
+            } else {
+                this.is_null = false;
+            }
+            this.data_use = addX(this.data);
+            console.log(this.data_use);
+            let dom = this.$refs.data_shower;
+            let data_shower = echarts.init(dom, null, {
+                renderer: "canvas",
+                useDirtyRect: false,
+            });
+            let option = {
+                title: {
+                    text: title + "的预测图",
+                    left: 0,
+                },
+                xAxis: {
+                    type: "category",
+                    boundaryGap: false,
+                    data: this.data_use.x,
+                },
+                yAxis: {
+                    type: "value",
+                    scale: true,
+                },
+                toolbox: {
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: "none",
+                        },
+                        restore: {},
+                        saveAsImage: {},
+                    },
+                },
+                tooltip: {
+                    trigger: "axis",
+                    position: function (pt) {
+                        return [pt[0], "10%"];
+                    },
+                },
+                series: [
+                    {
+                        data: this.data_use.y,
+                        name: "预测收盘价",
+                        type: "line",
+                    },
+                ],
+            };
+            if (option && typeof option === "object") {
+                data_shower.setOption(option);
+            }
+
+            function addX(data) {
+                let temp = [];
+                data.forEach((element, index) => {
+                    temp.push(index);
+                });
+                return {
+                    x: temp,
+                    y: data,
+                };
             }
         },
         showFByData(data, title) {
@@ -50,6 +133,10 @@ export default {
                 useDirtyRect: false,
             });
             let option = {
+                title: {
+                    text: title + "分时图",
+                    left: 0,
+                },
                 xAxis: {
                     type: "category",
                     boundaryGap: false,
@@ -57,6 +144,7 @@ export default {
                 },
                 yAxis: {
                     type: "value",
+                    scale: true,
                 },
                 toolbox: {
                     feature: {
@@ -90,19 +178,19 @@ export default {
             if (option && typeof option === "object") {
                 data_shower.setOption(option);
             }
-            function splitData(data){
+            function splitData(data) {
                 let time = [];
                 let n = [];
                 let p = [];
-                data.forEach((element)=>{
+                data.forEach((element) => {
                     time.push(element[0]);
                     n.push(element[1]);
                     p.push(element[2]);
                 });
                 return {
-                    time:time,
-                    n:n,
-                    p:p
+                    time: time,
+                    n: n,
+                    p: p,
                 };
             }
 
@@ -136,7 +224,7 @@ export default {
             });
             let option = {
                 title: {
-                    text: title + " 上证指数",
+                    text: title,
                     left: 0,
                 },
                 tooltip: {
@@ -364,6 +452,6 @@ export default {
     position: relative;
     width: 100%;
     height: 100%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 </style>

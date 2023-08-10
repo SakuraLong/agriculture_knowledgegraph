@@ -47,9 +47,9 @@ export default {
                     detail: "views.shower_page.bar.agricultural_knowledge_graph.detail",
                 },
                 {
-                    title: "views.shower_page.bar.agricultural_knowledge_graph.title",
+                    title: "views.shower_page.bar.stock_market.title",
                     type: "default",
-                    detail: "views.shower_page.bar.agricultural_knowledge_graph.detail",
+                    detail: "views.shower_page.bar.stock_market.detail",
                 },
                 {
                     title: "views.shower_page.bar.agricultural_knowledge_QA.title",

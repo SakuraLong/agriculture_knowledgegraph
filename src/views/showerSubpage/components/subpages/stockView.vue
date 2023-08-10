@@ -13,13 +13,13 @@
         </div>
         <div class="stock_view_body">
             <div ref="son_0" class="son_subpage">
-                <stockViewList type="50"></stockViewList>
+                <stockViewList ref="list_0" type="50"></stockViewList>
             </div>
             <div ref="son_1" class="son_subpage" style="left: 100%">
-                <stockViewList type="300"></stockViewList>
+                <stockViewList ref="list_1" type="300"></stockViewList>
             </div>
             <div ref="son_2" class="son_subpage" style="left: 200%">
-                <stockViewList type="500"></stockViewList>
+                <stockViewList ref="list_2" type="500"></stockViewList>
             </div>
         </div>
     </div>
@@ -27,18 +27,20 @@
 
 <script>
 import stockViewList from "./stockViewList.vue";
+import Connector from "@/assets/js/connector/connector";
 export default {
     data() {
         return {
-            son_pages: [true, false, false],
+            son_pages: [false, false, false],
             son_pages_name: ["上证50", "沪深300", "中证500"],
         };
     },
-    components:{
-        stockViewList
+    components: {
+        stockViewList,
     },
     methods: {
         clickNav(index) {
+            this.$refs["list_" + index.toString()].show();
             // if (!store.state.can_click_button) return;
             this.son_pages = [false, false, false];
             this.son_pages[index] = true;
@@ -47,6 +49,9 @@ export default {
                     (i * 100 - index * 100).toString() + "%";
             });
         },
+    },
+    mounted() {
+        this.clickNav(0);
     },
 };
 </script>

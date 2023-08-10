@@ -99,7 +99,9 @@ export default {
             selected_ele: "",
         };
     },
-    mounted() {},
+    mounted() {
+        this.clickEle(0);
+    },
     methods: {
         setListData(data) {
             this.stock_list = data;

@@ -40,26 +40,26 @@ export default {
             url: "http://stock.salefx.cn:10000/api/stock/pressureSupport",
             key: "5cqh0wyOYyFm7HavTAHQ2Z7yAs",
             suggestion: "",
-            select_map_type: "分时图",
+            select_map_type: "",
             is_update: false,
             map_data: {
                 分时图: {
-                    data: [],
+                    data: null,
                     code: "",
                     name: "",
                 },
                 日K图: {
-                    data: [],
+                    data: null,
                     code: "",
                     name: "",
                 },
                 周K图: {
-                    data: [],
+                    data: null,
                     code: "",
                     name: "",
                 },
                 月K图: {
-                    data: [],
+                    data: null,
                     code: "",
                     name: "",
                 },
@@ -108,52 +108,95 @@ export default {
         },
         selectChange() {
             if (this.select_map_type === "分时图") {
-                this.$refs.stock_map_subpage.render(
-                    "F",
-                    this.map_data[this.select_map_type].data,
-                    this.map_data[this.select_map_type].name
-                );
-            } else{
-                this.$refs.stock_map_subpage.render(
-                    "K",
-                    this.map_data[this.select_map_type].data,
-                    this.map_data[this.select_map_type].name
-                );
+                if (this.map_data[this.select_map_type].data == null) {
+                    console.log("分时图发送");
+                    Connector.send(
+                        [this.code.toString(), "m", "", "5"],
+                        "getStockAnswer",
+                        this.FCallback,
+                        this.waiting,
+                        this.timeout,
+                        30000
+                    );
+                } else {
+                    console.log("分时图渲染");
+                    this.$refs.stock_map_subpage.render(
+                        "F",
+                        this.map_data[this.select_map_type].data,
+                        this.map_data[this.select_map_type].name
+                    );
+                }
+            } else {
+                console.log("其他图");
+                if (this.map_data[this.select_map_type].data == null) {
+                    console.log("加载其他图");
+                    if (this.select_map_type === "日K图") {
+                        Connector.send(
+                            [this.code.toString(), "d", "365", ""],
+                            "getStockAnswer",
+                            this.DCallback,
+                            this.waiting,
+                            this.timeout,
+                            30000
+                        );
+                    } else if (this.select_map_type === "周K图") {
+                        Connector.send(
+                            [this.code.toString(), "w", "365", ""],
+                            "getStockAnswer",
+                            this.WCallback,
+                            this.waiting,
+                            this.timeout,
+                            30000
+                        );
+                    } else if (this.select_map_type === "月K图") {
+                        Connector.send(
+                            [this.code.toString(), "M", "365", ""],
+                            "getStockAnswer",
+                            this.MCallback,
+                            this.waiting,
+                            this.timeout,
+                            30000
+                        );
+                    }
+                } else {
+                    console.log("渲染其他图");
+                    this.$refs.stock_map_subpage.render(
+                        "K",
+                        this.map_data[this.select_map_type].data,
+                        this.map_data[this.select_map_type].name
+                    );
+                }
             }
         },
         getMapDataByCode(code) {
-            Connector.send(
-                [code.toString(), "m", "", "5"],
-                "getStockAnswer",
-                this.FCallback,
-                this.waiting,
-                this.timeout,
-                30000
-            );
-            Connector.send(
-                [code.toString(), "d", "365", ""],
-                "getStockAnswer",
-                this.DCallback,
-                this.waiting,
-                this.timeout,
-                30000
-            );
-            Connector.send(
-                [code.toString(), "w", "365", ""],
-                "getStockAnswer",
-                this.WCallback,
-                this.waiting,
-                this.timeout,
-                30000
-            );
-            Connector.send(
-                [code.toString(), "M", "365", ""],
-                "getStockAnswer",
-                this.MCallback,
-                this.waiting,
-                this.timeout,
-                30000
-            );
+            this.code = code;
+            this.map_data = {
+                分时图: {
+                    data: null,
+                    code: "",
+                    name: "",
+                },
+                日K图: {
+                    data: null,
+                    code: "",
+                    name: "",
+                },
+                周K图: {
+                    data: null,
+                    code: "",
+                    name: "",
+                },
+                月K图: {
+                    data: null,
+                    code: "",
+                    name: "",
+                },
+            };
+            if(this.select_map_type === "分时图"){
+                this.selectChange();
+            }else{
+                this.select_map_type = "分时图";
+            }
         },
         FCallback(msg) {
             // 分时图回调
@@ -178,6 +221,7 @@ export default {
                 this.map_data.日K图.data = data;
                 this.map_data.日K图.code = id;
                 this.map_data.日K图.name = name;
+                this.selectChange();
             }
         },
         WCallback(msg) {
@@ -189,6 +233,7 @@ export default {
                 this.map_data.周K图.data = data;
                 this.map_data.周K图.code = id;
                 this.map_data.周K图.name = name;
+                this.selectChange();
             }
         },
         MCallback(msg) {
@@ -200,6 +245,7 @@ export default {
                 this.map_data.月K图.data = data;
                 this.map_data.月K图.code = id;
                 this.map_data.月K图.name = name;
+                this.selectChange();
             }
         },
         waiting(is_waiting) {},

@@ -155,7 +155,7 @@ export default {
             });
             let option = {
                 title: {
-                    text: title + " 上证指数",
+                    text: title,
                     left: 0,
                 },
                 tooltip: {

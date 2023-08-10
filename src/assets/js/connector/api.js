@@ -22,7 +22,8 @@ const API = {
         getNodeResume:"getNodeResume/",
         setEncyContent:"setEncyContent/",
         setMapContent:"setMapContent/",
-        getstocklistAnswer:"getStocklistAnswer/"
+        getStocklistAnswer:"getStocklistAnswer/",
+        stockPredict:"stockPredict/"
     },
 };
 const API_PARA = {
@@ -90,7 +91,8 @@ const API_PARA = {
         ["id", ""],
         ["mapcontent", ""]
     ],
-    getstocklistAnswer:[["", ""]]
+    getStocklistAnswer:[["model", ""]],
+    stockPredict:[["stock_code", ""]]
 };
 const API_CHECKER = {
     register: [
@@ -193,7 +195,8 @@ const API_CHECKER = {
         ["is-num"],
         ["no-null"]
     ],
-    getstocklistAnswer:[["ignore"]]
+    getStocklistAnswer:[["ignore"]],
+    stockPredict:[["is-num", ""]]
 };
 export default {
     API,
