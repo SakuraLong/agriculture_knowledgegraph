@@ -53,7 +53,10 @@
                     &nbsp;「关系图」
                 </div>
                 <div class="relationship_result_show_1">
-                    <mapSubpage ref="map_subpage" @fromMap="fromMap"></mapSubpage>
+                    <mapSubpage
+                        ref="map_subpage"
+                        @fromMap="fromMap"
+                    ></mapSubpage>
                 </div>
             </div>
         </div>
@@ -86,6 +89,8 @@ export default {
             },
             map_renderer: null,
             id: "relation_map_container",
+            obj1: "",
+            obj2: "",
         };
     },
     mounted() {
@@ -124,6 +129,8 @@ export default {
                     this.select_items.findIndex((element) => {
                         return element === relation;
                     }) + 1;
+                this.obj1 = obj1;
+                this.obj2 = obj2;
                 Connector.send(
                     [obj1, obj2, index.toString()],
                     "searchRelationship",
@@ -143,7 +150,11 @@ export default {
                     temp = Code.Base64.decode(msg.content.result);
                 }
                 console.log(temp);
-                this.$refs.map_subpage.renderMapByLink(temp);
+                this.$refs.map_subpage.renderMapByLink(
+                    temp,
+                    this.obj1,
+                    this.obj2
+                );
             }
         },
         relationWaiting(is_waiting) {
@@ -159,11 +170,11 @@ export default {
             this.line_prompt.msg = "查询超时";
             this.line_prompt.type = "error";
         },
-        fromMap(id){
+        fromMap(id) {
             // 跳转到查询
             console.log("跳转查询");
             this.$emit("searchId", id);
-        }
+        },
     },
     components: {
         borderInput_noafter,

@@ -37,16 +37,16 @@ class Renderer {
     }
     setOption(option) {
         console.log(option);
-        if(option.theme !== undefined){
+        if (option.theme !== undefined) {
             console.log("修改颜色");
             this.map_config.light = option.theme === "dark" ? false : true;
         }
-        if(option.layout !== undefined){
+        if (option.layout !== undefined) {
             console.log("修改类型");
             this.map_config.force = option.layout === "graph" ? false : true;
         }
     }
-    dispose(){
+    dispose() {
         if (this.map != null && this.map !== "" && this.map !== undefined) {
             this.map.dispose(); //销毁
         }
@@ -69,7 +69,7 @@ class Renderer {
             let that = this;
             this.map.on("click", function (param) {
                 if (param.dataType === "node") {
-                    if(that.click_node_func){
+                    if (that.click_node_func) {
                         that.click_node_func(param);
                     }
                     console.log("点击了节点", param);
@@ -84,23 +84,23 @@ class Renderer {
             if (this.map_config.force && this.map_config.light) {
                 option = data.mapForceLight(
                     this.decode_res.res,
-                    this.decode_res.name + "的关系图"
+                    this.decode_res.name + "关系图"
                 );
             } else if (this.map_config.force && !this.map_config.light) {
                 option = data.mapForceDark(
                     this.decode_res.res,
-                    this.decode_res.name + "的关系图"
+                    this.decode_res.name + "关系图"
                 );
-            }else if (!this.map_config.force && this.map_config.light) {
+            } else if (!this.map_config.force && this.map_config.light) {
                 console.log("graph light");
                 option = data.mapGraphLight(
                     this.decode_res.res,
-                    this.decode_res.name + "的关系图"
+                    this.decode_res.name + "关系图"
                 );
-            }else if (!this.map_config.force && !this.map_config.light) {
+            } else if (!this.map_config.force && !this.map_config.light) {
                 option = data.mapGraphDark(
                     this.decode_res.res,
-                    this.decode_res.name + "的关系图"
+                    this.decode_res.name + "关系图"
                 );
             }
             // console.log(this.decode_res.res);
@@ -130,7 +130,7 @@ class Renderer {
     setBodyScroll(scroll_top) {
         this.default_catalogue.setBodyScroll(scroll_top);
     }
-    setClickNode(click_node_func){
+    setClickNode(click_node_func) {
         this.click_node_func = click_node_func;
     }
 }

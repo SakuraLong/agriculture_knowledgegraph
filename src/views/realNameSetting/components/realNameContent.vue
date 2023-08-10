@@ -2,12 +2,26 @@
     <div class="rn-input-container">
         <div class="realname-bg"></div>
         <div>
-            <realNameEdit :real_name="real_name" ref="realNameEdit" @msgChange="msgChange" />
-            <realPhoneEdit :phonenumber="phonenumber" ref="realPhoneEdit" @msgChange="msgChange" />
-            <realidTypeEdit :IDtype="IDtype" ref="realidTypeEdit" @msgChange="msgChange" />
+            <realNameEdit
+                :real_name="real_name"
+                ref="realNameEdit"
+                @msgChange="msgChange"
+            />
+            <realPhoneEdit
+                :phonenumber="phonenumber"
+                ref="realPhoneEdit"
+                @msgChange="msgChange"
+            />
+            <realidTypeEdit
+                :IDtype="IDtype"
+                ref="realidTypeEdit"
+                @msgChange="msgChange"
+            />
             <realidEdit :ID="ID" ref="realidEdit" @msgChange="msgChange" />
-            <button @click="toPersonal" class="confirm-btn">退出</button>
-            <button @click="toPersonal" class="confirm-btn" v-if="has_change">保存</button>
+            <button @click="leave" class="confirm-btn">退出</button>
+            <button @click="toPersonal" class="confirm-btn" v-if="has_change">
+                保存
+            </button>
         </div>
     </div>
 </template>
@@ -28,19 +42,19 @@ export default {
     },
     data() {
         return {
-            old:{
-                real_name:"",
-                phonenumber:"",
-                IDtype:"",
-                ID:""
+            old: {
+                real_name: "",
+                phonenumber: "",
+                IDtype: "",
+                ID: "",
             },
-            has_change:{
-                change:false,
-                real_name:false,
-                phonenumber:false,
-                IDtype:false,
-                ID:false
-            }
+            has_change: {
+                change: false,
+                real_name: false,
+                phonenumber: false,
+                IDtype: false,
+                ID: false,
+            },
         };
     },
     components: {
@@ -49,22 +63,29 @@ export default {
         realidTypeEdit,
         realidEdit,
     },
-    mounted(){
+    mounted() {
         this.old.real_name = this.real_name;
         this.old.phonenumber = this.phonenumber;
         this.old.IDtype = this.IDtype;
         this.old.ID = this.ID;
     },
     methods: {
-        msgChange(new_msg, type){
-            if(type === "name"){
-                this.has_change.real_name = new_msg === this.old.real_name ? false : true;
-            }else if(type === "phone"){
-                this.has_change.phonenumber = new_msg === this.old.phonenumber ? false : true;
-            }else if(type === "id"){
+        msgChange(new_msg, type) {
+            if (type === "name") {
+                this.has_change.real_name =
+                    new_msg === this.old.real_name ? false : true;
+            } else if (type === "phone") {
+                this.has_change.phonenumber =
+                    new_msg === this.old.phonenumber ? false : true;
+            } else if (type === "id") {
                 this.has_change.ID = new_msg === this.old.ID ? false : true;
             }
-            this.has_change.change = (this.has_change.real_name||this.has_change.phonenumber||this.has_change.ID) ? true : false;
+            this.has_change.change =
+                this.has_change.real_name ||
+                this.has_change.phonenumber ||
+                this.has_change.ID
+                    ? true
+                    : false;
         },
         toPersonal() {
             /* 检查字符串 */
@@ -79,6 +100,9 @@ export default {
             if (!realid) return;
 
             // 调用数据传入后台数据库的函数
+            this.$emit("toPersonal");
+        },
+        leave() {
             this.$emit("toPersonal");
         },
     },

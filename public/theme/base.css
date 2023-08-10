@@ -275,8 +275,8 @@ input {
     color: #000;
     background-color: white;
     border-radius: 5px;
-    width: 600px;
-    min-height: 50px;
+    width: 500px;
+    min-height: 250px;
     max-height: 400px;
     overflow: auto;
     padding: 5px;

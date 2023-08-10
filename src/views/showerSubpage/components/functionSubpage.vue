@@ -128,6 +128,11 @@ export default {
     components: {
         overviewList,
     },
+    watch: {
+        page_section() {
+            this.pageListInit();
+        },
+    },
     methods: {
         getOffsetTop() {
             return this.$refs.container.offsetTop;
@@ -200,6 +205,7 @@ export default {
             this.pageListInit();
         },
         pageListInit() {
+            console.log("刷新");
             if (this.page_section === "") return;
             this.pages = [];
             let value = this.page_section;

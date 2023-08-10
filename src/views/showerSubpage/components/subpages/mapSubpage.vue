@@ -46,8 +46,8 @@ export default {
             );
             map_renderer.setClickNode(this.clickNode);
             let option = {
-                theme:this.is_light ? "light" : "dark",
-                layout:this.is_force ? "force" : "graph"
+                theme: this.is_light ? "light" : "dark",
+                layout: this.is_force ? "force" : "graph",
             };
             map_renderer.setOption(option);
             map_renderer.render();
@@ -64,8 +64,8 @@ export default {
             );
             map_renderer.setClickNode(this.clickNode);
             let option = {
-                theme:this.is_light ? "light" : "dark",
-                layout:this.is_force ? "force" : "graph"
+                theme: this.is_light ? "light" : "dark",
+                layout: this.is_force ? "force" : "graph",
             };
             map_renderer.setOption(option);
             map_renderer.render();
@@ -75,7 +75,7 @@ export default {
     },
     mounted() {},
     methods: {
-        renderMapByLink(link_content) {
+        renderMapByLink(link_content, obj1, obj2) {
             try {
                 this.map_renderer.dispose();
                 this.map_renderer = null;
@@ -107,8 +107,8 @@ export default {
             );
             map_renderer.setClickNode(this.clickNode);
             let option = {
-                theme:this.is_light ? "light" : "dark",
-                layout:this.is_force ? "force" : "graph"
+                theme: this.is_light ? "light" : "dark",
+                layout: this.is_force ? "force" : "graph",
             };
             map_renderer.setOption(option);
             try {
@@ -122,11 +122,11 @@ export default {
         setId(id) {
             this.id = id;
         },
-        clickNode(node){
-            if(node.data.node_id !== ""){
+        clickNode(node) {
+            if (node.data.node_id !== "") {
                 this.$emit("fromMap", node.data.node_id);
             }
-        }
+        },
     },
 };
 </script>
