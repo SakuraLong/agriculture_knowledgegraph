@@ -85,6 +85,18 @@
                             :judge_isSelected="false"
                             :content_text="
                                 $t(
+                                    'views.main_page.function_subpage.content.stock_market'
+                                )
+                            "
+                        ></flowButton>
+                    </div>
+                    <div style="width: 100%">
+                        <flowButton
+                            class="button_change_size"
+                            @click="changeFunction(5)"
+                            :judge_isSelected="false"
+                            :content_text="
+                                $t(
                                     'views.main_page.function_subpage.content.agricultural_knowledge_QA'
                                 )
                             "
