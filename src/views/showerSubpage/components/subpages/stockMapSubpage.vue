@@ -24,12 +24,12 @@ export default {
             } else if (type === "F") {
                 // 分时图
                 this.showFByData(data, title);
-            } else if(type === "Y"){
+            } else if (type === "Y") {
                 // 预测
                 this.showFCByData(data, title);
             }
         },
-        showFCByData(data, title){
+        showFCByData(data, title) {
             this.data = data;
             if (this.data_shower != null) {
                 try {
@@ -49,6 +49,7 @@ export default {
                 this.is_null = false;
             }
             this.data_use = addX(this.data);
+            console.log(this.data_use);
             let dom = this.$refs.data_shower;
             let data_shower = echarts.init(dom, null, {
                 renderer: "canvas",
@@ -62,10 +63,11 @@ export default {
                 xAxis: {
                     type: "category",
                     boundaryGap: false,
-                    data: this.data_use[0],
+                    data: this.data_use.x,
                 },
                 yAxis: {
                     type: "value",
+                    scale: true,
                 },
                 toolbox: {
                     feature: {
@@ -84,10 +86,9 @@ export default {
                 },
                 series: [
                     {
-                        data: this.data_use[1],
+                        data: this.data_use.y,
                         name: "预测收盘价",
                         type: "line",
-                        areaStyle: {},
                     },
                 ],
             };
@@ -95,14 +96,15 @@ export default {
                 data_shower.setOption(option);
             }
 
-
-
-            function addX(data){
+            function addX(data) {
                 let temp = [];
-                data.forEach((element, index)=>{
-                    temp.push[index + 1, parseFloat(element.toFixed(2))];
+                data.forEach((element, index) => {
+                    temp.push(index);
                 });
-                return temp;
+                return {
+                    x: temp,
+                    y: data,
+                };
             }
         },
         showFByData(data, title) {
@@ -142,6 +144,7 @@ export default {
                 },
                 yAxis: {
                     type: "value",
+                    scale: true,
                 },
                 toolbox: {
                     feature: {
@@ -175,19 +178,19 @@ export default {
             if (option && typeof option === "object") {
                 data_shower.setOption(option);
             }
-            function splitData(data){
+            function splitData(data) {
                 let time = [];
                 let n = [];
                 let p = [];
-                data.forEach((element)=>{
+                data.forEach((element) => {
                     time.push(element[0]);
                     n.push(element[1]);
                     p.push(element[2]);
                 });
                 return {
-                    time:time,
-                    n:n,
-                    p:p
+                    time: time,
+                    n: n,
+                    p: p,
                 };
             }
 
