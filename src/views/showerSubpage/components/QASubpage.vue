@@ -275,8 +275,8 @@ export default {
             } 
             history = JSON.stringify(history);
             let model =this.getModel();
-            // console.log(model);
-            // console.log(history);
+            // console.log("模式是",model);
+            console.log(history);
             connector.send(
                 [history,model],
                 "getGptAnswer",
