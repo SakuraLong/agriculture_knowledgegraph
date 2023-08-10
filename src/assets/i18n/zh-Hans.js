@@ -65,6 +65,10 @@ export default {
                     title:"知识概览",
                     detail:"查看网站的其他功能"
                 },
+                stock_market: {
+                    title:"股票查询",
+                    detail:"查看股市信息"
+                },
                 agricultural_knowledge_QA: {
                     title:"AI对话",
                     detail:"向AI提问咨询相关问题"

@@ -24,6 +24,85 @@ export default {
             } else if (type === "F") {
                 // 分时图
                 this.showFByData(data, title);
+            } else if(type === "Y"){
+                // 预测
+                this.showFCByData(data, title);
+            }
+        },
+        showFCByData(data, title){
+            this.data = data;
+            if (this.data_shower != null) {
+                try {
+                    this.data_shower.dispose();
+                } catch {
+                    //
+                    console.log("销毁错误");
+                }
+                this.data_shower = null;
+            }
+            if (title === "") {
+                // 数据不存在
+                console.log("空数组");
+                this.is_null = true;
+                return;
+            } else {
+                this.is_null = false;
+            }
+            this.data_use = addX(this.data);
+            let dom = this.$refs.data_shower;
+            let data_shower = echarts.init(dom, null, {
+                renderer: "canvas",
+                useDirtyRect: false,
+            });
+            let option = {
+                title: {
+                    text: title + "的预测图",
+                    left: 0,
+                },
+                xAxis: {
+                    type: "category",
+                    boundaryGap: false,
+                    data: this.data_use[0],
+                },
+                yAxis: {
+                    type: "value",
+                },
+                toolbox: {
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: "none",
+                        },
+                        restore: {},
+                        saveAsImage: {},
+                    },
+                },
+                tooltip: {
+                    trigger: "axis",
+                    position: function (pt) {
+                        return [pt[0], "10%"];
+                    },
+                },
+                series: [
+                    {
+                        data: this.data_use[1],
+                        name: "预测收盘价",
+                        type: "line",
+                        areaStyle: {},
+                    },
+                ],
+            };
+            if (option && typeof option === "object") {
+                data_shower.setOption(option);
+            }
+
+
+
+            function addX(data){
+                let temp = [];
+                data.forEach((element, index)=>{
+                    temp.push[index + 1, parseFloat(element.toFixed(2))];
+                });
+                return temp;
             }
         },
         showFByData(data, title) {
@@ -46,13 +125,16 @@ export default {
                 this.is_null = false;
             }
             this.data_use = splitData(this.data);
-            console.log(this.data_use);
             let dom = this.$refs.data_shower;
             let data_shower = echarts.init(dom, null, {
                 renderer: "canvas",
                 useDirtyRect: false,
             });
             let option = {
+                title: {
+                    text: title + "分时图",
+                    left: 0,
+                },
                 xAxis: {
                     type: "category",
                     boundaryGap: false,
