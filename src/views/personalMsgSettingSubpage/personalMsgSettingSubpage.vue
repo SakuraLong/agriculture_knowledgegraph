@@ -183,7 +183,7 @@ export default {
         if (user_msg.sex === 1) this.dailog.sex.sex_show = "女";
         else this.dailog.sex.sex_show = "男";
         this.dailog.occu.occu_show = user_msg.occu;
-        this.dailog.name.name_show = user_msg.name;
+        this.dailog.name.name_show = user_msg.login_name;
         this.can_save = false;
         console.log(user_msg.occu);
         console.log(user_msg.name);
@@ -222,6 +222,7 @@ export default {
             id = id.toString();
             if (token === undefined) token = "tokenIsNone";
             let login_name = this.$refs.nameRef.input_msg;
+            console.log(login_name);
             let sex = this.sex_format(this.$refs.sexRef.input_value);
             let occu = this.$refs.occuRef.input_value;
             let born_time = this.$refs.dateRef.date;
@@ -230,7 +231,7 @@ export default {
             this.occu = occu;
             this.born_time = born_time;
             console.log("现在的职业是：", this.$refs.occuRef.input_value);
-            console.log("现在的名字是:", this.$refs.nameRef.input_msg);
+            console.log("现在的名字是1:", login_name);
             console.log("现在的性别是:", this.$refs.sexRef.input_value);
             let a = this.date_format(born_time);
             console.log("日期是：", a);
@@ -260,7 +261,8 @@ export default {
                 this.prompt_type = "success";
                 this.error = "上传成功";
                 let user_msg = utils.getUserMsg();
-                user_msg.login_name = this.login_name;
+                user_msg.login_name = this.$refs.nameRef.input_msg;
+                console.log("123",user_msg);
                 user_msg.sex = this.sex;
                 user_msg.occu = this.occu;
                 user_msg.born_time = this.born_time;

@@ -53,7 +53,7 @@ const API_PARA = {
     ],
     updateUserMsg: [
         ["id", ""],
-        ["login_name", ""],
+        ["name", ""],
         ["token", ""],
         ["sex", ""],
         ["occupation", ""],
