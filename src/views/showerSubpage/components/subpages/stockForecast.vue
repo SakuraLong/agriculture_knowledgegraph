@@ -2,7 +2,7 @@
     <div class="stock_forecast_container">
         <div class="stock_forecast_head">
             <span style="position: absolute; left: 0"
-                >基于ARIMA模型预测未来500天走势（纯属娱乐，仅供参考）</span
+                >基于ARIMA模型预测未来500天走势<br>（纯属娱乐，仅供参考）</span
             >
             <linePrompt
                 :opacity="error"
@@ -103,14 +103,14 @@ export default {
     width: 100%;
     height: 50px;
     position: relative;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     text-align: left;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .stock_forecast_head > span {
-    line-height: 50px;
+    line-height: 25px;
     font-size: 20px;
     font-weight: 600;
 }
@@ -118,6 +118,6 @@ export default {
     width: 100%;
     position: relative;
     height: calc(100% - 50px);
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 </style>
