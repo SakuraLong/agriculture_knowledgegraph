@@ -196,7 +196,7 @@ const API_CHECKER = {
         ["no-null"]
     ],
     getStocklistAnswer:[["ignore"]],
-    stockPredict:[["is-num", ""]]
+    stockPredict:[["ignore"]]
 };
 export default {
     API,
