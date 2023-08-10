@@ -127,7 +127,9 @@ export default {
                     );
                 }
             } else {
+                console.log("其他图");
                 if (this.map_data[this.select_map_type].data == null) {
+                    console.log("加载其他图");
                     if (this.select_map_type === "日K图") {
                         Connector.send(
                             [this.code.toString(), "d", "365", ""],
@@ -157,6 +159,7 @@ export default {
                         );
                     }
                 } else {
+                    console.log("渲染其他图");
                     this.$refs.stock_map_subpage.render(
                         "K",
                         this.map_data[this.select_map_type].data,
@@ -167,7 +170,6 @@ export default {
         },
         getMapDataByCode(code) {
             this.code = code;
-            this.select_map_type = "分时图";
             this.map_data = {
                 分时图: {
                     data: null,
@@ -190,6 +192,11 @@ export default {
                     name: "",
                 },
             };
+            if(this.select_map_type === "分时图"){
+                this.selectChange();
+            }else{
+                this.select_map_type = "分时图";
+            }
         },
         FCallback(msg) {
             // 分时图回调
@@ -214,6 +221,7 @@ export default {
                 this.map_data.日K图.data = data;
                 this.map_data.日K图.code = id;
                 this.map_data.日K图.name = name;
+                this.selectChange();
             }
         },
         WCallback(msg) {
@@ -225,6 +233,7 @@ export default {
                 this.map_data.周K图.data = data;
                 this.map_data.周K图.code = id;
                 this.map_data.周K图.name = name;
+                this.selectChange();
             }
         },
         MCallback(msg) {
@@ -236,6 +245,7 @@ export default {
                 this.map_data.月K图.data = data;
                 this.map_data.月K图.code = id;
                 this.map_data.月K图.name = name;
+                this.selectChange();
             }
         },
         waiting(is_waiting) {},
