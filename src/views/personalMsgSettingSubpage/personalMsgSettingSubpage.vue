@@ -432,7 +432,7 @@ export default {
 }
 .title {
     position: relative;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 100%;
     height: 10%;
 }
@@ -440,7 +440,8 @@ export default {
     position: relative;
     width: 100%;
     height: 80%;
-    border: 1px solid red;
+    border-top: 2px solid rgb(230,146,255);
+    border-bottom: 2px solid rgb(230,146,255);
 }
 .bottom {
     position: relative;
@@ -486,7 +487,7 @@ export default {
     position: relative;
     width: 100%;
     height: 5%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .content_bottom {
     display: flex;

@@ -135,7 +135,7 @@ export default {
     position: absolute;
     top: 14%;
     margin-top: 20px;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     width: 75%;
     height: 60%;
 }
