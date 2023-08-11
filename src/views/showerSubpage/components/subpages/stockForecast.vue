@@ -69,7 +69,11 @@ export default {
         searchCallback(msg) {
             if (msg.success) {
                 let data = msg.content.data;
-                this.$refs.stock_map_subpage.render("Y", data, this.code);
+                try{
+                    this.$refs.stock_map_subpage.render("Y", data, this.code);
+                }catch{
+                    //
+                }
             } else {
                 console.log("失败");
             }

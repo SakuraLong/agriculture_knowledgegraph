@@ -120,11 +120,15 @@ export default {
                     );
                 } else {
                     console.log("分时图渲染");
-                    this.$refs.stock_map_subpage.render(
-                        "F",
-                        this.map_data[this.select_map_type].data,
-                        this.map_data[this.select_map_type].name
-                    );
+                    try {
+                        this.$refs.stock_map_subpage.render(
+                            "F",
+                            this.map_data[this.select_map_type].data,
+                            this.map_data[this.select_map_type].name
+                        );
+                    } catch {
+                        //
+                    }
                 }
             } else {
                 console.log("其他图");
@@ -160,11 +164,15 @@ export default {
                     }
                 } else {
                     console.log("渲染其他图");
-                    this.$refs.stock_map_subpage.render(
-                        "K",
-                        this.map_data[this.select_map_type].data,
-                        this.map_data[this.select_map_type].name
-                    );
+                    try {
+                        this.$refs.stock_map_subpage.render(
+                            "K",
+                            this.map_data[this.select_map_type].data,
+                            this.map_data[this.select_map_type].name
+                        );
+                    } catch {
+                        //
+                    }
                 }
             }
         },
@@ -192,9 +200,9 @@ export default {
                     name: "",
                 },
             };
-            if(this.select_map_type === "分时图"){
+            if (this.select_map_type === "分时图") {
                 this.selectChange();
-            }else{
+            } else {
                 this.select_map_type = "分时图";
             }
         },

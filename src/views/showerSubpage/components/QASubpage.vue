@@ -126,11 +126,7 @@ export default {
     data() {
         return {
             model: "对话模式:默认",
-            model_list: [
-                "对话模式:默认",
-                "对话模式:猫娘",
-                "对话模式:傲娇",
-            ],
+            model_list: ["对话模式:默认", "对话模式:猫娘", "对话模式:傲娇"],
             prompt_type: "",
             error: "",
             isRunning: false,
@@ -162,12 +158,15 @@ export default {
         };
     },
     methods: {
-        getModel(){
+        getModel() {
             // console.log(this.$refs.modelRef.input_value);
-            switch(this.$refs.modelRef.input_value){
-                case "对话模式:默认":return 0;
-                case "对话模式:猫娘":return 1;
-                case "对话模式:傲娇":return 2;
+            switch (this.$refs.modelRef.input_value) {
+                case "对话模式:默认":
+                    return 0;
+                case "对话模式:猫娘":
+                    return 1;
+                case "对话模式:傲娇":
+                    return 2;
             }
         },
         selectJudge(text) {
@@ -268,17 +267,20 @@ export default {
             }
             // let history =  JSON.stringify([{"role":"user","content":"告诉我深圳市雄韬电源科技股份有限公司的上市时间"},{"role":"user","content":"这家公司的高管有哪些"}]);
             // console.log(history);
-            if(history.length===1&&this.qa_dialog_menus[this.dialog_selected].lable==="默认对话"){
-                let title = history[0].content.substring(0,6);
-                if(title.length>=6) title = title + "...";
+            if (
+                history.length === 1 &&
+                this.qa_dialog_menus[this.dialog_selected].lable === "默认对话"
+            ) {
+                let title = history[0].content.substring(0, 6);
+                if (title.length >= 6) title = title + "...";
                 this.qa_dialog_menus[this.dialog_selected].lable = title;
-            } 
+            }
             history = JSON.stringify(history);
-            let model =this.getModel();
+            let model = this.getModel();
             // console.log("模式是",model);
             console.log(history);
             connector.send(
-                [history,model],
+                [history, model],
                 "getGptAnswer",
                 this.saveInfoCallback,
                 this.saveInfoWaiting,
@@ -297,17 +299,21 @@ export default {
                     is_right: false,
                     time: new Date(new Date().getTime()).toLocaleString(),
                 };
-                this.qa_dialog_menus[this.dialog_selected].sessions.push(
-                    new_ele
-                );
-                this.$nextTick(() => {
-                    this.$refs[
-                        "qa_show_container_ref" + this.dialog_selected
-                    ][0].scrollTop =
+                try {
+                    this.qa_dialog_menus[this.dialog_selected].sessions.push(
+                        new_ele
+                    );
+                    this.$nextTick(() => {
                         this.$refs[
                             "qa_show_container_ref" + this.dialog_selected
-                        ][0].scrollHeight;
-                });
+                        ][0].scrollTop =
+                            this.$refs[
+                                "qa_show_container_ref" + this.dialog_selected
+                            ][0].scrollHeight;
+                    });
+                } catch {
+                    //
+                }
                 Storage.set(0, "DIALOG_MENUS", this.qa_dialog_menus, "JSON"); // 保存
             } else {
                 this.prompt_type = "error";
@@ -431,7 +437,7 @@ export default {
                     time: new Date(new Date().getTime()).toLocaleString(),
                     is_selected: true,
                     num: 0,
-                    lable: "对话0",
+                    lable: "默认对话",
                     sessions: [
                         {
                             content: "你好，欢迎来到问答界面！请输入你的问题。",
@@ -448,7 +454,9 @@ export default {
         );
         // if (qa_dialog_menus.length === 0) return;
         this.qa_dialog_menus = qa_dialog_menus;
+        // console.log(new Date().getTime());
         this.$nextTick(() => {
+            // console.log(new Date().getTime());
             this.$refs[
                 "qa_show_container_ref" + this.dialog_selected
             ][0].scrollTop =
@@ -468,6 +476,7 @@ export default {
         for (j = 0; j < this.qa_dialog_menus.length; j++) {
             this.input_type_arr[j] = "button";
         }
+        // console.log(new Date().getTime());
     },
 };
 </script>
@@ -690,8 +699,8 @@ export default {
     z-index: 2;
 }
 .session_buttons:hover {
-    box-shadow: 2px 2px 4px rgb(230, 146, 255,0.5),
-        -2px -2px 4px rgb(230, 146, 255,0.5);
+    box-shadow: 2px 2px 4px rgb(230, 146, 255, 0.5),
+        -2px -2px 4px rgb(230, 146, 255, 0.5);
     color: rgb(254, 196, 255);
 }
 .session_buttons_selected {
