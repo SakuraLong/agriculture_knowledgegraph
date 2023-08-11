@@ -34,7 +34,7 @@ export default {
     justify-content: center;
     /* align-items: center; */
     margin-top: 20px;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     width: 75%;
     height: 60%;
 }

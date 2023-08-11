@@ -134,7 +134,7 @@ export default {
     data() {
         return {
             sex_list: ["男", "女"],
-            occu_list: ["ikun", "小黑子"],
+            occu_list: ["计算机/互联网/通信","生产/工艺/制造","医疗/护理/制药","金融/银行/投资/保险","商业/服务业/个体经营","文化/广告/传媒","娱乐/艺术/表演","律师/法务","公务员/行政/事业单位","教师", "学生","其他"],
             dailog: {
                 name: {
                     name: "",
@@ -432,7 +432,7 @@ export default {
 }
 .title {
     position: relative;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     width: 100%;
     height: 10%;
 }
@@ -440,7 +440,8 @@ export default {
     position: relative;
     width: 100%;
     height: 80%;
-    border: 1px solid red;
+    border-top: 2px solid rgb(230,146,255);
+    border-bottom: 2px solid rgb(230,146,255);
 }
 .bottom {
     position: relative;
@@ -486,7 +487,7 @@ export default {
     position: relative;
     width: 100%;
     height: 5%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .content_bottom {
     display: flex;
