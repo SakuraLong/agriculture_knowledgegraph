@@ -32,7 +32,11 @@ export default {
         },
         setData(data){
             this.data = data;
-            this.$refs.stock_list.setListData(this.data);
+            try{
+                this.$refs.stock_list.setListData(this.data);
+            }catch{
+                //
+            }
         },
         listCallback(msg) {
             if (msg.success) {
