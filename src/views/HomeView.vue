@@ -161,7 +161,7 @@ export default {
         return {
             show: false,
             bar_change: "bar_change_1",
-            mouse_selector_show: false,
+            mouse_selector_show: true,
             page: {
                 is_main_page: true, // 在主页面
                 is_func_page: false, // 在功能页面

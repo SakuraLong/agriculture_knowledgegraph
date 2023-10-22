@@ -308,6 +308,7 @@ const saveToken = (token) => {
     let key = Code.CryptoJS.generateKey(2);
     console.log("key", key);
     let t = Code.Base64.decode(token);
+    console.log("解码完成");
     t = Code.CryptoJS.decrypt(t);
     t = Code.CryptoJS.encrypt(t, key);
     key = Code.CryptoJS.encrypt(key);

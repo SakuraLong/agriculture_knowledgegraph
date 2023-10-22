@@ -70,7 +70,7 @@ export default {
             if (msg.success) {
                 let data = msg.content.data;
                 try{
-                    this.$refs.stock_map_subpage.render("Y", data, this.code);
+                    this.$refs.stock_map_subpage.render("Y", data, msg.content.message.stockname);
                 }catch{
                     //
                 }

@@ -4,13 +4,49 @@
             <div class="mouse_prompt">
                 <div class="mouse_img"></div>
                 <div class="arrows">
-                    <ArrowLeft color="#FFF" style="width: 30px;height: 30px;position: absolute;left: 0px;top: 35px;" />
-                    <ArrowRight color="#FFF" style="width: 30px;height: 30px;position: absolute;right: 0px;top: 35px;" />
-                    <ArrowUp color="#FFF" style="width: 30px;height: 30px;position: absolute;left: 35px;top: 0px;" />
-                    <ArrowDown color="#FFF" style="width: 30px;height: 30px;position: absolute;left: 35px;bottom: 0px;" />
+                    <ArrowLeft
+                        color="#FFF"
+                        style="
+                            width: 30px;
+                            height: 30px;
+                            position: absolute;
+                            left: 0px;
+                            top: 35px;
+                        "
+                    />
+                    <ArrowRight
+                        color="#FFF"
+                        style="
+                            width: 30px;
+                            height: 30px;
+                            position: absolute;
+                            right: 0px;
+                            top: 35px;
+                        "
+                    />
+                    <ArrowUp
+                        color="#FFF"
+                        style="
+                            width: 30px;
+                            height: 30px;
+                            position: absolute;
+                            left: 35px;
+                            top: 0px;
+                        "
+                    />
+                    <ArrowDown
+                        color="#FFF"
+                        style="
+                            width: 30px;
+                            height: 30px;
+                            position: absolute;
+                            left: 35px;
+                            bottom: 0px;
+                        "
+                    />
                 </div>
             </div>
-            <div class="has_mask">
+            <div class="has_mask" @click="console.log('点击')">
                 <div class="selected_container" ref="selected_container">
                     <div class="circle" v-if="!selected"></div>
                     <div class="semicircle sc1" v-if="selected"></div>
@@ -24,14 +60,78 @@
                     ></div>
                 </div>
                 <div class="select_ele_icons">
-                    <HomeFilled style="width: 50px;height: 50px;position: absolute;left: 185px;top: 15px;"/>
-                    <Setting style="width: 50px;height: 50px;position: absolute;left: 65px;top: 65px;"/>
-                    <DataAnalysis style="width: 50px;height: 50px;position: absolute;left: 15px;top: 185px;"/>
-                    <List style="width: 50px;height: 50px;position: absolute;left: 65px;bottom: 65px;"/>
-                    <Search style="width: 50px;height: 50px;position: absolute;left: 185px;bottom: 15px;"/>
-                    <Collection style="width: 50px;height: 50px;position: absolute;right: 65px;bottom: 65px;"/>
-                    <ChatDotRound style="width: 50px;height: 50px;position: absolute;right: 15px;top: 185px;"/>
-                    <User style="width: 50px;height: 50px;position: absolute;right: 65px;top: 65px;"/>
+                    <HomeFilled
+                        style="
+                            width: 50px;
+                            height: 50px;
+                            position: absolute;
+                            left: 185px;
+                            top: 15px;
+                        "
+                    />
+                    <Setting
+                        style="
+                            width: 50px;
+                            height: 50px;
+                            position: absolute;
+                            left: 65px;
+                            top: 65px;
+                        "
+                    />
+                    <DataAnalysis
+                        style="
+                            width: 50px;
+                            height: 50px;
+                            position: absolute;
+                            left: 15px;
+                            top: 185px;
+                        "
+                    />
+                    <List
+                        style="
+                            width: 50px;
+                            height: 50px;
+                            position: absolute;
+                            left: 65px;
+                            bottom: 65px;
+                        "
+                    />
+                    <Search
+                        style="
+                            width: 50px;
+                            height: 50px;
+                            position: absolute;
+                            left: 185px;
+                            bottom: 15px;
+                        "
+                    />
+                    <Collection
+                        style="
+                            width: 50px;
+                            height: 50px;
+                            position: absolute;
+                            right: 65px;
+                            bottom: 65px;
+                        "
+                    />
+                    <ChatDotRound
+                        style="
+                            width: 50px;
+                            height: 50px;
+                            position: absolute;
+                            right: 15px;
+                            top: 185px;
+                        "
+                    />
+                    <User
+                        style="
+                            width: 50px;
+                            height: 50px;
+                            position: absolute;
+                            right: 65px;
+                            top: 65px;
+                        "
+                    />
                 </div>
             </div>
         </div>
@@ -39,6 +139,8 @@
 </template>
 
 <script>
+import html2canvas from "html2canvas";
+import moment from "moment";
 export default {
     data() {
         return {
@@ -140,6 +242,21 @@ export default {
     },
     mounted() {
         // console.log("打开控制界面");
+        setTimeout(() => {
+            html2canvas(document.body).then(function (canvas) {
+                var link = document.createElement("a");
+                let newDate = moment().format("YYYY-MM-DD HH:mm:ss");
+                link.download = newDate + "_result.png";
+                link.href = canvas.toDataURL();
+                if (document.createEvent) {
+                    var event = document.createEvent("MouseEvents");
+                    event.initEvent("click", true, true);
+                    link.dispatchEvent(event);
+                } else {
+                    link.click();
+                }
+            });
+        }, 2000);
     },
 };
 </script>
@@ -167,7 +284,7 @@ export default {
     justify-content: center;
     align-items: center;
 }
-.mouse_prompt{
+.mouse_prompt {
     position: relative;
     width: 120px;
     height: 120px;
@@ -176,10 +293,10 @@ export default {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background-color: #8222965F;
+    background-color: #8222965f;
     box-shadow: 0px 0px 100px #822296;
 }
-.mouse_img{
+.mouse_img {
     position: absolute;
     left: 0;
     top: 0;
@@ -191,12 +308,12 @@ export default {
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
 }
-.arrows{
+.arrows {
     position: relative;
     width: 100px;
     height: 100px;
 }
-.has_mask{
+.has_mask {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -208,6 +325,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid red;
 }
 .selected_container {
     position: absolute;
@@ -241,7 +359,7 @@ export default {
     transform-origin: 50% 0%;
     rotate: -45deg;
 }
-.select_ele_icons{
+.select_ele_icons {
     position: relative;
     width: 420px;
     height: 420px;

@@ -18,6 +18,8 @@
                 v-if="is_light"
                 class="light"
                 :style="{ animationName: to_light ? 'ele-in' : 'ele-out' }"
+                id="sun"
+                @click="clickSun"
             ></div>
             <div
                 v-if="is_dark"
@@ -30,6 +32,8 @@
 
 <script>
 import Storage from "@/assets/js/storage/storage";
+import html2canvas from "html2canvas";
+import moment from "moment";
 const default_theme = {
     theme: "light",
     color: "",
@@ -43,7 +47,7 @@ export default {
         return {
             timer: null,
             theme: "light",
-            theme_json:{},
+            theme_json: {},
             is_light: false,
             is_dark: false,
             to_light: true,
@@ -64,26 +68,55 @@ export default {
         isLight() {
             /* 访问数据库 */
             this.theme_json = Storage.get(0, "THEME", default_theme, "JSON");
-            if(this.theme_json.theme==="light"){
+            if (this.theme_json.theme === "light") {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         },
         clickButton() {
-            clearTimeout(this.timer);
-            if (this.theme === "light") this.changeTheme("dark");
-            else this.changeTheme("light");
-            this.theme = this.theme === "light" ? "dark" : "light";
-            this.theme_json.theme = this.theme;
-            Storage.set(0, "THEME", this.theme_json, "JSON");
-            this.is_light = true;
-            this.is_dark = true;
-            this.to_light = !this.to_light;
-            this.timer = setTimeout(() => {
-                this.is_light = this.to_light;
-                this.is_dark = !this.to_light;
-            }, 1200);
+            // clearTimeout(this.timer);
+            // if (this.theme === "light") this.changeTheme("dark");
+            // else this.changeTheme("light");
+            // this.theme = this.theme === "light" ? "dark" : "light";
+            // this.theme_json.theme = this.theme;
+            // Storage.set(0, "THEME", this.theme_json, "JSON");
+            // this.is_light = true;
+            // this.is_dark = true;
+            // this.to_light = !this.to_light;
+            // this.timer = setTimeout(() => {
+            //     this.is_light = this.to_light;
+            //     this.is_dark = !this.to_light;
+            // }, 1200);
+        },
+        clickSun(event) {
+            // console.log(event);
+            // var x = event.offsetX;
+            // var y = event.offsetY;
+            // var canvas = document.createElement("canvas");
+            // var context = canvas.getContext("2d");
+            // context.drawImage(document.getElementById("sun"), 0, 0);
+            // var pixelData = context.getImageData(x, y, 1, 1).data;
+            // if (pixelData[3] === 0) {
+            //     event.stopPropagation();
+            // } else {
+            //     // 执行点击事件的逻辑
+            //     // ...
+            //     console.log("点击sun");
+            // }
+            html2canvas(event.target).then(function (canvas) {
+                var link = document.createElement("a");
+                let newDate = moment().format("YYYY-MM-DD HH:mm:ss");
+                link.download = newDate + "_result.png";
+                link.href = canvas.toDataURL();
+                if (document.createEvent) {
+                    var event = document.createEvent("MouseEvents");
+                    event.initEvent("click", true, true);
+                    link.dispatchEvent(event);
+                } else {
+                    link.click();
+                }
+            });
         },
     },
     setup() {

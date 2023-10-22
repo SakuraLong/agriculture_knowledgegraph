@@ -3,7 +3,7 @@
         <div
             class="res_body"
             @click="clickSearchRes"
-            @mousemove="can_click=false"
+            @mousemove="can_click=false;console.log('触发鼠标移动');"
             @mousedown="is_down = true;can_click=true"
             @mouseup="is_down = false"
         >

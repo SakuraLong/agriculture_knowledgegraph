@@ -123,7 +123,9 @@ export default {
                 // 存入token
                 utils.saveToken(msg.token);
                 user_msg.name = msg.content.login_name;
+                console.log("开始解码头像");
                 user_msg.avatar = Code.Base64.decode(msg.content.avatar);
+                console.log("头像解码完成");
                 user_msg.sex = msg.content.sex;
                 user_msg.born = msg.content.born_time;
                 user_msg.occu = msg.content.occupation;
